@@ -1,0 +1,37 @@
+{
+  "name": "karnameh-kit",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Monorepo of reusable @karnameh/* packages for React apps (Next.js App Router, Pages Router, Vite SPA).",
+  "type": "module",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "packageManager": "pnpm@10.10.0",
+  "scripts": {
+    "build": "pnpm -r --filter \"./packages/*\" run build",
+    "dev": "pnpm -r --parallel --filter \"./packages/*\" run dev",
+    "typecheck": "pnpm -r --filter \"./packages/*\" run typecheck",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "clean": "pnpm -r exec rm -rf dist node_modules/.cache && rm -rf node_modules",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@eslint/js": "^9.0.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "globals": "^15.0.0",
+    "tsdown": "^0.22.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.0.0",
+    "unrun": "*"
+  }
+}

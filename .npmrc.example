@@ -1,0 +1,27 @@
+# ---------------------------------------------------------------------------
+# Registry configuration (DO NOT commit a real .npmrc with tokens).
+#
+# This repo is registry-agnostic: no registry is hardcoded in any package.json.
+# When you pick a registry, copy this file to `.npmrc` and fill in the values,
+# OR configure these at the CI/secret level.
+#
+# Each @karnameh/* package already declares:
+#   "publishConfig": { "access": "public" }
+# Add a per-scope registry here (kept out of git via .gitignore):
+# ---------------------------------------------------------------------------
+
+# Example: GitHub Packages
+# @karnameh:registry=https://npm.pkg.github.com
+# //npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}
+
+# Example: npm public registry
+# @karnameh:registry=https://registry.npmjs.org
+# //registry.npmjs.org/:_authToken=${NPM_TOKEN}
+
+# Example: private Verdaccio / Nexus / Artifactory
+# @karnameh:registry=https://npm.your-company.example
+# //npm.your-company.example/:_authToken=${NPM_TOKEN}
+
+# Workspace settings already used by this repo:
+# (these are safe to keep and are not registry-specific)
+# auto-install-peers=false

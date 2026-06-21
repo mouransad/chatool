@@ -1,0 +1,33 @@
+/*
+ * @karnameh/styles — styles.css
+ * ---------------------------------------------------------------------------
+ * Full design layer: tokens + CSS variables (via ./theme.css) PLUS the base
+ * @layer rules. This is what most consumers import.
+ *
+ * Consumer usage (in their own global CSS):
+ *   @import "tailwindcss";
+ *   @import "@karnameh/styles/styles.css";
+ *
+ * `@import "tailwindcss";` MUST come first so Tailwind's layers exist before
+ * these tokens/base rules extend them. `tailwindcss` is a peerDependency of
+ * this package — the consumer installs it.
+ *
+ * NOTE: Placeholder content. Replace the base @layer rules below (and the
+ * tokens in ./theme.css) with the exact CSS pasted from the landing repo's
+ * `src/styles/main.css`.
+ * ---------------------------------------------------------------------------
+ */
+
+@import "./theme.css";
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+}

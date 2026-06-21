@@ -1,0 +1,28 @@
+# @karnameh/api
+
+Framework-agnostic, fully injectable HTTP client and typed services for Karnameh
+apps. No `process.env`, no `"use server"` — you inject `baseURL`.
+
+- **Dep:** `axios` · **Peers:** none
+- **Full docs:** [docs/packages/api.md](../../docs/packages/api.md)
+- **Monorepo:** [karnameh-kit README](../../README.md)
+
+## Install
+
+```bash
+pnpm add @karnameh/api
+```
+
+## Usage
+
+```ts
+import { createServices } from "@karnameh/api";
+import type { GetBannersResponse } from "@karnameh/api";
+
+const services = createServices({ baseURL: "https://api.example.com" });
+const banners = await services.clutch.getBanners({ placement: "home" });
+```
+
+Per-framework wiring (App Router / Pages Router / Vite):
+[consuming guides](../../docs/guides/consuming/README.md). Full API:
+[docs/packages/api.md](../../docs/packages/api.md).

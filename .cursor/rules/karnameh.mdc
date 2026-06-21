@@ -1,0 +1,21 @@
+---
+description: Karnameh Kit monorepo — canonical AI rules live in AGENTS.md
+globs:
+alwaysApply: true
+---
+
+The canonical instructions for this repository are in **[AGENTS.md](/AGENTS.md)**
+(Cursor also reads `AGENTS.md` natively; this rule guarantees it is always in
+context). Read it before editing.
+
+Key rules (full set in `AGENTS.md` and each `packages/*/AGENTS.md`):
+
+- tsdown preserves `"use client"` / `"use server"` natively, but only at the top
+  of an entry's own source — re-export barrels keep the directive explicitly.
+- `@karnameh/api` stays framework-agnostic: no `process.env`, no `"use server"`,
+  `baseURL` is injected.
+- Keep `"use client"` directives and `exports` maps correct; every package is
+  `"type": "module"` with dual ESM/CJS output (`.mjs`/`.d.mts` + `.cjs`/`.d.cts`).
+- Registry-agnostic; every functional change needs a Changeset.
+
+Edit rules in `AGENTS.md`, not here.

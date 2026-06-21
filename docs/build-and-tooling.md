@@ -1,0 +1,96 @@
+# Build & tooling
+
+> **You are here:** [Repo README](../README.md) → [Docs](README.md) → [Architecture](architecture.md) → **Build & tooling**
+
+## The shared tsdown preset
+
+We build with **[tsdown](https://tsdown.dev)** (Rolldown + Oxc). It's fast and,
+crucially for this repo, **directive-aware** — it preserves `"use client"` /
+`"use server"` natively, so there is no extra plugin and no treeshake caveat.
+
+[`tsdown.preset.ts`](../tsdown.preset.ts) exports `defineKarnamehConfig(...)`,
+used by every package's `tsdown.config.ts`. It sets:
+
+- `format: ["esm", "cjs"]` and `dts: true` → dual output + declarations.
+- `sourcemap: true`, `clean: true`.
+
+A package only specifies its `entry` map, e.g.:
+
+```ts
+// packages/ui/tsdown.config.ts
+import { defineKarnamehConfig } from "../../tsdown.preset";
+
+export default defineKarnamehConfig({
+  entry: {
+    index: "src/index.ts",
+    button: "src/button.tsx",
+    "dropdown-menu": "src/dropdown-menu.tsx",
+    "bottom-sheet": "src/bottom-sheet.tsx",
+  },
+});
+```
+
+No `external` list is needed: tsdown externalizes `dependencies` and
+`peerDependencies` (and their subpaths, e.g. `react/jsx-runtime`) automatically —
+only the package's own source is bundled. Shared code between entries (including
+the barrel) is split into deduped chunks.
+
+> tsdown loads the TypeScript config via `unrun`, a devDependency at the repo
+> root. Rolldown ships prebuilt native binaries, so there's no install-time build
+> script to approve.
+
+## Output naming
+
+tsdown distinguishes ESM/CJS by **extension** (independent of `"type"`):
+
+- ESM → `dist/<entry>.mjs` + types `dist/<entry>.d.mts`
+- CJS → `dist/<entry>.cjs` + types `dist/<entry>.d.cts`
+
+Each package's `exports` map points the `import` condition at the `.mjs`/`.d.mts`
+files and the `require` condition at the `.cjs`/`.d.cts` files.
+
+## Preserving `"use client"` / `"use server"`
+
+tsdown keeps module-level directives in the bundled output for **both** formats.
+After a build:
+
+- `packages/ui/dist/button.mjs` (and `.cjs`) start with `"use client";`
+- `packages/utils/dist/hooks/index.mjs` starts with `"use client";`
+- pure modules (`cn`, icons, the api client) have **no** directive.
+
+### ⚠️ Re-export-only barrels need an explicit directive
+
+tsdown keeps a directive only when it sits at the **top of the entry's own
+source**. A barrel that just `export * from "./button"` does **not** inherit the
+directive from the files it re-exports. So the two client barrels carry it
+explicitly at the top of their source:
+
+- [`packages/utils/src/hooks/index.ts`](../packages/utils/src/hooks/index.ts) → `"use client";`
+- [`packages/ui/src/index.ts`](../packages/ui/src/index.ts) → `"use client";`
+
+If you add a new client component to a barrel, that barrel already has the
+directive; if you create a **new** client barrel/entry, put `"use client";` at
+its top.
+
+## ESLint
+
+[`eslint.config.mjs`](../eslint.config.mjs) is a flat config combining
+`@eslint/js`, `typescript-eslint`, and `eslint-plugin-react-hooks`. It ignores
+`**/dist/**`. Run with `pnpm lint` (or `pnpm lint:fix`).
+
+## TypeScript
+
+[`tsconfig.json`](../tsconfig.json) at the root is the base every package
+extends. It is strict (`strict`, `noUncheckedIndexedAccess`,
+`verbatimModuleSyntax`, `isolatedModules`) and `noEmit` — tsdown, not tsc,
+produces declarations. Each `packages/*/tsconfig.json` extends it and sets
+`include` (`src` + `tsdown.config.ts`). `typecheck` runs `tsc --noEmit`.
+
+## Related
+
+- [Architecture](architecture.md) — the bigger picture.
+- [Conventions](conventions.md) — exports/directive rules to follow.
+
+---
+
+Up: [Architecture](architecture.md) · [Docs](README.md) · [Repo README](../README.md)
