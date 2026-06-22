@@ -6,7 +6,15 @@ import globals from "globals";
 
 export default tseslint.config(
   {
-    ignores: ["**/dist/**", "**/node_modules/**", "**/.turbo/**"],
+    // `apps/**` self-lints via its own `next lint`; the root `eslint .` run
+    // stays focused on the libraries (and skips Next build output).
+    ignores: [
+      "**/dist/**",
+      "**/node_modules/**",
+      "**/.turbo/**",
+      "apps/**",
+      "**/.next/**",
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

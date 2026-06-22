@@ -15,9 +15,14 @@ Package-scoped rules. Root rules still apply: [../../AGENTS.md](../../AGENTS.md)
   generated names stay stable and match the old `@karnameh/ui` icon API.
 - **`react` is a `peerDependency`** (and is externalized by the tsdown preset,
   incl. `react/jsx-runtime`). `@svgr/cli` is a `devDependency` — it never ships.
-- **One barrel, no per-icon subpaths.** `sideEffects: false` lets bundlers
-  tree-shake unused icons, so a single `.` export is enough — don't add an
-  `exports` entry per icon.
+- **Per-icon subpaths, no root barrel.** The package exposes a single `./*`
+  wildcard export mapping `@karnameh/icons/<IconName>` → `dist/<IconName>` (each a
+  `default` export), and the tsdown entry is the glob `src/*.tsx`. There is **no**
+  `.` export, so the IDE auto-imports the subpath
+  (`import ChevronDownIcon from "@karnameh/icons/ChevronDownIcon"`) instead of a
+  root barrel. SVGR still emits `src/index.ts`, but it is `.ts` (not matched by
+  the `*.tsx` entry) so it is neither built nor published — don't add a `.`
+  export or list it as an entry.
 - Author SVGs with `stroke="currentColor"` / `fill="currentColor"` so `text-*`
   utilities tint them, and rely on `icon: true` (1em sizing) so `className` /
   `size-*` controls dimensions.

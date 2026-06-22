@@ -5,9 +5,10 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
 
 - **Client components keep `"use client";`** at the top (button, dropdown-menu,
   bottom-sheet, bottom-sheet-header). tsdown preserves it natively.
-- **The barrel `src/index.ts` also starts with `"use client";`** — it re-exports
-  client components, and tsdown only keeps a directive at the top of the entry's
-  own source. Keep it there.
+- **No root barrel / no `.` export.** There is no `src/index.ts`; each component
+  is reachable only through its own subpath so the IDE auto-imports the subpath
+  (e.g. `import Button from "@karnameh/ui/button"`) instead of a root
+  `@karnameh/ui` barrel. Don't re-add `src/index.ts` or a `.` export.
 - **Icons live in [`@karnameh/icons`](../icons/AGENTS.md)**, not here. Don't add
   an `src/icons/` back to this package.
 - All components import `cn` from `@karnameh/utils` (a `dependency`,
@@ -17,8 +18,10 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   (`Slot.Root`). Don't add individual `@radix-ui/react-*` packages.
 - `react` / `react-dom` are `peerDependencies`; tsdown externalizes them (and all
   deps, incl. `react/jsx-runtime`) automatically — no `external` list needed.
-- Per-component subpaths: `./button`, `./dropdown-menu`, `./bottom-sheet`, plus
-  the root barrel. Adding a component = new `tsdown` entry + new `exports`
-  subpath + re-export from `src/index.ts`.
+- Per-component subpaths only: `./button`, `./dropdown-menu`, `./bottom-sheet`.
+  Each entry source carries its own `"use client";`, and components expose both a
+  `default` and named exports (e.g. `Button` + `buttonVariants`). Adding a
+  component = new `tsdown` entry + new `exports` subpath (ESM + CJS). No barrel to
+  update.
 - Component bodies are scaffolds; replacing them with the real landing-repo
   sources must preserve the directives and the exports map.

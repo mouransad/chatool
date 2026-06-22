@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
-import { CheckIcon, ChevronRightIcon } from "@karnameh/icons";
+import CheckIcon from "@karnameh/icons/CheckIcon";
+import ChevronRightIcon from "@karnameh/icons/ChevronRightIcon";
 import { cn } from "@karnameh/utils";
 
 function DropdownMenu(

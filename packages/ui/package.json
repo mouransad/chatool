@@ -9,21 +9,35 @@
     "dist"
   ],
   "exports": {
-    ".": {
-      "import": { "types": "./dist/index.d.mts", "default": "./dist/index.mjs" },
-      "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" }
-    },
     "./button": {
-      "import": { "types": "./dist/button.d.mts", "default": "./dist/button.mjs" },
-      "require": { "types": "./dist/button.d.cts", "default": "./dist/button.cjs" }
+      "import": {
+        "types": "./dist/button.d.mts",
+        "default": "./dist/button.mjs"
+      },
+      "require": {
+        "types": "./dist/button.d.cts",
+        "default": "./dist/button.cjs"
+      }
     },
     "./dropdown-menu": {
-      "import": { "types": "./dist/dropdown-menu.d.mts", "default": "./dist/dropdown-menu.mjs" },
-      "require": { "types": "./dist/dropdown-menu.d.cts", "default": "./dist/dropdown-menu.cjs" }
+      "import": {
+        "types": "./dist/dropdown-menu.d.mts",
+        "default": "./dist/dropdown-menu.mjs"
+      },
+      "require": {
+        "types": "./dist/dropdown-menu.d.cts",
+        "default": "./dist/dropdown-menu.cjs"
+      }
     },
     "./bottom-sheet": {
-      "import": { "types": "./dist/bottom-sheet.d.mts", "default": "./dist/bottom-sheet.mjs" },
-      "require": { "types": "./dist/bottom-sheet.d.cts", "default": "./dist/bottom-sheet.cjs" }
+      "import": {
+        "types": "./dist/bottom-sheet.d.mts",
+        "default": "./dist/bottom-sheet.mjs"
+      },
+      "require": {
+        "types": "./dist/bottom-sheet.d.cts",
+        "default": "./dist/bottom-sheet.cjs"
+      }
     },
     "./package.json": "./package.json"
   },

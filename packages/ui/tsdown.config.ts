@@ -2,7 +2,6 @@ import { defineKarnamehConfig } from "../../tsdown.preset";
 
 export default defineKarnamehConfig({
   entry: {
-    index: "src/index.ts",
     button: "src/button.tsx",
     "dropdown-menu": "src/dropdown-menu.tsx",
     "bottom-sheet": "src/bottom-sheet.tsx",

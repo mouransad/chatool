@@ -47,8 +47,8 @@ done.
    ([tsdown.preset.ts](tsdown.preset.ts)) preserves `"use client"` /
    `"use server"` natively, but **only** when the directive is at the top of the
    entry's own source. A barrel that just `export *` does not inherit it — so
-   `packages/utils/src/hooks/index.ts` and `packages/ui/src/index.ts` carry
-   `"use client";` at the top. Keep it there; add it to any new client barrel.
+   `packages/utils/src/hooks/index.ts` carries `"use client";` at the top. Keep
+   it there; add it to any new client barrel.
    See [docs/build-and-tooling.md](docs/build-and-tooling.md).
 2. **`@karnameh/api` stays framework-agnostic.** No `process.env`, no
    `"use server"`, no framework imports. `baseURL` is always **injected** by the
@@ -59,6 +59,13 @@ done.
 4. **Keep `exports` maps in sync.** When you add a component/hook/service subpath,
    add a matching `exports` entry (ESM `.mjs`/`.d.mts` + CJS `.cjs`/`.d.cts`) and
    a `tsdown` entry. Every package is `"type": "module"`.
+4b. **Subpath-only, no root barrels for `@karnameh/ui` and `@karnameh/icons`.**
+   Neither package exposes a `.` export — every symbol is reachable from exactly
+   one path so the IDE auto-imports the subpath, not a root barrel. `@karnameh/ui`
+   ships one subpath per component (`./button`, `./dropdown-menu`, …, each with
+   `default` + named exports); `@karnameh/icons` uses a single `./*` wildcard
+   export mapping `@karnameh/icons/<IconName>` → `dist/<IconName>` (default
+   export). Don't re-add a `.` export or a published root barrel to either.
 5. **peer vs dep:** runtime libraries the app already owns (react, react-dom,
    tailwindcss) are `peerDependencies`; everything bundled-against is a `dependency`.
 6. **Registry-agnostic.** Never hardcode a registry. Publish config lives in
