@@ -71,6 +71,23 @@ done.
 6. **Registry-agnostic.** Never hardcode a registry. Publish config lives in
    `publishConfig` + a local `.npmrc` (see [.npmrc.example](.npmrc.example)).
 7. **Every functional change needs a Changeset** (`pnpm changeset`).
+8. **Docs, shims & changesets stay in sync — it's part of "done".** A change
+   isn't finished until the docs and per-tool shims it affects are updated (plus a
+   Changeset for functional changes). This repo's whole premise is *no drift*
+   (see [docs/ai-agents.md](docs/ai-agents.md)). Use the **sync map** below; when
+   in doubt run the [`/sync-docs`](.claude/skills/sync-docs/SKILL.md) skill, which
+   audits and fixes drift end-to-end. Edit canonical files, **never** regenerate
+   a shim by hand beyond the inlined rules.
+
+### Sync map
+
+| When you change… | Also update… |
+| --- | --- |
+| A hard rule / command / the package list/count in this file | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) (it **inlines** rules + the package count), and [docs/conventions.md](docs/conventions.md) if it's a coding convention |
+| A package's `exports` / subpaths / `tsdown` entries / directives | that package's `packages/*/AGENTS.md`, [docs/packages/](docs/packages/)`<pkg>.md` (Exports + Usage), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions.md](docs/conventions.md) if the add-subpath flow changed |
+| Add or remove a package | the table in [What this repo is](#what-this-repo-is) (+ its "five packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim |
+| Add or remove an AI-tool shim | the table in [docs/ai-agents.md](docs/ai-agents.md) |
+| Any functional (non-doc) change | add a Changeset (`pnpm changeset`) |
 
 ## Conventions
 

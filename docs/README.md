@@ -25,6 +25,7 @@ The canonical, in-depth documentation for the `karnameh-kit` monorepo. The root
   - [@karnameh/styles](packages/styles.md)
   - [@karnameh/utils](packages/utils.md)
   - [@karnameh/ui](packages/ui.md)
+  - [@karnameh/icons](packages/icons.md)
   - [@karnameh/api](packages/api.md)
 
 ## Guides

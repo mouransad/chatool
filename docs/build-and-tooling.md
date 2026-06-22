@@ -22,7 +22,7 @@ import { defineKarnamehConfig } from "../../tsdown.preset";
 
 export default defineKarnamehConfig({
   entry: {
-    index: "src/index.ts",
+    // One entry per component — @karnameh/ui is subpath-only (no barrel).
     button: "src/button.tsx",
     "dropdown-menu": "src/dropdown-menu.tsx",
     "bottom-sheet": "src/bottom-sheet.tsx",
@@ -30,10 +30,13 @@ export default defineKarnamehConfig({
 });
 ```
 
+The `entry` can also be a glob: `@karnameh/icons` uses `entry: ["src/*.tsx"]` to
+emit one module per icon (served by its `./*` wildcard export).
+
 No `external` list is needed: tsdown externalizes `dependencies` and
 `peerDependencies` (and their subpaths, e.g. `react/jsx-runtime`) automatically —
-only the package's own source is bundled. Shared code between entries (including
-the barrel) is split into deduped chunks.
+only the package's own source is bundled. Shared code between entries is split
+into deduped chunks.
 
 > tsdown loads the TypeScript config via `unrun`, a devDependency at the repo
 > root. Rolldown ships prebuilt native binaries, so there's no install-time build
@@ -61,16 +64,15 @@ After a build:
 ### ⚠️ Re-export-only barrels need an explicit directive
 
 tsdown keeps a directive only when it sits at the **top of the entry's own
-source**. A barrel that just `export * from "./button"` does **not** inherit the
-directive from the files it re-exports. So the two client barrels carry it
-explicitly at the top of their source:
+source**. A barrel that just `export * from "./foo"` does **not** inherit the
+directive from the files it re-exports. So a client barrel must carry it
+explicitly at the top of its source:
 
 - [`packages/utils/src/hooks/index.ts`](../packages/utils/src/hooks/index.ts) → `"use client";`
-- [`packages/ui/src/index.ts`](../packages/ui/src/index.ts) → `"use client";`
 
-If you add a new client component to a barrel, that barrel already has the
-directive; if you create a **new** client barrel/entry, put `"use client";` at
-its top.
+`@karnameh/ui` has no barrel (it is subpath-only) — each component entry is its
+own source and carries its own `"use client";`. If you create a **new** client
+barrel/entry, put `"use client";` at its top.
 
 ## ESLint
 

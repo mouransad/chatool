@@ -15,17 +15,18 @@ consumed (and versioned) on their own.
 
 ## Exports
 
-A single tree-shakeable barrel — `sideEffects: false` lets bundlers drop unused
-icons, so there are no per-icon subpaths.
+Per-icon subpaths via a single `./*` wildcard export — **no root barrel**. Each
+icon resolves to its own module (a `default` export), so editors auto-import the
+exact path and bundlers ship only what you use.
 
-| Subpath | Components | Directive |
+| Subpath | Component | Directive |
 | --- | --- | --- |
-| `@karnameh/icons` | `KarnamehLogoIcon`, `ChevronDownIcon`, `ChevronRightIcon`, `CheckIcon`, `SpinnerIcon`, … | none (server-safe) |
+| `@karnameh/icons/<IconName>` | the icon's `default` export — e.g. `KarnamehLogoIcon`, `ChevronDownIcon`, `ChevronRightIcon`, `CheckIcon`, `SpinnerIcon`, … | none (server-safe) |
 
 ## Usage
 
 ```tsx
-import { ChevronDownIcon } from "@karnameh/icons";
+import ChevronDownIcon from "@karnameh/icons/ChevronDownIcon";
 
 <ChevronDownIcon className="size-6 text-primary" />;
 ```
@@ -38,7 +39,9 @@ Icons use `currentColor` (tint with `text-*`) and default to `1em` sizing
 1. Add a kebab-case SVG to [`svg/`](../../packages/icons/svg) authored with
    `stroke="currentColor"` / `fill="currentColor"`.
 2. Run `pnpm --filter @karnameh/icons generate`.
-3. The filename becomes the export: `arrow-right-icon.svg` → `ArrowRightIcon`.
+3. The filename becomes the subpath + export: `arrow-right-icon.svg` →
+   `import ArrowRightIcon from "@karnameh/icons/ArrowRightIcon"`. The `./*`
+   wildcard export covers it automatically — no `package.json` change needed.
 
 `pnpm build` re-runs `generate` (`prebuild`) before bundling. See
 [build-and-tooling.md](../build-and-tooling.md).

@@ -31,7 +31,10 @@ When you add a component/hook/service that should be importable on its own:
 
 1. add a `tsdown` entry for it,
 2. add the matching `exports` subpath,
-3. re-export it from the package barrel (`src/index.ts`) if appropriate.
+3. re-export it from the package barrel (`src/index.ts`) **only if that package
+   still has one** — `@karnameh/utils` keeps a `hooks` barrel, but `@karnameh/ui`
+   and `@karnameh/icons` are subpath-only (no root barrel) so there is nothing to
+   re-export from.
 
 Keep `import`/`require` filenames consistent with the dual-output naming from
 [Build & tooling](build-and-tooling.md).
@@ -41,8 +44,9 @@ Keep `import`/`require` filenames consistent with the dual-output naming from
 - React **hooks** and **client components** start with `"use client";`.
 - Pure modules — `cn`, SVG icons, the api client/services — have **no** directive.
 - tsdown preserves directives natively — but only at the top of an entry's own
-  source. **Re-export-only barrels** (`packages/utils/src/hooks/index.ts`,
-  `packages/ui/src/index.ts`) carry `"use client";` explicitly; keep it there.
+  source. A **re-export-only barrel** (`packages/utils/src/hooks/index.ts`)
+  carries `"use client";` explicitly; keep it there. (`@karnameh/ui` is
+  subpath-only — each component entry carries its own directive, no barrel.)
 - `@karnameh/api` must never contain `"use server"` — it stays framework-agnostic.
 
 ## Dependencies: peer vs dep

@@ -1,6 +1,6 @@
 {
   "name": "@karnameh/icons",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Tree-shakeable React SVG icon components for Karnameh apps, generated from raw SVGs with SVGR.",
   "license": "UNLICENSED",
   "type": "module",
@@ -10,8 +10,14 @@
   ],
   "exports": {
     "./*": {
-      "import": { "types": "./dist/*.d.mts", "default": "./dist/*.mjs" },
-      "require": { "types": "./dist/*.d.cts", "default": "./dist/*.cjs" }
+      "import": {
+        "types": "./dist/*.d.mts",
+        "default": "./dist/*.mjs"
+      },
+      "require": {
+        "types": "./dist/*.d.cts",
+        "default": "./dist/*.cjs"
+      }
     },
     "./package.json": "./package.json"
   },

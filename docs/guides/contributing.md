@@ -14,8 +14,11 @@ Changeset.
 2. Add it to the package's `tsdown.config.ts` `entry` map.
 3. Add a matching `exports` subpath in `package.json` (ESM `.mjs`/`.d.mts` +
    CJS `.cjs`/`.d.cts`).
-4. Re-export from the package barrel (`src/index.ts`) if it belongs there.
-5. Document it: update the relevant [package page](../packages/README.md).
+4. Re-export from the package barrel (`src/index.ts`) **only if the package has
+   one** — `@karnameh/ui` and `@karnameh/icons` are subpath-only (no root barrel).
+5. Document it: update the relevant [package page](../packages/README.md), and
+   any shim/doc the [sync map in `AGENTS.md`](../../AGENTS.md) lists (or run the
+   `/sync-docs` skill).
 6. `pnpm build && pnpm typecheck && pnpm lint`, then `pnpm changeset`.
 
 ## Add a new package

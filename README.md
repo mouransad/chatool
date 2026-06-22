@@ -31,7 +31,7 @@ links:
 - **[Getting started](docs/getting-started.md)** — prerequisites, install, commands.
 - **[Architecture](docs/architecture.md)** & **[Build & tooling](docs/build-and-tooling.md)** — monorepo, dual ESM/CJS, the directive-preserving build.
 - **[Conventions](docs/conventions.md)** — coding/exports/`"use client"`/peer-vs-dep rules.
-- **Packages:** [styles](docs/packages/styles.md) · [utils](docs/packages/utils.md) · [ui](docs/packages/ui.md) · [api](docs/packages/api.md)
+- **Packages:** [styles](docs/packages/styles.md) · [utils](docs/packages/utils.md) · [ui](docs/packages/ui.md) · [icons](docs/packages/icons.md) · [api](docs/packages/api.md)
 - **Guides:** [Local development](docs/guides/local-development.md) · [Publishing](docs/guides/publishing.md) · [Contributing](docs/guides/contributing.md)
 - **Consuming per framework:** [App Router](docs/guides/consuming/nextjs-app-router.md) · [Pages Router](docs/guides/consuming/nextjs-pages-router.md) · [Vite](docs/guides/consuming/vite.md)
 

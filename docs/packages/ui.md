@@ -17,20 +17,23 @@ Shadcn-based React UI components and SVG icons. All components import `cn` from
 
 ## Exports
 
+Subpath-only — there is **no `@karnameh/ui` root barrel**. Each component is
+reached through its own path, so editors auto-import the subpath rather than a
+barrel.
+
 | Subpath | Components | Directive |
 | --- | --- | --- |
-| `@karnameh/ui` | barrel (all of the below) | `"use client"` |
-| `@karnameh/ui/button` | `Button`, `buttonVariants` | `"use client"` |
+| `@karnameh/ui/button` | `Button` (also the `default` export), `buttonVariants` | `"use client"` |
 | `@karnameh/ui/dropdown-menu` | `DropdownMenu*` (trigger/content/item/checkbox/label/separator/sub/…) | `"use client"` |
 | `@karnameh/ui/bottom-sheet` | `BottomSheet*` + `BottomSheetHeader` | `"use client"` |
 
-Client components ship `"use client"`. SVG icons now live in their own package,
+Client components ship `"use client"`. SVG icons live in their own package,
 [`@karnameh/icons`](icons.md).
 
 ## Usage
 
 ```tsx
-import { Button } from "@karnameh/ui/button";
+import Button from "@karnameh/ui/button"; // default export
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -42,11 +45,11 @@ import {
   BottomSheetContent,
   BottomSheetHeader,
 } from "@karnameh/ui/bottom-sheet";
-import { KarnamehLogoIcon } from "@karnameh/icons";
+import KarnamehLogoIcon from "@karnameh/icons/KarnamehLogoIcon";
 ```
 
-Prefer the per-component subpaths for the smallest bundles; the barrel
-(`@karnameh/ui`) is there for convenience.
+Always import from the per-component subpath — there is no root barrel, which
+also keeps bundles minimal.
 
 `bottom-sheet` is built on `radix-ui`'s Dialog and includes
 `BottomSheetHeader` (its own file, `bottom-sheet-header.tsx`).
