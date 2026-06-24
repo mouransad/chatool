@@ -5,7 +5,7 @@ apps. No `process.env`, no `"use server"` — you inject `baseURL`.
 
 - **Dep:** `axios` · **Peers:** none
 - **Full docs:** [docs/packages/api.md](../../docs/packages/api.md)
-- **Monorepo:** [chatool-kit README](../../README.md)
+- **Monorepo:** [chatool README](../../README.md)
 
 ## Install
 

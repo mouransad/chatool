@@ -3,7 +3,7 @@
 //
 // Re-brands the whole monorepo from one token to another, case-aware, in a
 // single pass: package scope (`@old/*`), lowercase slugs, PascalCase identifiers
-// (`defineOldConfig`, `OldLogoIcon`), display strings ("Old Kit base"), and
+// (`defineOldConfig`, `OldLogoIcon`), display strings, and
 // file/dir names. Designed so a fork can re-brand in one command.
 //
 // Usage:

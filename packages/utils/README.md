@@ -4,7 +4,7 @@ Shared utilities and React hooks for Chatool apps.
 
 - **Deps:** `clsx`, `tailwind-merge` · **Peer:** `react` ^19
 - **Full docs:** [docs/packages/utils.md](../../docs/packages/utils.md)
-- **Monorepo:** [chatool-kit README](../../README.md)
+- **Monorepo:** [chatool README](../../README.md)
 
 ## Install
 

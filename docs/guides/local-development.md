@@ -11,10 +11,10 @@ From the consuming app, link each package by its directory:
 
 ```bash
 # in the consuming app
-pnpm link /home/mehran/projects/chatool/chatool-kit/packages/ui
-pnpm link /home/mehran/projects/chatool/chatool-kit/packages/utils
-pnpm link /home/mehran/projects/chatool/chatool-kit/packages/styles
-pnpm link /home/mehran/projects/chatool/chatool-kit/packages/api
+pnpm link /home/mehran/projects/chatool/chatool/packages/ui
+pnpm link /home/mehran/projects/chatool/chatool/packages/utils
+pnpm link /home/mehran/projects/chatool/chatool/packages/styles
+pnpm link /home/mehran/projects/chatool/chatool/packages/api
 ```
 
 Keep `pnpm dev` running in this repo; rebuilds flow straight into the app.
@@ -32,10 +32,10 @@ Point the app's `package.json` at the local build, then install:
 ```jsonc
 {
   "dependencies": {
-    "@chatool/ui": "link:../chatool-kit/packages/ui",
-    "@chatool/utils": "link:../chatool-kit/packages/utils",
-    "@chatool/styles": "link:../chatool-kit/packages/styles",
-    "@chatool/api": "link:../chatool-kit/packages/api"
+    "@chatool/ui": "link:../chatool/packages/ui",
+    "@chatool/utils": "link:../chatool/packages/utils",
+    "@chatool/styles": "link:../chatool/packages/styles",
+    "@chatool/api": "link:../chatool/packages/api"
   }
 }
 ```
@@ -48,7 +48,7 @@ Produces the exact tarball that would be published — best for a final smoke te
 pnpm build
 pnpm -r --filter "./packages/*" exec pnpm pack   # writes *.tgz in each package
 # then in the consuming app:
-pnpm add /home/mehran/projects/chatool/chatool-kit/packages/ui/chatool-ui-0.0.0.tgz
+pnpm add /home/mehran/projects/chatool/chatool/packages/ui/chatool-ui-0.0.0.tgz
 ```
 
 Use `pnpm pack` (not bare `npm pack`) so the `workspace:` protocol on

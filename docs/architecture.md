@@ -5,7 +5,7 @@
 ## Monorepo layout
 
 ```
-chatool-kit/
+chatool/
 ├─ pnpm-workspace.yaml     # packages/*
 ├─ package.json            # root scripts + devDeps shared by all packages
 ├─ tsconfig.json           # base config every package extends

@@ -4,7 +4,7 @@ CSS-only Tailwind v4 theme + shadcn token layer for Chatool apps.
 
 - **Peer:** `tailwindcss` ^4
 - **Full docs:** [docs/packages/styles.md](../../docs/packages/styles.md)
-- **Monorepo:** [chatool-kit README](../../README.md)
+- **Monorepo:** [chatool README](../../README.md)
 
 ## Install
 

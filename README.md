@@ -1,4 +1,4 @@
-# chatool-kit
+# chatool
 
 A pnpm-workspace monorepo publishing five reusable, **registry-agnostic**
 `@chatool/*` packages for React apps. Consumers can be a **Next.js App Router**
@@ -38,7 +38,7 @@ links:
 ## Repository layout
 
 ```
-chatool-kit/
+chatool/
 ├─ pnpm-workspace.yaml        # packages/*
 ├─ package.json              # root scripts: build / lint / typecheck / release
 ├─ tsconfig.json             # base config every package extends
@@ -100,7 +100,7 @@ app without publishing. Full steps: [Local development](docs/guides/local-develo
 
 ## Fork & re-brand
 
-This kit is built to be forked. To rename the `@chatool/*` scope to your own in
+This project is built to be forked. To rename the `@chatool/*` scope to your own in
 one case-aware pass (package names, imports, exports, docs, AI shims, identifiers,
 file/dir names), run the **`rename-project`** skill:
 

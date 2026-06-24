@@ -41,9 +41,9 @@ if present: `.npmrc` and `.claude/settings.local.json`.
 
 ## 3. Re-brand the root name (optional)
 
-The token pass turns the root `package.json` name from `<old>-kit` into
-`<new>-kit`. If you want a different root name (e.g. just `<new>`), edit the root
-`package.json` `"name"` field by hand.
+The root `package.json` name is just the token, so the pass renames it to
+`<new>`. If you want a different root name, edit the root `package.json` `"name"`
+field by hand.
 
 ## 4. Point at your registry
 

@@ -1,8 +1,8 @@
-# Chatool Kit — Documentation
+# Chatool — Documentation
 
 > **You are here:** [Repo README](../README.md) → **Docs**
 
-The canonical, in-depth documentation for the `chatool-kit` monorepo. The root
+The canonical, in-depth documentation for the `chatool` monorepo. The root
 [README](../README.md) is a short overview; everything detailed lives here.
 
 ## Start here

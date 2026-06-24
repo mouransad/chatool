@@ -1,5 +1,5 @@
 ---
-description: Chatool Kit monorepo — canonical AI rules live in AGENTS.md
+description: Chatool monorepo — canonical AI rules live in AGENTS.md
 globs:
 alwaysApply: true
 ---
