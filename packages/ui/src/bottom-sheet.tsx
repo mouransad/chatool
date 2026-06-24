@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Dialog as DialogPrimitive } from "radix-ui";
-import { cn } from "@karnameh/utils";
+import { cn } from "@chatool/utils";
 
 function BottomSheet(
   props: React.ComponentProps<typeof DialogPrimitive.Root>,

@@ -1,7 +1,7 @@
 {
-  "name": "@karnameh/utils",
+  "name": "@chatool/utils",
   "version": "0.0.0",
-  "description": "Shared utilities and React hooks for Karnameh apps (cn, useBoolean, useDelayVisibility, endPointUrlNormalizer).",
+  "description": "Shared utilities and React hooks for Chatool apps (cn, useBoolean, useDelayVisibility, endPointUrlNormalizer).",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": false,

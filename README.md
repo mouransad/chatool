@@ -1,16 +1,16 @@
-# karnameh-kit
+# chatool-kit
 
 A pnpm-workspace monorepo publishing five reusable, **registry-agnostic**
-`@karnameh/*` packages for React apps. Consumers can be a **Next.js App Router**
+`@chatool/*` packages for React apps. Consumers can be a **Next.js App Router**
 app, a **Next.js Pages Router** app, or a **Vite SPA**.
 
 | Package | What it is | Key deps | Peers |
 | --- | --- | --- | --- |
-| [`@karnameh/styles`](packages/styles) | CSS-only Tailwind v4 theme + shadcn token layer | — | `tailwindcss` |
-| [`@karnameh/utils`](packages/utils) | `cn` + hooks (`useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer`) | `clsx`, `tailwind-merge` | `react` |
-| [`@karnameh/ui`](packages/ui) | shadcn UI components | `@karnameh/utils`, `@karnameh/icons`, `radix-ui`, `class-variance-authority` | `react`, `react-dom` |
-| [`@karnameh/icons`](packages/icons) | SVGR-generated React SVG icons | — | `react` |
-| [`@karnameh/api`](packages/api) | framework-agnostic axios client + typed services | `axios` | — |
+| [`@chatool/styles`](packages/styles) | CSS-only Tailwind v4 theme + shadcn token layer | — | `tailwindcss` |
+| [`@chatool/utils`](packages/utils) | `cn` + hooks (`useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer`) | `clsx`, `tailwind-merge` | `react` |
+| [`@chatool/ui`](packages/ui) | shadcn UI components | `@chatool/utils`, `@chatool/icons`, `radix-ui`, `class-variance-authority` | `react`, `react-dom` |
+| [`@chatool/icons`](packages/icons) | SVGR-generated React SVG icons | — | `react` |
+| [`@chatool/api`](packages/api) | framework-agnostic axios client + typed services | `axios` | — |
 
 Tooling: **pnpm workspaces**, **tsdown** (Rolldown + Oxc — ESM + CJS + `.d.ts`,
 with native `"use client"` / `"use server"` directive preservation),
@@ -38,7 +38,7 @@ links:
 ## Repository layout
 
 ```
-karnameh-kit/
+chatool-kit/
 ├─ pnpm-workspace.yaml        # packages/*
 ├─ package.json              # root scripts: build / lint / typecheck / release
 ├─ tsconfig.json             # base config every package extends
@@ -49,11 +49,11 @@ karnameh-kit/
 ├─ AGENTS.md                 # canonical AI-agent instructions (see below)
 ├─ docs/                     # canonical human documentation
 └─ packages/
-   ├─ styles/   @karnameh/styles
-   ├─ utils/    @karnameh/utils
-   ├─ ui/       @karnameh/ui
-   ├─ icons/    @karnameh/icons
-   └─ api/      @karnameh/api
+   ├─ styles/   @chatool/styles
+   ├─ utils/    @chatool/utils
+   ├─ ui/       @chatool/ui
+   ├─ icons/    @chatool/icons
+   └─ api/      @chatool/api
 ```
 
 ## Develop in this repo
@@ -73,19 +73,19 @@ and why re-export barrels carry the directive explicitly).
 ## Using the packages in an app
 
 ```bash
-pnpm add @karnameh/styles @karnameh/utils @karnameh/ui @karnameh/icons @karnameh/api
-pnpm add -D tailwindcss        # peer of @karnameh/styles
+pnpm add @chatool/styles @chatool/utils @chatool/ui @chatool/icons @chatool/api
+pnpm add -D tailwindcss        # peer of @chatool/styles
 ```
 
 Import the design tokens once in your global CSS (Tailwind first):
 
 ```css
 @import "tailwindcss";
-@import "@karnameh/styles/styles.css";
+@import "@chatool/styles/styles.css";
 ```
 
 Then follow your framework's guide — the only real difference is **where you call
-`@karnameh/api` and where `baseURL` comes from**:
+`@chatool/api` and where `baseURL` comes from**:
 
 - [Next.js App Router](docs/guides/consuming/nextjs-app-router.md) — RSC / server action, `process.env`
 - [Next.js Pages Router](docs/guides/consuming/nextjs-pages-router.md) — `getServerSideProps` / API route, `process.env`
@@ -97,6 +97,18 @@ Per-package usage and full export lists: [docs/packages](docs/packages/README.md
 
 Use `pnpm link`, a `link:` dependency, or `pnpm pack` to iterate from a consuming
 app without publishing. Full steps: [Local development](docs/guides/local-development.md).
+
+## Fork & re-brand
+
+This kit is built to be forked. To rename the `@chatool/*` scope to your own in
+one case-aware pass (package names, imports, exports, docs, AI shims, identifiers,
+file/dir names), run the **`rename-project`** skill:
+
+```bash
+node .claude/skills/rename-project/rename.mjs <your-scope> && pnpm install
+```
+
+Runbook: [`.claude/skills/rename-project/SKILL.md`](.claude/skills/rename-project/SKILL.md).
 
 ## Publishing
 
@@ -113,7 +125,7 @@ so all tools share the same rules with no drift:
 | Tool | File |
 | --- | --- |
 | Claude Code | [`CLAUDE.md`](CLAUDE.md) (`@AGENTS.md` import) + per-package `AGENTS.md` |
-| Cursor | [`.cursor/rules/karnameh.mdc`](.cursor/rules/karnameh.mdc) (+ native `AGENTS.md`) |
+| Cursor | [`.cursor/rules/chatool.mdc`](.cursor/rules/chatool.mdc) (+ native `AGENTS.md`) |
 | GitHub Copilot | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) |
 | Gemini | [`GEMINI.md`](GEMINI.md) |
 | Codex / Zed / Windsurf / others | [`AGENTS.md`](AGENTS.md) (read natively) |

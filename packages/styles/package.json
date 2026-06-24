@@ -1,7 +1,7 @@
 {
-  "name": "@karnameh/styles",
+  "name": "@chatool/styles",
   "version": "0.0.0",
-  "description": "Shared Tailwind v4 theme + shadcn token layer + base CSS for Karnameh apps.",
+  "description": "Shared Tailwind v4 theme + shadcn token layer + base CSS for Chatool apps.",
   "license": "UNLICENSED",
   "sideEffects": [
     "**/*.css"

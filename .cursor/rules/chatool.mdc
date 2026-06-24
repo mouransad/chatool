@@ -1,5 +1,5 @@
 ---
-description: Karnameh Kit monorepo — canonical AI rules live in AGENTS.md
+description: Chatool Kit monorepo — canonical AI rules live in AGENTS.md
 globs:
 alwaysApply: true
 ---
@@ -12,7 +12,7 @@ Key rules (full set in `AGENTS.md` and each `packages/*/AGENTS.md`):
 
 - tsdown preserves `"use client"` / `"use server"` natively, but only at the top
   of an entry's own source — re-export barrels keep the directive explicitly.
-- `@karnameh/api` stays framework-agnostic: no `process.env`, no `"use server"`,
+- `@chatool/api` stays framework-agnostic: no `process.env`, no `"use server"`,
   `baseURL` is injected.
 - Keep `"use client"` directives and `exports` maps correct; every package is
   `"type": "module"` with dual ESM/CJS output (`.mjs`/`.d.mts` + `.cjs`/`.d.cts`).

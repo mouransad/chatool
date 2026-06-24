@@ -1,4 +1,4 @@
-# @karnameh/api
+# @chatool/api
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Packages](README.md) → **api**
 
@@ -16,7 +16,7 @@ Framework-agnostic, fully injectable HTTP client and typed services.
 
 ## Exports
 
-Everything is exported from the single root entry `@karnameh/api`:
+Everything is exported from the single root entry `@chatool/api`:
 
 - **Client:** `createHttpClient`, `CreateHttpClientOptions`
 - **Service factory:** `createServices`, `CreateServicesOptions`, `Services`
@@ -26,7 +26,7 @@ Everything is exported from the single root entry `@karnameh/api`:
 ## `createHttpClient(options)`
 
 ```ts
-import { createHttpClient } from "@karnameh/api";
+import { createHttpClient } from "@chatool/api";
 
 const client = createHttpClient({
   baseURL: "https://api.example.com",
@@ -39,7 +39,7 @@ Returns a configured `AxiosInstance`. `baseURL` is required and injected.
 ## `createServices(options)`
 
 ```ts
-import { createServices } from "@karnameh/api";
+import { createServices } from "@chatool/api";
 
 const services = createServices({ baseURL: "https://api.example.com" });
 //   services.client   -> the AxiosInstance
@@ -57,8 +57,8 @@ pre-configured `client` to reuse interceptors, otherwise one is built from
 ### clutch
 
 ```ts
-import { clutchBasePath, clutchEndPoints } from "@karnameh/api";
-import type { GetBannersParams, GetBannersItem, GetBannersResponse } from "@karnameh/api";
+import { clutchBasePath, clutchEndPoints } from "@chatool/api";
+import type { GetBannersParams, GetBannersItem, GetBannersResponse } from "@chatool/api";
 
 const { items } = await services.clutch.getBanners({ placement: "home" });
 ```

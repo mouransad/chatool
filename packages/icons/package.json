@@ -1,7 +1,7 @@
 {
-  "name": "@karnameh/icons",
+  "name": "@chatool/icons",
   "version": "0.1.0",
-  "description": "Tree-shakeable React SVG icon components for Karnameh apps, generated from raw SVGs with SVGR.",
+  "description": "Tree-shakeable React SVG icon components for Chatool apps, generated from raw SVGs with SVGR.",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": false,

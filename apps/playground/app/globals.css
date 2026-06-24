@@ -1,11 +1,11 @@
 @import "tailwindcss";
-@import "@karnameh/styles/styles.css";
+@import "@chatool/styles/styles.css";
 
 /*
  * Tailwind v4 auto-detects sources but ignores `node_modules`, so the utility
- * classes baked into the prebuilt @karnameh components wouldn't be generated.
+ * classes baked into the prebuilt @chatool components wouldn't be generated.
  * Explicitly register their dist as content sources. (pnpm symlinks these to
  * ../../packages/<pkg>/dist; Tailwind follows the symlinks.)
  */
-@source "../node_modules/@karnameh/ui/dist";
-@source "../node_modules/@karnameh/icons/dist";
+@source "../node_modules/@chatool/ui/dist";
+@source "../node_modules/@chatool/icons/dist";

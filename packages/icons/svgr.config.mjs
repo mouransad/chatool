@@ -1,5 +1,5 @@
 /**
- * SVGR options for @karnameh/icons.
+ * SVGR options for @chatool/icons.
  *
  * Raw SVGs in `svg/` are converted to typed, tree-shakeable React components in
  * `src/` by `pnpm generate`. Icons are **pure presentational** components — no

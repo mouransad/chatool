@@ -22,14 +22,14 @@ export default defineConfig({
 ```css
 /* src/index.css */
 @import "tailwindcss";
-@import "@karnameh/styles/styles.css";
+@import "@chatool/styles/styles.css";
 ```
 
 ## Services factory
 
 ```ts
 // src/lib/services.ts
-import { createServices } from "@karnameh/api";
+import { createServices } from "@chatool/api";
 
 export const services = createServices({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -42,7 +42,7 @@ export const services = createServices({
 // src/components/Banners.tsx
 import { useEffect, useState } from "react";
 import { services } from "../lib/services";
-import type { GetBannersItem } from "@karnameh/api";
+import type { GetBannersItem } from "@chatool/api";
 
 export function Banners() {
   const [items, setItems] = useState<GetBannersItem[]>([]);
@@ -56,7 +56,7 @@ export function Banners() {
 ## Related
 
 - [App Router](nextjs-app-router.md) · [Pages Router](nextjs-pages-router.md)
-- [@karnameh/api](../../packages/api.md)
+- [@chatool/api](../../packages/api.md)
 
 ---
 

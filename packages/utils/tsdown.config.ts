@@ -1,6 +1,6 @@
-import { defineKarnamehConfig } from "../../tsdown.preset";
+import { defineChatoolConfig } from "../../tsdown.preset";
 
-export default defineKarnamehConfig({
+export default defineChatoolConfig({
   entry: {
     index: "src/index.ts",
     "hooks/index": "src/hooks/index.ts",

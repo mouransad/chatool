@@ -1,7 +1,7 @@
 import { defineConfig, type UserConfig, type UserConfigExport } from "tsdown";
 
 /**
- * Shared tsdown preset for every @karnameh/* package.
+ * Shared tsdown preset for every @chatool/* package.
  *
  * tsdown (Rolldown + Oxc) is directive-aware: it **preserves** top-of-file
  * `"use client"` / `"use server"` directives in the bundled output for both ESM
@@ -14,7 +14,7 @@ import { defineConfig, type UserConfig, type UserConfigExport } from "tsdown";
  * Dependencies and peerDependencies (and their subpaths, e.g. `react/jsx-runtime`)
  * are externalized automatically; only the package's own source is bundled.
  */
-export function defineKarnamehConfig(options: UserConfig): UserConfigExport {
+export function defineChatoolConfig(options: UserConfig): UserConfigExport {
   return defineConfig({
     format: ["esm", "cjs"],
     dts: true,

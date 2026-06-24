@@ -16,7 +16,7 @@ AGENTS.md                          ← canonical (full rules)
 ├─ CLAUDE.md                       → `@AGENTS.md` import
 ├─ GEMINI.md                       → "read AGENTS.md"
 ├─ .github/copilot-instructions.md → pointer + inlined hard rules
-├─ .cursor/rules/karnameh.mdc      → alwaysApply rule → AGENTS.md
+├─ .cursor/rules/chatool.mdc      → alwaysApply rule → AGENTS.md
 └─ packages/*/AGENTS.md            → package-scoped rules (nearest wins)
 ```
 

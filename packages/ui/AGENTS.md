@@ -1,4 +1,4 @@
-# AGENTS.md — @karnameh/ui
+# AGENTS.md — @chatool/ui
 
 Package-scoped rules. Root rules still apply: [../../AGENTS.md](../../AGENTS.md).
 Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
@@ -7,11 +7,11 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   bottom-sheet, bottom-sheet-header). tsdown preserves it natively.
 - **No root barrel / no `.` export.** There is no `src/index.ts`; each component
   is reachable only through its own subpath so the IDE auto-imports the subpath
-  (e.g. `import Button from "@karnameh/ui/button"`) instead of a root
-  `@karnameh/ui` barrel. Don't re-add `src/index.ts` or a `.` export.
-- **Icons live in [`@karnameh/icons`](../icons/AGENTS.md)**, not here. Don't add
+  (e.g. `import Button from "@chatool/ui/button"`) instead of a root
+  `@chatool/ui` barrel. Don't re-add `src/index.ts` or a `.` export.
+- **Icons live in [`@chatool/icons`](../icons/AGENTS.md)**, not here. Don't add
   an `src/icons/` back to this package.
-- All components import `cn` from `@karnameh/utils` (a `dependency`,
+- All components import `cn` from `@chatool/utils` (a `dependency`,
   `workspace:^`). Don't reimplement `cn`.
 - Use the `radix-ui` **umbrella** package: `import { DropdownMenu } from "radix-ui"`,
   `import { Dialog } from "radix-ui"`, `import { Slot } from "radix-ui"`

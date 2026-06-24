@@ -1,8 +1,8 @@
 {
-  "name": "karnameh-kit",
+  "name": "chatool",
   "version": "0.0.0",
   "private": true,
-  "description": "Monorepo of reusable @karnameh/* packages for React apps (Next.js App Router, Pages Router, Vite SPA).",
+  "description": "Monorepo of reusable @chatool/* packages for React apps (Next.js App Router, Pages Router, Vite SPA).",
   "type": "module",
   "engines": {
     "node": ">=20",

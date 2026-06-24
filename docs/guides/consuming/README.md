@@ -2,16 +2,16 @@
 
 > **You are here:** [Repo README](../../../README.md) → [Docs](../../README.md) → [Guides](../README.md) → **Consuming**
 
-`@karnameh/styles`, `@karnameh/utils`, and `@karnameh/ui` work the same in every
+`@chatool/styles`, `@chatool/utils`, and `@chatool/ui` work the same in every
 framework: import the CSS once, then use components/hooks normally. The part that
-differs is **where you call [@karnameh/api](../../packages/api.md) and where
+differs is **where you call [@chatool/api](../../packages/api.md) and where
 `baseURL` comes from**.
 
 ## Install (any framework)
 
 ```bash
-pnpm add @karnameh/styles @karnameh/utils @karnameh/ui @karnameh/api
-pnpm add -D tailwindcss        # peer of @karnameh/styles
+pnpm add @chatool/styles @chatool/utils @chatool/ui @chatool/api
+pnpm add -D tailwindcss        # peer of @chatool/styles
 # react / react-dom are peers of utils + ui (your app already has them)
 ```
 
@@ -19,7 +19,7 @@ Then import the CSS in your global stylesheet:
 
 ```css
 @import "tailwindcss";
-@import "@karnameh/styles/styles.css";
+@import "@chatool/styles/styles.css";
 ```
 
 ## Pick your framework
@@ -32,8 +32,8 @@ Then import the CSS in your global stylesheet:
 
 ## Related
 
-- [@karnameh/styles](../../packages/styles.md) · [@karnameh/ui](../../packages/ui.md) ·
-  [@karnameh/api](../../packages/api.md)
+- [@chatool/styles](../../packages/styles.md) · [@chatool/ui](../../packages/ui.md) ·
+  [@chatool/api](../../packages/api.md)
 
 ---
 

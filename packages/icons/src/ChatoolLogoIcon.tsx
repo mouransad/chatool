@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-const SvgKarnamehLogoIcon = (props: SVGProps<SVGSVGElement>) => (
+const SvgChatoolLogoIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -17,4 +17,4 @@ const SvgKarnamehLogoIcon = (props: SVGProps<SVGSVGElement>) => (
     <path d="M4 4v16m0-8 8-8m-8 8 8 8" />
   </svg>
 );
-export default SvgKarnamehLogoIcon;
+export default SvgChatoolLogoIcon;

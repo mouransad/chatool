@@ -1,51 +1,51 @@
-# @karnameh/ui
+# @chatool/ui
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Packages](README.md) → **ui**
 
 Shadcn-based React UI components and SVG icons. All components import `cn` from
-[@karnameh/utils](utils.md).
+[@chatool/utils](utils.md).
 
-- **Deps:** `@karnameh/utils` (`workspace:^`), `@karnameh/icons`
+- **Deps:** `@chatool/utils` (`workspace:^`), `@chatool/icons`
   (`workspace:^`), `radix-ui`, `class-variance-authority`
 - **Peers:** `react` ^19, `react-dom` ^19
 - **Source:** [`packages/ui/src`](../../packages/ui/src)
 - **Package README:** [`packages/ui/README.md`](../../packages/ui/README.md)
 - **Agent rules:** [`packages/ui/AGENTS.md`](../../packages/ui/AGENTS.md)
 
-> Apps using `@karnameh/ui` **must also install [@karnameh/styles](styles.md)**
+> Apps using `@chatool/ui` **must also install [@chatool/styles](styles.md)**
 > and import its CSS — the components are styled with the shared design tokens.
 
 ## Exports
 
-Subpath-only — there is **no `@karnameh/ui` root barrel**. Each component is
+Subpath-only — there is **no `@chatool/ui` root barrel**. Each component is
 reached through its own path, so editors auto-import the subpath rather than a
 barrel.
 
 | Subpath | Components | Directive |
 | --- | --- | --- |
-| `@karnameh/ui/button` | `Button` (also the `default` export), `buttonVariants` | `"use client"` |
-| `@karnameh/ui/dropdown-menu` | `DropdownMenu*` (trigger/content/item/checkbox/label/separator/sub/…) | `"use client"` |
-| `@karnameh/ui/bottom-sheet` | `BottomSheet*` + `BottomSheetHeader` | `"use client"` |
+| `@chatool/ui/button` | `Button` (also the `default` export), `buttonVariants` | `"use client"` |
+| `@chatool/ui/dropdown-menu` | `DropdownMenu*` (trigger/content/item/checkbox/label/separator/sub/…) | `"use client"` |
+| `@chatool/ui/bottom-sheet` | `BottomSheet*` + `BottomSheetHeader` | `"use client"` |
 
 Client components ship `"use client"`. SVG icons live in their own package,
-[`@karnameh/icons`](icons.md).
+[`@chatool/icons`](icons.md).
 
 ## Usage
 
 ```tsx
-import Button from "@karnameh/ui/button"; // default export
+import Button from "@chatool/ui/button"; // default export
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "@karnameh/ui/dropdown-menu";
+} from "@chatool/ui/dropdown-menu";
 import {
   BottomSheet,
   BottomSheetContent,
   BottomSheetHeader,
-} from "@karnameh/ui/bottom-sheet";
-import KarnamehLogoIcon from "@karnameh/icons/KarnamehLogoIcon";
+} from "@chatool/ui/bottom-sheet";
+import ChatoolLogoIcon from "@chatool/icons/ChatoolLogoIcon";
 ```
 
 Always import from the per-component subpath — there is no root barrel, which
@@ -60,8 +60,8 @@ also keeps bundles minimal.
 
 ## Related
 
-- [@karnameh/styles](styles.md) — required design tokens.
-- [@karnameh/utils](utils.md) — provides `cn`.
+- [@chatool/styles](styles.md) — required design tokens.
+- [@chatool/utils](utils.md) — provides `cn`.
 
 ---
 

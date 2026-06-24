@@ -1,7 +1,7 @@
 # playground
 
 Internal **Next.js 16** (App Router, React 19, Tailwind v4) app for developing
-and eyeballing the `@karnameh/*` packages. **Private — never published.**
+and eyeballing the `@chatool/*` packages. **Private — never published.**
 
 It lives outside `packages/*` (in the `apps/*` workspace), so the library
 pipeline (`pnpm build` / `typecheck` / `release`, all filtered to
@@ -19,19 +19,19 @@ pnpm --filter playground dev    # terminal 2: next dev   (or: pnpm playground)
 ```
 
 Open the URL Next prints. Editing a package re-emits its `dist/`; refresh the
-app to see it. (Rebuild manually with `pnpm --filter @karnameh/<pkg> build` if
+app to see it. (Rebuild manually with `pnpm --filter @chatool/<pkg> build` if
 you aren't running `pnpm dev`.)
 
 ## How the packages are wired
 
-- **`@karnameh/styles`** — imported in [`app/globals.css`](app/globals.css)
+- **`@chatool/styles`** — imported in [`app/globals.css`](app/globals.css)
   after `@import "tailwindcss";`. Two `@source` directives register the prebuilt
-  `@karnameh/ui` and `@karnameh/icons` dist so Tailwind generates the utility
+  `@chatool/ui` and `@chatool/icons` dist so Tailwind generates the utility
   classes baked into those components (it skips `node_modules` otherwise).
-- **`@karnameh/ui` / `@karnameh/icons` / `@karnameh/utils`** — rendered in
+- **`@chatool/ui` / `@chatool/icons` / `@chatool/utils`** — rendered in
   [`app/page.tsx`](app/page.tsx). Client components ship `"use client"`, so they
   drop into this Server Component directly.
-- **`@karnameh/api`** — wired in [`app/lib/services.ts`](app/lib/services.ts)
+- **`@chatool/api`** — wired in [`app/lib/services.ts`](app/lib/services.ts)
   via `createServices({ baseURL })`; not called (no backend yet).
 
 ## Scripts

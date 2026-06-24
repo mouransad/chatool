@@ -15,7 +15,7 @@ Changeset.
 3. Add a matching `exports` subpath in `package.json` (ESM `.mjs`/`.d.mts` +
    CJS `.cjs`/`.d.cts`).
 4. Re-export from the package barrel (`src/index.ts`) **only if the package has
-   one** — `@karnameh/ui` and `@karnameh/icons` are subpath-only (no root barrel).
+   one** — `@chatool/ui` and `@chatool/icons` are subpath-only (no root barrel).
 5. Document it: update the relevant [package page](../packages/README.md), and
    any shim/doc the [sync map in `AGENTS.md`](../../AGENTS.md) lists (or run the
    `/sync-docs` skill).
@@ -27,7 +27,7 @@ Changeset.
    `sideEffects`, `files`, `exports`, `publishConfig.access`, peers/deps per the
    [peer-vs-dep rule](../conventions.md#dependencies-peer-vs-dep)).
 2. `tsconfig.json` extending `../../tsconfig.json`; `tsdown.config.ts` using
-   `defineKarnamehConfig`.
+   `defineChatoolConfig`.
 3. Add `README.md` + `AGENTS.md` (copy an existing package's as a template).
 4. Add a `docs/packages/<name>.md` page and link it from
    [docs/packages/README.md](../packages/README.md).

@@ -5,7 +5,7 @@ import type { NextConfig } from "next";
 const here = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * Minimal config. The `@karnameh/*` packages are consumed as prebuilt `dist/`
+ * Minimal config. The `@chatool/*` packages are consumed as prebuilt `dist/`
  * (ESM + CJS, with `"use client"` preserved), so no `transpilePackages` is
  * needed. Turbopack is the default bundler in Next 16.
  *

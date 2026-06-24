@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@karnameh/ui/button";
+import Button from "@chatool/ui/button";
 
 /**
  * Client island: toggles the `.dark` class on <html> so you can eyeball the
- * `@karnameh/styles` light/dark token sets. Lives inside a Server Component.
+ * `@chatool/styles` light/dark token sets. Lives inside a Server Component.
  */
 export function ThemeToggle() {
   const [dark, setDark] = useState(false);

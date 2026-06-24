@@ -47,19 +47,19 @@ importers:
 
   apps/playground:
     dependencies:
-      '@karnameh/api':
+      '@chatool/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@karnameh/icons':
+      '@chatool/icons':
         specifier: workspace:*
         version: link:../../packages/icons
-      '@karnameh/styles':
+      '@chatool/styles':
         specifier: workspace:*
         version: link:../../packages/styles
-      '@karnameh/ui':
+      '@chatool/ui':
         specifier: workspace:*
         version: link:../../packages/ui
-      '@karnameh/utils':
+      '@chatool/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       next:
@@ -136,10 +136,10 @@ importers:
 
   packages/ui:
     dependencies:
-      '@karnameh/icons':
+      '@chatool/icons':
         specifier: workspace:^
         version: link:../icons
-      '@karnameh/utils':
+      '@chatool/utils':
         specifier: workspace:^
         version: link:../utils
       class-variance-authority:

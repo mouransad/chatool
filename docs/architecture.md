@@ -5,7 +5,7 @@
 ## Monorepo layout
 
 ```
-karnameh-kit/
+chatool-kit/
 ├─ pnpm-workspace.yaml     # packages/*
 ├─ package.json            # root scripts + devDeps shared by all packages
 ├─ tsconfig.json           # base config every package extends
@@ -13,22 +13,22 @@ karnameh-kit/
 ├─ eslint.config.mjs       # shared flat ESLint config
 ├─ .changeset/             # Changesets config
 └─ packages/
-   ├─ styles/   @karnameh/styles   (CSS only — no build step)
-   ├─ utils/    @karnameh/utils
-   ├─ ui/       @karnameh/ui        (depends on @karnameh/utils)
-   └─ api/      @karnameh/api
+   ├─ styles/   @chatool/styles   (CSS only — no build step)
+   ├─ utils/    @chatool/utils
+   ├─ ui/       @chatool/ui        (depends on @chatool/utils)
+   └─ api/      @chatool/api
 ```
 
 ## Workspace dependency graph
 
 ```
-@karnameh/styles   (standalone, CSS)
-@karnameh/utils    (standalone)
-@karnameh/ui   ──▶ @karnameh/utils   (workspace:^)
-@karnameh/api      (standalone)
+@chatool/styles   (standalone, CSS)
+@chatool/utils    (standalone)
+@chatool/ui   ──▶ @chatool/utils   (workspace:^)
+@chatool/api      (standalone)
 ```
 
-`@karnameh/ui` depends on `@karnameh/utils` via the `workspace:^` protocol. On
+`@chatool/ui` depends on `@chatool/utils` via the `workspace:^` protocol. On
 publish, Changesets/pnpm rewrites that to the real version — see
 [Publishing](guides/publishing.md).
 
@@ -44,7 +44,7 @@ Each package's `exports` map points the `import` condition at the ESM files and
 the `require` condition at the CJS files, so both module systems resolve types
 and runtime correctly.
 
-`@karnameh/styles` has **no build** — it ships raw `.css` and a no-op `build`
+`@chatool/styles` has **no build** — it ships raw `.css` and a no-op `build`
 script so `pnpm -r build` stays uniform.
 
 ## Build internals

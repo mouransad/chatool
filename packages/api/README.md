@@ -1,23 +1,23 @@
-# @karnameh/api
+# @chatool/api
 
-Framework-agnostic, fully injectable HTTP client and typed services for Karnameh
+Framework-agnostic, fully injectable HTTP client and typed services for Chatool
 apps. No `process.env`, no `"use server"` — you inject `baseURL`.
 
 - **Dep:** `axios` · **Peers:** none
 - **Full docs:** [docs/packages/api.md](../../docs/packages/api.md)
-- **Monorepo:** [karnameh-kit README](../../README.md)
+- **Monorepo:** [chatool-kit README](../../README.md)
 
 ## Install
 
 ```bash
-pnpm add @karnameh/api
+pnpm add @chatool/api
 ```
 
 ## Usage
 
 ```ts
-import { createServices } from "@karnameh/api";
-import type { GetBannersResponse } from "@karnameh/api";
+import { createServices } from "@chatool/api";
+import type { GetBannersResponse } from "@chatool/api";
 
 const services = createServices({ baseURL: "https://api.example.com" });
 const banners = await services.clutch.getBanners({ placement: "home" });

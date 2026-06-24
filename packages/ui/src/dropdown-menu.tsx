@@ -2,9 +2,9 @@
 
 import * as React from "react";
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
-import CheckIcon from "@karnameh/icons/CheckIcon";
-import ChevronRightIcon from "@karnameh/icons/ChevronRightIcon";
-import { cn } from "@karnameh/utils";
+import CheckIcon from "@chatool/icons/CheckIcon";
+import ChevronRightIcon from "@chatool/icons/ChevronRightIcon";
+import { cn } from "@chatool/utils";
 
 function DropdownMenu(
   props: React.ComponentProps<typeof DropdownMenuPrimitive.Root>,

@@ -1,4 +1,4 @@
-# AGENTS.md — @karnameh/utils
+# AGENTS.md — @chatool/utils
 
 Package-scoped rules. Root rules still apply: [../../AGENTS.md](../../AGENTS.md).
 Human docs: [docs/packages/utils.md](../../docs/packages/utils.md).

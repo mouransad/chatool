@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "@karnameh/* playground",
-  description: "Internal playground for developing the @karnameh/* packages.",
+  title: "@chatool/* playground",
+  description: "Internal playground for developing the @chatool/* packages.",
 };
 
 export default function RootLayout({

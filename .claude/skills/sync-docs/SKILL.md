@@ -51,13 +51,13 @@ point at:
 
 ```bash
 # (a) Package list/count agreement — should be identical everywhere
-rg -n "@karnameh/(styles|utils|ui|icons|api)" AGENTS.md README.md docs/README.md docs/packages/README.md .github/copilot-instructions.md
+rg -n "@chatool/(styles|utils|ui|icons|api)" AGENTS.md README.md docs/README.md docs/packages/README.md .github/copilot-instructions.md
 rg -ni "(four|five|six) .{0,20}packages" AGENTS.md README.md docs .github
 
 # (b) Dead references to things that no longer exist
 #     (e.g. removed barrels / deleted source files)
 rg -n "src/index\.ts" docs .github            # UI/icons no longer have one
-rg -n 'from "@karnameh/(ui|icons)"' docs README.md .github   # root-barrel imports
+rg -n 'from "@chatool/(ui|icons)"' docs README.md .github   # root-barrel imports
 
 # (c) Import examples must match each package's real exports map
 for p in styles utils ui icons api; do
@@ -66,7 +66,7 @@ done
 ```
 
 For each hit, confirm against the real `package.json` `exports` / `src/` and fix
-the doc (or delete the dead line). Wildcard exports like `@karnameh/icons/*` mean
+the doc (or delete the dead line). Wildcard exports like `@chatool/icons/*` mean
 "any icon name" — examples should use a real icon (e.g. `ChevronDownIcon`).
 
 ## 4. Changeset check

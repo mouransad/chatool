@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "description": "Internal Next.js 16 playground for developing and testing the @karnameh/* packages. Never published.",
+  "description": "Internal Next.js 16 playground for developing and testing the @chatool/* packages. Never published.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,11 +12,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@karnameh/api": "workspace:*",
-    "@karnameh/icons": "workspace:*",
-    "@karnameh/styles": "workspace:*",
-    "@karnameh/ui": "workspace:*",
-    "@karnameh/utils": "workspace:*",
+    "@chatool/api": "workspace:*",
+    "@chatool/icons": "workspace:*",
+    "@chatool/styles": "workspace:*",
+    "@chatool/ui": "workspace:*",
+    "@chatool/utils": "workspace:*",
     "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

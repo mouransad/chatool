@@ -1,7 +1,7 @@
-import { createServices } from "@karnameh/api";
+import { createServices } from "@chatool/api";
 
 /**
- * `@karnameh/api` is framework-agnostic: the caller injects `baseURL`. Here we
+ * `@chatool/api` is framework-agnostic: the caller injects `baseURL`. Here we
  * read it from a server env var, exactly as the consuming guide describes
  * (docs/guides/consuming/nextjs-app-router.md).
  *

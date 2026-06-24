@@ -1,7 +1,7 @@
 {
-  "name": "@karnameh/api",
+  "name": "@chatool/api",
   "version": "0.0.0",
-  "description": "Framework-agnostic, fully injectable HTTP client and typed services for Karnameh apps (no process.env, no server directives).",
+  "description": "Framework-agnostic, fully injectable HTTP client and typed services for Chatool apps (no process.env, no server directives).",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": false,

@@ -1,8 +1,8 @@
-# Karnameh Kit — Documentation
+# Chatool Kit — Documentation
 
 > **You are here:** [Repo README](../README.md) → **Docs**
 
-The canonical, in-depth documentation for the `karnameh-kit` monorepo. The root
+The canonical, in-depth documentation for the `chatool-kit` monorepo. The root
 [README](../README.md) is a short overview; everything detailed lives here.
 
 ## Start here
@@ -22,11 +22,11 @@ The canonical, in-depth documentation for the `karnameh-kit` monorepo. The root
 ## Packages
 
 - [Packages index](packages/README.md)
-  - [@karnameh/styles](packages/styles.md)
-  - [@karnameh/utils](packages/utils.md)
-  - [@karnameh/ui](packages/ui.md)
-  - [@karnameh/icons](packages/icons.md)
-  - [@karnameh/api](packages/api.md)
+  - [@chatool/styles](packages/styles.md)
+  - [@chatool/utils](packages/utils.md)
+  - [@chatool/ui](packages/ui.md)
+  - [@chatool/icons](packages/icons.md)
+  - [@chatool/api](packages/api.md)
 
 ## Guides
 

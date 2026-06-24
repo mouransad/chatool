@@ -13,16 +13,16 @@ there.** See [docs/ai-agents.md](docs/ai-agents.md) for how the wiring works.
 
 ## What this repo is
 
-A pnpm-workspace monorepo publishing five **registry-agnostic** `@karnameh/*`
+A pnpm-workspace monorepo publishing five **registry-agnostic** `@chatool/*`
 packages for React apps (Next.js App Router, Next.js Pages Router, Vite SPA).
 
 | Package | Role | Peers |
 | --- | --- | --- |
-| `@karnameh/styles` | CSS-only Tailwind v4 theme + shadcn tokens | `tailwindcss` |
-| `@karnameh/utils` | `cn` + hooks | `react` |
-| `@karnameh/ui` | shadcn components | `react`, `react-dom` |
-| `@karnameh/icons` | SVGR-generated React SVG icons | `react` |
-| `@karnameh/api` | framework-agnostic axios client + services | — |
+| `@chatool/styles` | CSS-only Tailwind v4 theme + shadcn tokens | `tailwindcss` |
+| `@chatool/utils` | `cn` + hooks | `react` |
+| `@chatool/ui` | shadcn components | `react`, `react-dom` |
+| `@chatool/icons` | SVGR-generated React SVG icons | `react` |
+| `@chatool/api` | framework-agnostic axios client + services | — |
 
 Stack: pnpm workspaces, tsdown (ESM+CJS+`.d.ts`), Changesets, TypeScript 5,
 React 19, Tailwind CSS v4.
@@ -50,7 +50,7 @@ done.
    `packages/utils/src/hooks/index.ts` carries `"use client";` at the top. Keep
    it there; add it to any new client barrel.
    See [docs/build-and-tooling.md](docs/build-and-tooling.md).
-2. **`@karnameh/api` stays framework-agnostic.** No `process.env`, no
+2. **`@chatool/api` stays framework-agnostic.** No `process.env`, no
    `"use server"`, no framework imports. `baseURL` is always **injected** by the
    caller (`createHttpClient` / `createServices`).
 3. **Directives are intentional.** Client hooks and client UI components start
@@ -59,12 +59,12 @@ done.
 4. **Keep `exports` maps in sync.** When you add a component/hook/service subpath,
    add a matching `exports` entry (ESM `.mjs`/`.d.mts` + CJS `.cjs`/`.d.cts`) and
    a `tsdown` entry. Every package is `"type": "module"`.
-4b. **Subpath-only, no root barrels for `@karnameh/ui` and `@karnameh/icons`.**
+4b. **Subpath-only, no root barrels for `@chatool/ui` and `@chatool/icons`.**
    Neither package exposes a `.` export — every symbol is reachable from exactly
-   one path so the IDE auto-imports the subpath, not a root barrel. `@karnameh/ui`
+   one path so the IDE auto-imports the subpath, not a root barrel. `@chatool/ui`
    ships one subpath per component (`./button`, `./dropdown-menu`, …, each with
-   `default` + named exports); `@karnameh/icons` uses a single `./*` wildcard
-   export mapping `@karnameh/icons/<IconName>` → `dist/<IconName>` (default
+   `default` + named exports); `@chatool/icons` uses a single `./*` wildcard
+   export mapping `@chatool/icons/<IconName>` → `dist/<IconName>` (default
    export). Don't re-add a `.` export or a published root barrel to either.
 5. **peer vs dep:** runtime libraries the app already owns (react, react-dom,
    tailwindcss) are `peerDependencies`; everything bundled-against is a `dependency`.

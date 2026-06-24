@@ -9,7 +9,7 @@ Rules to follow when changing code. AI agents: these are also summarized in
 
 Every buildable package has:
 
-- `"type": "module"` and `sideEffects: false` (except `@karnameh/styles`, which
+- `"type": "module"` and `sideEffects: false` (except `@chatool/styles`, which
   marks `**/*.css` as side-effectful).
 - `"files": ["dist"]` (styles ships its `.css` files instead).
 - a `build` (`tsdown`), `dev` (`tsdown --watch`), and `typecheck` (`tsc --noEmit`)
@@ -32,8 +32,8 @@ When you add a component/hook/service that should be importable on its own:
 1. add a `tsdown` entry for it,
 2. add the matching `exports` subpath,
 3. re-export it from the package barrel (`src/index.ts`) **only if that package
-   still has one** — `@karnameh/utils` keeps a `hooks` barrel, but `@karnameh/ui`
-   and `@karnameh/icons` are subpath-only (no root barrel) so there is nothing to
+   still has one** — `@chatool/utils` keeps a `hooks` barrel, but `@chatool/ui`
+   and `@chatool/icons` are subpath-only (no root barrel) so there is nothing to
    re-export from.
 
 Keep `import`/`require` filenames consistent with the dual-output naming from
@@ -45,9 +45,9 @@ Keep `import`/`require` filenames consistent with the dual-output naming from
 - Pure modules — `cn`, SVG icons, the api client/services — have **no** directive.
 - tsdown preserves directives natively — but only at the top of an entry's own
   source. A **re-export-only barrel** (`packages/utils/src/hooks/index.ts`)
-  carries `"use client";` explicitly; keep it there. (`@karnameh/ui` is
+  carries `"use client";` explicitly; keep it there. (`@chatool/ui` is
   subpath-only — each component entry carries its own directive, no barrel.)
-- `@karnameh/api` must never contain `"use server"` — it stays framework-agnostic.
+- `@chatool/api` must never contain `"use server"` — it stays framework-agnostic.
 
 ## Dependencies: peer vs dep
 
@@ -55,7 +55,7 @@ Keep `import`/`require` filenames consistent with the dual-output naming from
   deduplicate — `react`, `react-dom`, `tailwindcss`.
 - **dependencies:** everything else the package needs at runtime — `clsx`,
   `tailwind-merge`, `radix-ui`, `class-variance-authority`, `axios`, and
-  `@karnameh/{utils,icons}` (as `workspace:^`).
+  `@chatool/{utils,icons}` (as `workspace:^`).
 - Mirror peers in `devDependencies` so the package builds/typechecks in isolation.
 
 ## TypeScript

@@ -8,7 +8,7 @@ We build with **[tsdown](https://tsdown.dev)** (Rolldown + Oxc). It's fast and,
 crucially for this repo, **directive-aware** — it preserves `"use client"` /
 `"use server"` natively, so there is no extra plugin and no treeshake caveat.
 
-[`tsdown.preset.ts`](../tsdown.preset.ts) exports `defineKarnamehConfig(...)`,
+[`tsdown.preset.ts`](../tsdown.preset.ts) exports `defineChatoolConfig(...)`,
 used by every package's `tsdown.config.ts`. It sets:
 
 - `format: ["esm", "cjs"]` and `dts: true` → dual output + declarations.
@@ -18,11 +18,11 @@ A package only specifies its `entry` map, e.g.:
 
 ```ts
 // packages/ui/tsdown.config.ts
-import { defineKarnamehConfig } from "../../tsdown.preset";
+import { defineChatoolConfig } from "../../tsdown.preset";
 
-export default defineKarnamehConfig({
+export default defineChatoolConfig({
   entry: {
-    // One entry per component — @karnameh/ui is subpath-only (no barrel).
+    // One entry per component — @chatool/ui is subpath-only (no barrel).
     button: "src/button.tsx",
     "dropdown-menu": "src/dropdown-menu.tsx",
     "bottom-sheet": "src/bottom-sheet.tsx",
@@ -30,7 +30,7 @@ export default defineKarnamehConfig({
 });
 ```
 
-The `entry` can also be a glob: `@karnameh/icons` uses `entry: ["src/*.tsx"]` to
+The `entry` can also be a glob: `@chatool/icons` uses `entry: ["src/*.tsx"]` to
 emit one module per icon (served by its `./*` wildcard export).
 
 No `external` list is needed: tsdown externalizes `dependencies` and
@@ -70,7 +70,7 @@ explicitly at the top of its source:
 
 - [`packages/utils/src/hooks/index.ts`](../packages/utils/src/hooks/index.ts) → `"use client";`
 
-`@karnameh/ui` has no barrel (it is subpath-only) — each component entry is its
+`@chatool/ui` has no barrel (it is subpath-only) — each component entry is its
 own source and carries its own `"use client";`. If you create a **new** client
 barrel/entry, put `"use client";` at its top.
 

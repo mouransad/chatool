@@ -7,11 +7,11 @@ wiring, see the [consuming guides](../guides/consuming/README.md).
 
 | Package | Page | One-liner |
 | --- | --- | --- |
-| `@karnameh/styles` | [styles.md](styles.md) | CSS-only Tailwind v4 theme + shadcn tokens |
-| `@karnameh/utils` | [utils.md](utils.md) | `cn` + hooks |
-| `@karnameh/ui` | [ui.md](ui.md) | shadcn components |
-| `@karnameh/icons` | [icons.md](icons.md) | SVGR-generated React SVG icons |
-| `@karnameh/api` | [api.md](api.md) | framework-agnostic axios client + services |
+| `@chatool/styles` | [styles.md](styles.md) | CSS-only Tailwind v4 theme + shadcn tokens |
+| `@chatool/utils` | [utils.md](utils.md) | `cn` + hooks |
+| `@chatool/ui` | [ui.md](ui.md) | shadcn components |
+| `@chatool/icons` | [icons.md](icons.md) | SVGR-generated React SVG icons |
+| `@chatool/api` | [api.md](api.md) | framework-agnostic axios client + services |
 
 Each package also has:
 

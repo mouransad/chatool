@@ -1,12 +1,12 @@
 /*
- * @karnameh/styles — styles.css
+ * @chatool/styles — styles.css
  * ---------------------------------------------------------------------------
  * Full design layer: tokens + CSS variables (via ./theme.css) PLUS the base
  * @layer rules. This is what most consumers import.
  *
  * Consumer usage (in their own global CSS):
  *   @import "tailwindcss";
- *   @import "@karnameh/styles/styles.css";
+ *   @import "@chatool/styles/styles.css";
  *
  * `@import "tailwindcss";` MUST come first so Tailwind's layers exist before
  * these tokens/base rules extend them. `tailwindcss` is a peerDependency of

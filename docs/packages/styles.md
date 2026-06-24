@@ -1,4 +1,4 @@
-# @karnameh/styles
+# @chatool/styles
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Packages](README.md) → **styles**
 
@@ -20,8 +20,8 @@ CSS-only package: the Tailwind v4 `@theme`, the shadcn token layer
 
 | Subpath | Contents |
 | --- | --- |
-| `@karnameh/styles/styles.css` | tokens + variables **+** base `@layer` rules |
-| `@karnameh/styles/theme.css` | tokens + variables only (no base resets) |
+| `@chatool/styles/styles.css` | tokens + variables **+** base `@layer` rules |
+| `@chatool/styles/theme.css` | tokens + variables only (no base resets) |
 
 `styles.css` `@import`s `theme.css`, so there is a single source for the tokens.
 
@@ -31,7 +31,7 @@ In the app's global CSS — Tailwind **first**, then the package:
 
 ```css
 @import "tailwindcss";
-@import "@karnameh/styles/styles.css";
+@import "@chatool/styles/styles.css";
 ```
 
 `@import "tailwindcss";` must come first so Tailwind's layers exist before these
@@ -43,7 +43,7 @@ Override the `:root` variables **after** the import:
 
 ```css
 @import "tailwindcss";
-@import "@karnameh/styles/styles.css";
+@import "@chatool/styles/styles.css";
 
 :root {
   --primary: oklch(0.55 0.2 265);
@@ -56,7 +56,7 @@ single variable change re-themes every component that uses them.
 
 ## Related
 
-- [@karnameh/ui](ui.md) — components that rely on these tokens.
+- [@chatool/ui](ui.md) — components that rely on these tokens.
 - [Consuming guides](../guides/consuming/README.md) — per-framework CSS wiring.
 
 ---

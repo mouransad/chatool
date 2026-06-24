@@ -1,7 +1,7 @@
 {
-  "name": "@karnameh/ui",
+  "name": "@chatool/ui",
   "version": "0.1.0",
-  "description": "Shadcn-based React UI components and icons for Karnameh apps. Requires @karnameh/styles for design tokens.",
+  "description": "Shadcn-based React UI components and icons for Chatool apps. Requires @chatool/styles for design tokens.",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": false,
@@ -47,8 +47,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@karnameh/icons": "workspace:^",
-    "@karnameh/utils": "workspace:^",
+    "@chatool/icons": "workspace:^",
+    "@chatool/utils": "workspace:^",
     "class-variance-authority": "^0.7.1",
     "radix-ui": "^1.4.0"
   },

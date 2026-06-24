@@ -1,4 +1,4 @@
-# @karnameh/utils
+# @chatool/utils
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Packages](README.md) → **utils**
 
@@ -14,8 +14,8 @@ Shared utilities and React hooks.
 
 | Subpath | Exports | Directive |
 | --- | --- | --- |
-| `@karnameh/utils` | `cn`, `ClassValue` | none (server-safe) |
-| `@karnameh/utils/hooks` | `useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer` | `"use client"` |
+| `@chatool/utils` | `cn`, `ClassValue` | none (server-safe) |
+| `@chatool/utils/hooks` | `useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer` | `"use client"` |
 
 The root entry is kept pure so `cn` can be imported into Server Components. The
 hooks entry carries the `"use client"` boundary.
@@ -28,7 +28,7 @@ hooks entry carries the `"use client"` boundary.
 Tailwind utilities.
 
 ```ts
-import { cn } from "@karnameh/utils";
+import { cn } from "@chatool/utils";
 cn("px-2", condition && "px-4"); // -> "px-4"
 ```
 
@@ -37,7 +37,7 @@ cn("px-2", condition && "px-4"); // -> "px-4"
 Boolean state with stable `setTrue` / `setFalse` / `toggle` and `setValue`.
 
 ```ts
-import { useBoolean } from "@karnameh/utils/hooks";
+import { useBoolean } from "@chatool/utils/hooks";
 const { value, toggle, setTrue, setFalse } = useBoolean(false);
 ```
 
@@ -53,7 +53,7 @@ join. Safe on server or client.
 
 ## Related
 
-- [@karnameh/ui](ui.md) — consumes `cn`.
+- [@chatool/ui](ui.md) — consumes `cn`.
 - [Conventions](../conventions.md) — the `"use client"` rules.
 
 ---

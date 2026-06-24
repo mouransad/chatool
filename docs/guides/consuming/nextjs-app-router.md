@@ -9,14 +9,14 @@ Inject `baseURL` from a server env var; call the API in an RSC or a server actio
 ```css
 /* app/globals.css */
 @import "tailwindcss";
-@import "@karnameh/styles/styles.css";
+@import "@chatool/styles/styles.css";
 ```
 
 ## Services factory
 
 ```ts
 // app/lib/services.ts
-import { createServices } from "@karnameh/api";
+import { createServices } from "@chatool/api";
 
 export function getServices() {
   return createServices({ baseURL: process.env.API_BASE_URL! });
@@ -47,13 +47,13 @@ export async function fetchBanners() {
 }
 ```
 
-Client components from [@karnameh/ui](../../packages/ui.md) already ship
+Client components from [@chatool/ui](../../packages/ui.md) already ship
 `"use client"`, so importing `<Button>` into a Server Component just works.
 
 ## Related
 
 - [Pages Router](nextjs-pages-router.md) · [Vite](vite.md)
-- [@karnameh/api](../../packages/api.md)
+- [@chatool/api](../../packages/api.md)
 
 ---
 

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@karnameh/utils";
+import { cn } from "@chatool/utils";
 
 /**
  * Header region for a BottomSheet — stacks title/description and provides the

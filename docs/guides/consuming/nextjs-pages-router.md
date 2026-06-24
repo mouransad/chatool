@@ -9,7 +9,7 @@ Inject `baseURL` in `getServerSideProps` (or an API route) — server-side env.
 ```css
 /* styles/globals.css imported in pages/_app.tsx */
 @import "tailwindcss";
-@import "@karnameh/styles/styles.css";
+@import "@chatool/styles/styles.css";
 ```
 
 ## `getServerSideProps`
@@ -17,7 +17,7 @@ Inject `baseURL` in `getServerSideProps` (or an API route) — server-side env.
 ```tsx
 // pages/index.tsx
 import type { GetServerSideProps } from "next";
-import { createServices, type GetBannersResponse } from "@karnameh/api";
+import { createServices, type GetBannersResponse } from "@chatool/api";
 
 export const getServerSideProps: GetServerSideProps<{ data: GetBannersResponse }> = async () => {
   const services = createServices({ baseURL: process.env.API_BASE_URL! });
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<{ data: GetBannersResponse }
 ```ts
 // pages/api/banners.ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createServices } from "@karnameh/api";
+import { createServices } from "@chatool/api";
 
 export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
   const services = createServices({ baseURL: process.env.API_BASE_URL! });
@@ -42,7 +42,7 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
 ## Related
 
 - [App Router](nextjs-app-router.md) · [Vite](vite.md)
-- [@karnameh/api](../../packages/api.md)
+- [@chatool/api](../../packages/api.md)
 
 ---
 

@@ -5,6 +5,22 @@
 Releases are managed with **Changesets**. The flow is registry-agnostic until you
 add a `.npmrc`.
 
+## 0. Forking? Re-brand first
+
+This repo is meant to be forked and re-branded. Before you publish under your own
+name, rename the `@chatool/*` scope (and every reference to it) to your own with
+the **`rename-project`** skill — it does a case-aware replace across package
+names, imports, exports maps, docs, AI shims, identifiers, and file/dir names in
+one pass:
+
+```bash
+node .claude/skills/rename-project/rename.mjs <your-scope>
+pnpm install
+```
+
+See [`.claude/skills/rename-project/SKILL.md`](../../.claude/skills/rename-project/SKILL.md)
+for the full runbook (registry config, changeset, verification).
+
 ## 1. Pick a registry and configure `.npmrc`
 
 The repo hardcodes **no** registry. Copy the documented template (kept out of
@@ -12,7 +28,7 @@ git via `.gitignore`) and fill it in:
 
 ```bash
 cp .npmrc.example .npmrc
-# edit: set @karnameh:registry=... and the matching _authToken
+# edit: set @chatool:registry=... and the matching _authToken
 ```
 
 Each package already declares `"publishConfig": { "access": "public" }`; add a
@@ -40,7 +56,7 @@ pnpm release            # pnpm build && changeset publish
 ```
 
 `changeset publish` runs through pnpm, so the `workspace:^` dependency of
-`@karnameh/ui` on `@karnameh/utils` is rewritten to the published version
+`@chatool/ui` on `@chatool/utils` is rewritten to the published version
 automatically. (This is why you must release through `pnpm release` and not a
 bare `npm publish`.)
 
@@ -48,7 +64,7 @@ bare `npm publish`.)
 
 - `README.md` is auto-included in every package tarball by npm — no `files`
   change needed.
-- `@karnameh/styles` publishes its `.css` files (its `files` field), the rest
+- `@chatool/styles` publishes its `.css` files (its `files` field), the rest
   publish `dist`.
 
 ## Related
