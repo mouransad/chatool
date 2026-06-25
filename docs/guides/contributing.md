@@ -3,8 +3,9 @@
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Guides](README.md) → **Contributing**
 
 Read [Conventions](../conventions.md) and [Build & tooling](../build-and-tooling.md)
-first. Always finish with `pnpm build && pnpm typecheck && pnpm lint` and a
-Changeset.
+first. Always finish by running the **`/sync`** skill — it reconciles docs, the
+per-tool AI shims, `llms.txt`, exports, Storybook stories, and the Changeset, then
+runs `pnpm build && pnpm typecheck && pnpm lint`. See [Skills](#skills) below.
 
 ## Add a component/hook/service subpath to a package
 
@@ -21,7 +22,11 @@ Changeset.
    `pnpm gen:llms`. Reconcile any other doc/shim the
    [sync map in `AGENTS.md`](../../AGENTS.md) lists (or run the `/sync-docs` skill).
    `docs/packages/<pkg>.md` is just a pointer — no content change needed.
-6. `pnpm build && pnpm typecheck && pnpm lint`, then `pnpm changeset`.
+6. For a new `@chatool/ui` component or `@chatool/icons` icon, add/extend a story
+   in [`apps/storybook`](../../apps/storybook) — run the `/sync-storybook` skill
+   (stories don't auto-discover new exports; the icon gallery is enumerated by hand).
+7. Run **`/sync`** (or at minimum `pnpm build && pnpm typecheck && pnpm lint`, then
+   `pnpm changeset`).
 
 ## Add a new package
 
@@ -42,6 +47,18 @@ Changeset.
 
 Edit [`AGENTS.md`](../../AGENTS.md) (or the relevant `packages/*/AGENTS.md`) —
 never the per-tool shims. See [AI agents](../ai-agents.md).
+
+## Skills
+
+Repo skills automate the "no drift" contract (in `.claude/skills/`):
+
+- **`/sync`** — the definition-of-done umbrella: runs `/sync-docs` + `/sync-storybook`
+  then build/typecheck/lint. Use before declaring any change complete.
+- **`/sync-docs`** — reconciles docs, the per-tool AI shims, `llms.txt`, exports
+  maps, and the Changeset.
+- **`/sync-storybook`** — every `@chatool/ui` subpath is storied and every
+  `@chatool/icons` icon is in the gallery.
+- **`rename-project`** — re-brand the `@chatool/*` scope for a fork.
 
 ## Related
 

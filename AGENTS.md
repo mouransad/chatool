@@ -89,13 +89,16 @@ done.
    keep `"llms.txt"` in each package's `files`. `docs/packages/<pkg>.md` is a thin
    pointer to the README. Regenerate with `pnpm gen:llms` (also runs on `pnpm build`
    via `postbuild` and at publish via each package's `prepack`).
-8. **Docs, shims & changesets stay in sync — it's part of "done".** A change
-   isn't finished until the docs and per-tool shims it affects are updated (plus a
-   Changeset for functional changes). This repo's whole premise is *no drift*
-   (see [docs/ai-agents.md](docs/ai-agents.md)). Use the **sync map** below; when
-   in doubt run the [`/sync-docs`](.claude/skills/sync-docs/SKILL.md) skill, which
-   audits and fixes drift end-to-end. Edit canonical files, **never** regenerate
-   a shim by hand beyond the inlined rules.
+8. **Docs, shims, changesets & stories stay in sync — it's part of "done".** A
+   change isn't finished until the docs and per-tool shims it affects are updated
+   (plus a Changeset for functional changes, and a Storybook story for new
+   `@chatool/ui`/`@chatool/icons`). This repo's whole premise is *no drift*
+   (see [docs/ai-agents.md](docs/ai-agents.md)). Use the **sync map** below; the
+   one-shot way to enforce it is the [`/sync`](.claude/skills/sync/SKILL.md) skill,
+   which orchestrates [`/sync-docs`](.claude/skills/sync-docs/SKILL.md) (docs, shims,
+   llms.txt, exports, changesets) + [`/sync-storybook`](.claude/skills/sync-storybook/SKILL.md)
+   (story coverage) and runs the final build/typecheck/lint. Edit canonical files,
+   **never** regenerate a shim by hand beyond the inlined rules.
 
 ### Sync map
 
@@ -103,10 +106,11 @@ done.
 | --- | --- |
 | A hard rule / command / the package list/count in this file | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) (it **inlines** rules + the package count), and [docs/conventions.md](docs/conventions.md) if it's a coding convention |
 | A package's `exports` / subpaths / `tsdown` entries / directives | that package's `packages/*/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then regenerate `llms.txt` (`pnpm gen:llms`), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions.md](docs/conventions.md) if the add-subpath flow changed (`docs/packages/<pkg>.md` is just a pointer — no content change needed) |
+| A `@chatool/ui` component or `@chatool/icons` icon | add/extend a story in [`apps/storybook`](apps/storybook) — run [`/sync-storybook`](.claude/skills/sync-storybook/SKILL.md) (stories don't auto-discover; the icon gallery is enumerated by hand) |
 | A package's `README.md` "For AI agents" section or `package.json` `description` | regenerate `llms.txt` (`pnpm gen:llms`) — it's derived, never hand-edited |
-| Add or remove a package | the table in [What this repo is](#what-this-repo-is) (+ its "five packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim |
+| Add or remove a package | the table in [What this repo is](#what-this-repo-is) (+ its "six packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim |
 | Add or remove an AI-tool shim | the table in [docs/ai-agents.md](docs/ai-agents.md) |
-| Any functional (non-doc) change | add a Changeset (`pnpm changeset`) |
+| Any functional (non-doc) change to a published package | add a Changeset (`pnpm changeset`) |
 
 ## Conventions
 

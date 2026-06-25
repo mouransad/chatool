@@ -26,3 +26,6 @@ Package-scoped rules. Root rules still apply: [../../AGENTS.md](../../AGENTS.md)
 - Author SVGs with `stroke="currentColor"` / `fill="currentColor"` so `text-*`
   utilities tint them, and rely on `icon: true` (1em sizing) so `className` /
   `size-*` controls dimensions.
+- **Adding an icon also needs a gallery entry** in
+  [`apps/storybook/stories/Icons.stories.tsx`](../../apps/storybook/stories/Icons.stories.tsx),
+  which enumerates icons by hand — run the `/sync-storybook` skill.

@@ -23,5 +23,8 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   `default` and named exports (e.g. `Button` + `buttonVariants`). Adding a
   component = new `tsdown` entry + new `exports` subpath (ESM + CJS). No barrel to
   update.
+- **Adding a component also needs a Storybook story** in
+  [`apps/storybook`](../../apps/storybook) (stories don't auto-discover new
+  subpaths) — run the `/sync-storybook` skill.
 - Component bodies are scaffolds; replacing them with the real landing-repo
   sources must preserve the directives and the exports map.

@@ -39,3 +39,7 @@ Drop a `*.stories.tsx` in [`stories/`](stories/) and import the component from
 its published subpath (e.g. `@chatool/ui/button`). Add `tags: ["autodocs"]` to
 generate a Docs page. Tailwind v4 is wired via `@tailwindcss/vite`; the preview
 CSS lives in [`.storybook/preview.css`](.storybook/preview.css).
+
+Stories don't auto-discover new exports, and the icon gallery is enumerated by
+hand — after adding a `@chatool/ui` component or a `@chatool/icons` icon, run the
+**`/sync-storybook`** skill to catch/fix missing coverage.
