@@ -36,7 +36,8 @@ code as it is **now** (not how the docs describe it):
 | Changed | Reconcile |
 | --- | --- |
 | Hard rule / command / package count in `AGENTS.md` | `.github/copilot-instructions.md` (inlines rules + count), `docs/conventions.md` |
-| A package's `exports` / subpaths / `tsdown` entries / directives | `packages/<pkg>/AGENTS.md`, `docs/packages/<pkg>.md` (Exports table + Usage examples), `docs/guides/contributing.md`, `docs/conventions.md` |
+| A package's `exports` / subpaths / `tsdown` entries / directives | `packages/<pkg>/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then `pnpm gen:llms`, `docs/guides/contributing.md`, `docs/conventions.md` (`docs/packages/<pkg>.md` is just a pointer) |
+| A package's `README.md` "For AI agents" / `package.json` `description` | `pnpm gen:llms` (regenerates `llms.txt`; never hand-edit it) |
 | Add / remove a package | `AGENTS.md` table + count, root `README.md`, `docs/README.md`, `docs/packages/README.md`, Copilot shim count |
 | Add / remove an AI-tool shim | `docs/ai-agents.md` table |
 | Any functional change | a `.changeset/*.md` exists (see step 4) |
@@ -63,6 +64,14 @@ rg -n 'from "@chatool/(ui|icons)"' docs README.md .github   # root-barrel import
 for p in styles utils ui icons api; do
   echo "== $p =="; node -e "console.log(Object.keys(require('./packages/$p/package.json').exports))"
 done
+
+# (d) Shipped consumer docs: every package keeps "llms.txt" in `files`, and the
+#     generated llms.txt is current (run clean — no manual edits).
+for p in styles utils ui icons api; do
+  node -e "const f=require('./packages/$p/package.json').files; if(!f.includes('llms.txt')) throw new Error('$p missing llms.txt in files')"
+done
+pnpm gen:llms                                   # regenerate; llms.txt is gitignored
+rg -n '\.\./\.\./docs' packages/*/README.md     # shipped READMEs must be self-contained (expect none)
 ```
 
 For each hit, confirm against the real `package.json` `exports` / `src/` and fix

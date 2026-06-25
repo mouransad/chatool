@@ -1,12 +1,13 @@
 {
   "name": "@chatool/ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shadcn-based React UI components and icons for Chatool apps. Requires @chatool/styles for design tokens.",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": false,
   "files": [
-    "dist"
+    "dist",
+    "llms.txt"
   ],
   "exports": {
     "./button": {
@@ -44,7 +45,8 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepack": "node ../../scripts/gen-llms.mjs ."
   },
   "dependencies": {
     "@chatool/icons": "workspace:^",

@@ -1,12 +1,13 @@
 {
   "name": "@chatool/utils",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Shared utilities and React hooks for Chatool apps (cn, useBoolean, useDelayVisibility, endPointUrlNormalizer).",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": false,
   "files": [
-    "dist"
+    "dist",
+    "llms.txt"
   ],
   "exports": {
     ".": {
@@ -34,7 +35,8 @@
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepack": "node ../../scripts/gen-llms.mjs ."
   },
   "dependencies": {
     "clsx": "^2.1.1",

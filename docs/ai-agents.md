@@ -40,6 +40,34 @@ Any tool not listed: point it at `AGENTS.md` — that's the contract.
   inside a package (e.g. "styles is placeholder CSS"; "api has no `process.env`").
   Agents that honor nearest-file precedence pick these up automatically.
 
+## Docs shipped to consumers (node_modules)
+
+The wiring above is for AI tools working **in this repo**. There's a second
+audience: AI tools (and humans) working in a **downstream app** that merely
+`pnpm add`ed an `@chatool/*` package. They can't see `docs/` — only what's in
+`node_modules`. So every package ships its own docs inside its npm tarball:
+
+```
+node_modules/@chatool/<pkg>/
+├─ README.md   ← canonical, complete, self-contained reference (npm ships it)
+├─ llms.txt    ← llmstxt.org-style LLM entry point (listed in `files`)
+└─ dist/ …     ← code + .d.ts types
+```
+
+- **`packages/<pkg>/README.md` is the single canonical per-package doc.** It must
+  be **self-contained** (no `../../docs` links, which break once installed). The
+  central `docs/packages/<pkg>.md` is just a pointer to it; the future docs website
+  aggregates these READMEs plus the central guides.
+- **`llms.txt` is generated, never hand-edited.**
+  [`scripts/gen-llms.mjs`](../scripts/gen-llms.mjs) builds it from the README's
+  `## For AI agents` section + `package.json` (name, description, exports, peers).
+  Run `pnpm gen:llms`; it also runs on `pnpm build` (`postbuild`) and at publish
+  time (each package's `prepack`). A root `llms.txt` indexes all packages for the
+  future website.
+
+This keeps a single source of truth (the README) while putting complete,
+AI-readable guidance exactly where a consumer's agent will look.
+
 ## Adding a new tool
 
 1. Find the file/convention that tool reads.

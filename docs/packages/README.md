@@ -2,8 +2,11 @@
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → **Packages**
 
-Deep-dive documentation for each published package. For install + per-framework
-wiring, see the [consuming guides](../guides/consuming/README.md).
+The **canonical, complete reference for each package is its own
+`packages/<pkg>/README.md`** — which ships inside the npm tarball (plus a generated
+`llms.txt`), so the docs are available in consumers' `node_modules`. The pages
+below are thin pointers to those READMEs. For install + per-framework wiring, see
+the [consuming guides](../guides/consuming/README.md).
 
 | Package | Page | One-liner |
 | --- | --- | --- |
@@ -15,7 +18,8 @@ wiring, see the [consuming guides](../guides/consuming/README.md).
 
 Each package also has:
 
-- a registry-facing `README.md` (`packages/<pkg>/README.md`),
+- the **canonical** complete reference `README.md` (`packages/<pkg>/README.md`,
+  shipped to npm) + a generated `llms.txt`,
 - package-scoped agent rules (`packages/<pkg>/AGENTS.md`).
 
 ---

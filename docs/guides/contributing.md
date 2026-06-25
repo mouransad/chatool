@@ -16,9 +16,11 @@ Changeset.
    CJS `.cjs`/`.d.cts`).
 4. Re-export from the package barrel (`src/index.ts`) **only if the package has
    one** — `@chatool/ui` and `@chatool/icons` are subpath-only (no root barrel).
-5. Document it: update the relevant [package page](../packages/README.md), and
-   any shim/doc the [sync map in `AGENTS.md`](../../AGENTS.md) lists (or run the
-   `/sync-docs` skill).
+5. Document it in the **canonical `packages/<pkg>/README.md`** (Exports + Usage +
+   the "For AI agents" section), then regenerate the shipped AI index with
+   `pnpm gen:llms`. Reconcile any other doc/shim the
+   [sync map in `AGENTS.md`](../../AGENTS.md) lists (or run the `/sync-docs` skill).
+   `docs/packages/<pkg>.md` is just a pointer — no content change needed.
 6. `pnpm build && pnpm typecheck && pnpm lint`, then `pnpm changeset`.
 
 ## Add a new package
@@ -28,10 +30,13 @@ Changeset.
    [peer-vs-dep rule](../conventions.md#dependencies-peer-vs-dep)).
 2. `tsconfig.json` extending `../../tsconfig.json`; `tsdown.config.ts` using
    `defineChatoolConfig`.
-3. Add `README.md` + `AGENTS.md` (copy an existing package's as a template).
-4. Add a `docs/packages/<name>.md` page and link it from
+3. Add the canonical, self-contained `README.md` (complete reference incl. a
+   "For AI agents" section) + `AGENTS.md` (copy an existing package's as a
+   template). Add `"llms.txt"` to the package's `files` and a
+   `"prepack": "node ../../scripts/gen-llms.mjs ."` script.
+4. Add a thin `docs/packages/<name>.md` pointer page and link it from
    [docs/packages/README.md](../packages/README.md).
-5. Build/typecheck/lint, add a Changeset.
+5. `pnpm gen:llms`, then build/typecheck/lint, add a Changeset.
 
 ## Update an AI rule
 

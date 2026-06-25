@@ -32,6 +32,11 @@ pnpm-workspace monorepo publishing five registry-agnostic `@chatool/*` packages
 - peer vs dep: react/react-dom/tailwindcss are `peerDependencies`.
 - Registry-agnostic: never hardcode a registry.
 - Every functional change needs a Changeset (`pnpm changeset`).
+- **Each package ships its own docs.** `packages/<pkg>/README.md` is the single
+  canonical, self-contained per-package reference (no `../../docs` links — they
+  break in `node_modules`); npm ships it. Each package also ships a **generated**
+  `llms.txt` (in `files`) — never hand-edit it; run `pnpm gen:llms` (it also runs on
+  `pnpm build` and at publish via `prepack`). `docs/packages/<pkg>.md` is a pointer.
 - **Keep docs + shims in sync** with every change — this file, `docs/`, and
   `packages/*/AGENTS.md` must match the code (see the sync map in `AGENTS.md`; the
   `/sync-docs` skill automates it).

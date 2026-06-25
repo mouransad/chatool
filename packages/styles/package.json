@@ -1,6 +1,6 @@
 {
   "name": "@chatool/styles",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Shared Tailwind v4 theme + shadcn token layer + base CSS for Chatool apps.",
   "license": "UNLICENSED",
   "sideEffects": [
@@ -8,7 +8,8 @@
   ],
   "files": [
     "styles.css",
-    "theme.css"
+    "theme.css",
+    "llms.txt"
   ],
   "exports": {
     "./styles.css": "./styles.css",
@@ -18,7 +19,8 @@
   "scripts": {
     "build": "node -e \"process.exit(0)\"",
     "dev": "node -e \"process.exit(0)\"",
-    "typecheck": "node -e \"process.exit(0)\""
+    "typecheck": "node -e \"process.exit(0)\"",
+    "prepack": "node ../../scripts/gen-llms.mjs ."
   },
   "peerDependencies": {
     "tailwindcss": "^4.0.0"

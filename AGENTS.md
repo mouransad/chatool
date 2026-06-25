@@ -71,6 +71,16 @@ done.
 6. **Registry-agnostic.** Never hardcode a registry. Publish config lives in
    `publishConfig` + a local `.npmrc` (see [.npmrc.example](.npmrc.example)).
 7. **Every functional change needs a Changeset** (`pnpm changeset`).
+7b. **Each package ships its own docs.** `packages/<pkg>/README.md` is the single
+   **canonical, complete** per-package reference and is **self-contained** (no
+   `../../docs` relative links — they break in `node_modules`). npm ships README
+   automatically. Each package also ships a generated **`llms.txt`** (an
+   llmstxt.org-style LLM entry point) produced by
+   [`scripts/gen-llms.mjs`](scripts/gen-llms.mjs) from the README's
+   `## For AI agents` section + `package.json` — **never hand-edit `llms.txt`**, and
+   keep `"llms.txt"` in each package's `files`. `docs/packages/<pkg>.md` is a thin
+   pointer to the README. Regenerate with `pnpm gen:llms` (also runs on `pnpm build`
+   via `postbuild` and at publish via each package's `prepack`).
 8. **Docs, shims & changesets stay in sync — it's part of "done".** A change
    isn't finished until the docs and per-tool shims it affects are updated (plus a
    Changeset for functional changes). This repo's whole premise is *no drift*
@@ -84,7 +94,8 @@ done.
 | When you change… | Also update… |
 | --- | --- |
 | A hard rule / command / the package list/count in this file | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) (it **inlines** rules + the package count), and [docs/conventions.md](docs/conventions.md) if it's a coding convention |
-| A package's `exports` / subpaths / `tsdown` entries / directives | that package's `packages/*/AGENTS.md`, [docs/packages/](docs/packages/)`<pkg>.md` (Exports + Usage), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions.md](docs/conventions.md) if the add-subpath flow changed |
+| A package's `exports` / subpaths / `tsdown` entries / directives | that package's `packages/*/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then regenerate `llms.txt` (`pnpm gen:llms`), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions.md](docs/conventions.md) if the add-subpath flow changed (`docs/packages/<pkg>.md` is just a pointer — no content change needed) |
+| A package's `README.md` "For AI agents" section or `package.json` `description` | regenerate `llms.txt` (`pnpm gen:llms`) — it's derived, never hand-edited |
 | Add or remove a package | the table in [What this repo is](#what-this-repo-is) (+ its "five packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim |
 | Add or remove an AI-tool shim | the table in [docs/ai-agents.md](docs/ai-agents.md) |
 | Any functional (non-doc) change | add a Changeset (`pnpm changeset`) |
