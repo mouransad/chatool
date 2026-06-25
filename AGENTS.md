@@ -13,7 +13,7 @@ there.** See [docs/ai-agents.md](docs/ai-agents.md) for how the wiring works.
 
 ## What this repo is
 
-A pnpm-workspace monorepo publishing five **registry-agnostic** `@chatool/*`
+A pnpm-workspace monorepo publishing six **registry-agnostic** `@chatool/*`
 packages for React apps (Next.js App Router, Next.js Pages Router, Vite SPA).
 
 | Package | Role | Peers |
@@ -23,6 +23,7 @@ packages for React apps (Next.js App Router, Next.js Pages Router, Vite SPA).
 | `@chatool/ui` | shadcn components | `react`, `react-dom` |
 | `@chatool/icons` | SVGR-generated React SVG icons | `react` |
 | `@chatool/api` | framework-agnostic axios client + services | — |
+| `@chatool/core` | app-root `ChatoolProvider` (theme/dark-mode) | `react` |
 
 Stack: pnpm workspaces, tsdown (ESM+CJS+`.d.ts`), Changesets, TypeScript 5,
 React 19, Tailwind CSS v4.
@@ -115,4 +116,5 @@ Architecture & build internals: [docs/architecture.md](docs/architecture.md) →
   [packages/utils/AGENTS.md](packages/utils/AGENTS.md) ·
   [packages/ui/AGENTS.md](packages/ui/AGENTS.md) ·
   [packages/icons/AGENTS.md](packages/icons/AGENTS.md) ·
-  [packages/api/AGENTS.md](packages/api/AGENTS.md)
+  [packages/api/AGENTS.md](packages/api/AGENTS.md) ·
+  [packages/core/AGENTS.md](packages/core/AGENTS.md)

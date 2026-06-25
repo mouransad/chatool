@@ -10,7 +10,7 @@ differs is **where you call [@chatool/api](../../packages/api.md) and where
 ## Install (any framework)
 
 ```bash
-pnpm add @chatool/styles @chatool/utils @chatool/ui @chatool/api
+pnpm add @chatool/styles @chatool/utils @chatool/ui @chatool/api @chatool/core
 pnpm add -D tailwindcss        # peer of @chatool/styles
 # react / react-dom are peers of utils + ui (your app already has them)
 ```

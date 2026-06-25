@@ -1,24 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useTheme } from "@chatool/core";
 import Button from "@chatool/ui/button";
 
 /**
- * Client island: toggles the `.dark` class on <html> so you can eyeball the
- * `@chatool/styles` light/dark token sets. Lives inside a Server Component.
+ * Client island: flips between light/dark via `@chatool/core`'s ChatoolProvider
+ * so you can eyeball the `@chatool/styles` light/dark token sets. The provider
+ * persists the choice and handles the `.dark` class + no-flash on reload.
  */
 export function ThemeToggle() {
-  const [dark, setDark] = useState(false);
-
-  function toggle() {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle("dark", next);
-  }
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <Button variant="outline" size="sm" onClick={toggle}>
-      {dark ? "Switch to light" : "Switch to dark"}
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+    >
+      {isDark ? "Switch to light" : "Switch to dark"}
     </Button>
   );
 }

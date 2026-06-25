@@ -6,8 +6,8 @@ because Copilot does not follow links automatically.
 
 ## Project
 
-pnpm-workspace monorepo publishing five registry-agnostic `@chatool/*` packages
-(`styles`, `utils`, `ui`, `icons`, `api`) for React apps. Stack: pnpm + tsdown
+pnpm-workspace monorepo publishing six registry-agnostic `@chatool/*` packages
+(`styles`, `utils`, `ui`, `icons`, `api`, `core`) for React apps. Stack: pnpm + tsdown
 (ESM+CJS+dts) + Changesets + TypeScript 5 + React 19 + Tailwind v4.
 
 ## Commands

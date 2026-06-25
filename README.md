@@ -1,6 +1,6 @@
 # chatool
 
-A pnpm-workspace monorepo publishing five reusable, **registry-agnostic**
+A pnpm-workspace monorepo publishing six reusable, **registry-agnostic**
 `@chatool/*` packages for React apps. Consumers can be a **Next.js App Router**
 app, a **Next.js Pages Router** app, or a **Vite SPA**.
 
@@ -11,6 +11,7 @@ app, a **Next.js Pages Router** app, or a **Vite SPA**.
 | [`@chatool/ui`](packages/ui) | shadcn UI components | `@chatool/utils`, `@chatool/icons`, `radix-ui`, `class-variance-authority` | `react`, `react-dom` |
 | [`@chatool/icons`](packages/icons) | SVGR-generated React SVG icons | — | `react` |
 | [`@chatool/api`](packages/api) | framework-agnostic axios client + typed services | `axios` | — |
+| [`@chatool/core`](packages/core) | app-root `ChatoolProvider` — light/dark/system theme | — | `react` |
 
 Tooling: **pnpm workspaces**, **tsdown** (Rolldown + Oxc — ESM + CJS + `.d.ts`,
 with native `"use client"` / `"use server"` directive preservation),
@@ -31,7 +32,7 @@ links:
 - **[Getting started](docs/getting-started.md)** — prerequisites, install, commands.
 - **[Architecture](docs/architecture.md)** & **[Build & tooling](docs/build-and-tooling.md)** — monorepo, dual ESM/CJS, the directive-preserving build.
 - **[Conventions](docs/conventions.md)** — coding/exports/`"use client"`/peer-vs-dep rules.
-- **Packages:** [styles](docs/packages/styles.md) · [utils](docs/packages/utils.md) · [ui](docs/packages/ui.md) · [icons](docs/packages/icons.md) · [api](docs/packages/api.md)
+- **Packages:** [styles](docs/packages/styles.md) · [utils](docs/packages/utils.md) · [ui](docs/packages/ui.md) · [icons](docs/packages/icons.md) · [api](docs/packages/api.md) · [core](docs/packages/core.md)
 - **Guides:** [Local development](docs/guides/local-development.md) · [Publishing](docs/guides/publishing.md) · [Contributing](docs/guides/contributing.md)
 - **Consuming per framework:** [App Router](docs/guides/consuming/nextjs-app-router.md) · [Pages Router](docs/guides/consuming/nextjs-pages-router.md) · [Vite](docs/guides/consuming/vite.md)
 
@@ -53,7 +54,8 @@ chatool/
    ├─ utils/    @chatool/utils
    ├─ ui/       @chatool/ui
    ├─ icons/    @chatool/icons
-   └─ api/      @chatool/api
+   ├─ api/      @chatool/api
+   └─ core/     @chatool/core
 ```
 
 ## Develop in this repo
@@ -73,7 +75,7 @@ and why re-export barrels carry the directive explicitly).
 ## Using the packages in an app
 
 ```bash
-pnpm add @chatool/styles @chatool/utils @chatool/ui @chatool/icons @chatool/api
+pnpm add @chatool/styles @chatool/utils @chatool/ui @chatool/icons @chatool/api @chatool/core
 pnpm add -D tailwindcss        # peer of @chatool/styles
 ```
 
