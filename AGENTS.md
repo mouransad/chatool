@@ -37,7 +37,14 @@ pnpm dev          # tsdown --watch across packages
 pnpm typecheck    # tsc --noEmit per package
 pnpm lint         # eslint .
 pnpm changeset    # record a release note (required for functional changes)
+pnpm storybook    # run the internal component catalog (apps/storybook) at :6006
 ```
+
+> Internal apps live under `apps/*` (not published): `playground` (Next.js) and
+> `storybook` (the `@chatool/*` component catalog — `pnpm storybook`). Both
+> consume the packages' built `dist` via `workspace:*`; root `build`/`typecheck`/
+> `lint` target `packages/*` only, and `eslint .` ignores `apps/**` (they
+> self-lint).
 
 Always run `pnpm build && pnpm typecheck && pnpm lint` before declaring work
 done.

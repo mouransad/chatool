@@ -13,7 +13,8 @@ pnpm-workspace monorepo publishing six registry-agnostic `@chatool/*` packages
 ## Commands
 
 `pnpm install` · `pnpm build` · `pnpm dev` · `pnpm typecheck` · `pnpm lint` ·
-`pnpm changeset`. Run `pnpm build && pnpm typecheck && pnpm lint` before finishing.
+`pnpm changeset` · `pnpm storybook` (internal component catalog, `apps/storybook`).
+Run `pnpm build && pnpm typecheck && pnpm lint` before finishing.
 
 ## Hard rules
 

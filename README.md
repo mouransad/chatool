@@ -66,7 +66,12 @@ pnpm build          # build every package (dist/ + .d.ts)
 pnpm dev            # tsdown --watch across packages
 pnpm typecheck      # tsc --noEmit per package
 pnpm lint           # eslint .
+pnpm storybook      # internal component catalog (apps/storybook) at :6006
 ```
+
+The repo also ships two internal (unpublished) apps under `apps/`: a Next.js
+`playground` (`pnpm playground`) and a `storybook` component catalog
+(`pnpm storybook` — see the [Storybook guide](docs/guides/storybook.md)).
 
 Details: [Getting started](docs/getting-started.md) ·
 [Build & tooling](docs/build-and-tooling.md) (how tsdown preserves `"use client"`

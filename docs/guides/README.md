@@ -8,6 +8,7 @@ Task-oriented guides.
   another repo before publishing (`pnpm link` / `link:` / `pnpm pack`).
 - [Publishing](publishing.md) — registry-agnostic release flow with Changesets.
 - [Contributing](contributing.md) — add a package, component, or service.
+- [Storybook](storybook.md) — the internal component catalog (`pnpm storybook`).
 - [Consuming the packages](consuming/README.md) — wire them into an app.
   - [Next.js App Router](consuming/nextjs-app-router.md)
   - [Next.js Pages Router](consuming/nextjs-pages-router.md)

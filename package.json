@@ -18,6 +18,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "playground": "pnpm --filter playground dev",
+    "storybook": "pnpm --filter storybook dev",
+    "build-storybook": "pnpm --filter storybook build",
     "clean": "pnpm -r exec rm -rf dist node_modules/.cache && rm -rf node_modules",
     "changeset": "changeset",
     "version-packages": "changeset version",

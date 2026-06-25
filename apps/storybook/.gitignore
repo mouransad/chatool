@@ -1,0 +1,6 @@
+# Storybook
+/storybook-static/
+
+# Build / debug
+*.tsbuildinfo
+npm-debug.log*

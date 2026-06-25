@@ -35,6 +35,7 @@ The canonical, in-depth documentation for the `chatool` monorepo. The root
   - [Local development](guides/local-development.md)
   - [Publishing](guides/publishing.md)
   - [Contributing](guides/contributing.md)
+  - [Storybook](guides/storybook.md)
   - [Consuming the packages](guides/consuming/README.md)
     - [Next.js App Router](guides/consuming/nextjs-app-router.md)
     - [Next.js Pages Router](guides/consuming/nextjs-pages-router.md)
