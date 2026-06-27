@@ -4,14 +4,14 @@ A pnpm-workspace monorepo publishing six reusable, **registry-agnostic**
 `@chatool/*` packages for React apps. Consumers can be a **Next.js App Router**
 app, a **Next.js Pages Router** app, or a **Vite SPA**.
 
-| Package | What it is | Key deps | Peers |
-| --- | --- | --- | --- |
-| [`@chatool/styles`](packages/styles) | CSS-only Tailwind v4 theme + shadcn token layer | — | `tailwindcss` |
-| [`@chatool/utils`](packages/utils) | `cn` + hooks (`useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer`) | `clsx`, `tailwind-merge` | `react` |
-| [`@chatool/ui`](packages/ui) | shadcn UI components | `@chatool/utils`, `@chatool/icons`, `radix-ui`, `class-variance-authority` | `react`, `react-dom` |
-| [`@chatool/icons`](packages/icons) | SVGR-generated React SVG icons | — | `react` |
-| [`@chatool/api`](packages/api) | framework-agnostic axios client + typed services | `axios` | — |
-| [`@chatool/core`](packages/core) | app-root `ChatoolProvider` — light/dark/system theme | — | `react` |
+| Package                              | What it is                                                                 | Key deps                                                                   | Peers                |
+| ------------------------------------ | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------- |
+| [`@chatool/styles`](packages/styles) | CSS-only Tailwind v4 theme + shadcn token layer                            | —                                                                          | `tailwindcss`        |
+| [`@chatool/utils`](packages/utils)   | `cn` + hooks (`useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer`) | `clsx`, `tailwind-merge`                                                   | `react`              |
+| [`@chatool/ui`](packages/ui)         | shadcn UI components                                                       | `@chatool/utils`, `@chatool/icons`, `radix-ui`, `class-variance-authority` | `react`, `react-dom` |
+| [`@chatool/icons`](packages/icons)   | SVGR-generated React SVG icons                                             | —                                                                          | `react`              |
+| [`@chatool/api`](packages/api)       | framework-agnostic axios client + typed services                           | `axios`                                                                    | —                    |
+| [`@chatool/core`](packages/core)     | app-root `ChatoolProvider` — light/dark/system theme                       | —                                                                          | `react`              |
 
 Tooling: **pnpm workspaces**, **tsdown** (Rolldown + Oxc — ESM + CJS + `.d.ts`,
 with native `"use client"` / `"use server"` directive preservation),
@@ -129,13 +129,13 @@ This repo carries instructions for AI coding tools. **[`AGENTS.md`](AGENTS.md)**
 is the single source of truth; every tool-specific file is a thin pointer to it,
 so all tools share the same rules with no drift:
 
-| Tool | File |
-| --- | --- |
-| Claude Code | [`CLAUDE.md`](CLAUDE.md) (`@AGENTS.md` import) + per-package `AGENTS.md` |
-| Cursor | [`.cursor/rules/chatool.mdc`](.cursor/rules/chatool.mdc) (+ native `AGENTS.md`) |
-| GitHub Copilot | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) |
-| Gemini | [`GEMINI.md`](GEMINI.md) |
-| Codex / Zed / Windsurf / others | [`AGENTS.md`](AGENTS.md) (read natively) |
+| Tool                            | File                                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------- |
+| Claude Code                     | [`CLAUDE.md`](CLAUDE.md) (`@AGENTS.md` import) + per-package `AGENTS.md`        |
+| Cursor                          | [`.cursor/rules/chatool.mdc`](.cursor/rules/chatool.mdc) (+ native `AGENTS.md`) |
+| GitHub Copilot                  | [`.github/copilot-instructions.md`](.github/copilot-instructions.md)            |
+| Gemini                          | [`GEMINI.md`](GEMINI.md)                                                        |
+| Codex / Zed / Windsurf / others | [`AGENTS.md`](AGENTS.md) (read natively)                                        |
 
 Each package also has a scoped `packages/*/AGENTS.md`. How it's wired:
 [docs/ai-agents.md](docs/ai-agents.md).

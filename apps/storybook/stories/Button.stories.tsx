@@ -32,9 +32,16 @@ export const Playground: Story = {};
 
 export const Variants: Story = {
   render: (args) => (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="gap-3 flex flex-wrap items-center">
       {(
-        ["default", "secondary", "destructive", "outline", "ghost", "link"] as const
+        [
+          "default",
+          "secondary",
+          "destructive",
+          "outline",
+          "ghost",
+          "link",
+        ] as const
       ).map((variant) => (
         <Button key={variant} {...args} variant={variant}>
           {variant}
@@ -46,7 +53,7 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   render: (args) => (
-    <div className="flex items-center gap-3">
+    <div className="gap-3 flex items-center">
       <Button {...args} size="sm">
         Small
       </Button>

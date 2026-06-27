@@ -25,7 +25,9 @@ import { join } from "node:path";
 const args = process.argv.slice(2);
 const dry = args.includes("--dry");
 const oldFlag = args.indexOf("--old");
-const positional = args.filter((a, i) => !a.startsWith("--") && args[i - 1] !== "--old");
+const positional = args.filter(
+  (a, i) => !a.startsWith("--") && args[i - 1] !== "--old",
+);
 const newToken = positional[0];
 
 if (!newToken) {
@@ -42,8 +44,12 @@ const repoRoot = execFileSync("git", ["rev-parse", "--show-toplevel"], {
 function detectOldToken() {
   if (oldFlag !== -1 && args[oldFlag + 1]) return args[oldFlag + 1];
   try {
-    const pkg = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8"));
-    const m = /^@([^/]+)\//.exec(pkg.name ?? "") || /^([a-z0-9]+)/i.exec(pkg.name ?? "");
+    const pkg = JSON.parse(
+      readFileSync(join(repoRoot, "package.json"), "utf8"),
+    );
+    const m =
+      /^@([^/]+)\//.exec(pkg.name ?? "") ||
+      /^([a-z0-9]+)/i.exec(pkg.name ?? "");
     if (m) return m[1];
   } catch {
     /* ignore */
@@ -53,7 +59,9 @@ function detectOldToken() {
 
 const oldToken = detectOldToken();
 if (oldToken.toLowerCase() === newToken.toLowerCase()) {
-  console.error(`Old and new tokens are the same ("${oldToken}"). Nothing to do.`);
+  console.error(
+    `Old and new tokens are the same ("${oldToken}"). Nothing to do.`,
+  );
   process.exit(1);
 }
 
@@ -145,9 +153,15 @@ console.log(`  paths renamed: ${renames.length}`);
 for (const r of renames) console.log(`    → ${r.from}  ⇒  ${r.to}`);
 console.log("");
 console.log("Next steps:");
-console.log("  1. Adjust the root package.json name if you want a custom root name.");
+console.log(
+  "  1. Adjust the root package.json name if you want a custom root name.",
+);
 console.log("  2. Update .npmrc / .npmrc.example for your registry/scope.");
-console.log("  3. pnpm install   # relink workspace + regenerate pnpm-lock.yaml");
+console.log(
+  "  3. pnpm install   # relink workspace + regenerate pnpm-lock.yaml",
+);
 console.log("  4. pnpm changeset # record a (major) release note");
 console.log("  5. pnpm build && pnpm typecheck && pnpm lint");
-console.log(`  6. grep -ri ${oldToken} . --exclude-dir={node_modules,dist,.git}  # expect no output`);
+console.log(
+  `  6. grep -ri ${oldToken} . --exclude-dir={node_modules,dist,.git}  # expect no output`,
+);

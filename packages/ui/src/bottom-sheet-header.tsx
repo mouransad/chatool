@@ -15,7 +15,7 @@ function BottomSheetHeader({
     <div
       data-slot="bottom-sheet-header"
       className={cn(
-        "flex flex-col gap-1.5 px-4 pb-2 pt-4 text-center sm:text-left",
+        "gap-1.5 px-4 pb-2 pt-4 sm:text-left flex flex-col text-center",
         className,
       )}
       {...props}

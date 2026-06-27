@@ -1,0 +1,12 @@
+node_modules
+dist
+.next
+.turbo
+storybook-static
+coverage
+pnpm-lock.yaml
+llms.txt
+packages/*/llms.txt
+*.tsbuildinfo
+CHANGELOG.md
+.changeset/*.md

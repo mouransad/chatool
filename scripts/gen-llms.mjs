@@ -36,7 +36,10 @@ function extractSection(markdown, heading) {
       break;
     }
   }
-  return lines.slice(start + 1, end).join("\n").trim();
+  return lines
+    .slice(start + 1, end)
+    .join("\n")
+    .trim();
 }
 
 // Render the exports map into import-path bullets.
@@ -79,7 +82,9 @@ function genPackage(pkgDir) {
   lines.push("```bash");
   lines.push(`pnpm add ${name}`);
   if (peers.length) {
-    lines.push(`# peers (install if your app doesn't already have them): ${peers.join(", ")}`);
+    lines.push(
+      `# peers (install if your app doesn't already have them): ${peers.join(", ")}`,
+    );
   }
   lines.push("```");
   lines.push("");
@@ -110,7 +115,9 @@ function genRoot(packages) {
   const lines = [];
   lines.push("# Chatool");
   lines.push("");
-  lines.push(`> ${root.description ?? "Registry-agnostic @chatool/* UI-kit packages for React apps."}`);
+  lines.push(
+    `> ${root.description ?? "Registry-agnostic @chatool/* UI-kit packages for React apps."}`,
+  );
   lines.push("");
   lines.push(
     "Each package ships its own `README.md` (full reference) and `llms.txt` (this format) inside its npm tarball, so the docs are available in `node_modules`.",
@@ -125,7 +132,9 @@ function genRoot(packages) {
   lines.push("");
   lines.push("## Docs");
   lines.push("");
-  lines.push("- Architecture, conventions, guides, and per-framework wiring: `docs/`");
+  lines.push(
+    "- Architecture, conventions, guides, and per-framework wiring: `docs/`",
+  );
   lines.push("- AI-agent instructions for working *in* this repo: `AGENTS.md`");
   lines.push("");
   writeFileSync(join(repoRoot, "llms.txt"), lines.join("\n"));

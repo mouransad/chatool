@@ -10,13 +10,16 @@ function DropdownMenu(
   props: React.ComponentProps<typeof DropdownMenuPrimitive.Root>,
 ) {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
-} 
+}
 
 function DropdownMenuTrigger(
   props: React.ComponentProps<typeof DropdownMenuPrimitive.Trigger>,
 ) {
   return (
-    <DropdownMenuPrimitive.Trigger data-slot="dropdown-menu-trigger" {...props} />
+    <DropdownMenuPrimitive.Trigger
+      data-slot="dropdown-menu-trigger"
+      {...props}
+    />
   );
 }
 
@@ -36,7 +39,7 @@ function DropdownMenuContent({
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
         className={cn(
-          "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+          "p-1 shadow-md z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground",
           className,
         )}
         {...props}
@@ -57,7 +60,7 @@ function DropdownMenuItem({
       data-slot="dropdown-menu-item"
       data-inset={inset ? "" : undefined}
       className={cn(
-        "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 data-inset:pl-8 [&_svg]:size-4 [&_svg]:shrink-0",
+        "gap-2 px-2 py-1.5 text-sm data-inset:pl-8 [&_svg]:size-4 relative flex cursor-default items-center rounded-sm transition-colors outline-none select-none focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:shrink-0",
         className,
       )}
       {...props}
@@ -76,12 +79,12 @@ function DropdownMenuCheckboxItem({
       data-slot="dropdown-menu-checkbox-item"
       checked={checked}
       className={cn(
-        "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
+        "py-1.5 pl-8 pr-2 text-sm relative flex cursor-default items-center rounded-sm transition-colors outline-none select-none focus:bg-accent focus:text-accent-foreground data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
       )}
       {...props}
     >
-      <span className="absolute left-2 flex size-3.5 items-center justify-center">
+      <span className="left-2 size-3.5 absolute flex items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
           <CheckOutlined className="size-4" />
         </DropdownMenuPrimitive.ItemIndicator>
@@ -137,13 +140,13 @@ function DropdownMenuSubTrigger({
       data-slot="dropdown-menu-sub-trigger"
       data-inset={inset ? "" : undefined}
       className={cn(
-        "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent data-inset:pl-8",
+        "px-2 py-1.5 text-sm data-inset:pl-8 flex cursor-default items-center rounded-sm outline-none select-none focus:bg-accent data-[state=open]:bg-accent",
         className,
       )}
       {...props}
     >
       {children}
-      <ChevronRightOutlined className="ml-auto size-4" />
+      <ChevronRightOutlined className="size-4 ml-auto" />
     </DropdownMenuPrimitive.SubTrigger>
   );
 }
@@ -156,7 +159,7 @@ function DropdownMenuSubContent({
     <DropdownMenuPrimitive.SubContent
       data-slot="dropdown-menu-sub-content"
       className={cn(
-        "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg",
+        "p-1 shadow-lg z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground",
         className,
       )}
       {...props}

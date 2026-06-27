@@ -13,8 +13,11 @@ pnpm-workspace monorepo publishing six registry-agnostic `@chatool/*` packages
 ## Commands
 
 `pnpm install` · `pnpm build` · `pnpm dev` · `pnpm typecheck` · `pnpm lint` ·
-`pnpm changeset` · `pnpm storybook` (internal component catalog, `apps/storybook`).
-Run `pnpm build && pnpm typecheck && pnpm lint` before finishing.
+`pnpm format` (Prettier, repo-wide; `format:check` to verify) · `pnpm changeset` ·
+`pnpm storybook` (internal component catalog, `apps/storybook`).
+Run `pnpm build && pnpm typecheck && pnpm lint` before finishing. Formatting is
+owned by Prettier (+ `prettier-plugin-tailwindcss`); ESLint defers via
+`eslint-config-prettier`, and a husky + lint-staged pre-commit hook enforces it.
 
 ## Hard rules
 

@@ -32,11 +32,11 @@ Then import the styles once in your global CSS (see `@chatool/styles`):
 reached through its own path, so editors auto-import the exact subpath and bundles
 stay minimal. All components are client components (`"use client"`).
 
-| Subpath | Exports |
-| --- | --- |
-| `@chatool/ui/button` | `Button` (also `default`), `buttonVariants` |
+| Subpath                     | Exports                                                                                                                                                                          |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@chatool/ui/button`        | `Button` (also `default`), `buttonVariants`                                                                                                                                      |
 | `@chatool/ui/dropdown-menu` | `DropdownMenu`, `DropdownMenuTrigger`, `DropdownMenuContent`, `DropdownMenuItem`, `DropdownMenuCheckboxItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`, `DropdownMenuSub`, … |
-| `@chatool/ui/bottom-sheet` | `BottomSheet`, `BottomSheetContent`, `BottomSheetTrigger`, `BottomSheetHeader`, … |
+| `@chatool/ui/bottom-sheet`  | `BottomSheet`, `BottomSheetContent`, `BottomSheetTrigger`, `BottomSheetHeader`, …                                                                                                |
 
 ## Usage
 

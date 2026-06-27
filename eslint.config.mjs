@@ -2,6 +2,7 @@
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import reactHooks from "eslint-plugin-react-hooks";
+import eslintConfigPrettier from "eslint-config-prettier";
 import globals from "globals";
 
 export default tseslint.config(
@@ -43,4 +44,7 @@ export default tseslint.config(
       ],
     },
   },
+  // Last: turn off ESLint's stylistic rules that overlap with Prettier so the
+  // two tools never disagree. Prettier owns formatting; ESLint owns code quality.
+  eslintConfigPrettier,
 );

@@ -19,7 +19,9 @@ Inject `baseURL` in `getServerSideProps` (or an API route) — server-side env.
 import type { GetServerSideProps } from "next";
 import { createServices, type GetBannersResponse } from "@chatool/api";
 
-export const getServerSideProps: GetServerSideProps<{ data: GetBannersResponse }> = async () => {
+export const getServerSideProps: GetServerSideProps<{
+  data: GetBannersResponse;
+}> = async () => {
   const services = createServices({ baseURL: process.env.API_BASE_URL! });
   const data = await services.clutch.getBanners({ placement: "home" });
   return { props: { data } };
@@ -33,7 +35,10 @@ export const getServerSideProps: GetServerSideProps<{ data: GetBannersResponse }
 import type { NextApiRequest, NextApiResponse } from "next";
 import { createServices } from "@chatool/api";
 
-export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  _req: NextApiRequest,
+  res: NextApiResponse,
+) {
   const services = createServices({ baseURL: process.env.API_BASE_URL! });
   res.json(await services.clutch.getBanners());
 }

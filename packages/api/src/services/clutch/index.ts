@@ -1,9 +1,6 @@
 import { type AxiosInstance, type AxiosRequestConfig } from "axios";
 import { clutchEndPoints } from "./endpoints";
-import {
-  type GetBannersParams,
-  type GetBannersResponse,
-} from "./types";
+import { type GetBannersParams, type GetBannersResponse } from "./types";
 
 export interface ClutchService {
   getBanners(

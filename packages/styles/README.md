@@ -18,10 +18,10 @@ pnpm add -D tailwindcss   # ^4 peer
 
 ## Exports
 
-| Subpath | Contents |
-| --- | --- |
+| Subpath                      | Contents                                     |
+| ---------------------------- | -------------------------------------------- |
 | `@chatool/styles/styles.css` | tokens + variables **+** base `@layer` rules |
-| `@chatool/styles/theme.css` | tokens + variables only (no base resets) |
+| `@chatool/styles/theme.css`  | tokens + variables only (no base resets)     |
 
 `styles.css` `@import`s `theme.css`, so the tokens have a single source.
 

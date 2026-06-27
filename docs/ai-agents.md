@@ -22,13 +22,13 @@ AGENTS.md                          ← canonical (full rules)
 
 ## Tool → file map
 
-| Tool | File it reads | How it's wired here |
-| --- | --- | --- |
-| Claude Code | `CLAUDE.md` (+ nested) | imports `AGENTS.md` via `@AGENTS.md`; reads nested `packages/*/AGENTS.md` automatically |
-| Cursor | `AGENTS.md`, `.cursor/rules/*.mdc` | native `AGENTS.md` support + an `alwaysApply` rule that points to it |
-| GitHub Copilot | `.github/copilot-instructions.md` | pointer **plus** inlined hard rules (Copilot doesn't follow links) |
-| Gemini (CLI / Code Assist) | `GEMINI.md` | one-line pointer to `AGENTS.md` |
-| Codex / Zed / Jules / Aider / Windsurf | `AGENTS.md` | read the canonical file natively |
+| Tool                                   | File it reads                      | How it's wired here                                                                     |
+| -------------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------- |
+| Claude Code                            | `CLAUDE.md` (+ nested)             | imports `AGENTS.md` via `@AGENTS.md`; reads nested `packages/*/AGENTS.md` automatically |
+| Cursor                                 | `AGENTS.md`, `.cursor/rules/*.mdc` | native `AGENTS.md` support + an `alwaysApply` rule that points to it                    |
+| GitHub Copilot                         | `.github/copilot-instructions.md`  | pointer **plus** inlined hard rules (Copilot doesn't follow links)                      |
+| Gemini (CLI / Code Assist)             | `GEMINI.md`                        | one-line pointer to `AGENTS.md`                                                         |
+| Codex / Zed / Jules / Aider / Windsurf | `AGENTS.md`                        | read the canonical file natively                                                        |
 
 Any tool not listed: point it at `AGENTS.md` — that's the contract.
 
