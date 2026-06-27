@@ -1,5 +1,24 @@
 # @chatool/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- 04e1023: Remove the `dropdown-menu`, `bottom-sheet`, and `bottom-sheet-header` components
+  to focus the package on `button` for now. Their `exports` subpaths and tsdown
+  entries are gone, and `@chatool/icons` is no longer a dependency (only `button`
+  remains, which doesn't use icons).
+
+### Patch Changes
+
+- a9c42e5: Adopt the component-directory code-style standard: `button` now lives in
+  `src/button/` (`index.tsx` barrel + `button.tsx` arrow component + `button.types.ts`
+  - `button.variants.ts`). No public API change — `@chatool/ui/button` still default-
+    exports `Button` and named-exports `Button`/`buttonVariants`/`ButtonProps`, and the
+    `dist/button.*` filenames are unchanged. The standard (own directory, arrow
+    components, separate types/variants, `useLogic` for non-trivial logic) is
+    documented in `docs/conventions/` and ESLint-enforced for `packages/ui/src/**`.
+
 ## 0.2.2
 
 ### Patch Changes
