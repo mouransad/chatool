@@ -1,0 +1,16 @@
+import type { SVGProps } from "react";
+const SvgLoginRounded = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 -960 960 960"
+    aria-hidden="true"
+    focusable="false"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M511-120q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h269v-600H511q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h269q24 0 42 18t18 42v600q0 24-18 42t-42 18zm-26-330H150q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h333l-81-81q-9-9-8.5-21t9.5-21 21.5-9 21.5 9l133 133q9 9 9 21t-9 21L447-326q-8.8 9-20.9 8.5t-21.49-9.5q-8.61-9-8.61-21.5t9-21.5z" />
+  </svg>
+);
+export default SvgLoginRounded;

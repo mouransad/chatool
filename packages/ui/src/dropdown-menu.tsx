@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
-import CheckIcon from "@chatool/icons/CheckIcon";
-import ChevronRightIcon from "@chatool/icons/ChevronRightIcon";
+import CheckOutlined from "@chatool/icons/CheckOutlined";
+import ChevronRightOutlined from "@chatool/icons/ChevronRightOutlined";
 import { cn } from "@chatool/utils";
 
 function DropdownMenu(
@@ -83,7 +83,7 @@ function DropdownMenuCheckboxItem({
     >
       <span className="absolute left-2 flex size-3.5 items-center justify-center">
         <DropdownMenuPrimitive.ItemIndicator>
-          <CheckIcon className="size-4" />
+          <CheckOutlined className="size-4" />
         </DropdownMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -143,7 +143,7 @@ function DropdownMenuSubTrigger({
       {...props}
     >
       {children}
-      <ChevronRightIcon className="ml-auto size-4" />
+      <ChevronRightOutlined className="ml-auto size-4" />
     </DropdownMenuPrimitive.SubTrigger>
   );
 }

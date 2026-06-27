@@ -11,9 +11,9 @@ import { cn } from "@chatool/utils";
 
 import { ThemeToggle } from "./components/theme-toggle";
 import { Button } from "@chatool/ui/button";
-import SvgChatoolLogoIcon from "@chatool/icons/ChatoolLogoIcon";
-import SvgChevronDownIcon from "@chatool/icons/ChevronDownIcon";
-import SvgSpinnerIcon from "@chatool/icons/SpinnerIcon";
+import ChatOutlined from "@chatool/icons/ChatOutlined";
+import KeyboardArrowDownOutlined from "@chatool/icons/KeyboardArrowDownOutlined";
+import ProgressActivityOutlined from "@chatool/icons/ProgressActivityOutlined";
 
 function Section({
   title,
@@ -35,7 +35,7 @@ export default function Home() {
     <main className="mx-auto max-w-3xl space-y-8 p-8">
       <header className="flex items-center justify-between">
         <h1 className="flex items-center gap-2 text-2xl font-bold">
-          <SvgChatoolLogoIcon className="size-7 text-primary" />
+          <ChatOutlined className="size-7 text-primary" />
           @chatool/* playground
         </h1>
         <ThemeToggle />
@@ -50,7 +50,7 @@ export default function Home() {
         <Button variant="ghost">Ghost</Button>
         <Button variant="link">Link</Button>
         <Button disabled>
-          <SvgSpinnerIcon className="animate-spin" />
+          <ProgressActivityOutlined className="animate-spin" />
           Loading
         </Button>
       </Section>
@@ -61,7 +61,7 @@ export default function Home() {
           <DropdownMenuTrigger asChild>
             <Button variant="outline">
               Open menu
-              <SvgChevronDownIcon />
+              <KeyboardArrowDownOutlined />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -78,9 +78,9 @@ export default function Home() {
 
       {/* @chatool/icons */}
       <Section title="@chatool/icons">
-        <SvgChatoolLogoIcon className="size-8" />
-        <SvgChevronDownIcon className="size-8 text-muted-foreground" />
-        <SvgSpinnerIcon className="size-8 animate-spin text-primary" />
+        <ChatOutlined className="size-8" />
+        <KeyboardArrowDownOutlined className="size-8 text-muted-foreground" />
+        <ProgressActivityOutlined className="size-8 animate-spin text-primary" />
       </Section>
 
       {/* @chatool/utils — cn() composing conditional classes */}

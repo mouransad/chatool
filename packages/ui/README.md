@@ -55,14 +55,14 @@ import {
 } from "@chatool/ui/bottom-sheet";
 
 // Icons come from @chatool/icons, one subpath per icon:
-import ChevronDownIcon from "@chatool/icons/ChevronDownIcon";
+import KeyboardArrowDownOutlined from "@chatool/icons/KeyboardArrowDownOutlined";
 
 export function Example() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button>
-          Open <ChevronDownIcon className="size-4" />
+          Open <KeyboardArrowDownOutlined className="size-4" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

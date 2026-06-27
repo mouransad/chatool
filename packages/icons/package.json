@@ -1,6 +1,6 @@
 {
   "name": "@chatool/icons",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Tree-shakeable React SVG icon components for Chatool apps, generated from raw SVGs with SVGR.",
   "license": "UNLICENSED",
   "type": "module",
@@ -23,6 +23,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
+    "sync:icons": "node scripts/sync-icons.mjs",
     "generate": "svgr --config-file svgr.config.mjs --out-dir src -- svg",
     "prebuild": "pnpm generate",
     "build": "tsdown",
@@ -34,6 +35,7 @@
     "react": "^19.0.0"
   },
   "devDependencies": {
+    "@material-symbols/svg-400": "^0.45.4",
     "@svgr/cli": "^8.1.0",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
