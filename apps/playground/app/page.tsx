@@ -1,12 +1,3 @@
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-  DropdownMenuCheckboxItem,
-} from "@chatool/ui/dropdown-menu";
 import { cn } from "@chatool/utils";
 
 import { ThemeToggle } from "./components/theme-toggle";
@@ -53,27 +44,6 @@ export default function Home() {
           <ProgressActivityOutlined className="animate-spin" />
           Loading
         </Button>
-      </Section>
-
-      {/* @chatool/ui — DropdownMenu (exercises the internal icons too) */}
-      <Section title="@chatool/ui — DropdownMenu">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline">
-              Open menu
-              <KeyboardArrowDownOutlined />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuCheckboxItem checked>
-              Notifications
-            </DropdownMenuCheckboxItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </Section>
 
       {/* @chatool/icons */}

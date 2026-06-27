@@ -24,8 +24,6 @@ export default defineChatoolConfig({
   entry: {
     // One entry per component — @chatool/ui is subpath-only (no barrel).
     button: "src/button.tsx",
-    "dropdown-menu": "src/dropdown-menu.tsx",
-    "bottom-sheet": "src/bottom-sheet.tsx",
   },
 });
 ```
