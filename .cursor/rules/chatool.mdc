@@ -14,12 +14,18 @@ Key rules (full set in `AGENTS.md` and each `packages/*/AGENTS.md`):
   of an entry's own source — re-export barrels keep the directive explicitly.
 - `@chatool/api` stays framework-agnostic: no `process.env`, no `"use server"`,
   `baseURL` is injected.
-- Keep `"use client"` directives and `exports` maps correct; every package is
-  `"type": "module"` with dual ESM/CJS output (`.mjs`/`.d.mts` + `.cjs`/`.d.cts`).
+- Keep `exports` maps correct; every package is `"type": "module"` with dual
+  ESM/CJS output (`.mjs`/`.d.mts` + `.cjs`/`.d.cts`).
+- Server Components by default: pure components ship no directive; add
+  `"use client";` only for client features (hooks/context/event-wiring/browser
+  APIs/client-only deps). When in doubt add it (the Vite warning is harmless).
+  See `docs/conventions/client-server-components.md`.
 - `@chatool/ui` components: one kebab-case directory each (`button/` → `index.tsx`
-  barrel with `"use client";` + `button.tsx` arrow component + `*.types.ts` /
-  `*.variants.ts` + optional `useLogic`); arrow, one-per-file, default-exported.
-  Icons exempt. ESLint-enforced for `packages/ui/src/**`. See `docs/conventions.md`.
+  barrel + `button.tsx` arrow component + `*.types.ts` / `*.variants.ts` + optional
+  `useLogic`); arrow, one-per-file, default-exported; client components carry
+  `"use client";` on the view file **and** the `index.tsx` entry barrel. Icons
+  exempt. ESLint-enforced for `packages/ui/src/**`. See
+  `docs/conventions/component-structure.md`.
 - Registry-agnostic; every functional change needs a Changeset.
 
 Edit rules in `AGENTS.md`, not here.

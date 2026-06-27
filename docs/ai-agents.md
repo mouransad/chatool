@@ -76,7 +76,7 @@ AI-readable guidance exactly where a consumer's agent will look.
 
 ## Related
 
-- [Conventions](conventions.md) — the human-facing version of the same rules.
+- [Conventions](conventions/README.md) — the human-facing version of the same rules.
 - [Contributing](guides/contributing.md)
 
 ---

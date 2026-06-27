@@ -57,7 +57,7 @@ their own page:
 
 ## Related
 
-- [Conventions](conventions.md) — the rules that keep the above consistent.
+- [Conventions](conventions/README.md) — the rules that keep the above consistent.
 - [Packages](packages/README.md) — per-package exports and design.
 
 ---

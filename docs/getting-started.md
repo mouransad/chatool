@@ -35,7 +35,7 @@ Run `pnpm build && pnpm typecheck && pnpm lint` before considering a change done
 ## What to read next
 
 - [Architecture](architecture.md) — how the monorepo and build fit together.
-- [Conventions](conventions.md) — the rules to follow when changing code.
+- [Conventions](conventions/README.md) — the rules to follow when changing code.
 - [Consuming the packages](guides/consuming/README.md) — wiring them into an app.
 
 ---

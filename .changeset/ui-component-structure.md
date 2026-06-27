@@ -8,4 +8,4 @@ Adopt the component-directory code-style standard: `button` now lives in
 exports `Button` and named-exports `Button`/`buttonVariants`/`ButtonProps`, and the
 `dist/button.*` filenames are unchanged. The standard (own directory, arrow
 components, separate types/variants, `useLogic` for non-trivial logic) is
-documented in `docs/conventions.md` and ESLint-enforced for `packages/ui/src/**`.
+documented in `docs/conventions/` and ESLint-enforced for `packages/ui/src/**`.

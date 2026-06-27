@@ -15,7 +15,7 @@ also shipped inside the npm tarball (so it's available in consumers'
 **→ [packages/core/README.md](../../packages/core/README.md)**
 
 - **Agent rules (contributing to this package):** [packages/core/AGENTS.md](../../packages/core/AGENTS.md)
-- **`"use client"` boundary rules:** [Conventions](../conventions.md)
+- **`"use client"` boundary rules:** [Client vs Server Components](../conventions/client-server-components.md)
 
 ---
 

@@ -91,7 +91,7 @@ produces declarations. Each `packages/*/tsconfig.json` extends it and sets
 ## Related
 
 - [Architecture](architecture.md) — the bigger picture.
-- [Conventions](conventions.md) — exports/directive rules to follow.
+- [Conventions](conventions/README.md) — exports/directive rules to follow.
 
 ---
 

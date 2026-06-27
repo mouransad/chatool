@@ -2,7 +2,7 @@
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Guides](README.md) → **Contributing**
 
-Read [Conventions](../conventions.md) and [Build & tooling](../build-and-tooling.md)
+Read [Conventions](../conventions/README.md) and [Build & tooling](../build-and-tooling.md)
 first. Always finish by running the **`/sync`** skill — it reconciles docs, the
 per-tool AI shims, `llms.txt`, exports, Storybook stories, and the Changeset, then
 runs `pnpm build && pnpm typecheck && pnpm lint`. See [Skills](#skills) below.
@@ -10,8 +10,10 @@ runs `pnpm build && pnpm typecheck && pnpm lint`. See [Skills](#skills) below.
 ## Add a component/hook/service subpath to a package
 
 1. Create `src/<name>.tsx` (or `.ts`). Add `"use client";` only if it uses
-   hooks/client APIs — see the [`"use client"` rules](../conventions.md#use-client--use-server).
-   (A re-export-only barrel needs the directive at its own top.)
+   hooks/client APIs — see [Client vs Server Components](../conventions/client-server-components.md)
+   (prefer Server Components for pure modules; a re-export-only barrel needs the
+   directive at its own top). For an `@chatool/ui` component, use a per-component
+   directory instead — see [Component structure](../conventions/component-structure.md).
 2. Add it to the package's `tsdown.config.ts` `entry` map.
 3. Add a matching `exports` subpath in `package.json` (ESM `.mjs`/`.d.mts` +
    CJS `.cjs`/`.d.cts`).
@@ -32,7 +34,7 @@ runs `pnpm build && pnpm typecheck && pnpm lint`. See [Skills](#skills) below.
 
 1. `packages/<name>/` with `package.json` (`"type": "module"`,
    `sideEffects`, `files`, `exports`, `publishConfig.access`, peers/deps per the
-   [peer-vs-dep rule](../conventions.md#dependencies-peer-vs-dep)).
+   [peer-vs-dep rule](../conventions/dependencies.md)).
 2. `tsconfig.json` extending `../../tsconfig.json`; `tsdown.config.ts` using
    `defineChatoolConfig`.
 3. Add the canonical, self-contained `README.md` (complete reference incl. a
@@ -62,7 +64,7 @@ Repo skills automate the "no drift" contract (in `.claude/skills/`):
 
 ## Related
 
-- [Conventions](../conventions.md)
+- [Conventions](../conventions/README.md)
 - [Publishing](publishing.md)
 
 ---

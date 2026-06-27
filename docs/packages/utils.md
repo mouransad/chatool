@@ -12,7 +12,7 @@ also shipped inside the npm tarball (so it's available in consumers'
 **→ [packages/utils/README.md](../../packages/utils/README.md)**
 
 - **Agent rules (contributing to this package):** [packages/utils/AGENTS.md](../../packages/utils/AGENTS.md)
-- **`"use client"` boundary rules:** [Conventions](../conventions.md)
+- **`"use client"` boundary rules:** [Client vs Server Components](../conventions/client-server-components.md)
 
 ---
 

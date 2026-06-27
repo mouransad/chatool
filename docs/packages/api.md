@@ -13,7 +13,7 @@ also shipped inside the npm tarball (so it's available in consumers'
 
 - **Agent rules (contributing to this package):** [packages/api/AGENTS.md](../../packages/api/AGENTS.md)
 - **Per-framework wiring (App Router / Pages / Vite):** [Consuming guides](../guides/consuming/README.md)
-- **Why no `process.env`:** [Conventions](../conventions.md)
+- **Why no `process.env`:** [Client vs Server Components](../conventions/client-server-components.md)
 
 ---
 

@@ -26,8 +26,14 @@ owned by Prettier (+ `prettier-plugin-tailwindcss`); ESLint defers via
   `packages/utils/src/hooks/index.ts`) carry `"use client";` explicitly — keep it.
 - **`@chatool/api` is framework-agnostic**: no `process.env`, no `"use server"`,
   no framework imports; `baseURL` is always injected.
-- Client hooks/components keep `"use client"`; pure modules (`cn`, icons, the api
-  client) must not have it.
+- **Server Components by default.** Pure components (props → JSX) ship with NO
+  directive (render as RSC in App Router; work in Pages Router / Vite / webpack).
+  Add `"use client";` only for client features (hooks incl. any `useLogic`,
+  context, internal event-handler wiring, browser/DOM APIs, class components, or a
+  client-only dep like `radix-ui`). When in doubt add it — omitting it from an
+  interactive component is a hard App-Router error; adding it is at worst a
+  suppressible Vite `MODULE_LEVEL_DIRECTIVE` warning. Icons/`cn`/the api client
+  stay directive-free. Spec: `docs/conventions/client-server-components.md`.
 - Every package is `"type": "module"`; keep `exports` maps + `tsdown` entries in
   sync (ESM `.mjs`/`.d.mts` + CJS `.cjs`/`.d.cts`) when adding subpaths.
 - **`@chatool/ui` and `@chatool/icons` are subpath-only (no root barrel).**
@@ -38,9 +44,11 @@ owned by Prettier (+ `prettier-plugin-tailwindcss`); ESLint defers via
   `button.tsx` + `button.types.ts` + `button.variants.ts` + optional
   `use-logic.ts`). Components are arrow functions, one per file, default-exported;
   types/cva in separate `*.types.ts`/`*.variants.ts`; non-trivial logic in a
-  `useLogic` hook. The `index.tsx` barrel carries `"use client";` and its tsdown
-  entry key equals the subpath. Enforced by `eslint-plugin-react` +
-  `eslint-plugin-unicorn` for `packages/ui/src/**`. Spec: `docs/conventions.md`.
+  `useLogic` hook. **If** the component is a client component, the view file AND
+  the `index.tsx` entry barrel each carry `"use client";` (pure ones carry none).
+  The tsdown entry key equals the subpath. Enforced by `eslint-plugin-react` +
+  `eslint-plugin-unicorn` for `packages/ui/src/**`. Spec:
+  `docs/conventions/component-structure.md`.
 - peer vs dep: react/react-dom/tailwindcss are `peerDependencies`.
 - Registry-agnostic: never hardcode a registry.
 - Every functional change needs a Changeset (`pnpm changeset`).

@@ -15,8 +15,12 @@ The canonical, in-depth documentation for the `chatool` monorepo. The root
   ESM/CJS output.
   - [Build & tooling](build-and-tooling.md) — tsdown preset, native directive
     preservation, ESLint, base tsconfig.
-- [Conventions](conventions.md) — coding, exports, `"use client"`, peer-vs-dep,
-  Changesets.
+- [Conventions](conventions/README.md) — coding, exports, `"use client"`,
+  peer-vs-dep, Changesets (one file per category).
+  - [Client vs Server Components](conventions/client-server-components.md) — the
+    Server-Components-by-default policy + cross-framework `"use client"` rules.
+  - [Component structure](conventions/component-structure.md) — one directory per
+    `@chatool/ui` component.
 - [AI agents](ai-agents.md) — how `AGENTS.md` + the per-tool shims are wired.
 
 ## Packages

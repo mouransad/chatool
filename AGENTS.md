@@ -106,31 +106,43 @@ formatting is enforced automatically — run `pnpm format` if you bypass it.
 
 ### Sync map
 
-| When you change…                                                                | Also update…                                                                                                                                                                                                                                                                                                                                                                               |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| A hard rule / command / the package list/count in this file                     | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) (it **inlines** rules + the package count), and [docs/conventions.md](docs/conventions.md) if it's a coding convention                                                                                                                                                                                                |
-| A package's `exports` / subpaths / `tsdown` entries / directives                | that package's `packages/*/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then regenerate `llms.txt` (`pnpm gen:llms`), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions.md](docs/conventions.md) if the add-subpath flow changed (`docs/packages/<pkg>.md` is just a pointer — no content change needed) |
-| A `@chatool/ui` component or `@chatool/icons` icon                              | add/extend a story in [`apps/storybook`](apps/storybook) — run [`/sync-storybook`](.claude/skills/sync-storybook/SKILL.md) (stories don't auto-discover; the icon gallery is enumerated by hand)                                                                                                                                                                                           |
-| A package's `README.md` "For AI agents" section or `package.json` `description` | regenerate `llms.txt` (`pnpm gen:llms`) — it's derived, never hand-edited                                                                                                                                                                                                                                                                                                                  |
-| Add or remove a package                                                         | the table in [What this repo is](#what-this-repo-is) (+ its "five packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim                                                                                                                                            |
-| Add or remove an AI-tool shim                                                   | the table in [docs/ai-agents.md](docs/ai-agents.md)                                                                                                                                                                                                                                                                                                                                        |
-| Any functional (non-doc) change to a published package                          | add a Changeset (`pnpm changeset`)                                                                                                                                                                                                                                                                                                                                                         |
+| When you change…                                                                | Also update…                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A hard rule / command / the package list/count in this file                     | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) (it **inlines** rules + the package count), and the relevant file under [docs/conventions/](docs/conventions/) if it's a coding convention                                                                                                                                                                        |
+| A package's `exports` / subpaths / `tsdown` entries / directives                | that package's `packages/*/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then regenerate `llms.txt` (`pnpm gen:llms`), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions/](docs/conventions/) if the add-subpath flow changed (`docs/packages/<pkg>.md` is just a pointer — no content change needed) |
+| A `@chatool/ui` component or `@chatool/icons` icon                              | add/extend a story in [`apps/storybook`](apps/storybook) — run [`/sync-storybook`](.claude/skills/sync-storybook/SKILL.md) (stories don't auto-discover; the icon gallery is enumerated by hand)                                                                                                                                                                                       |
+| A package's `README.md` "For AI agents" section or `package.json` `description` | regenerate `llms.txt` (`pnpm gen:llms`) — it's derived, never hand-edited                                                                                                                                                                                                                                                                                                              |
+| Add or remove a package                                                         | the table in [What this repo is](#what-this-repo-is) (+ its "five packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim                                                                                                                                        |
+| Add or remove an AI-tool shim                                                   | the table in [docs/ai-agents.md](docs/ai-agents.md)                                                                                                                                                                                                                                                                                                                                    |
+| Any functional (non-doc) change to a published package                          | add a Changeset (`pnpm changeset`)                                                                                                                                                                                                                                                                                                                                                     |
 
 ## Conventions
 
-Full coding/exports/naming conventions: [docs/conventions.md](docs/conventions.md).
-Architecture & build internals: [docs/architecture.md](docs/architecture.md) →
+Full coding/exports/naming conventions: [docs/conventions/](docs/conventions/)
+(one file per category). Architecture & build internals:
+[docs/architecture.md](docs/architecture.md) →
 [docs/build-and-tooling.md](docs/build-and-tooling.md).
+
+**Server Components by default.** A pure component (props → JSX) ships with **no**
+directive so it can render as a React Server Component in Next App Router and works
+everywhere (Pages Router / Vite / webpack). Add `"use client";` **only** when the
+module needs client features (hooks — including any custom `useLogic` —, context,
+internal event-handler wiring, browser/DOM APIs, class components, or a client-only
+dep like `radix-ui`). When in doubt add it: omitting it from an interactive
+component is a hard App-Router build error, while adding it is at worst a
+suppressible Vite warning. `@chatool/api` never has any directive. Canonical spec:
+[docs/conventions/client-server-components.md](docs/conventions/client-server-components.md).
 
 **`@chatool/ui` component structure:** each component is its own kebab-case
 directory under `packages/ui/src/` (e.g. `button/` with `index.tsx` +
 `button.tsx` + `button.types.ts` + `button.variants.ts` + optional `use-logic.ts`);
 components are arrow functions, one per file, default-exported, with types and
 cva variants in separate `*.types.ts` / `*.variants.ts` files and non-trivial
-logic split into a `useLogic` hook. The `index.tsx` barrel **must** carry
-`"use client";`. Enforced for `packages/ui/src/**` by `eslint-plugin-react` +
-`eslint-plugin-unicorn`. Icons are exempt. Canonical spec:
-[docs/conventions.md → Component structure](docs/conventions.md#component-structure-chatoolui).
+logic split into a `useLogic` hook. **If** the component is a client component, the
+view file **and** the `index.tsx` entry barrel each carry `"use client";` (a pure
+server component has none). Enforced for `packages/ui/src/**` by
+`eslint-plugin-react` + `eslint-plugin-unicorn`. Icons are exempt. Canonical spec:
+[docs/conventions/component-structure.md](docs/conventions/component-structure.md).
 
 ## Documentation map
 
