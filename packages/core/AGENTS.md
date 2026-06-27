@@ -9,19 +9,32 @@ Human docs: [docs/packages/core.md](../../docs/packages/core.md).
   `src/theme/index.ts` (tsdown only keeps a directive at the top of the entry's
   own source, so the barrels need it too). `src/theme/types.ts` is types-only and
   stays pure.
-- **Theme-only by design.** This package owns dark-mode/theme state and nothing
-  else. Do **not** pull `@chatool/api` (or its services) into a React context
-  here — the API stays framework-agnostic and server-injectable via
-  `createServices`/`getServices`. Do **not** try to absorb the CSS imports; the
-  `@import "@chatool/styles/..."` / `@source` lines stay in the consumer's global
-  CSS because Tailwind needs them at build time.
+- **Theme + CSS by design.** This package owns dark-mode/theme state **and** the
+  CSS-only theme layer (`styles.css` / `theme.css`) — and nothing else. Do
+  **not** pull `@chatool/api` (or its services) into a React context here — the
+  API stays framework-agnostic and server-injectable via
+  `createServices`/`getServices`. The provider JS does **not** import the CSS;
+  the `@import "@chatool/core/styles.css"` / `@source` lines stay in the
+  consumer's global CSS because Tailwind needs them at build time.
+- **The CSS is CSS-only, no build.** `styles.css` / `theme.css` live at the
+  package root (not `dist/`), are exported directly (`./styles.css`,
+  `./theme.css`), listed in `files`, and untouched by tsdown. `styles.css` must
+  `@import "./theme.css"` (single source for tokens). Keep base `@layer` rules in
+  `styles.css`; keep tokens + `:root`/`.dark` vars in `theme.css`. Do **not** add
+  `@import "tailwindcss";` here — the consumer adds that. The shipped files are
+  **placeholders** mirroring a standard shadcn + Tailwind v4 token layer.
+- **`tailwindcss` is an optional `peerDependency`** (only needed to process the
+  theme CSS), never a dependency. `core` marks `**/*.css` in `sideEffects`.
 - **Dark mode is class-based.** The provider toggles the `dark` class on
   `<html>`, matching the `.dark { … }` selector in
-  [packages/styles/theme.css](../../packages/styles/theme.css). Keep that class
-  name in sync if the styles ever change it.
+  [theme.css](./theme.css). Keep that class name in sync if the CSS ever
+  changes it.
 - **No-flash script is intentional.** The inline `<script>` rendered by
   `ChatoolProvider` runs before hydration to set the class with no flash. Its
   logic must stay equivalent to `resolveTheme` in `chatool-provider.tsx`.
-- `react` is the only `peerDependency`; there are no runtime `dependencies`.
-- One subpath: `.`. If you add another, update `exports` + `tsdown.config.ts`
-  together (ESM `.mjs`/`.d.mts` + CJS `.cjs`/`.d.cts`).
+- `react` is the only required `peerDependency` (`tailwindcss` is an optional
+  peer); there are no runtime `dependencies`.
+- Subpaths: `.` (JS), `./styles.css`, `./theme.css`. If you add another JS
+  subpath, update `exports` + `tsdown.config.ts` together (ESM `.mjs`/`.d.mts` +
+  CJS `.cjs`/`.d.cts`). CSS subpaths are mapped directly to the root `.css` files
+  (no tsdown entry).

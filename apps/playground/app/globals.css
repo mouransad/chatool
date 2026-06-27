@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@chatool/styles/styles.css";
+@import "@chatool/core/styles.css";
 
 /*
  * Tailwind v4 auto-detects sources but ignores `node_modules`, so the utility

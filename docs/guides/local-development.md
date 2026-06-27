@@ -13,7 +13,7 @@ From the consuming app, link each package by its directory:
 # in the consuming app
 pnpm link /home/mehran/projects/chatool/chatool/packages/ui
 pnpm link /home/mehran/projects/chatool/chatool/packages/utils
-pnpm link /home/mehran/projects/chatool/chatool/packages/styles
+pnpm link /home/mehran/projects/chatool/chatool/packages/core
 pnpm link /home/mehran/projects/chatool/chatool/packages/api
 ```
 
@@ -22,7 +22,7 @@ Unlink later with `pnpm unlink <name>` (or remove the linked entries and
 reinstall).
 
 > With `npm` instead of `pnpm`: run `npm link` inside each `packages/*`, then
-> `npm link @chatool/ui @chatool/utils @chatool/styles @chatool/api` in the
+> `npm link @chatool/ui @chatool/utils @chatool/core @chatool/api` in the
 > app.
 
 ## Option B — `link:` / `file:` dependency
@@ -34,7 +34,7 @@ Point the app's `package.json` at the local build, then install:
   "dependencies": {
     "@chatool/ui": "link:../chatool/packages/ui",
     "@chatool/utils": "link:../chatool/packages/utils",
-    "@chatool/styles": "link:../chatool/packages/styles",
+    "@chatool/core": "link:../chatool/packages/core",
     "@chatool/api": "link:../chatool/packages/api",
   },
 }

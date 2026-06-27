@@ -13,17 +13,16 @@ there.** See [docs/ai-agents.md](docs/ai-agents.md) for how the wiring works.
 
 ## What this repo is
 
-A pnpm-workspace monorepo publishing six **registry-agnostic** `@chatool/*`
+A pnpm-workspace monorepo publishing five **registry-agnostic** `@chatool/*`
 packages for React apps (Next.js App Router, Next.js Pages Router, Vite SPA).
 
-| Package           | Role                                         | Peers                |
-| ----------------- | -------------------------------------------- | -------------------- |
-| `@chatool/styles` | CSS-only Tailwind v4 theme + shadcn tokens   | `tailwindcss`        |
-| `@chatool/utils`  | `cn` + hooks                                 | `react`              |
-| `@chatool/ui`     | shadcn components                            | `react`, `react-dom` |
-| `@chatool/icons`  | SVGR-generated React SVG icons               | `react`              |
-| `@chatool/api`    | framework-agnostic axios client + services   | —                    |
-| `@chatool/core`   | app-root `ChatoolProvider` (theme/dark-mode) | `react`              |
+| Package          | Role                                                     | Peers                             |
+| ---------------- | -------------------------------------------------------- | --------------------------------- |
+| `@chatool/utils` | `cn` + hooks                                             | `react`                           |
+| `@chatool/ui`    | shadcn components                                        | `react`, `react-dom`              |
+| `@chatool/icons` | SVGR-generated React SVG icons                           | `react`                           |
+| `@chatool/api`   | framework-agnostic axios client + services               | —                                 |
+| `@chatool/core`  | app-root `ChatoolProvider` (theme/dark-mode) + theme CSS | `react`, `tailwindcss` (optional) |
 
 Stack: pnpm workspaces, tsdown (ESM+CJS+`.d.ts`), Changesets, TypeScript 5,
 React 19, Tailwind CSS v4.
@@ -113,7 +112,7 @@ formatting is enforced automatically — run `pnpm format` if you bypass it.
 | A package's `exports` / subpaths / `tsdown` entries / directives                | that package's `packages/*/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then regenerate `llms.txt` (`pnpm gen:llms`), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions.md](docs/conventions.md) if the add-subpath flow changed (`docs/packages/<pkg>.md` is just a pointer — no content change needed) |
 | A `@chatool/ui` component or `@chatool/icons` icon                              | add/extend a story in [`apps/storybook`](apps/storybook) — run [`/sync-storybook`](.claude/skills/sync-storybook/SKILL.md) (stories don't auto-discover; the icon gallery is enumerated by hand)                                                                                                                                                                                           |
 | A package's `README.md` "For AI agents" section or `package.json` `description` | regenerate `llms.txt` (`pnpm gen:llms`) — it's derived, never hand-edited                                                                                                                                                                                                                                                                                                                  |
-| Add or remove a package                                                         | the table in [What this repo is](#what-this-repo-is) (+ its "six packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim                                                                                                                                             |
+| Add or remove a package                                                         | the table in [What this repo is](#what-this-repo-is) (+ its "five packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim                                                                                                                                            |
 | Add or remove an AI-tool shim                                                   | the table in [docs/ai-agents.md](docs/ai-agents.md)                                                                                                                                                                                                                                                                                                                                        |
 | Any functional (non-doc) change to a published package                          | add a Changeset (`pnpm changeset`)                                                                                                                                                                                                                                                                                                                                                         |
 
@@ -128,8 +127,7 @@ Architecture & build internals: [docs/architecture.md](docs/architecture.md) →
 - Human docs (canonical): [docs/README.md](docs/README.md)
 - Per-package deep dives: [docs/packages/README.md](docs/packages/README.md)
 - Guides (local dev, publishing, per-framework): [docs/guides/README.md](docs/guides/README.md)
-- Per-package agent rules: [packages/styles/AGENTS.md](packages/styles/AGENTS.md) ·
-  [packages/utils/AGENTS.md](packages/utils/AGENTS.md) ·
+- Per-package agent rules: [packages/utils/AGENTS.md](packages/utils/AGENTS.md) ·
   [packages/ui/AGENTS.md](packages/ui/AGENTS.md) ·
   [packages/icons/AGENTS.md](packages/icons/AGENTS.md) ·
   [packages/api/AGENTS.md](packages/api/AGENTS.md) ·

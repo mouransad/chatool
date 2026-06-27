@@ -2,7 +2,7 @@
 
 > **You are here:** [Repo README](../../../README.md) → [Docs](../../README.md) → [Guides](../README.md) → **Consuming**
 
-`@chatool/styles`, `@chatool/utils`, and `@chatool/ui` work the same in every
+`@chatool/core`, `@chatool/utils`, and `@chatool/ui` work the same in every
 framework: import the CSS once, then use components/hooks normally. The part that
 differs is **where you call [@chatool/api](../../packages/api.md) and where
 `baseURL` comes from**.
@@ -10,8 +10,8 @@ differs is **where you call [@chatool/api](../../packages/api.md) and where
 ## Install (any framework)
 
 ```bash
-pnpm add @chatool/styles @chatool/utils @chatool/ui @chatool/api @chatool/core
-pnpm add -D tailwindcss        # peer of @chatool/styles
+pnpm add @chatool/utils @chatool/ui @chatool/api @chatool/core
+pnpm add -D tailwindcss        # (optional) peer of @chatool/core
 # react / react-dom are peers of utils + ui (your app already has them)
 ```
 
@@ -19,7 +19,7 @@ Then import the CSS in your global stylesheet:
 
 ```css
 @import "tailwindcss";
-@import "@chatool/styles/styles.css";
+@import "@chatool/core/styles.css";
 ```
 
 ## Pick your framework
@@ -32,7 +32,7 @@ Then import the CSS in your global stylesheet:
 
 ## Related
 
-- [@chatool/styles](../../packages/styles.md) · [@chatool/ui](../../packages/ui.md) ·
+- [@chatool/core](../../packages/core.md) · [@chatool/ui](../../packages/ui.md) ·
   [@chatool/api](../../packages/api.md)
 
 ---

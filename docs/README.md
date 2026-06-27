@@ -22,7 +22,6 @@ The canonical, in-depth documentation for the `chatool` monorepo. The root
 ## Packages
 
 - [Packages index](packages/README.md)
-  - [@chatool/styles](packages/styles.md)
   - [@chatool/utils](packages/utils.md)
   - [@chatool/ui](packages/ui.md)
   - [@chatool/icons](packages/icons.md)

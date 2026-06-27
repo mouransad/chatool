@@ -2,35 +2,94 @@
 
 App-root provider for Chatool apps. `ChatoolProvider` owns theme/dark-mode state
 — `light | dark | system` — persists it to `localStorage`, and applies it via the
-`dark` class that `@chatool/styles` keys its dark tokens off, with an inline
-script that prevents a flash of the wrong theme on first paint (SSR-safe).
+`dark` class that this package's theme CSS keys its dark tokens off, with an
+inline script that prevents a flash of the wrong theme on first paint (SSR-safe).
+
+This package also ships the **CSS-only** Tailwind v4 theme + shadcn token layer
+(`@chatool/core/styles.css` / `@chatool/core/theme.css`) that `@chatool/ui` is
+styled with — import it in your global CSS (see [Theme CSS](#theme-css)).
 
 - **Dependencies:** none
-- **Peers:** `react` ^19
+- **Peers:** `react` ^19; `tailwindcss` ^4 (optional — only needed to process
+  the theme CSS)
 
 ## Install
 
 ```bash
 pnpm add @chatool/core
 # react ^19 is a peer — install it if your app doesn't already have it
+# tailwindcss ^4 is an optional peer — needed if you import the theme CSS
 ```
 
-You also need `@chatool/styles` imported in your global CSS (it defines the
-`.dark` tokens this provider toggles). The provider does **not** import CSS for
-you — Tailwind needs those `@import`/`@source` lines at build time:
+Import the theme CSS once in your global CSS (it defines the `.dark` tokens this
+provider toggles). The provider does **not** import CSS for you — Tailwind needs
+those `@import`/`@source` lines at build time:
 
 ```css
 @import "tailwindcss";
-@import "@chatool/styles/styles.css";
+@import "@chatool/core/styles.css";
 ```
 
 ## Exports
 
-One subpath. The whole package is a client boundary (`"use client"`).
+The JS surface is one subpath and is a client boundary (`"use client"`). Two
+additional CSS-only subpaths ship the theme layer.
 
-| Subpath         | Exports                                                                                              | Directive      |
-| --------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
-| `@chatool/core` | `ChatoolProvider`, `useTheme`, `Theme`, `ResolvedTheme`, `ThemeContextValue`, `ChatoolProviderProps` | `"use client"` |
+| Subpath                    | Exports / Contents                                                                                   | Directive      |
+| -------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
+| `@chatool/core`            | `ChatoolProvider`, `useTheme`, `Theme`, `ResolvedTheme`, `ThemeContextValue`, `ChatoolProviderProps` | `"use client"` |
+| `@chatool/core/styles.css` | tokens + variables **+** base `@layer` rules                                                         | CSS only       |
+| `@chatool/core/theme.css`  | tokens + variables only (no base resets)                                                             | CSS only       |
+
+## Theme CSS
+
+The CSS-only layer is the Tailwind v4 `@theme`, the shadcn token mappings
+(`@theme inline`), the `:root` / `.dark` CSS variables, and the base `@layer`
+rules. `styles.css` `@import`s `theme.css`, so the tokens have a single source.
+
+> The CSS shipped today is a **placeholder** mirroring a standard shadcn +
+> Tailwind v4 token layer. Fork it and replace with your own design tokens.
+
+In your app's global CSS — Tailwind **first**, then this package:
+
+```css
+@import "tailwindcss";
+@import "@chatool/core/styles.css";
+```
+
+`@import "tailwindcss";` must come first so Tailwind's layers exist before these
+tokens and base rules extend them. If you only want the tokens/variables without
+the base resets, import `@chatool/core/theme.css` instead of `styles.css`.
+
+### Making Tailwind see component classes
+
+When you also use `@chatool/ui` / `@chatool/icons`, point Tailwind at their
+compiled output so their utility classes aren't tree-shaken away:
+
+```css
+@import "tailwindcss";
+@import "@chatool/core/styles.css";
+
+@source "../node_modules/@chatool/ui/dist";
+@source "../node_modules/@chatool/icons/dist";
+```
+
+### Rebranding
+
+Override the `:root` variables **after** the import:
+
+```css
+@import "tailwindcss";
+@import "@chatool/core/styles.css";
+
+:root {
+  --primary: oklch(0.55 0.2 265);
+  --radius: 0.5rem;
+}
+```
+
+The shadcn `@theme inline` block maps these variables to Tailwind tokens, so a
+single variable change re-themes every component that uses them.
 
 ## Usage
 
@@ -113,14 +172,18 @@ export function ThemeToggle() {
   class on `document.documentElement` imperatively, so React must not be asked to
   reconcile that attribute.
 - This package is **theme-only**. It does not wrap `@chatool/api` (the API stays
-  framework-agnostic and server-injectable via `createServices`/`getServices`),
-  and it does not import CSS — keep `@import "@chatool/styles/..."` in your global
-  CSS.
-- Dark mode is class-based: the provider matches the `.dark` selector defined by
-  `@chatool/styles`. `useTheme()` throws if used outside the provider.
-- `react` is a peer (your app supplies it); there are no runtime dependencies.
+  framework-agnostic and server-injectable via `createServices`/`getServices`).
+- It ships the theme CSS (`@chatool/core/styles.css` / `theme.css`) but the JS
+  provider does **not** import CSS for you — keep `@import "@chatool/core/styles.css"`
+  in your global CSS so Tailwind processes it at build time.
+- The CSS subpaths are **CSS-only** — there is no JS entry for them, no default
+  import. Consume them via the CSS `@import` statements above. Always import
+  `tailwindcss` **before** `@chatool/core/styles.css`.
+- Dark mode is class-based: the provider matches the `.dark` selector defined in
+  `theme.css`. `useTheme()` throws if used outside the provider.
+- `react` is a peer (your app supplies it); `tailwindcss` is an **optional** peer
+  (only needed to process the theme CSS). There are no runtime dependencies.
 
 ## Related
 
-- `@chatool/styles` — defines the `.dark` design tokens this provider toggles.
-- `@chatool/ui` — components styled by those tokens.
+- `@chatool/ui` — components styled by the theme tokens this package ships.

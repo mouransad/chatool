@@ -9,7 +9,7 @@ Inject `baseURL` in `getServerSideProps` (or an API route) — server-side env.
 ```css
 /* styles/globals.css imported in pages/_app.tsx */
 @import "tailwindcss";
-@import "@chatool/styles/styles.css";
+@import "@chatool/core/styles.css";
 ```
 
 ## `getServerSideProps`

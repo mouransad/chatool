@@ -27,11 +27,11 @@ pnpm build-storybook   # outputs apps/storybook/storybook-static/
 - **UI** — `Button` (variants/sizes via controls + autodocs), `DropdownMenu`,
   `BottomSheet`.
 - **Icons** — gallery of the `@chatool/icons` set with sizing/color demos.
-- **Design / Tokens** — `@chatool/styles` color tokens (light + dark).
+- **Design / Tokens** — `@chatool/core` color tokens (light + dark).
 - **Core** — `@chatool/core`'s `ChatoolProvider` + `useTheme`.
 
 Use the **theme toggle** in the toolbar to view any story in light or dark. It
-sets the `.dark` class `@chatool/styles` keys its tokens off.
+sets the `.dark` class `@chatool/core` keys its tokens off.
 
 ## Add a story
 

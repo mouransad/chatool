@@ -84,8 +84,8 @@ node -e '
   alphabetical-ish, matching the existing block). Remove any **stale** entry the
   check flagged.
 
-`@chatool/core` (`ChatoolProvider`) and `@chatool/styles` (tokens) are covered by
-the `Core` and `Design/Tokens` stories — when a **new** package ships something
+`@chatool/core` (`ChatoolProvider` + tokens) is covered by the `Core` and
+`Design/Tokens` stories — when a **new** package ships something
 visual, consider a story for it too (advisory, not enforced by the checks above).
 
 ## 4. Verify

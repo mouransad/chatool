@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
  * Vite-powered Storybook for the @chatool/* component packages. `addon-docs`
  * wires the MDX compiler + autodocs; `addon-themes` adds the light/dark toolbar
  * switch. Tailwind v4 is wired through its Vite plugin so `preview.css` (which
- * imports `@chatool/styles`) is processed and the component `dist` classes are
+ * imports `@chatool/core`) is processed and the component `dist` classes are
  * scanned.
  */
 const config: StorybookConfig = {

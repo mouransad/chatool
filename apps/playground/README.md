@@ -24,7 +24,8 @@ you aren't running `pnpm dev`.)
 
 ## How the packages are wired
 
-- **`@chatool/styles`** — imported in [`app/globals.css`](app/globals.css)
+- **`@chatool/core` (CSS)** — its `styles.css` is imported in
+  [`app/globals.css`](app/globals.css)
   after `@import "tailwindcss";`. Two `@source` directives register the prebuilt
   `@chatool/ui` and `@chatool/icons` dist so Tailwind generates the utility
   classes baked into those components (it skips `node_modules` otherwise).

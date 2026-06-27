@@ -1,12 +1,16 @@
 {
   "name": "@chatool/core",
-  "version": "0.2.0",
-  "description": "App-root ChatoolProvider for Chatool apps — light/dark/system theme with persistence and SSR no-flash.",
+  "version": "0.3.0",
+  "description": "App-root ChatoolProvider for Chatool apps (light/dark/system theme with persistence and SSR no-flash) plus the Tailwind v4 + shadcn theme CSS.",
   "license": "UNLICENSED",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "files": [
     "dist",
+    "styles.css",
+    "theme.css",
     "llms.txt"
   ],
   "exports": {
@@ -20,6 +24,8 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./styles.css": "./styles.css",
+    "./theme.css": "./theme.css",
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -29,7 +35,13 @@
     "prepack": "node ../../scripts/gen-llms.mjs ."
   },
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "^19.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/react": "^19.0.0",

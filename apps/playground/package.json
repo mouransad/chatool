@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "type": "module",
   "description": "Internal Next.js 16 playground for developing and testing the @chatool/* packages. Never published.",
@@ -15,7 +15,6 @@
     "@chatool/api": "workspace:*",
     "@chatool/core": "workspace:*",
     "@chatool/icons": "workspace:*",
-    "@chatool/styles": "workspace:*",
     "@chatool/ui": "workspace:*",
     "@chatool/utils": "workspace:*",
     "next": "^16.0.0",

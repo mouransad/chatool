@@ -1,5 +1,24 @@
 # @chatool/ui
 
+## 0.2.2
+
+### Patch Changes
+
+- Merge `@chatool/styles` into `@chatool/core`. The CSS-only theme layer is now
+  shipped by `@chatool/core` as two new subpaths, and the standalone
+  `@chatool/styles` package is removed.
+
+  **Breaking — migrate your CSS imports and dependency:**
+
+  - `@chatool/styles/styles.css` → `@chatool/core/styles.css`
+  - `@chatool/styles/theme.css` → `@chatool/core/theme.css`
+  - Remove `@chatool/styles` from your dependencies (the CSS now comes from
+    `@chatool/core`, which you already install for `ChatoolProvider`).
+
+  `tailwindcss` is now an **optional** peer of `@chatool/core` (only needed to
+  process the theme CSS). `@chatool/ui`'s docs/description now point at
+  `@chatool/core` for its required design tokens.
+
 ## 0.2.1
 
 ### Patch Changes
