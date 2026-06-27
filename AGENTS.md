@@ -122,6 +122,16 @@ Full coding/exports/naming conventions: [docs/conventions.md](docs/conventions.m
 Architecture & build internals: [docs/architecture.md](docs/architecture.md) →
 [docs/build-and-tooling.md](docs/build-and-tooling.md).
 
+**`@chatool/ui` component structure:** each component is its own kebab-case
+directory under `packages/ui/src/` (e.g. `button/` with `index.tsx` +
+`button.tsx` + `button.types.ts` + `button.variants.ts` + optional `use-logic.ts`);
+components are arrow functions, one per file, default-exported, with types and
+cva variants in separate `*.types.ts` / `*.variants.ts` files and non-trivial
+logic split into a `useLogic` hook. The `index.tsx` barrel **must** carry
+`"use client";`. Enforced for `packages/ui/src/**` by `eslint-plugin-react` +
+`eslint-plugin-unicorn`. Icons are exempt. Canonical spec:
+[docs/conventions.md → Component structure](docs/conventions.md#component-structure-chatoolui).
+
 ## Documentation map
 
 - Human docs (canonical): [docs/README.md](docs/README.md)

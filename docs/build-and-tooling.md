@@ -22,8 +22,10 @@ import { defineChatoolConfig } from "../../tsdown.preset";
 
 export default defineChatoolConfig({
   entry: {
-    // One entry per component — @chatool/ui is subpath-only (no barrel).
-    button: "src/button.tsx",
+    // One entry per component — @chatool/ui is subpath-only (no barrel). Each
+    // component is its own directory; the entry KEY (`button`) names the output
+    // (`dist/button.*`), so it must equal the subpath regardless of source path.
+    button: "src/button/index.tsx",
   },
 });
 ```

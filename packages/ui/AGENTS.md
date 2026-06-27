@@ -3,8 +3,28 @@
 Package-scoped rules. Root rules still apply: [../../AGENTS.md](../../AGENTS.md).
 Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
 
-- **Client components keep `"use client";`** at the top (currently just button).
-  tsdown preserves it natively.
+- **Component structure (canonical spec:
+  [docs/conventions.md → Component structure](../../docs/conventions.md#component-structure-chatoolui)).**
+  Each component is its **own kebab-case directory** under `src/` whose
+  `index.tsx` is both the public barrel and the `tsdown` entry:
+  ```
+  src/button/
+    index.tsx           # "use client"; — entry + barrel
+    button.tsx          # one arrow component, default-exported (the view)
+    button.types.ts     # ButtonProps + types
+    button.variants.ts  # buttonVariants (cva)
+    use-logic.ts        # useLogic hook — only when logic is non-trivial
+  ```
+  Components are **arrow functions, one per file, default-exported**; types and
+  cva variants go in separate `*.types.ts` / `*.variants.ts`; non-trivial logic
+  moves to a `useLogic` hook (skip when trivial — `button` has none). Files are
+  kebab-case. Enforced by ESLint (`react/function-component-definition`,
+  `react/no-multi-comp`, `unicorn/filename-case`) scoped to `packages/ui/src/**`.
+- **The `index.tsx` barrel MUST start with `"use client";`.** It is the entry
+  **and** a re-export-only barrel, and tsdown only preserves the directive at the
+  top of the entry's own source (a barrel does not inherit it — same rule as
+  `packages/utils/src/hooks/index.ts`). The view file (`button.tsx`) also carries
+  it. Pure files (`*.types.ts`, `*.variants.ts`) must NOT.
 - **No root barrel / no `.` export.** There is no `src/index.ts`; each component
   is reachable only through its own subpath so the IDE auto-imports the subpath
   (e.g. `import Button from "@chatool/ui/button"`) instead of a root
@@ -18,10 +38,11 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   `@radix-ui/react-*` packages.
 - `react` / `react-dom` are `peerDependencies`; tsdown externalizes them (and all
   deps, incl. `react/jsx-runtime`) automatically — no `external` list needed.
-- Per-component subpaths only (currently just `./button`). Each entry source
-  carries its own `"use client";`, and components expose both a `default` and
-  named exports (e.g. `Button` + `buttonVariants`). Adding a component = new
-  `tsdown` entry + new `exports` subpath (ESM + CJS). No barrel to update.
+- Per-component subpaths only (currently just `./button`). The barrel exposes
+  both a `default` and named exports (e.g. `Button` + `buttonVariants`). Adding a
+  component = new `src/<name>/` directory + a `tsdown` entry whose **key equals
+  the subpath** (`{ button: "src/button/index.tsx" }` → `dist/button.*`, so the
+  `exports` map stays stable) + the new `exports` subpath (ESM + CJS).
 - **Adding a component also needs a Storybook story** in
   [`apps/storybook`](../../apps/storybook) (stories don't auto-discover new
   subpaths) — run the `/sync-storybook` skill.

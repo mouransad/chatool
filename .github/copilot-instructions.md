@@ -33,6 +33,14 @@ owned by Prettier (+ `prettier-plugin-tailwindcss`); ESLint defers via
 - **`@chatool/ui` and `@chatool/icons` are subpath-only (no root barrel).**
   Import `@chatool/ui/button` (its `default` is `Button`) and
   `@chatool/icons/<IconName>` — never `@chatool/ui` / `@chatool/icons`.
+- **`@chatool/ui` component structure** (icons exempt): each component is its own
+  kebab-case directory under `packages/ui/src/` (`button/` → `index.tsx` +
+  `button.tsx` + `button.types.ts` + `button.variants.ts` + optional
+  `use-logic.ts`). Components are arrow functions, one per file, default-exported;
+  types/cva in separate `*.types.ts`/`*.variants.ts`; non-trivial logic in a
+  `useLogic` hook. The `index.tsx` barrel carries `"use client";` and its tsdown
+  entry key equals the subpath. Enforced by `eslint-plugin-react` +
+  `eslint-plugin-unicorn` for `packages/ui/src/**`. Spec: `docs/conventions.md`.
 - peer vs dep: react/react-dom/tailwindcss are `peerDependencies`.
 - Registry-agnostic: never hardcode a registry.
 - Every functional change needs a Changeset (`pnpm changeset`).

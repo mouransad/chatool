@@ -1,11 +1,6 @@
-"use client";
+import { cva } from "class-variance-authority";
 
-import * as React from "react";
-import { Slot } from "radix-ui";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@chatool/utils";
-
-const buttonVariants = cva(
+export const buttonVariants = cva(
   "gap-2 text-sm font-medium [&_svg]:size-4 inline-flex items-center justify-center rounded-md whitespace-nowrap transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
@@ -33,28 +28,3 @@ const buttonVariants = cva(
     },
   },
 );
-
-export interface ButtonProps
-  extends React.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
-
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}: ButtonProps) {
-  const Comp = asChild ? Slot.Root : "button";
-  return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size }), className)}
-      {...props}
-    />
-  );
-}
-
-export { Button, buttonVariants };
-export default Button;

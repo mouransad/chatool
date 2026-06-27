@@ -16,6 +16,10 @@ Key rules (full set in `AGENTS.md` and each `packages/*/AGENTS.md`):
   `baseURL` is injected.
 - Keep `"use client"` directives and `exports` maps correct; every package is
   `"type": "module"` with dual ESM/CJS output (`.mjs`/`.d.mts` + `.cjs`/`.d.cts`).
+- `@chatool/ui` components: one kebab-case directory each (`button/` → `index.tsx`
+  barrel with `"use client";` + `button.tsx` arrow component + `*.types.ts` /
+  `*.variants.ts` + optional `useLogic`); arrow, one-per-file, default-exported.
+  Icons exempt. ESLint-enforced for `packages/ui/src/**`. See `docs/conventions.md`.
 - Registry-agnostic; every functional change needs a Changeset.
 
 Edit rules in `AGENTS.md`, not here.
