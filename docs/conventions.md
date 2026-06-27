@@ -9,9 +9,9 @@ Rules to follow when changing code. AI agents: these are also summarized in
 
 Every buildable package has:
 
-- `"type": "module"` and `sideEffects: false` (except `@chatool/styles`, which
-  marks `**/*.css` as side-effectful).
-- `"files": ["dist", "llms.txt"]` (styles ships its `.css` files + `llms.txt`).
+- `"type": "module"` and `sideEffects: false` (except `@chatool/core`, which
+  marks `**/*.css` as side-effectful because it ships theme CSS).
+- `"files": ["dist", "llms.txt"]` (core also ships its `.css` files).
   `README.md` is shipped automatically by npm. `llms.txt` is generated — see
   [docs shipped to consumers](ai-agents.md#docs-shipped-to-consumers-node_modules).
 - a `build` (`tsdown`), `dev` (`tsdown --watch`), and `typecheck` (`tsc --noEmit`)

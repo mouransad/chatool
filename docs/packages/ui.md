@@ -11,7 +11,7 @@ also shipped inside the npm tarball (so it's available in consumers'
 **→ [packages/ui/README.md](../../packages/ui/README.md)**
 
 - **Agent rules (contributing to this package):** [packages/ui/AGENTS.md](../../packages/ui/AGENTS.md)
-- **Required tokens:** [@chatool/styles](styles.md) · **provides `cn`:** [@chatool/utils](utils.md) · **icons:** [@chatool/icons](icons.md)
+- **Required tokens:** [@chatool/core](core.md) · **provides `cn`:** [@chatool/utils](utils.md) · **icons:** [@chatool/icons](icons.md)
 
 ---
 

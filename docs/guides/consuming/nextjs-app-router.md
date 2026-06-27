@@ -9,7 +9,7 @@ Inject `baseURL` from a server env var; call the API in an RSC or a server actio
 ```css
 /* app/globals.css */
 @import "tailwindcss";
-@import "@chatool/styles/styles.css";
+@import "@chatool/core/styles.css";
 ```
 
 ## Services factory

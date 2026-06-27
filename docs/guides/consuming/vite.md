@@ -22,7 +22,7 @@ export default defineConfig({
 ```css
 /* src/index.css */
 @import "tailwindcss";
-@import "@chatool/styles/styles.css";
+@import "@chatool/core/styles.css";
 ```
 
 ## Services factory

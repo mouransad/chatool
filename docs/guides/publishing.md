@@ -64,8 +64,8 @@ bare `npm publish`.)
 
 - `README.md` is auto-included in every package tarball by npm — no `files`
   change needed.
-- `@chatool/styles` publishes its `.css` files (its `files` field), the rest
-  publish `dist`.
+- `@chatool/core` publishes its `.css` files (in its `files` field) alongside
+  `dist`; the rest publish `dist`.
 
 ## Related
 

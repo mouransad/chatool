@@ -58,7 +58,7 @@ function buildThemeScript(
 /**
  * App-root provider that owns theme/dark-mode state for Chatool apps:
  * `light | dark | system`, persisted to `localStorage` and applied via the
- * `dark` class that `@chatool/styles` keys its dark tokens off. SSR renders with
+ * `dark` class that this package's theme CSS keys its dark tokens off. SSR renders with
  * `defaultTheme`; an inline script corrects the class pre-hydration (no flash),
  * then state is reconciled from storage on mount.
  *

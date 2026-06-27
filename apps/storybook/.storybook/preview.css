@@ -2,14 +2,14 @@
  * Storybook preview stylesheet — mirrors a real consumer's global CSS
  * (see apps/playground/app/globals.css).
  *
- * `@import "tailwindcss"` MUST come first; `@chatool/styles` then extends its
+ * `@import "tailwindcss"` MUST come first; `@chatool/core` then extends its
  * layers with the design tokens + base resets. Tailwind v4 ignores
  * `node_modules`, so the utility classes baked into the prebuilt @chatool
  * component `dist` are registered explicitly via `@source` (pnpm symlinks these
  * to ../../../packages/<pkg>/dist; Tailwind follows the symlinks).
  */
 @import "tailwindcss";
-@import "@chatool/styles/styles.css";
+@import "@chatool/core/styles.css";
 
 @source "../node_modules/@chatool/ui/dist";
 @source "../node_modules/@chatool/icons/dist";

@@ -1,16 +1,16 @@
 /*
- * @chatool/styles — styles.css
+ * @chatool/core — styles.css
  * ---------------------------------------------------------------------------
  * Full design layer: tokens + CSS variables (via ./theme.css) PLUS the base
  * @layer rules. This is what most consumers import.
  *
  * Consumer usage (in their own global CSS):
  *   @import "tailwindcss";
- *   @import "@chatool/styles/styles.css";
+ *   @import "@chatool/core/styles.css";
  *
  * `@import "tailwindcss";` MUST come first so Tailwind's layers exist before
- * these tokens/base rules extend them. `tailwindcss` is a peerDependency of
- * this package — the consumer installs it.
+ * these tokens/base rules extend them. `tailwindcss` is an (optional)
+ * peerDependency of this package — the consumer installs it.
  *
  * NOTE: Placeholder content. Replace the base @layer rules below (and the
  * tokens in ./theme.css) with the exact CSS pasted from the landing repo's

@@ -1,28 +1,28 @@
 # @chatool/ui
 
 Shadcn-based React UI components for Chatool apps. Every component imports `cn`
-from `@chatool/utils` and is styled with the design tokens from `@chatool/styles`.
+from `@chatool/utils` and is styled with the design tokens from `@chatool/core`.
 
 - **Dependencies:** `@chatool/utils`, `@chatool/icons`, `radix-ui`,
   `class-variance-authority`
 - **Peers:** `react` ^19, `react-dom` ^19
 
-> Apps using `@chatool/ui` **must also install `@chatool/styles`** and import its
+> Apps using `@chatool/ui` **must also install `@chatool/core`** and import its
 > CSS — without the tokens the components are unstyled. SVG icons live in their own
 > package, `@chatool/icons`.
 
 ## Install
 
 ```bash
-pnpm add @chatool/ui @chatool/styles @chatool/icons
+pnpm add @chatool/ui @chatool/core @chatool/icons
 # react ^19 and react-dom ^19 are peers
 ```
 
-Then import the styles once in your global CSS (see `@chatool/styles`):
+Then import the styles once in your global CSS (see `@chatool/core`):
 
 ```css
 @import "tailwindcss";
-@import "@chatool/styles/styles.css";
+@import "@chatool/core/styles.css";
 @source "../node_modules/@chatool/ui/dist";
 ```
 
@@ -86,7 +86,7 @@ export function Example() {
 - `Button` is available as both the **default** export and a named export; the
   other components are named exports.
 - All components are `"use client"`; they can't be rendered as Server Components.
-- **Requires `@chatool/styles`**: install it and import its CSS, or components
+- **Requires `@chatool/core`**: install it and import its CSS, or components
   render unstyled.
 - **Icons are not here** — import them from `@chatool/icons/<IconName>` (one
   subpath per icon), never from `@chatool/ui`.
@@ -94,6 +94,6 @@ export function Example() {
 
 ## Related
 
-- `@chatool/styles` — required design tokens (install + import its CSS).
+- `@chatool/core` — required design tokens / theme CSS (install + import its CSS).
 - `@chatool/utils` — provides `cn`.
 - `@chatool/icons` — SVG icons used alongside these components.

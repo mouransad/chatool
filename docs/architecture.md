@@ -13,7 +13,7 @@ chatool/
 ├─ eslint.config.mjs       # shared flat ESLint config
 ├─ .changeset/             # Changesets config
 └─ packages/
-   ├─ styles/   @chatool/styles   (CSS only — no build step)
+   ├─ core/     @chatool/core      (ChatoolProvider + theme CSS)
    ├─ utils/    @chatool/utils
    ├─ ui/       @chatool/ui        (depends on @chatool/utils)
    └─ api/      @chatool/api
@@ -22,7 +22,7 @@ chatool/
 ## Workspace dependency graph
 
 ```
-@chatool/styles   (standalone, CSS)
+@chatool/core     (ChatoolProvider + theme CSS)
 @chatool/utils    (standalone)
 @chatool/ui   ──▶ @chatool/utils   (workspace:^)
 @chatool/api      (standalone)
@@ -44,8 +44,8 @@ Each package's `exports` map points the `import` condition at the ESM files and
 the `require` condition at the CJS files, so both module systems resolve types
 and runtime correctly.
 
-`@chatool/styles` has **no build** — it ships raw `.css` and a no-op `build`
-script so `pnpm -r build` stays uniform.
+`@chatool/core` ships raw `.css` (`styles.css` / `theme.css`) **alongside** its
+built JS — the CSS files are not processed by tsdown, just published as-is.
 
 ## Build internals
 

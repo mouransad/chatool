@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-// Token pairs mirror the `--color-*` variables mapped in `@chatool/styles`
+// Token pairs mirror the `--color-*` variables mapped in `@chatool/core`
 // (theme.css `@theme inline`). Use the toolbar theme switch to see dark values.
 const PAIRS: { name: string; bg: string; fg: string }[] = [
   { name: "background", bg: "--color-background", fg: "--color-foreground" },
