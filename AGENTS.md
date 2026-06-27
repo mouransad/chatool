@@ -16,14 +16,14 @@ there.** See [docs/ai-agents.md](docs/ai-agents.md) for how the wiring works.
 A pnpm-workspace monorepo publishing six **registry-agnostic** `@chatool/*`
 packages for React apps (Next.js App Router, Next.js Pages Router, Vite SPA).
 
-| Package | Role | Peers |
-| --- | --- | --- |
-| `@chatool/styles` | CSS-only Tailwind v4 theme + shadcn tokens | `tailwindcss` |
-| `@chatool/utils` | `cn` + hooks | `react` |
-| `@chatool/ui` | shadcn components | `react`, `react-dom` |
-| `@chatool/icons` | SVGR-generated React SVG icons | `react` |
-| `@chatool/api` | framework-agnostic axios client + services | — |
-| `@chatool/core` | app-root `ChatoolProvider` (theme/dark-mode) | `react` |
+| Package           | Role                                         | Peers                |
+| ----------------- | -------------------------------------------- | -------------------- |
+| `@chatool/styles` | CSS-only Tailwind v4 theme + shadcn tokens   | `tailwindcss`        |
+| `@chatool/utils`  | `cn` + hooks                                 | `react`              |
+| `@chatool/ui`     | shadcn components                            | `react`, `react-dom` |
+| `@chatool/icons`  | SVGR-generated React SVG icons               | `react`              |
+| `@chatool/api`    | framework-agnostic axios client + services   | —                    |
+| `@chatool/core`   | app-root `ChatoolProvider` (theme/dark-mode) | `react`              |
 
 Stack: pnpm workspaces, tsdown (ESM+CJS+`.d.ts`), Changesets, TypeScript 5,
 React 19, Tailwind CSS v4.
@@ -36,6 +36,7 @@ pnpm build        # build every package (dist/ + .d.ts)
 pnpm dev          # tsdown --watch across packages
 pnpm typecheck    # tsc --noEmit per package
 pnpm lint         # eslint .
+pnpm format       # prettier --write . (repo-wide; `format:check` to verify)
 pnpm changeset    # record a release note (required for functional changes)
 pnpm storybook    # run the internal component catalog (apps/storybook) at :6006
 ```
@@ -47,7 +48,11 @@ pnpm storybook    # run the internal component catalog (apps/storybook) at :6006
 > self-lint).
 
 Always run `pnpm build && pnpm typecheck && pnpm lint` before declaring work
-done.
+done. Formatting is owned by **Prettier** (`prettier.config.mjs`, with
+`prettier-plugin-tailwindcss` for class sorting); ESLint defers to it via
+`eslint-config-prettier`. A husky pre-commit hook runs `lint-staged`
+(`prettier --write` on staged files + `eslint --fix` on `packages/**`), so
+formatting is enforced automatically — run `pnpm format` if you bypass it.
 
 ## Hard rules (do not violate)
 
@@ -67,7 +72,7 @@ done.
 4. **Keep `exports` maps in sync.** When you add a component/hook/service subpath,
    add a matching `exports` entry (ESM `.mjs`/`.d.mts` + CJS `.cjs`/`.d.cts`) and
    a `tsdown` entry. Every package is `"type": "module"`.
-4b. **Subpath-only, no root barrels for `@chatool/ui` and `@chatool/icons`.**
+   4b. **Subpath-only, no root barrels for `@chatool/ui` and `@chatool/icons`.**
    Neither package exposes a `.` export — every symbol is reachable from exactly
    one path so the IDE auto-imports the subpath, not a root barrel. `@chatool/ui`
    ships one subpath per component (`./button`, `./dropdown-menu`, …, each with
@@ -79,7 +84,7 @@ done.
 6. **Registry-agnostic.** Never hardcode a registry. Publish config lives in
    `publishConfig` + a local `.npmrc` (see [.npmrc.example](.npmrc.example)).
 7. **Every functional change needs a Changeset** (`pnpm changeset`).
-7b. **Each package ships its own docs.** `packages/<pkg>/README.md` is the single
+   7b. **Each package ships its own docs.** `packages/<pkg>/README.md` is the single
    **canonical, complete** per-package reference and is **self-contained** (no
    `../../docs` relative links — they break in `node_modules`). npm ships README
    automatically. Each package also ships a generated **`llms.txt`** (an
@@ -92,7 +97,7 @@ done.
 8. **Docs, shims, changesets & stories stay in sync — it's part of "done".** A
    change isn't finished until the docs and per-tool shims it affects are updated
    (plus a Changeset for functional changes, and a Storybook story for new
-   `@chatool/ui`/`@chatool/icons`). This repo's whole premise is *no drift*
+   `@chatool/ui`/`@chatool/icons`). This repo's whole premise is _no drift_
    (see [docs/ai-agents.md](docs/ai-agents.md)). Use the **sync map** below; the
    one-shot way to enforce it is the [`/sync`](.claude/skills/sync/SKILL.md) skill,
    which orchestrates [`/sync-docs`](.claude/skills/sync-docs/SKILL.md) (docs, shims,
@@ -102,15 +107,15 @@ done.
 
 ### Sync map
 
-| When you change… | Also update… |
-| --- | --- |
-| A hard rule / command / the package list/count in this file | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) (it **inlines** rules + the package count), and [docs/conventions.md](docs/conventions.md) if it's a coding convention |
-| A package's `exports` / subpaths / `tsdown` entries / directives | that package's `packages/*/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then regenerate `llms.txt` (`pnpm gen:llms`), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions.md](docs/conventions.md) if the add-subpath flow changed (`docs/packages/<pkg>.md` is just a pointer — no content change needed) |
-| A `@chatool/ui` component or `@chatool/icons` icon | add/extend a story in [`apps/storybook`](apps/storybook) — run [`/sync-storybook`](.claude/skills/sync-storybook/SKILL.md) (stories don't auto-discover; the icon gallery is enumerated by hand) |
-| A package's `README.md` "For AI agents" section or `package.json` `description` | regenerate `llms.txt` (`pnpm gen:llms`) — it's derived, never hand-edited |
-| Add or remove a package | the table in [What this repo is](#what-this-repo-is) (+ its "six packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim |
-| Add or remove an AI-tool shim | the table in [docs/ai-agents.md](docs/ai-agents.md) |
-| Any functional (non-doc) change to a published package | add a Changeset (`pnpm changeset`) |
+| When you change…                                                                | Also update…                                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| A hard rule / command / the package list/count in this file                     | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) (it **inlines** rules + the package count), and [docs/conventions.md](docs/conventions.md) if it's a coding convention                                                                                                                                                                                                |
+| A package's `exports` / subpaths / `tsdown` entries / directives                | that package's `packages/*/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then regenerate `llms.txt` (`pnpm gen:llms`), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions.md](docs/conventions.md) if the add-subpath flow changed (`docs/packages/<pkg>.md` is just a pointer — no content change needed) |
+| A `@chatool/ui` component or `@chatool/icons` icon                              | add/extend a story in [`apps/storybook`](apps/storybook) — run [`/sync-storybook`](.claude/skills/sync-storybook/SKILL.md) (stories don't auto-discover; the icon gallery is enumerated by hand)                                                                                                                                                                                           |
+| A package's `README.md` "For AI agents" section or `package.json` `description` | regenerate `llms.txt` (`pnpm gen:llms`) — it's derived, never hand-edited                                                                                                                                                                                                                                                                                                                  |
+| Add or remove a package                                                         | the table in [What this repo is](#what-this-repo-is) (+ its "six packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim                                                                                                                                             |
+| Add or remove an AI-tool shim                                                   | the table in [docs/ai-agents.md](docs/ai-agents.md)                                                                                                                                                                                                                                                                                                                                        |
+| Any functional (non-doc) change to a published package                          | add a Changeset (`pnpm changeset`)                                                                                                                                                                                                                                                                                                                                                         |
 
 ## Conventions
 

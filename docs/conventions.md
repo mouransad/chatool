@@ -67,6 +67,20 @@ Keep `import`/`require` filenames consistent with the dual-output naming from
 - Prefer real exported types over ambient globals (e.g. the api `GetBanners*`
   types are real exports).
 
+## Formatting & linting
+
+- **Prettier owns formatting.** Config lives in [`prettier.config.mjs`](../prettier.config.mjs)
+  (defaults + [`prettier-plugin-tailwindcss`](https://github.com/tailwindlabs/prettier-plugin-tailwindcss),
+  which sorts `className`/`cn`/`cva` class lists). Run `pnpm format` (or
+  `pnpm format:check` to verify); `.prettierignore` skips generated output.
+- **ESLint owns code quality, not style.** [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier)
+  is appended last in every ESLint config (root + both apps) so the two tools
+  never disagree. The existing `no-unused-vars` / `consistent-type-imports` /
+  react-hooks rules are untouched.
+- **Enforced on commit.** A husky pre-commit hook runs `lint-staged`
+  (`prettier --write` on staged files repo-wide + `eslint --fix` on `packages/**`).
+  The hook installs via the root `prepare` script on `pnpm install`.
+
 ## Changesets
 
 Every functional change ships with a Changeset:

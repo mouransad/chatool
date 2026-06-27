@@ -36,9 +36,9 @@ you aren't running `pnpm dev`.)
 
 ## Scripts
 
-| Script | What |
-| --- | --- |
-| `pnpm --filter playground dev` | `next dev` |
-| `pnpm --filter playground build` | production build |
-| `pnpm --filter playground typecheck` | `tsc --noEmit` |
-| `pnpm --filter playground lint` | `eslint .` (flat `eslint-config-next`) |
+| Script                               | What                                   |
+| ------------------------------------ | -------------------------------------- |
+| `pnpm --filter playground dev`       | `next dev`                             |
+| `pnpm --filter playground build`     | production build                       |
+| `pnpm --filter playground typecheck` | `tsc --noEmit`                         |
+| `pnpm --filter playground lint`      | `eslint .` (flat `eslint-config-next`) |

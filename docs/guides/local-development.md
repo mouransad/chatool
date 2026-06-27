@@ -35,8 +35,8 @@ Point the app's `package.json` at the local build, then install:
     "@chatool/ui": "link:../chatool/packages/ui",
     "@chatool/utils": "link:../chatool/packages/utils",
     "@chatool/styles": "link:../chatool/packages/styles",
-    "@chatool/api": "link:../chatool/packages/api"
-  }
+    "@chatool/api": "link:../chatool/packages/api",
+  },
 }
 ```
 

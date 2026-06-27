@@ -30,7 +30,9 @@ export function getServices() {
 import { getServices } from "./lib/services";
 
 export default async function Page() {
-  const { items } = await getServices().clutch.getBanners({ placement: "home" });
+  const { items } = await getServices().clutch.getBanners({
+    placement: "home",
+  });
   return <Banners items={items} />;
 }
 ```

@@ -28,8 +28,8 @@ you — Tailwind needs those `@import`/`@source` lines at build time:
 
 One subpath. The whole package is a client boundary (`"use client"`).
 
-| Subpath | Exports | Directive |
-| --- | --- | --- |
+| Subpath         | Exports                                                                                              | Directive      |
+| --------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
 | `@chatool/core` | `ChatoolProvider`, `useTheme`, `Theme`, `ResolvedTheme`, `ThemeContextValue`, `ChatoolProviderProps` | `"use client"` |
 
 ## Usage
@@ -42,7 +42,11 @@ Wrap your app once at the root and add `suppressHydrationWarning` to `<html>`
 ```tsx
 import { ChatoolProvider } from "@chatool/core";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
@@ -78,7 +82,9 @@ import { useTheme } from "@chatool/core";
 export function ThemeToggle() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   return (
-    <button onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}>
+    <button
+      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+    >
       {resolvedTheme === "dark" ? "Light" : "Dark"} ({theme})
     </button>
   );
@@ -91,11 +97,11 @@ export function ThemeToggle() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `defaultTheme` | `"light" \| "dark" \| "system"` | `"system"` | Selection used before a stored value is read (and on the server). |
-| `storageKey` | `string` | `"chatool-theme"` | `localStorage` key the selection is persisted under. |
-| `enableSystem` | `boolean` | `true` | Allow `system` to follow `prefers-color-scheme`. |
+| Prop           | Type                            | Default           | Description                                                       |
+| -------------- | ------------------------------- | ----------------- | ----------------------------------------------------------------- |
+| `defaultTheme` | `"light" \| "dark" \| "system"` | `"system"`        | Selection used before a stored value is read (and on the server). |
+| `storageKey`   | `string`                        | `"chatool-theme"` | `localStorage` key the selection is persisted under.              |
+| `enableSystem` | `boolean`                       | `true`            | Allow `system` to follow `prefers-color-scheme`.                  |
 
 ## For AI agents
 

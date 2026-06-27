@@ -22,8 +22,8 @@ icon resolves to its own module with a `default` export, so editors auto-import 
 exact path and bundlers ship only what you use. Icons are pure and server-safe (no
 `"use client"`).
 
-| Subpath | Component |
-| --- | --- |
+| Subpath                            | Component                                                                                                                                                           |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `@chatool/icons/<IconName><Style>` | the icon's `default` export — `<Style>` is one of `Outlined`, `Rounded`, `Sharp`, `Filled`. e.g. `HomeOutlined`, `SearchRounded`, `CheckSharp`, `FavoriteFilled`, … |
 
 Every base icon ships all four styles, so e.g. `Check` is available as
@@ -67,10 +67,10 @@ bundling to `dist/`. `sync:icons` is run manually, not by the build.
 ## For AI agents
 
 - **Import one icon per subpath**: `import HomeOutlined from
-  "@chatool/icons/HomeOutlined"`. There is **no root barrel** — do not write
+"@chatool/icons/HomeOutlined"`. There is **no root barrel** — do not write
   `import { HomeOutlined } from "@chatool/icons"`.
 - Each name is `<IconName><Style>` where `<Style>` ∈ `Outlined | Rounded | Sharp |
-  Filled` (Material Symbols). Every icon is a **default export**; the name is
+Filled` (Material Symbols). Every icon is a **default export**; the name is
   PascalCase derived from the kebab-case SVG filename (`home-outlined.svg` →
   `HomeOutlined`).
 - Icons are **pure / server-safe** (no `"use client"`) — usable in Server

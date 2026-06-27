@@ -4,16 +4,16 @@ import * as React from "react";
 import { Dialog as DialogPrimitive } from "radix-ui";
 import { cn } from "@chatool/utils";
 
-function BottomSheet(
-  props: React.ComponentProps<typeof DialogPrimitive.Root>,
-) {
+function BottomSheet(props: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="bottom-sheet" {...props} />;
 }
 
 function BottomSheetTrigger(
   props: React.ComponentProps<typeof DialogPrimitive.Trigger>,
 ) {
-  return <DialogPrimitive.Trigger data-slot="bottom-sheet-trigger" {...props} />;
+  return (
+    <DialogPrimitive.Trigger data-slot="bottom-sheet-trigger" {...props} />
+  );
 }
 
 function BottomSheetClose(
@@ -30,7 +30,7 @@ function BottomSheetOverlay({
     <DialogPrimitive.Overlay
       data-slot="bottom-sheet-overlay"
       className={cn(
-        "fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+        "inset-0 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed z-50",
         className,
       )}
       {...props}
@@ -49,7 +49,7 @@ function BottomSheetContent({
       <DialogPrimitive.Content
         data-slot="bottom-sheet-content"
         className={cn(
-          "fixed inset-x-0 bottom-0 z-50 mt-24 flex max-h-[90svh] flex-col rounded-t-2xl border-t bg-background shadow-lg",
+          "inset-x-0 bottom-0 mt-24 rounded-t-2xl shadow-lg fixed z-50 flex max-h-[90svh] flex-col border-t bg-background",
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
           className,
         )}
@@ -57,7 +57,7 @@ function BottomSheetContent({
       >
         <div
           aria-hidden
-          className="mx-auto mt-2 h-1.5 w-12 shrink-0 rounded-full bg-muted"
+          className="mt-2 h-1.5 w-12 mx-auto shrink-0 rounded-full bg-muted"
         />
         {children}
       </DialogPrimitive.Content>
@@ -95,17 +95,20 @@ function BottomSheetBody({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="bottom-sheet-body"
-      className={cn("flex-1 overflow-y-auto px-4 py-2", className)}
+      className={cn("px-4 py-2 flex-1 overflow-y-auto", className)}
       {...props}
     />
   );
 }
 
-function BottomSheetFooter({ className, ...props }: React.ComponentProps<"div">) {
+function BottomSheetFooter({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="bottom-sheet-footer"
-      className={cn("flex flex-col gap-2 px-4 pb-6 pt-2", className)}
+      className={cn("gap-2 px-4 pb-6 pt-2 flex flex-col", className)}
       {...props}
     />
   );

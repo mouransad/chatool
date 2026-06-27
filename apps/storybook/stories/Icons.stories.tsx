@@ -53,11 +53,11 @@ const styles: Record<string, Icon> = {
 
 function Gallery() {
   return (
-    <div className="grid grid-cols-2 gap-4 text-foreground sm:grid-cols-3 md:grid-cols-4">
+    <div className="gap-4 sm:grid-cols-3 md:grid-cols-4 grid grid-cols-2 text-foreground">
       {Object.entries(gallery).map(([name, Icon]) => (
         <div
           key={name}
-          className="flex flex-col items-center gap-3 rounded-lg border bg-card p-4 text-card-foreground"
+          className="gap-3 p-4 flex flex-col items-center rounded-lg border bg-card text-card-foreground"
         >
           <Icon className="size-8" />
           <code className="text-xs text-muted-foreground">{name}</code>
@@ -84,9 +84,9 @@ export const AllIcons: Story = {};
  */
 export const Styles: Story = {
   render: () => (
-    <div className="flex items-end gap-6 text-foreground">
+    <div className="gap-6 flex items-end text-foreground">
       {Object.entries(styles).map(([name, Icon]) => (
-        <div key={name} className="flex flex-col items-center gap-2">
+        <div key={name} className="gap-2 flex flex-col items-center">
           <Icon className="size-8" />
           <code className="text-xs text-muted-foreground">{name}</code>
         </div>
@@ -98,7 +98,7 @@ export const Styles: Story = {
 /** Icons scale with `size-*` (they render at `1em`, so font-size drives them). */
 export const Sizing: Story = {
   render: () => (
-    <div className="flex items-end gap-4 text-foreground">
+    <div className="gap-4 flex items-end text-foreground">
       <CheckOutlined className="size-4" />
       <CheckOutlined className="size-6" />
       <CheckOutlined className="size-8" />
@@ -110,7 +110,7 @@ export const Sizing: Story = {
 /** Color comes from `currentColor` — set it with any text-color utility. */
 export const Color: Story = {
   render: () => (
-    <div className="flex items-center gap-4">
+    <div className="gap-4 flex items-center">
       <CheckOutlined className="size-8 text-primary" />
       <CheckOutlined className="size-8 text-destructive" />
       <CheckOutlined className="size-8 text-muted-foreground" />

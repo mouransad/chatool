@@ -37,8 +37,9 @@ export const Default: Story = {
         </BottomSheetHeader>
         <BottomSheetBody>
           <p className="text-sm text-muted-foreground">
-            Drag the handle or tap outside to dismiss. The sheet slides up from the
-            bottom and the overlay fades in — both driven by the design tokens.
+            Drag the handle or tap outside to dismiss. The sheet slides up from
+            the bottom and the overlay fades in — both driven by the design
+            tokens.
           </p>
         </BottomSheetBody>
         <BottomSheetFooter>

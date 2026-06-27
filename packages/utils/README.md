@@ -18,10 +18,10 @@ pnpm add @chatool/utils
 Two subpaths. The root entry is **server-safe**; the hooks entry is a client
 boundary.
 
-| Subpath | Exports | Directive |
-| --- | --- | --- |
-| `@chatool/utils` | `cn`, `ClassValue` | none (server-safe) |
-| `@chatool/utils/hooks` | `useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer` | `"use client"` |
+| Subpath                | Exports                                                     | Directive          |
+| ---------------------- | ----------------------------------------------------------- | ------------------ |
+| `@chatool/utils`       | `cn`, `ClassValue`                                          | none (server-safe) |
+| `@chatool/utils/hooks` | `useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer` | `"use client"`     |
 
 ## Usage
 
@@ -34,7 +34,7 @@ utilities (the later utility wins).
 import { cn } from "@chatool/utils";
 
 cn("px-2", condition && "px-4"); // -> "px-4"
-cn("text-sm", "text-base");      // -> "text-base"
+cn("text-sm", "text-base"); // -> "text-base"
 ```
 
 `cn` has no `"use client"`, so it's safe to import from Server Components.

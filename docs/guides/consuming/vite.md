@@ -47,7 +47,9 @@ import type { GetBannersItem } from "@chatool/api";
 export function Banners() {
   const [items, setItems] = useState<GetBannersItem[]>([]);
   useEffect(() => {
-    services.clutch.getBanners({ placement: "home" }).then((r) => setItems(r.items));
+    services.clutch
+      .getBanners({ placement: "home" })
+      .then((r) => setItems(r.items));
   }, []);
   return <>{/* render items */}</>;
 }

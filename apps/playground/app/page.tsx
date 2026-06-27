@@ -23,18 +23,18 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="space-y-4 rounded-lg border bg-card p-6 text-card-foreground">
+    <section className="space-y-4 p-6 rounded-lg border bg-card text-card-foreground">
       <h2 className="text-lg font-semibold">{title}</h2>
-      <div className="flex flex-wrap items-center gap-3">{children}</div>
+      <div className="gap-3 flex flex-wrap items-center">{children}</div>
     </section>
   );
 }
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-3xl space-y-8 p-8">
+    <main className="max-w-3xl space-y-8 p-8 mx-auto">
       <header className="flex items-center justify-between">
-        <h1 className="flex items-center gap-2 text-2xl font-bold">
+        <h1 className="gap-2 text-2xl font-bold flex items-center">
           <ChatOutlined className="size-7 text-primary" />
           @chatool/* playground
         </h1>
@@ -87,7 +87,7 @@ export default function Home() {
       <Section title="@chatool/utils — cn()">
         <span
           className={cn(
-            "rounded-md px-3 py-1 text-sm",
+            "px-3 py-1 text-sm rounded-md",
             true && "bg-accent text-accent-foreground",
             false && "hidden",
           )}

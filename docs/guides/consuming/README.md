@@ -24,11 +24,11 @@ Then import the CSS in your global stylesheet:
 
 ## Pick your framework
 
-| Framework | Where you call the API | `baseURL` source |
-| --- | --- | --- |
-| [Next.js App Router](nextjs-app-router.md) | RSC / server action | `process.env` |
-| [Next.js Pages Router](nextjs-pages-router.md) | `getServerSideProps` / API route | `process.env` |
-| [Vite SPA](vite.md) | client-side | `import.meta.env` |
+| Framework                                      | Where you call the API           | `baseURL` source  |
+| ---------------------------------------------- | -------------------------------- | ----------------- |
+| [Next.js App Router](nextjs-app-router.md)     | RSC / server action              | `process.env`     |
+| [Next.js Pages Router](nextjs-pages-router.md) | `getServerSideProps` / API route | `process.env`     |
+| [Vite SPA](vite.md)                            | client-side                      | `import.meta.env` |
 
 ## Related
 

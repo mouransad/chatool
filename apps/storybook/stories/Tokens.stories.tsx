@@ -25,12 +25,12 @@ const SINGLES = ["--color-border", "--color-input", "--color-ring"];
 
 function Swatches() {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+    <div className="gap-6 flex flex-col">
+      <div className="gap-3 sm:grid-cols-3 lg:grid-cols-4 grid grid-cols-2">
         {PAIRS.map((t) => (
           <div key={t.name} className="overflow-hidden rounded-lg border">
             <div
-              className="flex h-20 items-center justify-center text-sm font-medium capitalize"
+              className="h-20 text-sm font-medium flex items-center justify-center capitalize"
               style={{
                 backgroundColor: `var(${t.bg})`,
                 color: `var(${t.fg})`,
@@ -38,15 +38,15 @@ function Swatches() {
             >
               {t.name}
             </div>
-            <div className="bg-card px-3 py-2 font-mono text-xs text-muted-foreground">
+            <div className="px-3 py-2 font-mono text-xs bg-card text-muted-foreground">
               {t.bg}
             </div>
           </div>
         ))}
       </div>
-      <div className="flex flex-wrap gap-4">
+      <div className="gap-4 flex flex-wrap">
         {SINGLES.map((v) => (
-          <div key={v} className="flex items-center gap-2">
+          <div key={v} className="gap-2 flex items-center">
             <span
               className="size-8 rounded-md border"
               style={{ backgroundColor: `var(${v})` }}

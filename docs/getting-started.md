@@ -22,12 +22,12 @@ native binaries.
 
 ## Everyday commands
 
-| Command | What it does |
-| --- | --- |
-| `pnpm build` | Build every package to `dist/` (ESM + CJS + `.d.ts`). |
-| `pnpm dev` | `tsdown --watch` across all packages. |
-| `pnpm typecheck` | `tsc --noEmit` per package. |
-| `pnpm lint` | `eslint .` over the workspace. |
+| Command          | What it does                                                    |
+| ---------------- | --------------------------------------------------------------- |
+| `pnpm build`     | Build every package to `dist/` (ESM + CJS + `.d.ts`).           |
+| `pnpm dev`       | `tsdown --watch` across all packages.                           |
+| `pnpm typecheck` | `tsc --noEmit` per package.                                     |
+| `pnpm lint`      | `eslint .` over the workspace.                                  |
 | `pnpm changeset` | Record a release note (see [Publishing](guides/publishing.md)). |
 
 Run `pnpm build && pnpm typecheck && pnpm lint` before considering a change done.

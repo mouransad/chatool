@@ -72,7 +72,7 @@ The package is identical everywhere; only **where you call it and where `baseURL
 comes from** differs:
 
 - **Next.js App Router** — in a Server Component / server action / route handler;
-  read the base URL from `process.env` *in your app* and pass it in:
+  read the base URL from `process.env` _in your app_ and pass it in:
   ```ts
   const services = createServices({ baseURL: process.env.API_BASE_URL! });
   ```
@@ -80,14 +80,16 @@ comes from** differs:
   `process.env` injection.
 - **Vite SPA** — client-side; inject from `import.meta.env`:
   ```ts
-  const services = createServices({ baseURL: import.meta.env.VITE_API_BASE_URL });
+  const services = createServices({
+    baseURL: import.meta.env.VITE_API_BASE_URL,
+  });
   ```
 
 ## For AI agents
 
 - **Never** add `process.env`, `import.meta.env`, `"use server"`, or any
   Next/Vite/React import inside code that uses this package's internals — this
-  package is framework-agnostic. Read env in *your app* and pass `baseURL` in.
+  package is framework-agnostic. Read env in _your app_ and pass `baseURL` in.
 - Build everything on `createHttpClient({ baseURL, ...axios })` →
   `createServices({ baseURL, client? })`. Reuse one `client` to share interceptors.
 - All request/response shapes are **real exported types** (e.g. `GetBannersResponse`),

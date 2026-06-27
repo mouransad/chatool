@@ -11,7 +11,7 @@ Package-scoped rules. Root rules still apply: [../../AGENTS.md](../../AGENTS.md)
   `sync:icons` is manual — the build never runs it.
 - **`svg/` is the source of truth.** Files are kebab-case `<base>-<style>.svg`
   (e.g. `home-outlined.svg`, `home-filled.svg`). `pnpm --filter @chatool/icons
-  generate` runs SVGR over them, writing typed components + the `src/index.ts`
+generate` runs SVGR over them, writing typed components + the `src/index.ts`
   barrel. "Filled" is the Material Symbols fill axis of the outlined glyph.
 - **`src/` is generated** by SVGR (`svgr.config.mjs`). Do not hand-edit files in
   `src/` — they are overwritten on every `generate` / `build` (`prebuild` runs
@@ -36,10 +36,10 @@ Package-scoped rules. Root rules still apply: [../../AGENTS.md](../../AGENTS.md)
   (`svgr.config.mjs`) injects `fill="currentColor"` (alongside `icon: true` for
   1em sizing). `text-*` utilities then tint them and `className` / `size-*`
   controls dimensions. Don't strip the `fill` from `svgProps`.
-- **The Storybook gallery shows a *representative sample*, not every icon.** The
+- **The Storybook gallery shows a _representative sample_, not every icon.** The
   set is the full curated Material Symbols list (~80 icons × 4 styles), far too
   many to enumerate by hand, so
   [`apps/storybook/stories/Icons.stories.tsx`](../../apps/storybook/stories/Icons.stories.tsx)
   demos a hand-picked subset plus the four styles and the size/color behaviors.
-  When you add a *new kind* of icon worth showcasing, add it to the `gallery` map;
+  When you add a _new kind_ of icon worth showcasing, add it to the `gallery` map;
   routine additions to the `ICONS` allowlist don't each need a gallery entry.

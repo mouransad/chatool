@@ -1,7 +1,4 @@
-import axios, {
-  type AxiosInstance,
-  type CreateAxiosDefaults,
-} from "axios";
+import axios, { type AxiosInstance, type CreateAxiosDefaults } from "axios";
 
 export interface CreateHttpClientOptions extends CreateAxiosDefaults {
   /** Required absolute base URL. The consumer injects this (no process.env here). */

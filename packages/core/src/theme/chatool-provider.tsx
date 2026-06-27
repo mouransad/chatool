@@ -22,7 +22,10 @@ function applyTheme(resolved: ResolvedTheme): void {
   document.documentElement.classList.toggle(DARK_CLASS, resolved === "dark");
 }
 
-function readStoredTheme(storageKey: string, enableSystem: boolean): Theme | null {
+function readStoredTheme(
+  storageKey: string,
+  enableSystem: boolean,
+): Theme | null {
   try {
     const value = window.localStorage.getItem(storageKey);
     if (value === "light" || value === "dark") return value;

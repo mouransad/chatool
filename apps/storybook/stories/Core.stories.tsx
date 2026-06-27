@@ -12,12 +12,12 @@ function ThemeDemo() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const modes = ["light", "dark", "system"] as const;
   return (
-    <div className="flex flex-col items-center gap-4 rounded-lg border bg-card p-6 text-card-foreground">
+    <div className="gap-4 p-6 flex flex-col items-center rounded-lg border bg-card text-card-foreground">
       <p className="text-sm">
         selection: <code className="font-mono">{theme}</code> · resolved:{" "}
         <code className="font-mono">{resolvedTheme}</code>
       </p>
-      <div className="flex gap-2">
+      <div className="gap-2 flex">
         {modes.map((mode) => (
           <Button
             key={mode}
@@ -30,7 +30,7 @@ function ThemeDemo() {
           </Button>
         ))}
       </div>
-      <p className="max-w-xs text-center text-xs text-muted-foreground">
+      <p className="max-w-xs text-xs text-center text-muted-foreground">
         The choice persists to <code>localStorage</code> and follows the OS in
         system mode — reload to see it restored.
       </p>

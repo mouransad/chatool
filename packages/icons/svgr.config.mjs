@@ -38,7 +38,10 @@ export default {
       filePaths
         .map((entry) => (typeof entry === "string" ? entry : entry.path))
         .map((p) => {
-          const base = p.split("/").pop().replace(/\.[tj]sx?$/, "");
+          const base = p
+            .split("/")
+            .pop()
+            .replace(/\.[tj]sx?$/, "");
           return `export { default as ${toPascal(base)} } from "./${base}";`;
         })
         .join("\n") + "\n"
