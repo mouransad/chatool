@@ -1,0 +1,16 @@
+import type { SVGProps } from "react";
+const SvgForumRounded = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 -960 960 960"
+    aria-hidden="true"
+    focusable="false"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="M850.33-123q-5.33 0-10.83-2t-10.5-7L721-240H300q-24.75 0-42.37-17.63Q240-275.25 240-300v-80h440q24.75 0 42.38-17.63Q740-415.25 740-440v-280h80q24.75 0 42.38 17.62Q880-684.75 880-660v507q0 14-9.5 22t-20.17 8M140-425l75-75h405v-320H140zm-30.33 103Q99-322 89.5-330T80-352v-468q0-24.75 17.63-42.38Q115.25-880 140-880h480q24.75 0 42.38 17.62Q680-844.75 680-820v320q0 24.75-17.62 42.37Q644.75-440 620-440H240L131-331q-5 5-10.5 7t-10.83 2M140-500v-320z" />
+  </svg>
+);
+export default SvgForumRounded;

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Button from "@chatool/ui/button";
-import CheckIcon from "@chatool/icons/CheckIcon";
+import CheckOutlined from "@chatool/icons/CheckOutlined";
 
 const meta = {
   title: "UI/Button",
@@ -57,7 +57,7 @@ export const Sizes: Story = {
         Large
       </Button>
       <Button {...args} size="icon" aria-label="Confirm">
-        <CheckIcon />
+        <CheckOutlined />
       </Button>
     </div>
   ),
@@ -67,7 +67,7 @@ export const WithIcon: Story = {
   args: {
     children: (
       <>
-        <CheckIcon />
+        <CheckOutlined />
         Confirm
       </>
     ),

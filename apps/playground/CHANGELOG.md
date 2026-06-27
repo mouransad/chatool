@@ -1,5 +1,13 @@
 # playground
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @chatool/icons@0.3.0
+  - @chatool/ui@0.2.1
+
 ## 0.0.3
 
 ### Patch Changes

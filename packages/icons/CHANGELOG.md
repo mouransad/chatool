@@ -1,5 +1,22 @@
 # @chatool/icons
 
+## 0.3.0
+
+### Minor Changes
+
+- Replace the placeholder sample icons with a curated Material Symbols set.
+
+  `@chatool/icons` now ships ~80 common icons, each in four styles — Outlined,
+  Rounded, Sharp, Filled — generated (weight 400) from the `@material-symbols/svg-400`
+  source via the new `pnpm sync:icons` allowlist. Icons default to `1em` sizing and
+  `currentColor`.
+
+  **Breaking:** the old subpaths (`CheckIcon`, `ChevronDownIcon`, `ChevronRightIcon`,
+  `SpinnerIcon`, `ChatoolLogoIcon`) are removed. Import the styled equivalents
+  instead, e.g. `@chatool/icons/CheckOutlined`, `@chatool/icons/ChevronRightOutlined`,
+  `@chatool/icons/ProgressActivityOutlined`. `@chatool/ui`'s dropdown-menu now uses
+  `CheckOutlined` / `ChevronRightOutlined` internally.
+
 ## 0.2.0
 
 ### Minor Changes

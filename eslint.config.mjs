@@ -15,7 +15,7 @@ export default tseslint.config(
       "apps/**",
       "**/.next/**",
       ".claude/**",
-      "scripts/**",
+      "**/scripts/**",
     ],
   },
   js.configs.recommended,
