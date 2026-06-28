@@ -12,7 +12,10 @@ button family incrementally.
 - M3 Expressive sizes `xs` · `s` _(default)_ · `m` · `l` · `xl`
   (32 / 40 / 56 / 96 / 136 dp).
 - `shape` `round` _(default, pill)_ · `square`, both with a **press shape-morph**
-  (size-aware so the corner squish is visible at every size).
+  (size-aware so the corner squish is visible at every size). Round rests at a
+  finite half-height radius (not `rounded-full`) so the morph interpolates
+  smoothly instead of snapping.
+- `cursor-pointer` on hover (native `<button>` otherwise shows the arrow cursor).
 - Built-in MD3 press feedback: a pointer **ripple** (Web Animations API, no extra
   deps), the **state layer** (hover/focus/press), and the shape-morph.
 - Leading/trailing icon (`startIcon` / `endIcon`), `loading` (+ `loadingPosition`

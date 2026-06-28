@@ -24,6 +24,22 @@ export const labelSize: Record<ButtonSize, string> = {
   xl: "h-34 gap-3.5 px-12 text-headline-large [&_svg]:size-10",
 };
 
+/**
+ * Resting corner radius when `shape="round"` — a **finite** half-height pill
+ * (not `rounded-full`). `rounded-full` compiles to `calc(infinity * 1px)`, which
+ * can't be transitioned smoothly: the press morph would interpolate from a
+ * near-infinite value and only become visible in the final moment, looking like
+ * a snap. A finite half-height radius is the same perfect capsule but morphs
+ * smoothly. Values are exactly `h-*` / 2 (2rem→1rem, 2.5rem→1.25rem, …).
+ */
+export const roundCorner: Record<ButtonSize, string> = {
+  xs: "rounded-[1rem]",
+  s: "rounded-[1.25rem]",
+  m: "rounded-[1.75rem]",
+  l: "rounded-[3rem]",
+  xl: "rounded-[4.25rem]",
+};
+
 /** Resting corner radius when `shape="square"` (grows with size, per MD3). */
 export const squareCorner: Record<ButtonSize, string> = {
   xs: "rounded-md",
@@ -37,8 +53,8 @@ export const squareCorner: Record<ButtonSize, string> = {
  * MD3 press shape-morph: while pressed, the container corner shrinks to a
  * clearly smaller radius, then springs back (the `border-radius` transition +
  * easing live in `BASE`). Corners are size-aware so the morph stays visible at
- * every size — a small pill (resting radius ≈ half its height) and a large pill
- * need different press targets to read as the same "squish".
+ * every size, and both shapes rest at finite radii (`roundCorner` /
+ * `squareCorner`) so the morph interpolates smoothly.
  */
 export const pressCorner: Record<
   "round" | "square",
@@ -62,7 +78,7 @@ export const pressCorner: Record<
 
 /** Interactive container that hosts the `::before` state layer + ripple overlay. */
 export const BASE =
-  "relative isolate inline-flex select-none items-center justify-center whitespace-nowrap font-medium outline-none transition-[background-color,box-shadow,border-color,border-radius] duration-[var(--md-sys-motion-duration-short4)] ease-[var(--md-sys-motion-easing-standard)] [&_svg]:pointer-events-none [&_svg]:shrink-0";
+  "relative isolate inline-flex cursor-pointer select-none items-center justify-center whitespace-nowrap font-medium outline-none transition-[background-color,box-shadow,border-color,border-radius] duration-[var(--md-sys-motion-duration-short4)] ease-[var(--md-sys-motion-easing-standard)] [&_svg]:pointer-events-none [&_svg]:shrink-0";
 
 /**
  * MD3 state layer: a translucent on-color overlay (`--_state`) at the spec

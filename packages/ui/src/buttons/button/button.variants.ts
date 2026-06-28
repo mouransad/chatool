@@ -8,18 +8,24 @@ import {
   type ButtonSize,
   labelSize,
   pressCorner,
+  roundCorner,
   squareCorner,
 } from "../config";
 
 const SIZES: ButtonSize[] = ["xs", "s", "m", "l", "xl"];
 
 /**
- * Per (shape × size) corners: `round` rests as a pill (`rounded-full` on the
- * shape variant) and presses to `pressCorner.round`; `square` rests at
- * `squareCorner` and presses to the smaller `pressCorner.square`.
+ * Per (shape × size) corners: `round` rests at the finite half-height pill
+ * `roundCorner` (not `rounded-full`, which can't transition smoothly) and presses
+ * to `pressCorner.round`; `square` rests at `squareCorner` and presses to the
+ * smaller `pressCorner.square`.
  */
 const cornerCompounds = SIZES.flatMap((size) => [
-  { shape: "round" as const, size, class: pressCorner.round[size] },
+  {
+    shape: "round" as const,
+    size,
+    class: `${roundCorner[size]} ${pressCorner.round[size]}`,
+  },
   {
     shape: "square" as const,
     size,
@@ -51,7 +57,7 @@ export const buttonVariants = cva(
       },
       size: labelSize,
       shape: {
-        round: "rounded-full",
+        round: "",
         square: "",
       },
     },
