@@ -11,6 +11,13 @@ import eslintConfigPrettier from "eslint-config-prettier";
  */
 export default tseslint.config(
   { ignores: ["storybook-static/**", "node_modules/**"] },
+  // Pin the TS parser's project root to this app's directory so it isn't
+  // ambiguous with the monorepo root config. See tseslint.com/parser-tsconfigrootdir.
+  {
+    languageOptions: {
+      parserOptions: { tsconfigRootDir: import.meta.dirname },
+    },
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...storybook.configs["flat/recommended"],

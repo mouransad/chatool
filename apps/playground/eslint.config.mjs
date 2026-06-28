@@ -9,6 +9,13 @@ import eslintConfigPrettier from "eslint-config-prettier";
  */
 const eslintConfig = [
   { ignores: [".next/**", "node_modules/**"] },
+  // Pin the TS parser's project root to this app's directory so it isn't
+  // ambiguous with the monorepo root config. See tseslint.com/parser-tsconfigrootdir.
+  {
+    languageOptions: {
+      parserOptions: { tsconfigRootDir: import.meta.dirname },
+    },
+  },
   ...next,
   eslintConfigPrettier,
 ];

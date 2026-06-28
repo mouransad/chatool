@@ -24,6 +24,14 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    // Pin the TS parser's project root to this config's directory. Without it,
+    // typescript-eslint sees both this root and the nested `apps/*` configs as
+    // candidate roots and refuses to guess. See tseslint.com/parser-tsconfigrootdir.
+    languageOptions: {
+      parserOptions: { tsconfigRootDir: import.meta.dirname },
+    },
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       globals: {
