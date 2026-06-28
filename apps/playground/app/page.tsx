@@ -1,8 +1,19 @@
+import type { CSSProperties } from "react";
 import { cn } from "@chatool/utils";
 
 import { ThemeToggle } from "./components/theme-toggle";
 import { Button } from "@chatool/ui/button";
+import IconButton from "@chatool/ui/icon-button";
+import Fab from "@chatool/ui/fab";
+import ButtonGroup from "@chatool/ui/button-group";
+import ToggleButtonGroup, {
+  ToggleButtonGroupItem,
+} from "@chatool/ui/toggle-button-group";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
+import AddOutlined from "@chatool/icons/AddOutlined";
+import EditOutlined from "@chatool/icons/EditOutlined";
+import FavoriteOutlined from "@chatool/icons/FavoriteOutlined";
+import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
 import KeyboardArrowDownOutlined from "@chatool/icons/KeyboardArrowDownOutlined";
 import ProgressActivityOutlined from "@chatool/icons/ProgressActivityOutlined";
 
@@ -32,17 +43,84 @@ export default function Home() {
         <ThemeToggle />
       </header>
 
-      {/* @chatool/ui — Button (client component, server-rendered here) */}
+      {/* Common buttons: variants, icons, loading */}
       <Section title="@chatool/ui — Button">
         <Button>Filled</Button>
         <Button variant="tonal">Tonal</Button>
         <Button variant="elevated">Elevated</Button>
         <Button variant="outlined">Outlined</Button>
         <Button variant="text">Text</Button>
-        <Button disabled>
-          <ProgressActivityOutlined className="animate-spin" />
-          Loading
+        <Button endIcon={<ArrowForwardOutlined />}>Next</Button>
+        <Button loading>Loading</Button>
+      </Section>
+
+      {/* Colors + the per-instance --md-comp token override */}
+      <Section title="Button — colors & component-token override">
+        <Button color="primary">Primary</Button>
+        <Button color="secondary">Secondary</Button>
+        <Button color="tertiary">Tertiary</Button>
+        <Button color="error">Error</Button>
+        <Button
+          style={
+            {
+              "--md-comp-button-container-color": "#006971",
+              "--md-comp-button-label-text-color": "#ffffff",
+            } as CSSProperties
+          }
+        >
+          Custom token
         </Button>
+      </Section>
+
+      {/* Icon buttons (incl. a toggle) */}
+      <Section title="@chatool/ui — IconButton">
+        <IconButton aria-label="Edit" variant="standard">
+          <EditOutlined />
+        </IconButton>
+        <IconButton aria-label="Edit" variant="filled">
+          <EditOutlined />
+        </IconButton>
+        <IconButton aria-label="Edit" variant="tonal">
+          <EditOutlined />
+        </IconButton>
+        <IconButton aria-label="Edit" variant="outlined">
+          <EditOutlined />
+        </IconButton>
+        <IconButton aria-label="Favorite" variant="outlined" defaultSelected>
+          <FavoriteOutlined />
+        </IconButton>
+      </Section>
+
+      {/* FAB */}
+      <Section title="@chatool/ui — Fab">
+        <Fab aria-label="Add">
+          <AddOutlined />
+        </Fab>
+        <Fab aria-label="Add" color="tertiary" size="sm">
+          <AddOutlined />
+        </Fab>
+        <Fab extended>
+          <EditOutlined />
+          Compose
+        </Fab>
+      </Section>
+
+      {/* Button group (shared props + connected shape) */}
+      <Section title="@chatool/ui — ButtonGroup">
+        <ButtonGroup variant="connected" buttonVariant="outlined">
+          <Button>Left</Button>
+          <Button>Center</Button>
+          <Button>Right</Button>
+        </ButtonGroup>
+      </Section>
+
+      {/* Toggle / segmented selection */}
+      <Section title="@chatool/ui — ToggleButtonGroup">
+        <ToggleButtonGroup type="single" defaultValue="week">
+          <ToggleButtonGroupItem value="day">Day</ToggleButtonGroupItem>
+          <ToggleButtonGroupItem value="week">Week</ToggleButtonGroupItem>
+          <ToggleButtonGroupItem value="month">Month</ToggleButtonGroupItem>
+        </ToggleButtonGroup>
       </Section>
 
       {/* @chatool/icons */}

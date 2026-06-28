@@ -2,7 +2,9 @@
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Packages](README.md) → **ui**
 
-Material Design 3 React UI components (subpath-only, `"use client"`).
+Material Design 3 React UI components (subpath-only, `"use client"`). Ships the
+MD3 **button family**: `button`, `icon-button`, `fab`, `button-group`,
+`toggle-button-group`.
 
 The **canonical, complete reference** for this package is its README — which is
 also shipped inside the npm tarball (so it's available in consumers'

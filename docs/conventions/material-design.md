@@ -14,11 +14,11 @@ Filled), so the design language is consistent end-to-end.
 Mirrors Material Web / Angular Material 3. Three tiers, CSS custom properties
 throughout:
 
-| Tier          | Prefix        | Holds                                                                                      | Where                                                    |
-| ------------- | ------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
-| **Reference** | `--md-ref-*`  | raw values (the type family)                                                               | `@chatool/core/theme.css`                                |
-| **System**    | `--md-sys-*`  | roles: color, typescale, shape, elevation, state, motion — **the public theming contract** | `@chatool/core/theme.css` (`:root` + `.dark`)            |
-| **Component** | per-component | a component's own knobs                                                                    | component `className` / cva (today); `--md-comp-*` later |
+| Tier          | Prefix        | Holds                                                                                      | Where                                                  |
+| ------------- | ------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------ |
+| **Reference** | `--md-ref-*`  | raw values (the type family)                                                               | `@chatool/core/theme.css`                              |
+| **System**    | `--md-sys-*`  | roles: color, typescale, shape, elevation, state, motion — **the public theming contract** | `@chatool/core/theme.css` (`:root` + `.dark`)          |
+| **Component** | `--md-comp-*` | a component's own knobs (default to `--md-sys-*`)                                          | the component's cva `*.variants.ts` (in `@chatool/ui`) |
 
 The **system tokens are what consumers override.** They follow the MD3 spec
 names exactly, so output from the **Material Theme Builder** (or
@@ -41,6 +41,31 @@ components style with short utilities instead of raw `var()`:
 > **Rule:** components reference **tokens, never raw hex** — always a `--color-*`
 > utility (or `var(--md-sys-*)` for state-layer `color-mix`), never a literal
 > color. That is what makes every component themeable from one place.
+
+## Component tokens (`--md-comp-*`) — per-component customization
+
+Each `@chatool/ui` component exposes its own override layer so an app can re-theme
+**one** component (globally or per-instance) without affecting the rest. A painted
+role reads its component token first and falls back to the computed value:
+
+```
+/* in the component's cva (Tailwind arbitrary value) */
+bg-[var(--md-comp-button-container-color,var(--_bg))]
+```
+
+`--_bg` / `--_main` / `--_container` / … are **local vars** set by the `variant`
+and `color` (the `color` prop assigns the palette; the `variant` picks which roles
+to paint). Naming is `--md-comp-<component>-<role>`, e.g.
+`--md-comp-button-container-color`, `--md-comp-button-label-text-color`,
+`--md-comp-button-outline-color`, `--md-comp-icon-button-*`, `--md-comp-fab-*`,
+`--md-comp-toggle-button-*`. Consumers override globally (in `:root`) or per
+instance (`style={{ "--md-comp-button-container-color": "#006971" }}`). This
+mirrors Material Web's component-token model. The full override surface lives in
+each component's `*.variants.ts`; document new tokens in
+[packages/ui/README.md](../../packages/ui/README.md).
+
+The four customization layers, increasingly specific: **global `--md-sys-*`** →
+**`color` prop** → **`--md-comp-*` token** → **`className`** (cva + `cn` merge).
 
 ## Token groups (what ships)
 

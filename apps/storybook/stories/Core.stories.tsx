@@ -21,7 +21,7 @@ function ThemeDemo() {
         {modes.map((mode) => (
           <Button
             key={mode}
-            size="sm"
+            size="s"
             variant={theme === mode ? "filled" : "outlined"}
             onClick={() => setTheme(mode)}
             className="capitalize"
