@@ -65,13 +65,6 @@ export default function Home() {
           Built with cn()
         </span>
       </Section>
-
-      {/* @chatool/api is wired in app/lib/services.ts (no live call). */}
-      <p className="text-sm text-muted-foreground">
-        <code>@chatool/api</code> is wired in <code>app/lib/services.ts</code> —
-        set <code>API_BASE_URL</code> and call a service from a Server Component
-        to exercise a live request.
-      </p>
     </main>
   );
 }

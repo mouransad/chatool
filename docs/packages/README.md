@@ -13,7 +13,6 @@ the [consuming guides](../guides/consuming/README.md).
 | `@chatool/utils` | [utils.md](utils.md) | `cn` + hooks                                             |
 | `@chatool/ui`    | [ui.md](ui.md)       | shadcn components                                        |
 | `@chatool/icons` | [icons.md](icons.md) | SVGR-generated React SVG icons                           |
-| `@chatool/api`   | [api.md](api.md)     | framework-agnostic axios client + services               |
 | `@chatool/core`  | [core.md](core.md)   | app-root `ChatoolProvider` (theme/dark-mode) + theme CSS |
 
 Each package also has:

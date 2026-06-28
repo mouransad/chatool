@@ -10,12 +10,11 @@ Human docs: [docs/packages/core.md](../../docs/packages/core.md).
   own source, so the barrels need it too). `src/theme/types.ts` is types-only and
   stays pure.
 - **Theme + CSS by design.** This package owns dark-mode/theme state **and** the
-  CSS-only theme layer (`styles.css` / `theme.css`) — and nothing else. Do
-  **not** pull `@chatool/api` (or its services) into a React context here — the
-  API stays framework-agnostic and server-injectable via
-  `createServices`/`getServices`. The provider JS does **not** import the CSS;
-  the `@import "@chatool/core/styles.css"` / `@source` lines stay in the
-  consumer's global CSS because Tailwind needs them at build time.
+  CSS-only theme layer (`styles.css` / `theme.css`) — and nothing else. Keep it
+  theme-only; don't grow it into a data/services layer. The provider JS does
+  **not** import the CSS; the `@import "@chatool/core/styles.css"` / `@source`
+  lines stay in the consumer's global CSS because Tailwind needs them at build
+  time.
 - **The CSS is CSS-only, no build.** `styles.css` / `theme.css` live at the
   package root (not `dist/`), are exported directly (`./styles.css`,
   `./theme.css`), listed in `files`, and untouched by tsdown. `styles.css` must

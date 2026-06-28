@@ -32,8 +32,6 @@ you aren't running `pnpm dev`.)
 - **`@chatool/ui` / `@chatool/icons` / `@chatool/utils`** — rendered in
   [`app/page.tsx`](app/page.tsx). Client components ship `"use client"`, so they
   drop into this Server Component directly.
-- **`@chatool/api`** — wired in [`app/lib/services.ts`](app/lib/services.ts)
-  via `createServices({ baseURL })`; not called (no backend yet).
 
 ## Scripts
 

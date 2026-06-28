@@ -6,8 +6,8 @@ because Copilot does not follow links automatically.
 
 ## Project
 
-pnpm-workspace monorepo publishing five registry-agnostic `@chatool/*` packages
-(`utils`, `ui`, `icons`, `api`, `core`) for React apps. Stack: pnpm + tsdown
+pnpm-workspace monorepo publishing four registry-agnostic `@chatool/*` packages
+(`utils`, `ui`, `icons`, `core`) for React apps. Stack: pnpm + tsdown
 (ESM+CJS+dts) + Changesets + TypeScript 5 + React 19 + Tailwind v4.
 
 ## Commands
@@ -24,16 +24,14 @@ owned by Prettier (+ `prettier-plugin-tailwindcss`); ESLint defers via
 - **tsdown preserves `"use client"`/`"use server"` natively**, but only at the
   top of an entry's own source. Re-export-only barrels (e.g.
   `packages/utils/src/hooks/index.ts`) carry `"use client";` explicitly — keep it.
-- **`@chatool/api` is framework-agnostic**: no `process.env`, no `"use server"`,
-  no framework imports; `baseURL` is always injected.
 - **Server Components by default.** Pure components (props → JSX) ship with NO
   directive (render as RSC in App Router; work in Pages Router / Vite / webpack).
   Add `"use client";` only for client features (hooks incl. any `useLogic`,
   context, internal event-handler wiring, browser/DOM APIs, class components, or a
   client-only dep like `radix-ui`). When in doubt add it — omitting it from an
   interactive component is a hard App-Router error; adding it is at worst a
-  suppressible Vite `MODULE_LEVEL_DIRECTIVE` warning. Icons/`cn`/the api client
-  stay directive-free. Spec: `docs/conventions/client-server-components.md`.
+  suppressible Vite `MODULE_LEVEL_DIRECTIVE` warning. Icons/`cn` stay
+  directive-free. Spec: `docs/conventions/client-server-components.md`.
 - Every package is `"type": "module"`; keep `exports` maps + `tsdown` entries in
   sync (ESM `.mjs`/`.d.mts` + CJS `.cjs`/`.d.cts`) when adding subpaths.
 - **`@chatool/ui` and `@chatool/icons` are subpath-only (no root barrel).**

@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "lib": ["ES2022"]
-  },
-  "include": ["src", "tsdown.config.ts"],
-  "exclude": ["dist", "node_modules"]
-}

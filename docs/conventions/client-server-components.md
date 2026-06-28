@@ -17,8 +17,6 @@ and the **Server-Components-by-default** policy.
 - **When in doubt, add `"use client";`.** The failure mode of _omitting_ it is a
   hard build error in App Router; the failure mode of _adding_ it is, at worst, a
   suppressible build warning in Vite. The asymmetry is deliberate.
-- `@chatool/api` must **never** contain `"use client"` or `"use server"` — it
-  stays framework-agnostic.
 
 ## Why this is safe across frameworks
 
@@ -66,7 +64,7 @@ If **none** apply, leave it directive-free — it's a Server Component.
 ## Worked examples in this repo
 
 - **Server (no directive):** `@chatool/icons/*` — pure SVG wrappers, `@chatool/utils`
-  `cn`, the `@chatool/api` client. These render anywhere, including as RSC.
+  `cn`. These render anywhere, including as RSC.
 - **Client (`"use client"`):** `@chatool/ui/button` (uses `radix-ui`'s `Slot` and
   forwards event handlers onto the element), `@chatool/core`'s `ChatoolProvider`
   (`useState`/`useEffect`/`localStorage`) and `useTheme` (`useContext`), and the

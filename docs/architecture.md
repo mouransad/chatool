@@ -16,7 +16,7 @@ chatool/
    ├─ core/     @chatool/core      (ChatoolProvider + theme CSS)
    ├─ utils/    @chatool/utils
    ├─ ui/       @chatool/ui        (depends on @chatool/utils)
-   └─ api/      @chatool/api
+   └─ icons/    @chatool/icons
 ```
 
 ## Workspace dependency graph
@@ -24,11 +24,12 @@ chatool/
 ```
 @chatool/core     (ChatoolProvider + theme CSS)
 @chatool/utils    (standalone)
-@chatool/ui   ──▶ @chatool/utils   (workspace:^)
-@chatool/api      (standalone)
+@chatool/icons    (standalone)
+@chatool/ui   ──▶ @chatool/utils + @chatool/icons   (workspace:^)
 ```
 
-`@chatool/ui` depends on `@chatool/utils` via the `workspace:^` protocol. On
+`@chatool/ui` depends on `@chatool/utils` and `@chatool/icons` via the
+`workspace:^` protocol. On
 publish, Changesets/pnpm rewrites that to the real version — see
 [Publishing](guides/publishing.md).
 

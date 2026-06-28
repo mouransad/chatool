@@ -171,8 +171,7 @@ export function ThemeToggle() {
 - Add `suppressHydrationWarning` to `<html>`. The provider toggles the `dark`
   class on `document.documentElement` imperatively, so React must not be asked to
   reconcile that attribute.
-- This package is **theme-only**. It does not wrap `@chatool/api` (the API stays
-  framework-agnostic and server-injectable via `createServices`/`getServices`).
+- This package is **theme-only** — it provides the theme provider and CSS, nothing more.
 - It ships the theme CSS (`@chatool/core/styles.css` / `theme.css`) but the JS
   provider does **not** import CSS for you — keep `@import "@chatool/core/styles.css"`
   in your global CSS so Tailwind processes it at build time.

@@ -2,7 +2,8 @@
 
 > **You are here:** [Repo README](../../../README.md) → [Docs](../../README.md) → [Guides](../README.md) → [Consuming](README.md) → **Vite SPA**
 
-Inject `baseURL` from `import.meta.env`; call client-side.
+Add the Tailwind plugin, import the theme CSS, and mount `ChatoolProvider` at the
+app root.
 
 ## Tailwind + global CSS
 
@@ -25,34 +26,20 @@ export default defineConfig({
 @import "@chatool/core/styles.css";
 ```
 
-## Services factory
-
-```ts
-// src/lib/services.ts
-import { createServices } from "@chatool/api";
-
-export const services = createServices({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
-});
-```
-
-## Call client-side
+## Mount `ChatoolProvider` at the app root
 
 ```tsx
-// src/components/Banners.tsx
-import { useEffect, useState } from "react";
-import { services } from "../lib/services";
-import type { GetBannersItem } from "@chatool/api";
+// src/main.tsx
+import "./index.css";
+import { createRoot } from "react-dom/client";
+import { ChatoolProvider } from "@chatool/core";
+import App from "./App";
 
-export function Banners() {
-  const [items, setItems] = useState<GetBannersItem[]>([]);
-  useEffect(() => {
-    services.clutch
-      .getBanners({ placement: "home" })
-      .then((r) => setItems(r.items));
-  }, []);
-  return <>{/* render items */}</>;
-}
+createRoot(document.getElementById("root")!).render(
+  <ChatoolProvider>
+    <App />
+  </ChatoolProvider>,
+);
 ```
 
 ## The `"use client"` build warning
@@ -85,7 +72,7 @@ export default defineConfig({
 ## Related
 
 - [App Router](nextjs-app-router.md) · [Pages Router](nextjs-pages-router.md)
-- [@chatool/api](../../packages/api.md)
+- [@chatool/core](../../packages/core.md)
 - [Client vs Server Components](../../conventions/client-server-components.md)
 
 ---

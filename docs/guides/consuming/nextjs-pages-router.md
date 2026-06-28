@@ -2,7 +2,8 @@
 
 > **You are here:** [Repo README](../../../README.md) → [Docs](../../README.md) → [Guides](../README.md) → [Consuming](README.md) → **Pages Router**
 
-Inject `baseURL` in `getServerSideProps` (or an API route) — server-side env.
+Import the theme CSS in your global stylesheet and mount `ChatoolProvider` in
+`pages/_app.tsx`.
 
 ## Global CSS
 
@@ -12,42 +13,30 @@ Inject `baseURL` in `getServerSideProps` (or an API route) — server-side env.
 @import "@chatool/core/styles.css";
 ```
 
-## `getServerSideProps`
+## Mount `ChatoolProvider` in `pages/_app.tsx`
 
 ```tsx
-// pages/index.tsx
-import type { GetServerSideProps } from "next";
-import { createServices, type GetBannersResponse } from "@chatool/api";
+// pages/_app.tsx
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { ChatoolProvider } from "@chatool/core";
 
-export const getServerSideProps: GetServerSideProps<{
-  data: GetBannersResponse;
-}> = async () => {
-  const services = createServices({ baseURL: process.env.API_BASE_URL! });
-  const data = await services.clutch.getBanners({ placement: "home" });
-  return { props: { data } };
-};
-```
-
-## API route
-
-```ts
-// pages/api/banners.ts
-import type { NextApiRequest, NextApiResponse } from "next";
-import { createServices } from "@chatool/api";
-
-export default async function handler(
-  _req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  const services = createServices({ baseURL: process.env.API_BASE_URL! });
-  res.json(await services.clutch.getBanners());
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <ChatoolProvider>
+      <Component {...pageProps} />
+    </ChatoolProvider>
+  );
 }
 ```
+
+To avoid a flash of the wrong theme on first paint, the provider also runs an
+inline no-flash script — no extra setup required.
 
 ## Related
 
 - [App Router](nextjs-app-router.md) · [Vite](vite.md)
-- [@chatool/api](../../packages/api.md)
+- [@chatool/core](../../packages/core.md)
 
 ---
 

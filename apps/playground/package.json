@@ -12,7 +12,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@chatool/api": "workspace:*",
     "@chatool/core": "workspace:*",
     "@chatool/icons": "workspace:*",
     "@chatool/ui": "workspace:*",

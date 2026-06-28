@@ -4,8 +4,8 @@
 
 - Strict mode everywhere; honor `verbatimModuleSyntax` → use `import type` /
   `export type` for type-only symbols.
-- Prefer real exported types over ambient globals (e.g. the api `GetBanners*`
-  types are real exports).
+- Prefer real exported types over ambient globals (e.g. `@chatool/core`'s
+  `Theme` / `ResolvedTheme` are real exports).
 
 ---
 

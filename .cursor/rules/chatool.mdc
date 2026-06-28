@@ -12,8 +12,6 @@ Key rules (full set in `AGENTS.md` and each `packages/*/AGENTS.md`):
 
 - tsdown preserves `"use client"` / `"use server"` natively, but only at the top
   of an entry's own source — re-export barrels keep the directive explicitly.
-- `@chatool/api` stays framework-agnostic: no `process.env`, no `"use server"`,
-  `baseURL` is injected.
 - Keep `exports` maps correct; every package is `"type": "module"` with dual
   ESM/CJS output (`.mjs`/`.d.mts` + `.cjs`/`.d.cts`).
 - Server Components by default: pure components ship no directive; add

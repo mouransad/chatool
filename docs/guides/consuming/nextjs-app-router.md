@@ -2,7 +2,8 @@
 
 > **You are here:** [Repo README](../../../README.md) → [Docs](../../README.md) → [Guides](../README.md) → [Consuming](README.md) → **App Router**
 
-Inject `baseURL` from a server env var; call the API in an RSC or a server action.
+Import the theme CSS in your global stylesheet and mount `ChatoolProvider` in the
+root layout.
 
 ## Global CSS
 
@@ -12,42 +13,32 @@ Inject `baseURL` from a server env var; call the API in an RSC or a server actio
 @import "@chatool/core/styles.css";
 ```
 
-## Services factory
-
-```ts
-// app/lib/services.ts
-import { createServices } from "@chatool/api";
-
-export function getServices() {
-  return createServices({ baseURL: process.env.API_BASE_URL! });
-}
-```
-
-## Call in a Server Component
+## Mount `ChatoolProvider` in the root layout
 
 ```tsx
-// app/page.tsx  (runs on the server)
-import { getServices } from "./lib/services";
+// app/layout.tsx
+import "./globals.css";
+import { ChatoolProvider } from "@chatool/core";
 
-export default async function Page() {
-  const { items } = await getServices().clutch.getBanners({
-    placement: "home",
-  });
-  return <Banners items={items} />;
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ChatoolProvider>{children}</ChatoolProvider>
+      </body>
+    </html>
+  );
 }
 ```
 
-## Call in a server action
-
-```ts
-// app/actions.ts
-"use server";
-import { getServices } from "./lib/services";
-
-export async function fetchBanners() {
-  return getServices().clutch.getBanners();
-}
-```
+`ChatoolProvider` is a client component, but you can render it from this Server
+Component layout — it creates a client boundary around `children`. Add
+`suppressHydrationWarning` to `<html>` because the provider sets the theme class
+imperatively.
 
 Client components from [@chatool/ui](../../packages/ui.md) already ship
 `"use client"`, so importing `<Button>` into a Server Component just works.
@@ -55,7 +46,7 @@ Client components from [@chatool/ui](../../packages/ui.md) already ship
 ## Related
 
 - [Pages Router](nextjs-pages-router.md) · [Vite](vite.md)
-- [@chatool/api](../../packages/api.md)
+- [@chatool/core](../../packages/core.md)
 
 ---
 

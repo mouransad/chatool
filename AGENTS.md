@@ -13,7 +13,7 @@ there.** See [docs/ai-agents.md](docs/ai-agents.md) for how the wiring works.
 
 ## What this repo is
 
-A pnpm-workspace monorepo publishing five **registry-agnostic** `@chatool/*`
+A pnpm-workspace monorepo publishing four **registry-agnostic** `@chatool/*`
 packages for React apps (Next.js App Router, Next.js Pages Router, Vite SPA).
 
 | Package          | Role                                                     | Peers                             |
@@ -21,7 +21,6 @@ packages for React apps (Next.js App Router, Next.js Pages Router, Vite SPA).
 | `@chatool/utils` | `cn` + hooks                                             | `react`                           |
 | `@chatool/ui`    | shadcn components                                        | `react`, `react-dom`              |
 | `@chatool/icons` | SVGR-generated React SVG icons                           | `react`                           |
-| `@chatool/api`   | framework-agnostic axios client + services               | —                                 |
 | `@chatool/core`  | app-root `ChatoolProvider` (theme/dark-mode) + theme CSS | `react`, `tailwindcss` (optional) |
 
 Stack: pnpm workspaces, tsdown (ESM+CJS+`.d.ts`), Changesets, TypeScript 5,
@@ -62,28 +61,25 @@ formatting is enforced automatically — run `pnpm format` if you bypass it.
    `packages/utils/src/hooks/index.ts` carries `"use client";` at the top. Keep
    it there; add it to any new client barrel.
    See [docs/build-and-tooling.md](docs/build-and-tooling.md).
-2. **`@chatool/api` stays framework-agnostic.** No `process.env`, no
-   `"use server"`, no framework imports. `baseURL` is always **injected** by the
-   caller (`createHttpClient` / `createServices`).
-3. **Directives are intentional.** Client hooks and client UI components start
-   with `"use client"`. Pure modules (`cn`, icons, the api client) must **not**
+2. **Directives are intentional.** Client hooks and client UI components start
+   with `"use client"`. Pure modules (`cn`, icons) must **not**
    have it. Don't add or remove a directive without understanding the boundary.
-4. **Keep `exports` maps in sync.** When you add a component/hook/service subpath,
+3. **Keep `exports` maps in sync.** When you add a component/hook/service subpath,
    add a matching `exports` entry (ESM `.mjs`/`.d.mts` + CJS `.cjs`/`.d.cts`) and
    a `tsdown` entry. Every package is `"type": "module"`.
-   4b. **Subpath-only, no root barrels for `@chatool/ui` and `@chatool/icons`.**
+   3b. **Subpath-only, no root barrels for `@chatool/ui` and `@chatool/icons`.**
    Neither package exposes a `.` export — every symbol is reachable from exactly
    one path so the IDE auto-imports the subpath, not a root barrel. `@chatool/ui`
    ships one subpath per component (`./button`, `./dropdown-menu`, …, each with
    `default` + named exports); `@chatool/icons` uses a single `./*` wildcard
    export mapping `@chatool/icons/<IconName>` → `dist/<IconName>` (default
    export). Don't re-add a `.` export or a published root barrel to either.
-5. **peer vs dep:** runtime libraries the app already owns (react, react-dom,
+4. **peer vs dep:** runtime libraries the app already owns (react, react-dom,
    tailwindcss) are `peerDependencies`; everything bundled-against is a `dependency`.
-6. **Registry-agnostic.** Never hardcode a registry. Publish config lives in
+5. **Registry-agnostic.** Never hardcode a registry. Publish config lives in
    `publishConfig` + a local `.npmrc` (see [.npmrc.example](.npmrc.example)).
-7. **Every functional change needs a Changeset** (`pnpm changeset`).
-   7b. **Each package ships its own docs.** `packages/<pkg>/README.md` is the single
+6. **Every functional change needs a Changeset** (`pnpm changeset`).
+   6b. **Each package ships its own docs.** `packages/<pkg>/README.md` is the single
    **canonical, complete** per-package reference and is **self-contained** (no
    `../../docs` relative links — they break in `node_modules`). npm ships README
    automatically. Each package also ships a generated **`llms.txt`** (an
@@ -93,7 +89,7 @@ formatting is enforced automatically — run `pnpm format` if you bypass it.
    keep `"llms.txt"` in each package's `files`. `docs/packages/<pkg>.md` is a thin
    pointer to the README. Regenerate with `pnpm gen:llms` (also runs on `pnpm build`
    via `postbuild` and at publish via each package's `prepack`).
-8. **Docs, shims, changesets & stories stay in sync — it's part of "done".** A
+7. **Docs, shims, changesets & stories stay in sync — it's part of "done".** A
    change isn't finished until the docs and per-tool shims it affects are updated
    (plus a Changeset for functional changes, and a Storybook story for new
    `@chatool/ui`/`@chatool/icons`). This repo's whole premise is _no drift_
@@ -112,7 +108,7 @@ formatting is enforced automatically — run `pnpm format` if you bypass it.
 | A package's `exports` / subpaths / `tsdown` entries / directives                | that package's `packages/*/AGENTS.md`, the canonical **`packages/<pkg>/README.md`** (Exports + Usage + "For AI agents"), then regenerate `llms.txt` (`pnpm gen:llms`), and [docs/guides/contributing.md](docs/guides/contributing.md) / [docs/conventions/](docs/conventions/) if the add-subpath flow changed (`docs/packages/<pkg>.md` is just a pointer — no content change needed) |
 | A `@chatool/ui` component or `@chatool/icons` icon                              | add/extend a story in [`apps/storybook`](apps/storybook) — run [`/sync-storybook`](.claude/skills/sync-storybook/SKILL.md) (stories don't auto-discover; the icon gallery is enumerated by hand)                                                                                                                                                                                       |
 | A package's `README.md` "For AI agents" section or `package.json` `description` | regenerate `llms.txt` (`pnpm gen:llms`) — it's derived, never hand-edited                                                                                                                                                                                                                                                                                                              |
-| Add or remove a package                                                         | the table in [What this repo is](#what-this-repo-is) (+ its "five packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim                                                                                                                                        |
+| Add or remove a package                                                         | the table in [What this repo is](#what-this-repo-is) (+ its "four packages" count), root [README.md](README.md), [docs/README.md](docs/README.md) + [docs/packages/README.md](docs/packages/README.md) lists, and the count in the Copilot shim                                                                                                                                        |
 | Add or remove an AI-tool shim                                                   | the table in [docs/ai-agents.md](docs/ai-agents.md)                                                                                                                                                                                                                                                                                                                                    |
 | Any functional (non-doc) change to a published package                          | add a Changeset (`pnpm changeset`)                                                                                                                                                                                                                                                                                                                                                     |
 
@@ -130,7 +126,7 @@ module needs client features (hooks — including any custom `useLogic` —, con
 internal event-handler wiring, browser/DOM APIs, class components, or a client-only
 dep like `radix-ui`). When in doubt add it: omitting it from an interactive
 component is a hard App-Router build error, while adding it is at worst a
-suppressible Vite warning. `@chatool/api` never has any directive. Canonical spec:
+suppressible Vite warning. Canonical spec:
 [docs/conventions/client-server-components.md](docs/conventions/client-server-components.md).
 
 **`@chatool/ui` component structure:** each component is its own kebab-case
@@ -152,5 +148,4 @@ server component has none). Enforced for `packages/ui/src/**` by
 - Per-package agent rules: [packages/utils/AGENTS.md](packages/utils/AGENTS.md) ·
   [packages/ui/AGENTS.md](packages/ui/AGENTS.md) ·
   [packages/icons/AGENTS.md](packages/icons/AGENTS.md) ·
-  [packages/api/AGENTS.md](packages/api/AGENTS.md) ·
   [packages/core/AGENTS.md](packages/core/AGENTS.md)
