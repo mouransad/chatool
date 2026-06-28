@@ -10,6 +10,11 @@ context). Read it before editing.
 
 Key rules (full set in `AGENTS.md` and each `packages/*/AGENTS.md`):
 
+- Material Design 3 design system: `@chatool/core` ships `--md-sys-*` tokens
+  (color/typescale/shape/elevation/state/motion) mapped to Tailwind utilities via
+  `@theme inline`. Style with token utilities (`bg-primary`, `text-on-surface`,
+  `rounded-full`, `text-label-large`), never raw hex; apps re-theme by overriding
+  `--md-sys-*`. See `docs/conventions/material-design.md`.
 - tsdown preserves `"use client"` / `"use server"` natively, but only at the top
   of an entry's own source — re-export barrels keep the directive explicitly.
 - Keep `exports` maps correct; every package is `"type": "module"` with dual

@@ -21,6 +21,13 @@ owned by Prettier (+ `prettier-plugin-tailwindcss`); ESLint defers via
 
 ## Hard rules
 
+- **Material Design 3 design system.** `@chatool/core` ships the MD3 token layer:
+  `--md-sys-*` (color/typescale/shape/elevation/state/motion) in `:root`/`.dark`,
+  mapped to Tailwind utilities via `@theme inline` (`bg-primary`, `text-on-surface`,
+  `rounded-full`, `text-label-large`, `shadow-elevation-1`). Style components with
+  token **utilities, never raw hex**; apps re-theme by overriding `--md-sys-*` /
+  `--md-ref-typeface-*` (Material Theme Builder output drops in). Icons are Material
+  Symbols. Spec: `docs/conventions/material-design.md`.
 - **tsdown preserves `"use client"`/`"use server"` natively**, but only at the
   top of an entry's own source. Re-export-only barrels (e.g.
   `packages/utils/src/hooks/index.ts`) carry `"use client";` explicitly — keep it.

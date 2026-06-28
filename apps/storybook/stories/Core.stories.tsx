@@ -12,7 +12,7 @@ function ThemeDemo() {
   const { theme, resolvedTheme, setTheme } = useTheme();
   const modes = ["light", "dark", "system"] as const;
   return (
-    <div className="gap-4 p-6 flex flex-col items-center rounded-lg border bg-card text-card-foreground">
+    <div className="gap-4 p-6 flex flex-col items-center rounded-lg border bg-surface-container text-on-surface">
       <p className="text-sm">
         selection: <code className="font-mono">{theme}</code> · resolved:{" "}
         <code className="font-mono">{resolvedTheme}</code>
@@ -22,7 +22,7 @@ function ThemeDemo() {
           <Button
             key={mode}
             size="sm"
-            variant={theme === mode ? "default" : "outline"}
+            variant={theme === mode ? "filled" : "outlined"}
             onClick={() => setTheme(mode)}
             className="capitalize"
           >
@@ -30,7 +30,7 @@ function ThemeDemo() {
           </Button>
         ))}
       </div>
-      <p className="max-w-xs text-xs text-center text-muted-foreground">
+      <p className="max-w-xs text-xs text-center text-on-surface-variant">
         The choice persists to <code>localStorage</code> and follows the OS in
         system mode — reload to see it restored.
       </p>

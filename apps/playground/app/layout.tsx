@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <body className="min-h-screen bg-surface text-on-surface antialiased">
         <ChatoolProvider>{children}</ChatoolProvider>
       </body>
     </html>

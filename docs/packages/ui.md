@@ -2,7 +2,7 @@
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Packages](README.md) → **ui**
 
-Shadcn-based React UI components (subpath-only, `"use client"`).
+Material Design 3 React UI components (subpath-only, `"use client"`).
 
 The **canonical, complete reference** for this package is its README — which is
 also shipped inside the npm tarball (so it's available in consumers'

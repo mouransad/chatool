@@ -6,6 +6,9 @@ Rules to follow when changing code, one file per category. AI agents: these are
 also summarized in [AGENTS.md](../../AGENTS.md) (and each
 [`packages/*/AGENTS.md`](../../AGENTS.md)).
 
+- [Material Design 3 tokens & theming](material-design.md) — the MD3 token
+  system (`--md-sys-*` color/typescale/shape/elevation/state/motion), the Tailwind
+  `@theme inline` mapping, and how consumers customize everything.
 - [Package shape](package-shape.md) — the invariants every buildable package
   shares (`type: module`, `files`, scripts, `publishConfig`).
 - [Exports maps](exports.md) — explicit conditional `exports`, and the steps to

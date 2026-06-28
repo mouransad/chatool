@@ -53,14 +53,14 @@ const styles: Record<string, Icon> = {
 
 function Gallery() {
   return (
-    <div className="gap-4 sm:grid-cols-3 md:grid-cols-4 grid grid-cols-2 text-foreground">
+    <div className="gap-4 sm:grid-cols-3 md:grid-cols-4 grid grid-cols-2 text-on-surface">
       {Object.entries(gallery).map(([name, Icon]) => (
         <div
           key={name}
-          className="gap-3 p-4 flex flex-col items-center rounded-lg border bg-card text-card-foreground"
+          className="gap-3 p-4 flex flex-col items-center rounded-lg border bg-surface-container text-on-surface"
         >
           <Icon className="size-8" />
-          <code className="text-xs text-muted-foreground">{name}</code>
+          <code className="text-xs text-on-surface-variant">{name}</code>
         </div>
       ))}
     </div>
@@ -84,11 +84,11 @@ export const AllIcons: Story = {};
  */
 export const Styles: Story = {
   render: () => (
-    <div className="gap-6 flex items-end text-foreground">
+    <div className="gap-6 flex items-end text-on-surface">
       {Object.entries(styles).map(([name, Icon]) => (
         <div key={name} className="gap-2 flex flex-col items-center">
           <Icon className="size-8" />
-          <code className="text-xs text-muted-foreground">{name}</code>
+          <code className="text-xs text-on-surface-variant">{name}</code>
         </div>
       ))}
     </div>
@@ -98,7 +98,7 @@ export const Styles: Story = {
 /** Icons scale with `size-*` (they render at `1em`, so font-size drives them). */
 export const Sizing: Story = {
   render: () => (
-    <div className="gap-4 flex items-end text-foreground">
+    <div className="gap-4 flex items-end text-on-surface">
       <CheckOutlined className="size-4" />
       <CheckOutlined className="size-6" />
       <CheckOutlined className="size-8" />
@@ -112,8 +112,8 @@ export const Color: Story = {
   render: () => (
     <div className="gap-4 flex items-center">
       <CheckOutlined className="size-8 text-primary" />
-      <CheckOutlined className="size-8 text-destructive" />
-      <CheckOutlined className="size-8 text-muted-foreground" />
+      <CheckOutlined className="size-8 text-error" />
+      <CheckOutlined className="size-8 text-on-surface-variant" />
     </div>
   ),
 };

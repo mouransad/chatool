@@ -1,7 +1,7 @@
 {
   "name": "@chatool/ui",
   "version": "0.3.0",
-  "description": "Shadcn-based React UI components for Chatool apps. Requires @chatool/core for design tokens.",
+  "description": "Material Design 3 React UI components for Chatool apps. Requires @chatool/core for design tokens.",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": false,

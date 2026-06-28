@@ -10,14 +10,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: [
-        "default",
-        "destructive",
-        "outline",
-        "secondary",
-        "ghost",
-        "link",
-      ],
+      options: ["filled", "tonal", "elevated", "outlined", "text"],
     },
     size: { control: "select", options: ["default", "sm", "lg", "icon"] },
     asChild: { table: { disable: true } },
@@ -33,20 +26,13 @@ export const Playground: Story = {};
 export const Variants: Story = {
   render: (args) => (
     <div className="gap-3 flex flex-wrap items-center">
-      {(
-        [
-          "default",
-          "secondary",
-          "destructive",
-          "outline",
-          "ghost",
-          "link",
-        ] as const
-      ).map((variant) => (
-        <Button key={variant} {...args} variant={variant}>
-          {variant}
-        </Button>
-      ))}
+      {(["filled", "tonal", "elevated", "outlined", "text"] as const).map(
+        (variant) => (
+          <Button key={variant} {...args} variant={variant}>
+            {variant}
+          </Button>
+        ),
+      )}
     </div>
   ),
 };

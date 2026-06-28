@@ -1,27 +1,53 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-// Token pairs mirror the `--color-*` variables mapped in `@chatool/core`
-// (theme.css `@theme inline`). Use the toolbar theme switch to see dark values.
+// Material Design 3 system color roles, surfaced as the `--color-*` Tailwind
+// utilities mapped from `--md-sys-color-*` in `@chatool/core` (theme.css
+// `@theme inline`). Use the toolbar theme switch to see the dark scheme.
 const PAIRS: { name: string; bg: string; fg: string }[] = [
-  { name: "background", bg: "--color-background", fg: "--color-foreground" },
-  { name: "card", bg: "--color-card", fg: "--color-card-foreground" },
-  { name: "popover", bg: "--color-popover", fg: "--color-popover-foreground" },
-  { name: "primary", bg: "--color-primary", fg: "--color-primary-foreground" },
+  { name: "primary", bg: "--color-primary", fg: "--color-on-primary" },
   {
-    name: "secondary",
-    bg: "--color-secondary",
-    fg: "--color-secondary-foreground",
+    name: "primary-container",
+    bg: "--color-primary-container",
+    fg: "--color-on-primary-container",
   },
-  { name: "muted", bg: "--color-muted", fg: "--color-muted-foreground" },
-  { name: "accent", bg: "--color-accent", fg: "--color-accent-foreground" },
+  { name: "secondary", bg: "--color-secondary", fg: "--color-on-secondary" },
   {
-    name: "destructive",
-    bg: "--color-destructive",
-    fg: "--color-destructive-foreground",
+    name: "secondary-container",
+    bg: "--color-secondary-container",
+    fg: "--color-on-secondary-container",
+  },
+  { name: "tertiary", bg: "--color-tertiary", fg: "--color-on-tertiary" },
+  {
+    name: "tertiary-container",
+    bg: "--color-tertiary-container",
+    fg: "--color-on-tertiary-container",
+  },
+  { name: "error", bg: "--color-error", fg: "--color-on-error" },
+  {
+    name: "error-container",
+    bg: "--color-error-container",
+    fg: "--color-on-error-container",
+  },
+  { name: "surface", bg: "--color-surface", fg: "--color-on-surface" },
+  {
+    name: "surface-container",
+    bg: "--color-surface-container",
+    fg: "--color-on-surface",
+  },
+  {
+    name: "inverse-surface",
+    bg: "--color-inverse-surface",
+    fg: "--color-inverse-on-surface",
   },
 ];
 
-const SINGLES = ["--color-border", "--color-input", "--color-ring"];
+const SINGLES = [
+  "--color-outline",
+  "--color-outline-variant",
+  "--color-surface-variant",
+  "--color-surface-container-low",
+  "--color-surface-container-high",
+];
 
 function Swatches() {
   return (
@@ -38,7 +64,7 @@ function Swatches() {
             >
               {t.name}
             </div>
-            <div className="px-3 py-2 font-mono text-xs bg-card text-muted-foreground">
+            <div className="px-3 py-2 font-mono text-xs bg-surface-container text-on-surface-variant">
               {t.bg}
             </div>
           </div>
@@ -51,7 +77,9 @@ function Swatches() {
               className="size-8 rounded-md border"
               style={{ backgroundColor: `var(${v})` }}
             />
-            <code className="font-mono text-xs text-muted-foreground">{v}</code>
+            <code className="font-mono text-xs text-on-surface-variant">
+              {v}
+            </code>
           </div>
         ))}
       </div>

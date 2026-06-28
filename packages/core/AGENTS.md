@@ -20,8 +20,12 @@ Human docs: [docs/packages/core.md](../../docs/packages/core.md).
   `./theme.css`), listed in `files`, and untouched by tsdown. `styles.css` must
   `@import "./theme.css"` (single source for tokens). Keep base `@layer` rules in
   `styles.css`; keep tokens + `:root`/`.dark` vars in `theme.css`. Do **not** add
-  `@import "tailwindcss";` here — the consumer adds that. The shipped files are
-  **placeholders** mirroring a standard shadcn + Tailwind v4 token layer.
+  `@import "tailwindcss";` here — the consumer adds that. The shipped files
+  implement the **Material Design 3** token layer: `--md-sys-*` system tokens
+  (color/typescale/shape/elevation/state/motion) in `:root`/`.dark`, mapped to
+  Tailwind utilities via `@theme inline`. Color values are the MD3 baseline
+  scheme. Keep token names spec-faithful so Material Theme Builder output drops in.
+  Canonical spec: [docs/conventions/material-design.md](../../docs/conventions/material-design.md).
 - **`tailwindcss` is an optional `peerDependency`** (only needed to process the
   theme CSS), never a dependency. `core` marks `**/*.css` in `sideEffects`.
 - **Dark mode is class-based.** The provider toggles the `dark` class on

@@ -1,7 +1,8 @@
 # @chatool/ui
 
-Shadcn-based React UI components for Chatool apps. Every component imports `cn`
-from `@chatool/utils` and is styled with the design tokens from `@chatool/core`.
+**Material Design 3** React UI components for Chatool apps. Every component
+imports `cn` from `@chatool/utils` and is styled with the MD3 design tokens from
+`@chatool/core` (`--md-sys-*` → Tailwind utilities).
 
 - **Dependencies:** `@chatool/utils`, `radix-ui`, `class-variance-authority`
 - **Peers:** `react` ^19, `react-dom` ^19
@@ -35,6 +36,9 @@ stay minimal. All components are client components (`"use client"`).
 | -------------------- | ------------------------------------------- |
 | `@chatool/ui/button` | `Button` (also `default`), `buttonVariants` |
 
+`Button` follows the MD3 button spec: variants `filled` (default) · `tonal` ·
+`elevated` · `outlined` · `text`; sizes `default` · `sm` · `lg` · `icon`.
+
 ## Usage
 
 ```tsx
@@ -45,15 +49,15 @@ import KeyboardArrowDownOutlined from "@chatool/icons/KeyboardArrowDownOutlined"
 
 export function Example() {
   return (
-    <Button>
-      Open <KeyboardArrowDownOutlined className="size-4" />
+    <Button variant="tonal">
+      Open <KeyboardArrowDownOutlined />
     </Button>
   );
 }
 ```
 
-> The component body shipped today is a reasonable shadcn-style scaffold — fork
-> and replace it with your own; the exports map and directives are in place.
+> Re-theme the component by overriding `@chatool/core`'s `--md-sys-*` tokens, or
+> override classes per-instance via `className` (cva + `cn` merge).
 
 ## For AI agents
 

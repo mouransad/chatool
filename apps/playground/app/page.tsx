@@ -14,7 +14,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="space-y-4 p-6 rounded-lg border bg-card text-card-foreground">
+    <section className="space-y-4 p-6 rounded-lg border bg-surface-container text-on-surface">
       <h2 className="text-lg font-semibold">{title}</h2>
       <div className="gap-3 flex flex-wrap items-center">{children}</div>
     </section>
@@ -34,12 +34,11 @@ export default function Home() {
 
       {/* @chatool/ui — Button (client component, server-rendered here) */}
       <Section title="@chatool/ui — Button">
-        <Button>Default</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="destructive">Destructive</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="link">Link</Button>
+        <Button>Filled</Button>
+        <Button variant="tonal">Tonal</Button>
+        <Button variant="elevated">Elevated</Button>
+        <Button variant="outlined">Outlined</Button>
+        <Button variant="text">Text</Button>
         <Button disabled>
           <ProgressActivityOutlined className="animate-spin" />
           Loading
@@ -49,7 +48,7 @@ export default function Home() {
       {/* @chatool/icons */}
       <Section title="@chatool/icons">
         <ChatOutlined className="size-8" />
-        <KeyboardArrowDownOutlined className="size-8 text-muted-foreground" />
+        <KeyboardArrowDownOutlined className="size-8 text-on-surface-variant" />
         <ProgressActivityOutlined className="size-8 animate-spin text-primary" />
       </Section>
 
@@ -58,7 +57,7 @@ export default function Home() {
         <span
           className={cn(
             "px-3 py-1 text-sm rounded-md",
-            true && "bg-accent text-accent-foreground",
+            true && "bg-secondary-container text-on-secondary-container",
             false && "hidden",
           )}
         >
