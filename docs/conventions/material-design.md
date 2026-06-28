@@ -53,19 +53,19 @@ role reads its component token first and falls back to the computed value:
 bg-[var(--md-comp-button-container-color,var(--_bg))]
 ```
 
-`--_bg` / `--_main` / `--_container` / … are **local vars** set by the `variant`
-and `color` (the `color` prop assigns the palette; the `variant` picks which roles
-to paint). Naming is `--md-comp-<component>-<role>`, e.g.
-`--md-comp-button-container-color`, `--md-comp-button-label-text-color`,
-`--md-comp-button-outline-color`, `--md-comp-icon-button-*`, `--md-comp-fab-*`,
-`--md-comp-toggle-button-*`. Consumers override globally (in `:root`) or per
-instance (`style={{ "--md-comp-button-container-color": "#006971" }}`). This
-mirrors Material Web's component-token model. The full override surface lives in
-each component's `*.variants.ts`; document new tokens in
+`--_bg` / `--_fg` / `--_state` are **local vars** set by the `variant` directly
+from the **fixed** MD3 roles (per the spec, a common button's color is fixed per
+style — there is no free color choice). Naming is `--md-comp-<component>-<role>`,
+e.g. `--md-comp-button-container-color`, `--md-comp-button-label-text-color`,
+`--md-comp-button-outline-color`, `--md-comp-button-focus-color`. Consumers
+override globally (in `:root`) or per instance
+(`style={{ "--md-comp-button-container-color": "#006971" }}`). This mirrors
+Material Web's component-token model. The full override surface lives in each
+component's `*.variants.ts`; document new tokens in
 [packages/ui/README.md](../../packages/ui/README.md).
 
-The four customization layers, increasingly specific: **global `--md-sys-*`** →
-**`color` prop** → **`--md-comp-*` token** → **`className`** (cva + `cn` merge).
+The customization layers, increasingly specific: **global `--md-sys-*`** →
+**`--md-comp-*` token** → **`className`** (cva + `cn` merge).
 
 ## Token groups (what ships)
 

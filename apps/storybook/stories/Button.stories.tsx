@@ -13,15 +13,9 @@ const meta = {
       control: "select",
       options: ["filled", "tonal", "elevated", "outlined", "text"],
     },
-    color: {
-      control: "select",
-      options: ["primary", "secondary", "tertiary", "error"],
-    },
     size: { control: "select", options: ["xs", "s", "m", "l", "xl"] },
     shape: { control: "inline-radio", options: ["round", "square"] },
     loading: { control: "boolean" },
-    fullWidth: { control: "boolean" },
-    disableElevation: { control: "boolean" },
     asChild: { table: { disable: true } },
   },
 } satisfies Meta<typeof Button>;
@@ -32,6 +26,7 @@ type Story = StoryObj<typeof meta>;
 /** Tweak every prop live from the controls panel. */
 export const Playground: Story = {};
 
+/** The five MD3 styles — color is fixed per style (no color prop). */
 export const Variants: Story = {
   render: (args) => (
     <div className="gap-3 flex flex-wrap items-center">
@@ -46,18 +41,6 @@ export const Variants: Story = {
   ),
 };
 
-export const Colors: Story = {
-  render: (args) => (
-    <div className="gap-3 flex flex-wrap items-center">
-      {(["primary", "secondary", "tertiary", "error"] as const).map((color) => (
-        <Button key={color} {...args} color={color}>
-          {color}
-        </Button>
-      ))}
-    </div>
-  ),
-};
-
 export const Sizes: Story = {
   render: (args) => (
     <div className="gap-3 flex flex-wrap items-center">
@@ -66,6 +49,20 @@ export const Sizes: Story = {
           {size}
         </Button>
       ))}
+    </div>
+  ),
+};
+
+/** Round (pill) and square; both morph their corners while pressed. */
+export const Shapes: Story = {
+  render: (args) => (
+    <div className="gap-3 flex flex-wrap items-center">
+      <Button {...args} shape="round">
+        Round
+      </Button>
+      <Button {...args} shape="square">
+        Square
+      </Button>
     </div>
   ),
 };
@@ -94,22 +91,7 @@ export const Loading: Story = {
   ),
 };
 
-export const Shapes: Story = {
-  render: (args) => (
-    <div className="gap-3 flex flex-wrap items-center">
-      <Button {...args} shape="round">
-        Round
-      </Button>
-      <Button {...args} shape="square">
-        Square
-      </Button>
-    </div>
-  ),
-};
-
 export const Disabled: Story = { args: { disabled: true } };
-
-export const FullWidth: Story = { args: { fullWidth: true } };
 
 /** `asChild` renders the styles onto the child element (here an anchor). */
 export const AsChild: Story = {

@@ -5,15 +5,19 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
 
 - **Component structure (canonical spec:
   [docs/conventions/component-structure.md](../../docs/conventions/component-structure.md)).**
-  Each component is its **own kebab-case directory** under `src/` whose
-  `index.tsx` is both the public barrel and the `tsdown` entry:
+  Each component is its **own kebab-case directory** (grouped in a family dir like
+  `src/buttons/`) whose `index.tsx` is both the public barrel and the `tsdown`
+  entry:
   ```
-  src/button/
-    index.tsx           # entry + barrel ("use client"; iff client component)
-    button.tsx          # one arrow component, default-exported (the view)
-    button.types.ts     # ButtonProps + types
-    button.variants.ts  # buttonVariants (cva)
-    use-logic.ts        # useLogic hook — only when logic is non-trivial
+  src/buttons/          # the button family directory
+    button/
+      index.tsx         # entry + barrel ("use client"; iff client component)
+      button.tsx        # one arrow component, default-exported (the view)
+      button.types.ts   # ButtonProps + types
+      button.variants.ts# buttonVariants (cva)
+      use-logic.ts      # useLogic hook — only when logic is non-trivial
+    config.ts           # shared family config (sizes, shape, class fragments)
+    spinner.tsx         # shared loading spinner
   ```
   Components are **arrow functions, one per file, default-exported**; types and
   cva variants go in separate `*.types.ts` / `*.variants.ts`; non-trivial logic
@@ -43,21 +47,24 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   `@radix-ui/react-*` packages.
 - `react` / `react-dom` are `peerDependencies`; tsdown externalizes them (and all
   deps, incl. `react/jsx-runtime`) automatically — no `external` list needed.
-- Per-component subpaths only: `./button`, `./icon-button`, `./fab`,
-  `./button-group`, `./toggle-button-group` (the MD3 button family). Each barrel
-  exposes a `default` + named exports (e.g. `Button` + `buttonVariants`). Adding a
-  component = new `src/<name>/` directory + a `tsdown` entry whose **key equals
-  the subpath** (`{ button: "src/button/index.tsx" }` → `dist/button.*`, so the
-  `exports` map stays stable) + the new `exports` subpath (ESM + CJS).
-- **Shared, non-published internals live in `src/internal/`** (kebab files, no
-  JSX components except the spinner): the MD3 color palette, the XS–XL size scale,
-  the shared class fragments (state layer / focus ring / disabled), the loading
-  `spinner`, and the `ButtonGroup` context. tsdown inlines them per entry — they
-  are **not** subpaths. Reuse them; don't duplicate the token wiring per component.
-- **Style with tokens, never raw hex.** The `color` prop sets the palette local
-  vars (`--_main` / `--_container` / …); the `variant` picks roles; painted roles
-  read a `--md-comp-<component>-*` token with a `--md-sys-*` fallback so apps can
-  re-theme one component. Canonical spec:
+- **Button family lives in `src/buttons/`.** Currently the only published subpath
+  is `./button` (source `src/buttons/button/`); icon-button, FAB, button group and
+  toggle/segmented are **deferred** (will be added under `src/buttons/` later).
+  Each barrel exposes a `default` + named exports (e.g. `Button` + `buttonVariants`).
+  Adding a component = new `src/buttons/<name>/` directory + a `tsdown` entry whose
+  **key equals the subpath** (`{ button: "src/buttons/button/index.tsx" }` →
+  `dist/button.*`, so the `exports` map stays stable) + the new `exports` subpath
+  (ESM + CJS).
+- **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
+  size scale, the shape/press-morph corners, and the class fragments — base /
+  state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading
+  spinner). tsdown inlines them per entry — they are **not** subpaths. Reuse them;
+  don't duplicate the styling wiring.
+- **Follow the MD3 spec; style with tokens, never raw hex.** Button **color is
+  fixed per style** (no `color` prop) — each `variant` sets the painted role local
+  vars (`--_bg` / `--_fg` / `--_state`) directly from the fixed `--md-sys-*` roles;
+  painted roles read a `--md-comp-button-*` token with a `--md-sys-*` fallback so
+  apps can re-theme. Canonical spec:
   [docs/conventions/material-design.md](../../docs/conventions/material-design.md).
 - **Adding a component also needs a Storybook story** in
   [`apps/storybook`](../../apps/storybook) (stories don't auto-discover new

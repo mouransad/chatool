@@ -20,46 +20,6 @@
         "default": "./dist/button.cjs"
       }
     },
-    "./icon-button": {
-      "import": {
-        "types": "./dist/icon-button.d.mts",
-        "default": "./dist/icon-button.mjs"
-      },
-      "require": {
-        "types": "./dist/icon-button.d.cts",
-        "default": "./dist/icon-button.cjs"
-      }
-    },
-    "./fab": {
-      "import": {
-        "types": "./dist/fab.d.mts",
-        "default": "./dist/fab.mjs"
-      },
-      "require": {
-        "types": "./dist/fab.d.cts",
-        "default": "./dist/fab.cjs"
-      }
-    },
-    "./button-group": {
-      "import": {
-        "types": "./dist/button-group.d.mts",
-        "default": "./dist/button-group.mjs"
-      },
-      "require": {
-        "types": "./dist/button-group.d.cts",
-        "default": "./dist/button-group.cjs"
-      }
-    },
-    "./toggle-button-group": {
-      "import": {
-        "types": "./dist/toggle-button-group.d.mts",
-        "default": "./dist/toggle-button-group.mjs"
-      },
-      "require": {
-        "types": "./dist/toggle-button-group.d.cts",
-        "default": "./dist/toggle-button-group.cjs"
-      }
-    },
     "./package.json": "./package.json"
   },
   "scripts": {

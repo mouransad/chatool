@@ -32,33 +32,34 @@ Then import the styles once in your global CSS (see `@chatool/core`):
 reached through its own path, so editors auto-import the exact subpath and bundles
 stay minimal. All components are client components (`"use client"`).
 
-| Subpath                           | Exports                                                                 |
-| --------------------------------- | ----------------------------------------------------------------------- |
-| `@chatool/ui/button`              | `Button` (also `default`), `buttonVariants`                             |
-| `@chatool/ui/icon-button`         | `IconButton` (also `default`), `iconButtonVariants`                     |
-| `@chatool/ui/fab`                 | `Fab` (also `default`), `fabVariants`                                   |
-| `@chatool/ui/button-group`        | `ButtonGroup` (also `default`), `buttonGroupVariants`                   |
-| `@chatool/ui/toggle-button-group` | `ToggleButtonGroup` (also `default`), `ToggleButtonGroupItem`, variants |
+| Subpath              | Exports                                     |
+| -------------------- | ------------------------------------------- |
+| `@chatool/ui/button` | `Button` (also `default`), `buttonVariants` |
 
-The MD3 **button family**. Shared props across the family: `color` (`primary` ·
-`secondary` · `tertiary` · `error`) and `size` (`xs` · `s` _(default)_ · `m` ·
-`l` · `xl`).
+> The MD3 button family (icon button, FAB, button group, toggle / segmented) is
+> being built out — this release ships the **common Button**.
 
-| Component           | Key props                                                                                                                                                                                                |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Button`            | `variant` (`filled`·`tonal`·`elevated`·`outlined`·`text`), `shape` (`round`·`square`), `startIcon`/`endIcon`, `loading`/`loadingPosition`/`loadingIndicator`, `fullWidth`, `disableElevation`, `asChild` |
-| `IconButton`        | `variant` (`standard`·`filled`·`tonal`·`outlined`), `width` (`narrow`·`default`·`wide`), `shape`, **toggle** (`selected`/`defaultSelected`/`onSelectedChange`), `loading`, `asChild`                     |
-| `Fab`               | `color` (+`surface`), `size` (`sm`·`md`·`lg`), `extended`, `lowered`, `loading`, `asChild`                                                                                                               |
-| `ButtonGroup`       | `variant` (`standard`·`connected`), `orientation`, shared `buttonVariant`/`color`/`size` for children                                                                                                    |
-| `ToggleButtonGroup` | Radix `ToggleGroup` (`type="single"\|"multiple"`, `value`/`defaultValue`/`onValueChange`) + `ToggleButtonGroupItem` (`value`)                                                                            |
+**`Button`** follows the Material 3 spec — **color is fixed per style**, there is
+no free color choice:
+
+| Prop                                               | Values                                                                        |
+| -------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `variant`                                          | `filled` _(default)_ · `tonal` · `elevated` · `outlined` · `text`             |
+| `size`                                             | `xs` · `s` _(default)_ · `m` · `l` · `xl` (32 / 40 / 56 / 96 / 136 dp)        |
+| `shape`                                            | `round` _(default, pill)_ · `square` — both morph their corners while pressed |
+| `startIcon` / `endIcon`                            | leading / trailing icon (ignored with `asChild`)                              |
+| `loading` / `loadingPosition` / `loadingIndicator` | spinner state (`start`·`center`·`end`)                                        |
+| `asChild`                                          | render styles onto the child element (e.g. an `<a>`) via Radix `Slot`         |
+
+MD3 press feedback is **built in** and automatic: a pointer **ripple**, the
+**state layer** (hover 8% / focus 10% / press 10%), and a **press shape-morph**
+(the corner shrinks while pressed, then springs back). No props or setup required.
 
 ## Usage
 
 ```tsx
 import Button from "@chatool/ui/button";
-import IconButton from "@chatool/ui/icon-button";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
-import EditOutlined from "@chatool/icons/EditOutlined";
 
 export function Example() {
   return (
@@ -67,9 +68,6 @@ export function Example() {
         Next
       </Button>
       <Button loading>Saving…</Button>
-      <IconButton aria-label="Edit" variant="filled">
-        <EditOutlined />
-      </IconButton>
     </>
   );
 }
@@ -81,10 +79,8 @@ Three layers, increasingly specific:
 
 1. **Global tokens** — override `@chatool/core`'s `--md-sys-*` (re-themes
    everything).
-2. **`color` prop** — switch a single button's palette
-   (`<Button color="tertiary" />`).
-3. **Per-component tokens** — override a component's `--md-comp-*` variables
-   globally or per-instance, without touching others:
+2. **Per-component tokens** — override `--md-comp-button-*` globally or per
+   instance, without touching anything else:
 
    ```tsx
    <Button
@@ -94,27 +90,28 @@ Three layers, increasingly specific:
    </Button>
    ```
 
-   Tokens follow `--md-comp-<component>-<role>` (e.g.
+   Tokens follow `--md-comp-button-<role>`:
    `--md-comp-button-container-color`, `--md-comp-button-label-text-color`,
-   `--md-comp-button-outline-color`, `--md-comp-icon-button-*`, `--md-comp-fab-*`,
-   `--md-comp-toggle-button-*`). Each falls back to the computed `--md-sys-*`
-   value. `className` (cva + `cn` merge) remains available for one-off overrides.
+   `--md-comp-button-outline-color`, `--md-comp-button-focus-color`. Each falls
+   back to the computed `--md-sys-*` value.
+
+3. **`className`** (cva + `cn` merge) for one-off overrides.
 
 ## For AI agents
 
-- **Import per component subpath** (`@chatool/ui/button`, `@chatool/ui/icon-button`,
-  `@chatool/ui/fab`, `@chatool/ui/button-group`, `@chatool/ui/toggle-button-group`).
-  There is **no `@chatool/ui` root barrel**.
-- Each component is available as both the **default** export and a named export;
-  `toggle-button-group` also exports the named `ToggleButtonGroupItem`.
-- All components are `"use client"`; they can't be rendered as Server Components.
-- **Style with tokens, not hex.** `color`/`variant` resolve to `--md-sys-*`; for
-  per-component theming set `--md-comp-<component>-*` (CSS var, globally or via
-  `style`). `IconButton` becomes a **toggle** when given `selected`/
-  `defaultSelected`/`onSelectedChange`. `Button`/`IconButton` inherit
-  `variant`/`color`/`size` from a surrounding `ButtonGroup`.
-- **Requires `@chatool/core`**: install it and import its CSS, or components
-  render unstyled.
+- **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
+  barrel**. `Button` is both the **default** and a named export.
+- `Button` is `"use client"`; it can't be a Server Component.
+- **MD3 spec:** color is **fixed per style** (no `color` prop) — filled→primary,
+  tonal→secondary-container, elevated→surface-container-low + primary,
+  outlined/text→primary. Style with tokens, not hex; for per-component theming set
+  `--md-comp-button-*` (CSS var, globally or via `style`).
+- **Press feedback (ripple, state layer, shape-morph) is built in** — don't re-add
+  it. The ripple uses the Web Animations API into a React-empty overlay.
+- Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
+  tailwind-merge keeps them next to the typescale class instead of dropping them.
+- **Requires `@chatool/core`**: install it and import its CSS, or it renders
+  unstyled.
 - **Icons are not here** — import them from `@chatool/icons/<IconName>`.
 - `react` / `react-dom` are peers supplied by the app.
 

@@ -37,6 +37,12 @@ cn("px-2", condition && "px-4"); // -> "px-4"
 cn("text-sm", "text-base"); // -> "text-base"
 ```
 
+`tailwind-merge` is **taught the MD3 typescale** — the `text-*` font-size utilities
+from `@chatool/core` (`text-label-large`, `text-title-medium`, …). Otherwise it
+would mistake those custom names for text _colors_ and silently drop a real color
+that sits next to one, e.g. `cn("text-label-large", "text-[color:var(--fg)]")`. With
+the fix, the typescale and a token color coexist and still override correctly.
+
 `cn` has no `"use client"`, so it's safe to import from Server Components.
 
 ### `useBoolean(initial?)`
@@ -79,6 +85,9 @@ endPointUrlNormalizer("https://api.example.com/", "/v1/users"); // -> ".../v1/us
   consuming it pulls the file into the client boundary.
 - `endPointUrlNormalizer` is pure but still lives under `./hooks`. Don't expect it
   on the root entry.
+- `cn` knows the MD3 typescale `text-*` utilities are font sizes, so combining a
+  typescale class with a token color (`text-[color:var(--…)]`) is safe — the color
+  isn't dropped. Use the `color:` hint for arbitrary color values.
 - `react` is a peer (your app supplies it); `clsx` and `tailwind-merge` are
   bundled dependencies.
 

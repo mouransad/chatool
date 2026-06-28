@@ -6,10 +6,7 @@ import { type buttonVariants } from "./button.variants";
 export type ButtonLoadingPosition = "start" | "center" | "end";
 
 export interface ButtonProps
-  // `color` is omitted from the native attrs — it's our palette variant instead.
-  extends
-    Omit<React.ComponentProps<"button">, "color">,
-    VariantProps<typeof buttonVariants> {
+  extends React.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
   /** Render styles onto the child element (e.g. an `<a>`) via Radix `Slot`. */
   asChild?: boolean;
   /** Leading icon (ignored when `asChild`). */

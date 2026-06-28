@@ -2,9 +2,11 @@
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Conventions](README.md) → **Component structure**
 
-Every hand-written `@chatool/ui` component lives in **its own directory** under
-`packages/ui/src/`, named in **kebab-case**. The directory's `index.tsx` is both
-the public surface (barrel) and the `tsdown` entry; everything else is internal.
+Every hand-written `@chatool/ui` component lives in **its own directory**, named
+in **kebab-case**, grouped under a **family directory** (e.g. `packages/ui/src/buttons/`).
+The directory's `index.tsx` is both the public surface (barrel) and the `tsdown`
+entry; everything else is internal. Config shared across a family lives in one
+file in the family dir (e.g. `src/buttons/config.ts`).
 
 > **Icons are exempt.** `@chatool/icons` is SVGR-generated, flat, and pure — it
 > keeps its PascalCase one-file-per-icon layout and none of these rules apply.
@@ -16,12 +18,15 @@ Worked example — `button` (a **client** component; see
 is needed):
 
 ```
-packages/ui/src/button/
-  index.tsx           # tsdown ENTRY + public barrel
-  button.tsx          # the single, default-exported arrow component (the view)
-  button.types.ts     # ButtonProps + any other types (pure, no directive)
-  button.variants.ts  # buttonVariants (cva) (pure, no directive)
-  use-logic.ts        # the useLogic hook — ONLY when logic is non-trivial
+packages/ui/src/buttons/        # family directory
+  button/
+    index.tsx         # tsdown ENTRY + public barrel
+    button.tsx        # the single, default-exported arrow component (the view)
+    button.types.ts   # ButtonProps + any other types (pure, no directive)
+    button.variants.ts# buttonVariants (cva) (pure, no directive)
+    use-logic.ts      # the useLogic hook — ONLY when logic is non-trivial
+  config.ts           # shared family config (sizes / shape / class fragments)
+  spinner.tsx         # shared helper component
 ```
 
 Rules:
@@ -65,9 +70,9 @@ buttonVariants>`) but **not vice-versa** — keep that dependency one-directiona
   hook call forces it) — the split organizes a client component, it does not make
   the view a Server Component.
 - **Keep the `tsdown` entry key equal to the subpath** (`{ button:
-"src/button/index.tsx" }`). tsdown names output from the entry **key**, so the
-  key — not the source path — must stay `button` to keep `dist/button.*` and the
-  `exports` map stable.
+"src/buttons/button/index.tsx" }`). tsdown names output from the entry **key**, so
+  the key — not the source path — must stay `button` to keep `dist/button.*` and
+  the `exports` map stable (the source can be nested in a family dir).
 
 Enforcement (what ESLint can and can't check, scoped to `packages/ui/src/**`):
 

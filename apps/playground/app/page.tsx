@@ -3,16 +3,8 @@ import { cn } from "@chatool/utils";
 
 import { ThemeToggle } from "./components/theme-toggle";
 import { Button } from "@chatool/ui/button";
-import IconButton from "@chatool/ui/icon-button";
-import Fab from "@chatool/ui/fab";
-import ButtonGroup from "@chatool/ui/button-group";
-import ToggleButtonGroup, {
-  ToggleButtonGroupItem,
-} from "@chatool/ui/toggle-button-group";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
-import AddOutlined from "@chatool/icons/AddOutlined";
-import EditOutlined from "@chatool/icons/EditOutlined";
-import FavoriteOutlined from "@chatool/icons/FavoriteOutlined";
+import CheckOutlined from "@chatool/icons/CheckOutlined";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
 import KeyboardArrowDownOutlined from "@chatool/icons/KeyboardArrowDownOutlined";
 import ProgressActivityOutlined from "@chatool/icons/ProgressActivityOutlined";
@@ -43,23 +35,35 @@ export default function Home() {
         <ThemeToggle />
       </header>
 
-      {/* Common buttons: variants, icons, loading */}
-      <Section title="@chatool/ui — Button">
-        <Button>Filled</Button>
+      {/* MD3 common button — the five styles (color is fixed per style) */}
+      <Section title="@chatool/ui — Button (styles)">
+        <Button variant="filled">Filled</Button>
         <Button variant="tonal">Tonal</Button>
         <Button variant="elevated">Elevated</Button>
         <Button variant="outlined">Outlined</Button>
         <Button variant="text">Text</Button>
-        <Button endIcon={<ArrowForwardOutlined />}>Next</Button>
+      </Section>
+
+      {/* Sizes (XS–XL) */}
+      <Section title="Button — sizes">
+        <Button size="xs">XS</Button>
+        <Button size="s">S</Button>
+        <Button size="m">M</Button>
+        <Button size="l">L</Button>
+      </Section>
+
+      {/* Shape (round/square, morphs on press), icons, loading */}
+      <Section title="Button — shape, icons, loading">
+        <Button shape="round">Round</Button>
+        <Button shape="square">Square</Button>
+        <Button startIcon={<CheckOutlined />}>Leading</Button>
+        <Button endIcon={<ArrowForwardOutlined />}>Trailing</Button>
         <Button loading>Loading</Button>
       </Section>
 
-      {/* Colors + the per-instance --md-comp token override */}
-      <Section title="Button — colors & component-token override">
-        <Button color="primary">Primary</Button>
-        <Button color="secondary">Secondary</Button>
-        <Button color="tertiary">Tertiary</Button>
-        <Button color="error">Error</Button>
+      {/* Per-instance component-token override (only this button re-themes) */}
+      <Section title="Button — --md-comp-* override">
+        <Button>Default</Button>
         <Button
           style={
             {
@@ -70,57 +74,6 @@ export default function Home() {
         >
           Custom token
         </Button>
-      </Section>
-
-      {/* Icon buttons (incl. a toggle) */}
-      <Section title="@chatool/ui — IconButton">
-        <IconButton aria-label="Edit" variant="standard">
-          <EditOutlined />
-        </IconButton>
-        <IconButton aria-label="Edit" variant="filled">
-          <EditOutlined />
-        </IconButton>
-        <IconButton aria-label="Edit" variant="tonal">
-          <EditOutlined />
-        </IconButton>
-        <IconButton aria-label="Edit" variant="outlined">
-          <EditOutlined />
-        </IconButton>
-        <IconButton aria-label="Favorite" variant="outlined" defaultSelected>
-          <FavoriteOutlined />
-        </IconButton>
-      </Section>
-
-      {/* FAB */}
-      <Section title="@chatool/ui — Fab">
-        <Fab aria-label="Add">
-          <AddOutlined />
-        </Fab>
-        <Fab aria-label="Add" color="tertiary" size="sm">
-          <AddOutlined />
-        </Fab>
-        <Fab extended>
-          <EditOutlined />
-          Compose
-        </Fab>
-      </Section>
-
-      {/* Button group (shared props + connected shape) */}
-      <Section title="@chatool/ui — ButtonGroup">
-        <ButtonGroup variant="connected" buttonVariant="outlined">
-          <Button>Left</Button>
-          <Button>Center</Button>
-          <Button>Right</Button>
-        </ButtonGroup>
-      </Section>
-
-      {/* Toggle / segmented selection */}
-      <Section title="@chatool/ui — ToggleButtonGroup">
-        <ToggleButtonGroup type="single" defaultValue="week">
-          <ToggleButtonGroupItem value="day">Day</ToggleButtonGroupItem>
-          <ToggleButtonGroupItem value="week">Week</ToggleButtonGroupItem>
-          <ToggleButtonGroupItem value="month">Month</ToggleButtonGroupItem>
-        </ToggleButtonGroup>
       </Section>
 
       {/* @chatool/icons */}
