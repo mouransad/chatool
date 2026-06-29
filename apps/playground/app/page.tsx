@@ -44,6 +44,24 @@ export default function Home() {
         <Button variant="text">Text</Button>
       </Section>
 
+      <Section title="@chatool/ui — Button (styles)">
+        <Button disabled variant="filled">
+          Filled
+        </Button>
+        <Button disabled variant="tonal">
+          Tonal
+        </Button>
+        <Button disabled variant="elevated">
+          Elevated
+        </Button>
+        <Button disabled variant="outlined">
+          Outlined
+        </Button>
+        <Button disabled variant="text">
+          Text
+        </Button>
+      </Section>
+
       {/* Sizes (XS–XL) */}
       <Section title="Button — sizes">
         <Button size="xs">XS</Button>
