@@ -77,20 +77,28 @@ shape-morph, ripple, and state layer with `Button`; **color is fixed per style**
 > An icon button has **no visible text**, so you **must** pass `aria-label` (or
 > `aria-labelledby`) — for a toggle, keep that label constant when `selected` flips.
 
-**`ButtonGroup`** is an **invisible container** that spaces and shapes its
-`Button` / `IconButton` children. It owns no selection state — each child keeps its
-own `selected` / `aria-pressed`:
+**`ButtonGroup`** is the MD3 **Expressive** invisible container that arranges its
+`Button` / `IconButton` children and adds the group interaction. It owns no
+selection state — each child keeps its own `selected` / `aria-pressed`:
 
-| Prop          | Values                                                                             |
-| ------------- | ---------------------------------------------------------------------------------- |
-| `variant`     | `standard` _(default)_ (family gap, own shapes) · `connected` (2dp gap, one track) |
-| `orientation` | `horizontal` _(default)_ · `vertical`                                              |
-| `asChild`     | render the group styles + `role="group"` onto your element via Radix `Slot`        |
+| Prop          | Values                                                         |
+| ------------- | -------------------------------------------------------------- |
+| `variant`     | `standard` _(default)_ · `connected`                           |
+| `orientation` | `horizontal` _(default)_ · `vertical`                          |
+| `asChild`     | render the group + `role="group"` onto your element via `Slot` |
 
-> Pass the group an `aria-label` (or `aria-labelledby`) to name the set. **Connected**
-> squares off every child's corners (only the group's leading/trailing edges round),
-> so connected children don't keep their individual press shape-morph — it's best
-> with `filled` / `tonal` children.
+- **standard** — children stay flexible (equal share); **pressing one expands it
+  and compresses its neighbors** (the Expressive squish). Children keep their own
+  shape and per-button press morph. ~12dp gap.
+- **connected** — a tight **2dp** cluster (no width interaction between buttons).
+  Children keep their **own default radius**; per the spec, selection morphs the
+  **selected** child's shape — handled by the button's own smooth round→square
+  animation. A single- / multi-select segmented control is just a connected group
+  of toggle buttons.
+
+> Pass the group an `aria-label` (or `aria-labelledby`) to name the set. The group
+> never overrides a child's `border-radius`, so each button keeps its default
+> finite shape and the select/deselect morph stays smooth.
 
 ## Usage
 
@@ -258,12 +266,15 @@ element.
   **toggle** (reflects `aria-pressed`, morphs round→square, swaps `selectedIcon`) —
   keep the label constant; omit `selected` for a plain button. Per-component tokens
   `--md-comp-icon-button-*`.
-- **`ButtonGroup`** (`@chatool/ui/button-group`): an invisible `role="group"`
-  container that spaces/shapes `Button`/`IconButton` children — pure **Server
-  Component**, owns no state. `variant` `standard` _(default)_ · `connected` (2dp
-  gap + shared segmented track); `orientation` `horizontal` _(default)_ ·
-  `vertical`. Give it an `aria-label`; build a single-select segmented control by
-  toggling the children's `selected`. Gap token `--md-comp-button-group-gap`.
+- **`ButtonGroup`** (`@chatool/ui/button-group`): the MD3 **Expressive**
+  `role="group"` container for `Button`/`IconButton` children — pure **Server
+  Component** (CSS-only interaction), owns no state. `variant` `standard`
+  _(default)_ presses-squish (pressed child expands, neighbors compress) ·
+  `connected` (tight 2dp cluster; children keep their own radius, the selected
+  child morphs via its own smooth round→square animation). `orientation`
+  `horizontal` _(default)_ · `vertical`. The group never overrides a child's
+  border-radius. Give it an `aria-label`; build a segmented control by toggling the
+  children's `selected`. Gap token `--md-comp-button-group-gap`.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders

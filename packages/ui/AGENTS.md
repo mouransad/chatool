@@ -56,11 +56,14 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   standard/filled/tonal/outlined, the XS–XL square scale via
   `iconButtonSize`, round/square shape-morph, and an MD3 `selected` **toggle** that
   sets `aria-pressed` + morphs round→square + swaps `selectedIcon`), and
-  `./button-group` (source `src/buttons/button-group/`, an invisible `role="group"`
-  **container** that spaces/shapes `Button`/`IconButton` children —
-  `standard`/`connected` variants, horizontal/vertical; a pure layout that owns no
-  state and doesn't compose the interactive `BASE`/`STATE_LAYER`/`FOCUS_RING`/
-  `DISABLED` fragments). FAB and segmented are **deferred** (will be added under
+  `./button-group` (source `src/buttons/button-group/`, the MD3 **Expressive**
+  invisible `role="group"` **container** for `Button`/`IconButton` children —
+  `standard` (press-squish: pressed child expands + neighbors compress, CSS-only) /
+  `connected` (tight 2dp cluster; children keep their own radius, selected child
+  morphs via its own smooth round→square animation) variants, horizontal/vertical;
+  a pure layout that owns no state, never overrides a child's border-radius, and
+  doesn't compose the interactive `BASE`/`STATE_LAYER`/`FOCUS_RING`/`DISABLED`
+  fragments). FAB and segmented are **deferred** (will be added under
   `src/buttons/` later). Each barrel exposes a `default` + named exports (e.g.
   `Button` + `buttonVariants`, `IconButton` + `iconButtonVariants`, `ButtonGroup` +
   `buttonGroupVariants`).

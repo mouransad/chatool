@@ -276,10 +276,10 @@ export default function Home() {
         </IconButton>
       </Section>
 
-      {/* Button group — standard (family gap, own shapes) */}
+      {/* Button group — standard (press squish: pressed expands, neighbors compress) */}
       <Section
         title="Button group — standard"
-        hint="Invisible container; the family gap, each child keeps its own pill shape. Pass the group an aria-label."
+        hint="MD3 Expressive: press a button and it expands while its neighbors compress. Each child keeps its own shape."
       >
         <ButtonGroup aria-label="Document actions">
           <Button variant="filled">Save</Button>
@@ -288,10 +288,10 @@ export default function Home() {
         </ButtonGroup>
       </Section>
 
-      {/* Button group — connected (2dp gap, shared segmented track) */}
+      {/* Button group — connected (tight 2dp cluster; children keep their radius) */}
       <Section
         title="Button group — connected"
-        hint="Tight 2dp gap; children share one segmented track (outer corners round, inner squared)."
+        hint="Tight 2dp cluster. Children keep their own radius; the selected child morphs via its own smooth round→square animation."
       >
         <ButtonGroup variant="connected" aria-label="Range">
           <Button variant="tonal">Day</Button>

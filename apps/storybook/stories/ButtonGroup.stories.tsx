@@ -37,7 +37,10 @@ export const Playground: Story = {
   ),
 };
 
-/** Standard — the family gap; each child keeps its own pill shape. */
+/**
+ * Standard — children stay flexible; **press a button** and it expands while its
+ * neighbors compress (the MD3 Expressive squish). Each child keeps its own shape.
+ */
 export const Standard: Story = {
   render: (args) => (
     <ButtonGroup {...args} variant="standard">
@@ -48,12 +51,17 @@ export const Standard: Story = {
   ),
 };
 
-/** Connected — tight 2dp gap; children share one segmented track. */
+/**
+ * Connected — a tight 2dp cluster. Children keep their own radius; the **selected**
+ * child morphs via its own smooth round→square animation (toggle the control below).
+ */
 export const Connected: Story = {
   render: (args) => (
     <ButtonGroup {...args} variant="connected">
       <Button variant="tonal">Day</Button>
-      <Button variant="tonal">Week</Button>
+      <Button variant="tonal" selected>
+        Week
+      </Button>
       <Button variant="tonal">Month</Button>
     </ButtonGroup>
   ),
