@@ -9,26 +9,24 @@ pipeline (`pnpm build` / `typecheck` / `release`, all filtered to
 
 ## Dev loop
 
-The app imports the packages' **built `dist/`**, so build them once, then watch:
-
 ```bash
 # from the repo root
-pnpm build                      # produce every package's dist/ (first time)
-pnpm dev                        # terminal 1: tsdown --watch across packages
-pnpm --filter playground dev    # terminal 2: next dev   (or: pnpm playground)
+pnpm playground   # next dev  (= pnpm --filter playground dev)
 ```
 
-Open the URL Next prints. Editing a package re-emits its `dist/`; refresh the
-app to see it. (Rebuild manually with `pnpm --filter @chatool/<pkg> build` if
-you aren't running `pnpm dev`.)
+Open the URL Next prints, then edit a package's `src/` — it hot-reloads live.
+Every `@chatool/*` specifier is resolved to package **source** via `tsconfig.json`
+`paths` (Turbopack reads them natively, incl. the `@chatool/icons/*` wildcard) and
+`transpilePackages` (in [`next.config.ts`](next.config.ts)) compiles that source,
+so no `pnpm build` and no `tsdown` watch are needed.
 
 ## How the packages are wired
 
 - **`@chatool/core` (CSS)** — its `styles.css` is imported in
   [`app/globals.css`](app/globals.css)
-  after `@import "tailwindcss";`. Two `@source` directives register the prebuilt
-  `@chatool/ui` and `@chatool/icons` dist so Tailwind generates the utility
-  classes baked into those components (it skips `node_modules` otherwise).
+  after `@import "tailwindcss";`. Two `@source` directives register the
+  `@chatool/ui` and `@chatool/icons` source so Tailwind generates the utility
+  classes those components use (it skips `node_modules` otherwise).
 - **`@chatool/ui` / `@chatool/icons` / `@chatool/utils`** — rendered in
   [`app/page.tsx`](app/page.tsx). Client components ship `"use client"`, so they
   drop into this Server Component directly.

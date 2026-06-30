@@ -17,6 +17,11 @@ runs `pnpm build && pnpm typecheck && pnpm lint`. See [Skills](#skills) below.
 2. Add it to the package's `tsdown.config.ts` `entry` map.
 3. Add a matching `exports` subpath in `package.json` (ESM `.mjs`/`.d.mts` +
    CJS `.cjs`/`.d.cts`).
+   For a new `@chatool/ui` component subpath, also map it to its `src` entry in
+   both dev source maps so the internal apps hot-reload it: a line in
+   [`dev-aliases.mjs`](../../dev-aliases.mjs) (Storybook/Vite) and a `paths` entry
+   in [`apps/playground/tsconfig.json`](../../apps/playground/tsconfig.json)
+   (playground/Turbopack).
 4. Re-export from the package barrel (`src/index.ts`) **only if the package has
    one** — `@chatool/ui` and `@chatool/icons` are subpath-only (no root barrel).
 5. Document it in the **canonical `packages/<pkg>/README.md`** (Exports + Usage +

@@ -19,7 +19,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@chatool/utils": ["../../packages/utils/src/index.ts"],
+      "@chatool/utils/hooks": ["../../packages/utils/src/hooks/index.ts"],
+      "@chatool/core": ["../../packages/core/src/index.ts"],
+      "@chatool/ui/button": ["../../packages/ui/src/buttons/button/index.tsx"],
+      "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },
   "include": [

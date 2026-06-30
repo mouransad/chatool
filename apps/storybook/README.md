@@ -1,20 +1,19 @@
 # Storybook (internal)
 
 Interactive catalog for the `@chatool/*` component packages. **Private — never
-published.** Stories consume the packages through their built `dist` (via
-`workspace:*`), exactly like a real consumer.
+published.**
 
 ## Run it
 
 ```bash
 # from the repo root
-pnpm build       # build the @chatool/* dist the stories import
 pnpm storybook   # → http://localhost:6006
 ```
 
-The stories import the prebuilt `dist`, so `pnpm build` must have run first. For
-live component editing, run `pnpm dev` (tsdown watch) in another terminal —
-Vite HMR picks up the rebuilt `dist`.
+Stories import the packages from `src` — Storybook dev-aliases every `@chatool/*`
+specifier to package **source** (see [`dev-aliases.mjs`](../../dev-aliases.mjs),
+consumed by [`.storybook/main.ts`](.storybook/main.ts)). So editing a component's
+`src/` hot-reloads live; **no `pnpm build` and no `tsdown` watch needed.**
 
 A static build:
 

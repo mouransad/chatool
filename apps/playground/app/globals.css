@@ -3,9 +3,12 @@
 
 /*
  * Tailwind v4 auto-detects sources but ignores `node_modules`, so the utility
- * classes baked into the prebuilt @chatool components wouldn't be generated.
- * Explicitly register their dist as content sources. (pnpm symlinks these to
- * ../../packages/<pkg>/dist; Tailwind follows the symlinks.)
+ * classes used by the @chatool components wouldn't be generated. Register them
+ * explicitly. (pnpm symlinks these to ../../packages/<pkg>/...; Tailwind follows
+ * the symlinks.)
+ *
+ * The `@chatool/*` packages are dev-resolved to `src` via `tsconfig.json`
+ * `paths` (see next.config.ts), so scan their `src`.
  */
-@source "../node_modules/@chatool/ui/dist";
-@source "../node_modules/@chatool/icons/dist";
+@source "../node_modules/@chatool/ui/src";
+@source "../node_modules/@chatool/icons/src";

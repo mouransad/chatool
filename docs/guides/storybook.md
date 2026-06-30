@@ -6,20 +6,20 @@ The repo ships an internal **Storybook** catalog at
 [`apps/storybook`](../../apps/storybook) — an interactive, auto-documented gallery
 for the `@chatool/*` component packages. It's a **private** app (never published).
 
-It uses **Vite** (`@storybook/react-vite`) with **Tailwind v4** (`@tailwindcss/vite`),
-and consumes the packages through their built `dist` via `workspace:*` — exactly
-like a real consumer.
+It uses **Vite** (`@storybook/react-vite`) with **Tailwind v4** (`@tailwindcss/vite`).
+For a fast dev loop it **dev-aliases** every `@chatool/*` specifier to package
+**source** (see [`dev-aliases.mjs`](../../dev-aliases.mjs), consumed by
+[`.storybook/main.ts`](../../apps/storybook/.storybook/main.ts)); the published
+packages still point at `dist`, so this affects the internal app only.
 
 ## Run it
 
 ```bash
-pnpm build       # build the @chatool/* dist the stories import (required first)
 pnpm storybook   # → http://localhost:6006
 ```
 
-Stories import the prebuilt `dist`, so `pnpm build` must run first. For live
-component editing, run `pnpm dev` (tsdown watch) in another terminal — Vite HMR
-picks up the rebuilt `dist`.
+Stories import package **source**, so editing a component's `src/` hot-reloads
+live — **no `pnpm build` and no `tsdown` watch needed.**
 
 Static build (e.g. for hosting):
 
@@ -46,7 +46,7 @@ Add a `*.stories.tsx` under [`apps/storybook/stories/`](../../apps/storybook/sto
 and import the component from its published subpath (e.g. `@chatool/ui/button`).
 Add `tags: ["autodocs"]` for a generated Docs page. Tailwind is wired in
 [`.storybook/preview.css`](../../apps/storybook/.storybook/preview.css), which
-`@source`s the component `dist` so their utility classes are generated.
+`@source`s the component `src` so their utility classes are generated.
 
 ---
 

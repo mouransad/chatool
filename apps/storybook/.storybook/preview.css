@@ -4,13 +4,14 @@
  *
  * `@import "tailwindcss"` MUST come first; `@chatool/core` then extends its
  * layers with the design tokens + base resets. Tailwind v4 ignores
- * `node_modules`, so the utility classes baked into the prebuilt @chatool
- * component `dist` are registered explicitly via `@source` (pnpm symlinks these
- * to ../../../packages/<pkg>/dist; Tailwind follows the symlinks).
+ * `node_modules`, so the utility classes used by the @chatool components are
+ * registered explicitly via `@source`. Storybook dev-aliases these packages to
+ * their `src` (see `.storybook/main.ts`), so scan `src` (pnpm symlinks these to
+ * ../../../packages/<pkg>/src; Tailwind follows the symlinks).
  */
 @import "tailwindcss";
 @import "@chatool/core/styles.css";
 
-@source "../node_modules/@chatool/ui/dist";
-@source "../node_modules/@chatool/icons/dist";
+@source "../node_modules/@chatool/ui/src";
+@source "../node_modules/@chatool/icons/src";
 @source "../stories";
