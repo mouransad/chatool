@@ -1,14 +1,19 @@
-"use client";
-
-import { type PointerEvent } from "react";
 import { Slot } from "radix-ui";
 import { cn } from "@chatool/utils";
 
+import Ripple from "../ripple";
 import Spinner from "../spinner";
 import { type ButtonProps } from "./button.types";
 import { buttonVariants } from "./button.variants";
-import { useButtonLogic } from "./use-logic";
 
+/**
+ * MD3 common button. This module carries **no client directive**: it's a pure
+ * props→JSX component (Server-Component-safe, works in any framework). `Slot`
+ * (`asChild`), `Spinner`, `cn` and `buttonVariants` are all directive-free; the
+ * only interactive piece — the press ripple — is a separate client-only island
+ * (`../ripple`) rendered as a child, so the button stays server-renderable while
+ * remaining fully interactive in client contexts.
+ */
 const Button = ({
   className,
   variant,
@@ -21,20 +26,15 @@ const Button = ({
   loadingPosition = "center",
   loadingIndicator,
   disabled,
-  onPointerDown,
+  type,
   children,
   ...props
 }: ButtonProps) => {
   const Comp = asChild ? Slot.Root : "button";
-  const { rippleLayerRef, spawnRipple } = useButtonLogic();
+  const inactive = disabled || loading;
 
   const indicator = loadingIndicator ?? <Spinner />;
   const centerLoading = loading && loadingPosition === "center";
-
-  const handlePointerDown = (event: PointerEvent<HTMLButtonElement>) => {
-    if (!disabled && !loading) spawnRipple(event);
-    onPointerDown?.(event);
-  };
 
   const label = centerLoading ? (
     <>
@@ -56,17 +56,13 @@ const Button = ({
   );
 
   // `asChild` defers content to the single child (Slot wants one child), so the
-  // icon / loading slots and the ripple overlay only apply to the plain button.
+  // icon / loading slots and the ripple island only apply to the plain button.
   const content = asChild ? (
     children
   ) : (
     <>
       {label}
-      <span
-        ref={rippleLayerRef}
-        aria-hidden
-        className="inset-0 pointer-events-none absolute -z-10 overflow-hidden rounded-[inherit]"
-      />
+      <Ripple />
     </>
   );
 
@@ -75,14 +71,14 @@ const Button = ({
       data-slot="button"
       data-loading={loading || undefined}
       aria-busy={loading || undefined}
-      aria-disabled={asChild && (disabled || loading) ? true : undefined}
-      disabled={asChild ? undefined : disabled}
-      onPointerDown={handlePointerDown}
-      className={cn(
-        buttonVariants({ variant, size, shape }),
-        loading && "pointer-events-none",
-        className,
-      )}
+      // Native `<button>` blocks activation (mouse + keyboard) when disabled or
+      // loading; for `asChild` (non-button) we can only mark it via aria.
+      disabled={asChild ? undefined : inactive}
+      aria-disabled={asChild && inactive ? true : undefined}
+      // Default to `type="button"` so a button in a form doesn't submit it by
+      // accident (HTML defaults to `submit`). The child controls it for asChild.
+      type={asChild ? type : (type ?? "button")}
+      className={cn(buttonVariants({ variant, size, shape }), className)}
       {...props}
     >
       {content}

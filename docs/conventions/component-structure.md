@@ -13,20 +13,20 @@ file in the family dir (e.g. `src/buttons/config.ts`).
 > The ESLint rules below are scoped to `packages/ui/src/**` only; `@chatool/core`
 > and `@chatool/utils` keep their existing conventions.
 
-Worked example — `button` (a **client** component; see
-[Client vs Server Components](client-server-components.md) for when the directive
-is needed):
+Worked example — `button` (a **server / shared** component whose only client part
+is a ripple island; see [Client vs Server Components](client-server-components.md)
+for when the directive is needed):
 
 ```
 packages/ui/src/buttons/        # family directory
   button/
-    index.tsx         # tsdown ENTRY + public barrel
+    index.tsx         # tsdown ENTRY + public barrel (no directive)
     button.tsx        # the single, default-exported arrow component (the view)
     button.types.ts   # ButtonProps + any other types (pure, no directive)
     button.variants.ts# buttonVariants (cva) (pure, no directive)
-    use-logic.ts      # the useLogic hook — ONLY when logic is non-trivial
   config.ts           # shared family config (sizes / shape / class fragments)
-  spinner.tsx         # shared helper component
+  spinner.tsx         # shared helper component (pure)
+  ripple.tsx          # "use client" ripple island — its own INTERNAL tsdown entry
 ```
 
 Rules:
@@ -58,10 +58,15 @@ buttonVariants>`) but **not vice-versa** — keep that dependency one-directiona
   - **Client component** (hooks/state/context/event-wiring/browser APIs/client-only
     deps): the view file **and** the `index.tsx` entry barrel each start with
     `"use client";` (tsdown only preserves the directive on the entry's own
-    source — a barrel doesn't inherit it). `button` is a client component (it uses
-    `radix-ui`'s `Slot` and forwards event handlers), so both carry it.
+    source — a barrel doesn't inherit it).
   - **Server component** (pure props → JSX): **no directive anywhere** in the
-    directory. Prefer this whenever the component is pure.
+    directory. Prefer this whenever the component is pure. `button` is one: its
+    view and barrel carry **no directive** (`Slot` is server-safe, `Spinner` / `cn`
+    / `buttonVariants` are pure, and it only spreads consumer props). Its lone
+    interactive piece — the press **ripple** — is a `"use client"` island
+    (`buttons/ripple.tsx`) rendered as a child. To keep that directive intact
+    through bundling, `ripple` is its **own internal `tsdown` entry** (not a public
+    subpath) — see the entry-key rule below.
 - **Separate logic from view.** Non-trivial component logic goes in a `useLogic`
   hook in `use-logic.ts` (kebab filename, camelCase `useLogic` export, starts with
   `"use client";`), so `*.tsx` stays presentational. **Skip the hook when the

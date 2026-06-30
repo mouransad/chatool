@@ -93,6 +93,12 @@ export const STATE_LAYER =
 export const FOCUS_RING =
   "focus-visible:ring-2 focus-visible:ring-[color:var(--md-comp-button-focus-color,var(--md-sys-color-secondary))] focus-visible:ring-offset-2 focus-visible:ring-offset-[color:var(--md-sys-color-surface)]";
 
-/** MD3 disabled treatment (works for `<button disabled>` and `aria-disabled`). */
+/**
+ * MD3 disabled treatment (works for `<button disabled>` and `aria-disabled`).
+ * A button that is disabled **because it's loading** (`data-loading`) stays
+ * non-actionable (`pointer-events-none`) but keeps its full color + spinner —
+ * the stacked `disabled:data-[loading]:` / `aria-disabled:data-[loading]:` variant
+ * out-specifies the `0.38` dim so it wins.
+ */
 export const DISABLED =
-  "disabled:pointer-events-none disabled:opacity-[0.38] disabled:shadow-none aria-disabled:pointer-events-none aria-disabled:opacity-[0.38] aria-disabled:shadow-none";
+  "disabled:pointer-events-none disabled:opacity-[0.38] disabled:shadow-none aria-disabled:pointer-events-none aria-disabled:opacity-[0.38] aria-disabled:shadow-none disabled:data-[loading]:opacity-100 disabled:data-[loading]:shadow-none aria-disabled:data-[loading]:opacity-100";

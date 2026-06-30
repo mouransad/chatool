@@ -11,13 +11,13 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   ```
   src/buttons/          # the button family directory
     button/
-      index.tsx         # entry + barrel ("use client"; iff client component)
+      index.tsx         # entry + barrel (no directive — button is server-safe)
       button.tsx        # one arrow component, default-exported (the view)
       button.types.ts   # ButtonProps + types
       button.variants.ts# buttonVariants (cva)
-      use-logic.ts      # useLogic hook — only when logic is non-trivial
     config.ts           # shared family config (sizes, shape, class fragments)
-    spinner.tsx         # shared loading spinner
+    spinner.tsx         # shared loading spinner (pure)
+    ripple.tsx          # "use client" press-ripple island (own INTERNAL entry)
   ```
   Components are **arrow functions, one per file, default-exported**; types and
   cva variants go in separate `*.types.ts` / `*.variants.ts`; non-trivial logic
@@ -27,13 +27,16 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
 - **Prefer Server Components; the `"use client";` directive is conditional** (see
   [Client vs Server Components](../../docs/conventions/client-server-components.md)).
   A **pure** component (props → JSX) has **no directive anywhere** in its directory.
-  A **client** component (hooks/context/event-wiring/browser APIs/client-only deps
-  like `radix-ui`) carries `"use client";` on **both** the view file **and** the
-  `index.tsx` entry barrel — tsdown only preserves the directive at the top of the
-  entry's own source (a re-export barrel doesn't inherit it; same rule as
-  `packages/utils/src/hooks/index.ts`). `button` is a client component (Radix
-  `Slot` + forwards handlers), so both carry it. Pure files (`*.types.ts`,
-  `*.variants.ts`) never do.
+  A **client** component (hooks/context/event-wiring/browser APIs/client-only
+  _interactive_ `radix-ui` primitives) carries `"use client";` on **both** the view
+  file **and** the `index.tsx` entry barrel — tsdown only preserves the directive at
+  the top of the entry's own source (a re-export barrel doesn't inherit it; same
+  rule as `packages/utils/src/hooks/index.ts`). **`button` is a Server Component**
+  (no directive on its view or barrel): `radix-ui`'s `Slot` is server-safe and it
+  only spreads consumer props. Its sole client piece is the press **ripple**, a
+  `"use client"` island (`src/buttons/ripple.tsx`) given its **own internal `tsdown`
+  entry** so the directive survives bundling (it is **not** a public subpath). Pure
+  files (`*.types.ts`, `*.variants.ts`) never carry the directive.
 - **No root barrel / no `.` export.** There is no `src/index.ts`; each component
   is reachable only through its own subpath so the IDE auto-imports the subpath
   (e.g. `import Button from "@chatool/ui/button"`) instead of a root
@@ -54,7 +57,9 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   Adding a component = new `src/buttons/<name>/` directory + a `tsdown` entry whose
   **key equals the subpath** (`{ button: "src/buttons/button/index.tsx" }` →
   `dist/button.*`, so the `exports` map stays stable) + the new `exports` subpath
-  (ESM + CJS).
+  (ESM + CJS). A `"use client"` island used **internally** (e.g. `ripple`) gets its
+  own `tsdown` entry **without** an `exports` subpath, so its directive is preserved
+  as a private client chunk.
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading
@@ -66,6 +71,13 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   painted roles read a `--md-comp-button-*` token with a `--md-sys-*` fallback so
   apps can re-theme. Canonical spec:
   [docs/conventions/material-design.md](../../docs/conventions/material-design.md).
+- **Accessibility (WAI-ARIA APG button pattern).** Render a native `<button>`;
+  default `type="button"` so forms don't submit by accident; names come from text
+  content (an **icon-only** button **must** set `aria-label`); pass `aria-*` through
+  (`aria-pressed` for toggles — keep the label constant; `aria-haspopup` /
+  `aria-expanded` for menus); `loading` is non-actionable + `aria-busy`; for
+  `asChild` require a natively interactive child. Canonical spec:
+  [docs/conventions/accessibility.md](../../docs/conventions/accessibility.md).
 - **Adding a component also needs a Storybook story** in
   [`apps/storybook`](../../apps/storybook) (stories don't auto-discover new
   subpaths) — run the `/sync-storybook` skill.

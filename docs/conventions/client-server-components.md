@@ -46,29 +46,37 @@ Add `"use client";` if the module does **any** of these:
   `useContext`, `useMemo`, `useCallback`, **or any custom hook** (e.g. a
   `useLogic` hook — see [below](#a-custom-hook-makes-the-caller-a-client-component));
 - creates or consumes React **Context** (`createContext` / `useContext`);
-- wires its **own event handlers** to elements (`onClick`, `onChange`, … defined
-  inside the component, or forwarded via `{...props}` onto a DOM element);
+- wires its **own event handlers** — defines `onClick` / `onChange` / … **inside**
+  the component (merely spreading consumer-provided `{...props}` onto a DOM element
+  does **not** count: that keeps the module shared, and the consumer who creates the
+  handler owns the client boundary);
 - touches **browser/DOM APIs** — `window`, `document`, `localStorage`,
   `matchMedia`, `IntersectionObserver`, …;
 - is a **class component**;
-- imports a **client-only dependency** (e.g. `radix-ui` primitives, which ship
-  their own `"use client"`).
+- imports a **client-only dependency** (e.g. most `radix-ui` _interactive_
+  primitives, which ship their own `"use client"`). _Exception:_ `radix-ui`'s
+  `Slot` / `Slottable` are pure (no directive) and **server-safe**, so `asChild`
+  alone does not force a client boundary.
 
 If **none** apply, leave it directive-free — it's a Server Component.
 
 > **Edge cases.** `useId` alone is safe in a Server Component. A component that
-> only **passes `children` through** stays a Server Component. A component that
-> **forwards an `onClick` prop onto a DOM element** is effectively client (it
-> renders an interactive element), so mark it `"use client"`.
+> only **passes `children` through** — or **spreads consumer props** (including
+> handlers) onto a DOM element — stays a Server Component / shared module; the
+> caller that supplies the handler owns the client boundary. Add `"use client"`
+> only when the component _itself_ needs a client feature.
 
 ## Worked examples in this repo
 
-- **Server (no directive):** `@chatool/icons/*` — pure SVG wrappers, `@chatool/utils`
-  `cn`. These render anywhere, including as RSC.
-- **Client (`"use client"`):** `@chatool/ui/button` (uses `radix-ui`'s `Slot` and
-  forwards event handlers onto the element), `@chatool/core`'s `ChatoolProvider`
-  (`useState`/`useEffect`/`localStorage`) and `useTheme` (`useContext`), and the
-  `@chatool/utils/hooks` (they _are_ hooks).
+- **Server / shared (no directive):** `@chatool/icons/*` (pure SVG wrappers),
+  `@chatool/utils` `cn`, and **`@chatool/ui/button`** — a pure props→JSX button
+  (it uses `radix-ui`'s server-safe `Slot` for `asChild`, the pure `Spinner`, and
+  spreads consumer props). It renders as an RSC; its **only** client part is the
+  press **ripple**, a separate `"use client"` island it renders as a child (the
+  "client island in a server primitive" pattern — see below).
+- **Client (`"use client"`):** the button's ripple island, `@chatool/core`'s
+  `ChatoolProvider` (`useState`/`useEffect`/`localStorage`) and `useTheme`
+  (`useContext`), and the `@chatool/utils/hooks` (they _are_ hooks).
 
 ## How tsdown preserves the directive (the entry rule)
 
@@ -111,8 +119,13 @@ const Panel = ({ children }: { children: React.ReactNode }) => (
 export default Panel;
 ```
 
-For **atomic primitives** (Button, Input) this is overkill — they're either fully
-interactive (mark client) or fully pure (leave server).
+This isn't only for big wrappers: even an **atomic primitive** can use it.
+`@chatool/ui/button` is directive-free yet renders a small `"use client"` ripple
+island as a child, so it stays an RSC while still getting a client-side ripple. The
+press feedback degrades gracefully — the static button renders server-side and the
+ripple hydrates on the client. To keep the island's directive intact through the
+bundle it is its **own (internal) tsdown entry** (directive preservation is
+entry-level); see [Build & tooling](../build-and-tooling.md).
 
 ## The Vite build warning
 

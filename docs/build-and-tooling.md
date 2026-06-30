@@ -22,10 +22,13 @@ import { defineChatoolConfig } from "../../tsdown.preset";
 
 export default defineChatoolConfig({
   entry: {
-    // One entry per component — @chatool/ui is subpath-only (no barrel). Each
-    // component is its own directory; the entry KEY (`button`) names the output
-    // (`dist/button.*`), so it must equal the subpath regardless of source path.
-    button: "src/button/index.tsx",
+    // One entry per published component — @chatool/ui is subpath-only (no
+    // barrel). The entry KEY (`button`) names the output (`dist/button.*`), so it
+    // must equal the subpath regardless of the (family-dir) source path.
+    button: "src/buttons/button/index.tsx",
+    // INTERNAL client island: its own entry (NO `exports` subpath) so its
+    // "use client" directive is preserved as a private chunk `button.mjs` imports.
+    ripple: "src/buttons/ripple.tsx",
   },
 });
 ```
@@ -57,9 +60,11 @@ files and the `require` condition at the `.cjs`/`.d.cts` files.
 tsdown keeps module-level directives in the bundled output for **both** formats.
 After a build:
 
-- `packages/ui/dist/button.mjs` (and `.cjs`) start with `"use client";`
+- `packages/ui/dist/ripple.mjs` (the press-ripple client island, and `.cjs`) start
+  with `"use client";` — while `dist/button.mjs` does **not** (the button is a
+  Server Component that imports the ripple chunk).
 - `packages/utils/dist/hooks/index.mjs` starts with `"use client";`
-- pure modules (`cn`, icons, the api client) have **no** directive.
+- pure modules (`cn`, icons) have **no** directive.
 
 ### ⚠️ Re-export-only barrels need an explicit directive
 
@@ -70,9 +75,11 @@ explicitly at the top of its source:
 
 - [`packages/utils/src/hooks/index.ts`](../packages/utils/src/hooks/index.ts) → `"use client";`
 
-`@chatool/ui` has no barrel (it is subpath-only) — each component entry is its
-own source and carries its own `"use client";`. If you create a **new** client
-barrel/entry, put `"use client";` at its top.
+`@chatool/ui` is subpath-only (no barrel). Its **server** components (e.g. `button`)
+carry **no** directive; **client islands** (e.g. `ripple`) carry `"use client";` at
+the top of their own source and get a dedicated entry so the directive survives as a
+distinct chunk. If you create a **new** client barrel/entry, put `"use client";` at
+its top.
 
 ## ESLint
 

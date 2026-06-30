@@ -30,7 +30,9 @@ Then import the styles once in your global CSS (see `@chatool/core`):
 
 **Subpath-only — there is no `@chatool/ui` root barrel.** Each component is
 reached through its own path, so editors auto-import the exact subpath and bundles
-stay minimal. All components are client components (`"use client"`).
+stay minimal. `Button` is **Server-Component-safe** (it carries no `"use client"`);
+its only client part is the press ripple, a separate island (see
+[Accessibility & rendering](#accessibility--rendering)).
 
 | Subpath              | Exports                                     |
 | -------------------- | ------------------------------------------- |
@@ -97,11 +99,43 @@ Three layers, increasingly specific:
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
+## Accessibility & rendering
+
+`Button` follows the
+[WAI-ARIA APG button pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button/):
+
+- Renders a **native `<button>`** — role `button` + Space/Enter activation for
+  free. Defaults to **`type="button"`** so it never submits a form by accident
+  (pass `type="submit"` when you want that).
+- **Accessible name** comes from your text content. For an **icon-only** button
+  (no visible text) you **must** pass `aria-label`.
+- `disabled` and `loading` are conveyed to assistive tech (`disabled` /
+  `aria-busy`); a **loading** button is non-actionable by mouse **and** keyboard,
+  yet keeps its color + spinner.
+- All `aria-*` flow through `{...props}`: `aria-pressed` (toggle — keep the label
+  constant when it flips), `aria-haspopup` / `aria-expanded` (menu / disclosure),
+  `aria-controls`, `aria-describedby`, `aria-label` / `aria-labelledby`.
+- **`asChild`** renders _your_ element via Radix `Slot`. Pass a natively
+  interactive element (`<a href>`, `<button>`); a non-interactive element
+  (`<div>`) needs `role="button"`, `tabIndex={0}`, and Enter/Space handling **you**
+  add — prefer a native element.
+
+**Rendering:** the module has **no `"use client"`**, so `Button` renders as a
+**React Server Component** in Next App Router (and works in Pages Router / Vite /
+webpack). Static buttons and `asChild` links need no client JS; only the press
+**ripple** is a tiny `"use client"` island that hydrates on the client.
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
   barrel**. `Button` is both the **default** and a named export.
-- `Button` is `"use client"`; it can't be a Server Component.
+- `Button` has **no `"use client"`** — it renders as a **Server Component** (only
+  the press ripple is a client island). Don't add the directive; passing `onClick`
+  just makes the _caller_ a client component, as usual.
+- **A11y (APG):** native `<button>`, defaults to **`type="button"`** (pass
+  `type="submit"` for forms); give **icon-only** buttons an `aria-label`; `aria-*`
+  (`aria-pressed`/`aria-haspopup`/`aria-expanded`/…) pass through; `loading` is
+  non-actionable + `aria-busy`. For `asChild`, pass a natively interactive element.
 - **MD3 spec:** color is **fixed per style** (no `color` prop) — filled→primary,
   tonal→secondary-container, elevated→surface-container-low + primary,
   outlined/text→primary. Style with tokens, not hex; for per-component theming set

@@ -19,6 +19,8 @@ also summarized in [AGENTS.md](../../AGENTS.md) (and each
   Pages Router / Vite / webpack), the Vite build warning, and fork guidance.
 - [Component structure (`@chatool/ui`)](component-structure.md) — one directory
   per component, arrow functions, separate types/variants, `useLogic`.
+- [Accessibility](accessibility.md) — the WAI-ARIA APG patterns components follow
+  (native semantics, accessible names, `aria-*`, `asChild`) + consumer duties.
 - [Dependencies: peer vs dep](dependencies.md) — which libraries are peers vs
   dependencies.
 - [TypeScript](typescript.md) — strict mode, `verbatimModuleSyntax`, real

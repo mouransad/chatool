@@ -75,6 +75,19 @@ export const WithIcons: Story = {
   },
 };
 
+/** Icon-only buttons have no text content, so they **must** pass `aria-label`. */
+export const IconOnly: Story = {
+  render: (args) => (
+    <Button
+      variant={args.variant}
+      size={args.size}
+      shape={args.shape}
+      aria-label="Add to favorites"
+      startIcon={<CheckOutlined />}
+    />
+  ),
+};
+
 export const Loading: Story = {
   render: (args) => (
     <div className="gap-3 flex flex-wrap items-center">
