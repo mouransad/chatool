@@ -25,6 +25,20 @@ export const labelSize: Record<ButtonSize, string> = {
 };
 
 /**
+ * Square container + icon size per size, for **icon-only** members of the family
+ * (e.g. icon-button): same height scale as {@link labelSize} but `size-*` makes
+ * width equal height (no label, so no horizontal padding), with the matching
+ * glyph size. Heights mirror the XS–XL scale (32 / 40 / 56 / 96 / 136 dp).
+ */
+export const iconButtonSize: Record<ButtonSize, string> = {
+  xs: "size-8 [&_svg]:size-5",
+  s: "size-10 [&_svg]:size-5",
+  m: "size-14 [&_svg]:size-6",
+  l: "size-24 [&_svg]:size-8",
+  xl: "size-34 [&_svg]:size-10",
+};
+
+/**
  * Resting corner radius when `shape="round"` — a **finite** half-height pill
  * (not `rounded-full`). `rounded-full` compiles to `calc(infinity * 1px)`, which
  * can't be transitioned smoothly: the press morph would interpolate from a

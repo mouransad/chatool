@@ -3,12 +3,22 @@ import { cn } from "@chatool/utils";
 
 import { ThemeToggle } from "./components/theme-toggle";
 import { FormDemo } from "./components/form-demo";
+import {
+  ButtonToggle,
+  IconButtonToggle,
+} from "./components/icon-button-toggle";
+import { ButtonGroupSingleSelect } from "./components/button-group-demo";
 import { Button } from "@chatool/ui/button";
+import IconButton from "@chatool/ui/icon-button";
+import ButtonGroup from "@chatool/ui/button-group";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
 import CheckOutlined from "@chatool/icons/CheckOutlined";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
 import KeyboardArrowDownOutlined from "@chatool/icons/KeyboardArrowDownOutlined";
 import ProgressActivityOutlined from "@chatool/icons/ProgressActivityOutlined";
+import FavoriteOutlined from "@chatool/icons/FavoriteOutlined";
+import CloseOutlined from "@chatool/icons/CloseOutlined";
+import SettingsOutlined from "@chatool/icons/SettingsOutlined";
 
 function Section({
   title,
@@ -169,6 +179,14 @@ export default function Home() {
         </Button>
       </Section>
 
+      {/* Toggle — selected → aria-pressed + shape morph + leading-icon swap */}
+      <Section
+        title="Button — toggle"
+        hint="Click to select: reflects aria-pressed, morphs round→square, swaps to the filled icon (outlined fills). Keep the label constant."
+      >
+        <ButtonToggle />
+      </Section>
+
       {/* type=button (default) vs type=submit inside a form */}
       <Section
         title="Button — in a form"
@@ -193,6 +211,121 @@ export default function Home() {
         >
           Custom token
         </Button>
+      </Section>
+
+      {/* Icon button — the four MD3 styles (icon-only, color fixed per style) */}
+      <Section
+        title="Icon button — styles"
+        hint="Icon-only buttons; each must pass aria-label. Color is fixed per style."
+      >
+        <IconButton variant="standard" aria-label="Favorite">
+          <FavoriteOutlined />
+        </IconButton>
+        <IconButton variant="filled" aria-label="Settings">
+          <SettingsOutlined />
+        </IconButton>
+        <IconButton variant="tonal" aria-label="Chat">
+          <ChatOutlined />
+        </IconButton>
+        <IconButton variant="outlined" aria-label="Close">
+          <CloseOutlined />
+        </IconButton>
+      </Section>
+
+      {/* Icon button — sizes (square XS–XL) */}
+      <Section
+        title="Icon button — sizes"
+        hint="Square containers on the same XS–XL scale as Button (32–136 dp)."
+      >
+        {(["xs", "s", "m", "l", "xl"] as const).map((size) => (
+          <IconButton key={size} size={size} aria-label={`Favorite ${size}`}>
+            <FavoriteOutlined />
+          </IconButton>
+        ))}
+      </Section>
+
+      {/* Icon button — shape (round circle / square, both morph on press) */}
+      <Section
+        title="Icon button — shape"
+        hint="Round (circle) and square; both morph their corners while pressed."
+      >
+        <IconButton variant="tonal" shape="round" aria-label="Round">
+          <FavoriteOutlined />
+        </IconButton>
+        <IconButton variant="tonal" shape="square" aria-label="Square">
+          <FavoriteOutlined />
+        </IconButton>
+      </Section>
+
+      {/* Icon button — toggle (selected → aria-pressed + shape morph + icon swap) */}
+      <Section
+        title="Icon button — toggle"
+        hint="Click to select: reflects aria-pressed, morphs round→square, swaps to the filled icon. Keep the label constant."
+      >
+        <IconButtonToggle />
+      </Section>
+
+      {/* Icon button — loading / disabled */}
+      <Section
+        title="Icon button — loading / disabled"
+        hint="Loading is non-actionable + aria-busy (keeps color); disabled dims to 38%."
+      >
+        <IconButton variant="filled" loading aria-label="Saving" />
+        <IconButton variant="tonal" disabled aria-label="Favorite">
+          <FavoriteOutlined />
+        </IconButton>
+      </Section>
+
+      {/* Button group — standard (family gap, own shapes) */}
+      <Section
+        title="Button group — standard"
+        hint="Invisible container; the family gap, each child keeps its own pill shape. Pass the group an aria-label."
+      >
+        <ButtonGroup aria-label="Document actions">
+          <Button variant="filled">Save</Button>
+          <Button variant="tonal">Duplicate</Button>
+          <Button variant="outlined">Delete</Button>
+        </ButtonGroup>
+      </Section>
+
+      {/* Button group — connected (2dp gap, shared segmented track) */}
+      <Section
+        title="Button group — connected"
+        hint="Tight 2dp gap; children share one segmented track (outer corners round, inner squared)."
+      >
+        <ButtonGroup variant="connected" aria-label="Range">
+          <Button variant="tonal">Day</Button>
+          <Button variant="tonal">Week</Button>
+          <Button variant="tonal">Month</Button>
+        </ButtonGroup>
+        <ButtonGroup variant="connected" aria-label="Navigation">
+          <IconButton variant="tonal" aria-label="Previous">
+            <KeyboardArrowDownOutlined className="rotate-90" />
+          </IconButton>
+          <IconButton variant="tonal" aria-label="Menu">
+            <SettingsOutlined />
+          </IconButton>
+          <IconButton variant="tonal" aria-label="Next">
+            <KeyboardArrowDownOutlined className="-rotate-90" />
+          </IconButton>
+        </ButtonGroup>
+      </Section>
+
+      {/* Button group — vertical + single-select segmented (client island) */}
+      <Section
+        title="Button group — vertical / single-select"
+        hint="Orientation flips the track axis. The single-select segmented control is a client island (selected children → aria-pressed)."
+      >
+        <ButtonGroup
+          variant="connected"
+          orientation="vertical"
+          aria-label="Alignment"
+        >
+          <Button variant="tonal">Top</Button>
+          <Button variant="tonal">Middle</Button>
+          <Button variant="tonal">Bottom</Button>
+        </ButtonGroup>
+        <ButtonGroupSingleSelect />
       </Section>
 
       {/* @chatool/icons */}

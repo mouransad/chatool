@@ -34,28 +34,63 @@ stay minimal. `Button` is **Server-Component-safe** (it carries no `"use client"
 its only client part is the press ripple, a separate island (see
 [Accessibility & rendering](#accessibility--rendering)).
 
-| Subpath              | Exports                                     |
-| -------------------- | ------------------------------------------- |
-| `@chatool/ui/button` | `Button` (also `default`), `buttonVariants` |
+| Subpath                    | Exports                                               |
+| -------------------------- | ----------------------------------------------------- |
+| `@chatool/ui/button`       | `Button` (also `default`), `buttonVariants`           |
+| `@chatool/ui/icon-button`  | `IconButton` (also `default`), `iconButtonVariants`   |
+| `@chatool/ui/button-group` | `ButtonGroup` (also `default`), `buttonGroupVariants` |
 
-> The MD3 button family (icon button, FAB, button group, toggle / segmented) is
-> being built out — this release ships the **common Button**.
+> The MD3 button family (FAB, segmented) is still being built out — this release
+> ships the **common Button**, the **Icon button**, and the **Button group**.
 
 **`Button`** follows the Material 3 spec — **color is fixed per style**, there is
 no free color choice:
 
-| Prop                                               | Values                                                                        |
-| -------------------------------------------------- | ----------------------------------------------------------------------------- |
-| `variant`                                          | `filled` _(default)_ · `tonal` · `elevated` · `outlined` · `text`             |
-| `size`                                             | `xs` · `s` _(default)_ · `m` · `l` · `xl` (32 / 40 / 56 / 96 / 136 dp)        |
-| `shape`                                            | `round` _(default, pill)_ · `square` — both morph their corners while pressed |
-| `startIcon` / `endIcon`                            | leading / trailing icon (ignored with `asChild`)                              |
-| `loading` / `loadingPosition` / `loadingIndicator` | spinner state (`start`·`center`·`end`)                                        |
-| `asChild`                                          | render styles onto the child element (e.g. an `<a>`) via Radix `Slot`         |
+| Prop                                               | Values                                                                           |
+| -------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `variant`                                          | `filled` _(default)_ · `tonal` · `elevated` · `outlined` · `text`                |
+| `size`                                             | `xs` · `s` _(default)_ · `m` · `l` · `xl` (32 / 40 / 56 / 96 / 136 dp)           |
+| `shape`                                            | `round` _(default, pill)_ · `square` — both morph their corners while pressed    |
+| `startIcon` / `endIcon`                            | leading / trailing icon (ignored with `asChild`)                                 |
+| `selected` / `selectedIcon`                        | MD3 **toggle**: sets `aria-pressed`, morphs round→square, swaps the leading icon |
+| `loading` / `loadingPosition` / `loadingIndicator` | spinner state (`start`·`center`·`end`)                                           |
+| `asChild`                                          | render styles onto the child element (e.g. an `<a>`) via Radix `Slot`            |
 
 MD3 press feedback is **built in** and automatic: a pointer **ripple**, the
 **state layer** (hover 8% / focus 10% / press 10%), and a **press shape-morph**
 (the corner shrinks while pressed, then springs back). No props or setup required.
+
+**`IconButton`** is the **icon-only** family member — a square container holding a
+single `@chatool/icons` glyph (passed as `children`). It shares the size scale,
+shape-morph, ripple, and state layer with `Button`; **color is fixed per style**:
+
+| Prop                           | Values                                                                         |
+| ------------------------------ | ------------------------------------------------------------------------------ |
+| `variant`                      | `standard` _(default)_ · `filled` · `tonal` · `outlined`                       |
+| `size`                         | `xs` · `s` _(default)_ · `m` · `l` · `xl` (square; 32 / 40 / 56 / 96 / 136 dp) |
+| `shape`                        | `round` _(default, circle)_ · `square` — both morph their corners on press     |
+| `selected`                     | MD3 **toggle**: sets `aria-pressed`, morphs round→square, swaps `selectedIcon` |
+| `selectedIcon`                 | glyph shown while `selected` (defaults to `children`)                          |
+| `loading` / `loadingIndicator` | spinner state (non-actionable + `aria-busy`)                                   |
+| `asChild`                      | render styles onto the child element (e.g. an `<a>`) via Radix `Slot`          |
+
+> An icon button has **no visible text**, so you **must** pass `aria-label` (or
+> `aria-labelledby`) — for a toggle, keep that label constant when `selected` flips.
+
+**`ButtonGroup`** is an **invisible container** that spaces and shapes its
+`Button` / `IconButton` children. It owns no selection state — each child keeps its
+own `selected` / `aria-pressed`:
+
+| Prop          | Values                                                                             |
+| ------------- | ---------------------------------------------------------------------------------- |
+| `variant`     | `standard` _(default)_ (family gap, own shapes) · `connected` (2dp gap, one track) |
+| `orientation` | `horizontal` _(default)_ · `vertical`                                              |
+| `asChild`     | render the group styles + `role="group"` onto your element via Radix `Slot`        |
+
+> Pass the group an `aria-label` (or `aria-labelledby`) to name the set. **Connected**
+> squares off every child's corners (only the group's leading/trailing edges round),
+> so connected children don't keep their individual press shape-morph — it's best
+> with `filled` / `tonal` children.
 
 ## Usage
 
@@ -71,6 +106,53 @@ export function Example() {
       </Button>
       <Button loading>Saving…</Button>
     </>
+  );
+}
+```
+
+```tsx
+import IconButton from "@chatool/ui/icon-button";
+import FavoriteOutlined from "@chatool/icons/FavoriteOutlined";
+import FavoriteFilled from "@chatool/icons/FavoriteFilled";
+
+export function Like({ liked }: { liked: boolean }) {
+  return (
+    <IconButton
+      variant="tonal"
+      aria-label="Add to favorites"
+      selected={liked}
+      selectedIcon={<FavoriteFilled />}
+    >
+      <FavoriteOutlined />
+    </IconButton>
+  );
+}
+```
+
+```tsx
+import ButtonGroup from "@chatool/ui/button-group";
+import Button from "@chatool/ui/button";
+
+export function Range({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  return (
+    <ButtonGroup variant="connected" aria-label="Range">
+      {["Day", "Week", "Month"].map((v) => (
+        <Button
+          key={v}
+          variant={value === v ? "filled" : "tonal"}
+          selected={value === v}
+          onClick={() => onChange(v)}
+        >
+          {v}
+        </Button>
+      ))}
+    </ButtonGroup>
   );
 }
 ```
@@ -95,7 +177,11 @@ Three layers, increasingly specific:
    Tokens follow `--md-comp-button-<role>`:
    `--md-comp-button-container-color`, `--md-comp-button-label-text-color`,
    `--md-comp-button-outline-color`, `--md-comp-button-focus-color`. Each falls
-   back to the computed `--md-sys-*` value.
+   back to the computed `--md-sys-*` value. **`IconButton`** has the parallel set
+   `--md-comp-icon-button-container-color`, `--md-comp-icon-button-icon-color`,
+   `--md-comp-icon-button-outline-color`, `--md-comp-icon-button-focus-color`.
+   **`ButtonGroup`** exposes `--md-comp-button-group-gap` (the gap between
+   children).
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -112,9 +198,13 @@ Three layers, increasingly specific:
 - `disabled` and `loading` are conveyed to assistive tech (`disabled` /
   `aria-busy`); a **loading** button is non-actionable by mouse **and** keyboard,
   yet keeps its color + spinner.
-- All `aria-*` flow through `{...props}`: `aria-pressed` (toggle — keep the label
-  constant when it flips), `aria-haspopup` / `aria-expanded` (menu / disclosure),
-  `aria-controls`, `aria-describedby`, `aria-label` / `aria-labelledby`.
+- **Toggle** — pass `selected` to make it a toggle: it reflects `aria-pressed`,
+  morphs round→square, fills `outlined` with inverse-surface, and swaps the leading
+  icon to `selectedIcon`. Keep the label constant when `selected` flips (per the
+  APG); omit `selected` for a plain button (no `aria-pressed`).
+- Other `aria-*` flow through `{...props}`: `aria-haspopup` / `aria-expanded` (menu
+  / disclosure), `aria-controls`, `aria-describedby`, `aria-label` /
+  `aria-labelledby`.
 - **`asChild`** renders _your_ element via Radix `Slot`. Pass a natively
   interactive element (`<a href>`, `<button>`); a non-interactive element
   (`<div>`) needs `role="button"`, `tabIndex={0}`, and Enter/Space handling **you**
@@ -125,6 +215,22 @@ Three layers, increasingly specific:
 webpack). Static buttons and `asChild` links need no client JS; only the press
 **ripple** is a tiny `"use client"` island that hydrates on the client.
 
+`IconButton` follows the same APG button pattern and shares the rendering model
+(Server Component, ripple island). Two icon-only specifics:
+
+- **`aria-label` is required** — there is no text to name it. Without it the button
+  has no accessible name.
+- **Toggle** — when you pass `selected`, it becomes a toggle: it reflects
+  `aria-pressed`, morphs round→square, and swaps to `selectedIcon`. **Keep the
+  `aria-label` constant** across the toggle (per the APG); omit `selected` for a
+  plain, non-toggle icon button (no `aria-pressed`).
+
+`ButtonGroup` is a **`role="group"`** container (give it an `aria-label`). It's a
+pure **Server Component** — a layout that spaces/shapes its children and owns no
+state; each child keeps its own role + `aria-pressed`. Children stay individual Tab
+stops (no roving focus). `asChild` forwards the group styles + role onto your
+element.
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -134,14 +240,30 @@ webpack). Static buttons and `asChild` links need no client JS; only the press
   just makes the _caller_ a client component, as usual.
 - **A11y (APG):** native `<button>`, defaults to **`type="button"`** (pass
   `type="submit"` for forms); give **icon-only** buttons an `aria-label`; `aria-*`
-  (`aria-pressed`/`aria-haspopup`/`aria-expanded`/…) pass through; `loading` is
-  non-actionable + `aria-busy`. For `asChild`, pass a natively interactive element.
+  (`aria-haspopup`/`aria-expanded`/…) pass through; `loading` is non-actionable +
+  `aria-busy`. For `asChild`, pass a natively interactive element.
+- **Toggle:** pass `selected` (sets `aria-pressed`, morphs round→square, swaps to
+  `selectedIcon`) — keep the label constant; omit it for a plain button. Same
+  `selected`/`selectedIcon` API as `IconButton`.
 - **MD3 spec:** color is **fixed per style** (no `color` prop) — filled→primary,
   tonal→secondary-container, elevated→surface-container-low + primary,
   outlined/text→primary. Style with tokens, not hex; for per-component theming set
   `--md-comp-button-*` (CSS var, globally or via `style`).
 - **Press feedback (ripple, state layer, shape-morph) is built in** — don't re-add
   it. The ripple uses the Web Animations API into a React-empty overlay.
+- **`IconButton`** (`@chatool/ui/icon-button`): icon-only, square; same Server
+  Component + ripple model. The glyph is `children`; **`aria-label` is required**.
+  Styles `standard` _(default)_ · `filled` · `tonal` · `outlined`; sizes `xs`–`xl`;
+  `shape` `round` _(default, circle)_ · `square`. Pass `selected` to make it an MD3
+  **toggle** (reflects `aria-pressed`, morphs round→square, swaps `selectedIcon`) —
+  keep the label constant; omit `selected` for a plain button. Per-component tokens
+  `--md-comp-icon-button-*`.
+- **`ButtonGroup`** (`@chatool/ui/button-group`): an invisible `role="group"`
+  container that spaces/shapes `Button`/`IconButton` children — pure **Server
+  Component**, owns no state. `variant` `standard` _(default)_ · `connected` (2dp
+  gap + shared segmented track); `orientation` `horizontal` _(default)_ ·
+  `vertical`. Give it an `aria-label`; build a single-select segmented control by
+  toggling the children's `selected`. Gap token `--md-comp-button-group-gap`.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders

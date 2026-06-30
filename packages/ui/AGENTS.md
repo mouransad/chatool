@@ -50,10 +50,20 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   `@radix-ui/react-*` packages.
 - `react` / `react-dom` are `peerDependencies`; tsdown externalizes them (and all
   deps, incl. `react/jsx-runtime`) automatically — no `external` list needed.
-- **Button family lives in `src/buttons/`.** Currently the only published subpath
-  is `./button` (source `src/buttons/button/`); icon-button, FAB, button group and
-  toggle/segmented are **deferred** (will be added under `src/buttons/` later).
-  Each barrel exposes a `default` + named exports (e.g. `Button` + `buttonVariants`).
+- **Button family lives in `src/buttons/`.** Published subpaths: `./button`
+  (source `src/buttons/button/`), `./icon-button` (source
+  `src/buttons/icon-button/`, the icon-only square member — four styles
+  standard/filled/tonal/outlined, the XS–XL square scale via
+  `iconButtonSize`, round/square shape-morph, and an MD3 `selected` **toggle** that
+  sets `aria-pressed` + morphs round→square + swaps `selectedIcon`), and
+  `./button-group` (source `src/buttons/button-group/`, an invisible `role="group"`
+  **container** that spaces/shapes `Button`/`IconButton` children —
+  `standard`/`connected` variants, horizontal/vertical; a pure layout that owns no
+  state and doesn't compose the interactive `BASE`/`STATE_LAYER`/`FOCUS_RING`/
+  `DISABLED` fragments). FAB and segmented are **deferred** (will be added under
+  `src/buttons/` later). Each barrel exposes a `default` + named exports (e.g.
+  `Button` + `buttonVariants`, `IconButton` + `iconButtonVariants`, `ButtonGroup` +
+  `buttonGroupVariants`).
   Adding a component = new `src/buttons/<name>/` directory + a `tsdown` entry whose
   **key equals the subpath** (`{ button: "src/buttons/button/index.tsx" }` →
   `dist/button.*`, so the `exports` map stays stable) + the new `exports` subpath

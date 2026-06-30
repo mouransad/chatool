@@ -1,7 +1,10 @@
+import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Button from "@chatool/ui/button";
 import CheckOutlined from "@chatool/icons/CheckOutlined";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
+import FavoriteOutlined from "@chatool/icons/FavoriteOutlined";
+import FavoriteFilled from "@chatool/icons/FavoriteFilled";
 
 const meta = {
   title: "UI/Button",
@@ -15,8 +18,10 @@ const meta = {
     },
     size: { control: "select", options: ["xs", "s", "m", "l", "xl"] },
     shape: { control: "inline-radio", options: ["round", "square"] },
+    selected: { control: "boolean" },
     loading: { control: "boolean" },
     asChild: { table: { disable: true } },
+    selectedIcon: { table: { disable: true } },
   },
 } satisfies Meta<typeof Button>;
 
@@ -105,6 +110,40 @@ export const Loading: Story = {
 };
 
 export const Disabled: Story = { args: { disabled: true } };
+
+/**
+ * Toggle (`selected`) reflects `aria-pressed`; a **round** button morphs to
+ * square while selected, `outlined` fills with inverse-surface, and `selectedIcon`
+ * swaps the leading glyph. Keep the label constant across the toggle (per the APG).
+ */
+export const Toggle: Story = {
+  render: (args) => {
+    const Demo = ({ variant }: { variant: typeof args.variant }) => {
+      const [on, setOn] = useState(false);
+      return (
+        <Button
+          {...args}
+          variant={variant}
+          startIcon={<FavoriteOutlined />}
+          selectedIcon={<FavoriteFilled />}
+          selected={on}
+          onClick={() => setOn((v) => !v)}
+        >
+          Favorite
+        </Button>
+      );
+    };
+    return (
+      <div className="gap-3 flex flex-wrap items-center">
+        {(["filled", "tonal", "elevated", "outlined", "text"] as const).map(
+          (v) => (
+            <Demo key={v} variant={v} />
+          ),
+        )}
+      </div>
+    );
+  },
+};
 
 /** `asChild` renders the styles onto the child element (here an anchor). */
 export const AsChild: Story = {

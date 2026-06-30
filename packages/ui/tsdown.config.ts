@@ -5,6 +5,12 @@ export default defineChatoolConfig({
     // Key = published subpath (`./button`); source lives in the buttons/ family
     // directory. tsdown names output by the entry key, not the path.
     button: "src/buttons/button/index.tsx",
+    // Icon-only family member; same subpath=key rule (`./icon-button`). Shares
+    // config.ts / spinner / ripple with `button`.
+    "icon-button": "src/buttons/icon-button/index.tsx",
+    // Layout container that spaces/shapes Button + IconButton children
+    // (`./button-group`). Pure server component; no ripple/config wiring.
+    "button-group": "src/buttons/button-group/index.tsx",
     // INTERNAL chunk (no `exports` entry — not a public subpath). The press
     // ripple is the button family's only `"use client"` module; giving it its
     // own entry guarantees the directive is preserved as a distinct client

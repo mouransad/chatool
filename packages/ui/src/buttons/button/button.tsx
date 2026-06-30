@@ -19,6 +19,8 @@ const Button = ({
   variant,
   size,
   shape,
+  selected,
+  selectedIcon,
   asChild = false,
   startIcon,
   endIcon,
@@ -32,14 +34,17 @@ const Button = ({
 }: ButtonProps) => {
   const Comp = asChild ? Slot.Root : "button";
   const inactive = disabled || loading;
+  const isToggle = selected !== undefined;
 
   const indicator = loadingIndicator ?? <Spinner />;
   const centerLoading = loading && loadingPosition === "center";
+  // When toggled on, the leading icon swaps to `selectedIcon` (falls back to it).
+  const startSlot = selected ? (selectedIcon ?? startIcon) : startIcon;
 
   const label = centerLoading ? (
     <>
       <span className="invisible inline-flex items-center [gap:inherit]">
-        {startIcon}
+        {startSlot}
         {children}
         {endIcon}
       </span>
@@ -49,7 +54,7 @@ const Button = ({
     </>
   ) : (
     <>
-      {loading && loadingPosition === "start" ? indicator : startIcon}
+      {loading && loadingPosition === "start" ? indicator : startSlot}
       {children}
       {loading && loadingPosition === "end" ? indicator : endIcon}
     </>
@@ -70,7 +75,10 @@ const Button = ({
     <Comp
       data-slot="button"
       data-loading={loading || undefined}
+      data-selected={selected || undefined}
       aria-busy={loading || undefined}
+      // Reflect the MD3 toggle state only when the button is actually a toggle.
+      aria-pressed={isToggle ? selected : undefined}
       // Native `<button>` blocks activation (mouse + keyboard) when disabled or
       // loading; for `asChild` (non-button) we can only mark it via aria.
       disabled={asChild ? undefined : inactive}
@@ -78,7 +86,10 @@ const Button = ({
       // Default to `type="button"` so a button in a form doesn't submit it by
       // accident (HTML defaults to `submit`). The child controls it for asChild.
       type={asChild ? type : (type ?? "button")}
-      className={cn(buttonVariants({ variant, size, shape }), className)}
+      className={cn(
+        buttonVariants({ variant, size, shape, selected: !!selected }),
+        className,
+      )}
       {...props}
     >
       {content}
