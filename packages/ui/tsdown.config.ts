@@ -11,7 +11,7 @@ export default defineChatoolConfig({
     // Layout container that spaces/shapes Button + IconButton children
     // (`./button-group`). Pure server component; no ripple/config wiring.
     "button-group": "src/buttons/button-group/index.tsx",
-    input: "src/inputs/input/index.tsx",
+    "text-field": "src/inputs/text-field/index.tsx",
     // INTERNAL chunk (no `exports` entry — not a public subpath). The press
     // ripple is the button family's only `"use client"` module; giving it its
     // own entry guarantees the directive is preserved as a distinct client

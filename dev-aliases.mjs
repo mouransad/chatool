@@ -37,7 +37,13 @@ export const sourceAliases = {
     "button-group",
     "index.tsx",
   ),
-  "@chatool/ui/input": pkg("ui", "src", "inputs", "input", "index.tsx"),
+  "@chatool/ui/text-field": pkg(
+    "ui",
+    "src",
+    "inputs",
+    "text-field",
+    "index.tsx",
+  ),
   // add one line per new @chatool/ui component subpath
 };
 

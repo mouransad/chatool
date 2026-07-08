@@ -40,14 +40,14 @@
         "default": "./dist/button-group.cjs"
       }
     },
-    "./input": {
+    "./text-field": {
       "import": {
-        "types": "./dist/input.d.mts",
-        "default": "./dist/input.mjs"
+        "types": "./dist/text-field.d.mts",
+        "default": "./dist/text-field.mjs"
       },
       "require": {
-        "types": "./dist/input.d.cts",
-        "default": "./dist/input.cjs"
+        "types": "./dist/text-field.d.cts",
+        "default": "./dist/text-field.cjs"
       }
     },
     "./package.json": "./package.json"

@@ -2,16 +2,17 @@ import * as React from "react";
 import { Slot } from "radix-ui";
 import { cn } from "@chatool/utils";
 
-import { type InputProps } from "./input.types";
-import { inputVariants } from "./input.variants";
+import { type TextFieldProps } from "./text-field.types";
+import { textFieldVariants } from "./text-field.variants";
 import { INPUT_BASE, LABEL_BASE } from "../config";
 
 /**
- * Material Design 3 Input / Text Field component.
+ * Material Design 3 TextField component.
  * Supports filled and outlined styles, floating labels, leading and trailing icons,
- * helper/error text, and native states. Renderable as a React Server Component.
+ * supporting helper/error text, character counters, and native states.
+ * Renderable as a React Server Component.
  */
-const Input = ({
+const TextField = ({
   className,
   variant = "filled",
   size = "s",
@@ -21,12 +22,13 @@ const Input = ({
   endIcon,
   helperText,
   errorText,
+  characterCount,
   asChild = false,
   disabled,
   placeholder,
   ref,
   ...props
-}: InputProps) => {
+}: TextFieldProps) => {
   const Comp = asChild ? Slot.Root : "input";
   const isFilled = variant === "filled";
   const isXs = size === "xs";
@@ -48,7 +50,7 @@ const Input = ({
       : "pr-4";
   const paddingY = isFilled ? (isXs ? "pt-4 pb-0.5" : "pt-5 pb-1") : "";
 
-  // Label offsets
+  // Label left offset resting
   const labelLeftResting = startIcon
     ? isXs
       ? "left-10"
@@ -59,14 +61,15 @@ const Input = ({
 
   // Helper/error text selector
   const showErrorMessage = error && errorText;
-  const bottomText = showErrorMessage ? errorText : helperText;
+  const bottomMessage = showErrorMessage ? errorText : helperText;
+  const hasBottomLine = bottomMessage || characterCount !== undefined;
 
   return (
     <div className="flex w-full flex-col items-stretch">
-      {/* Input container */}
+      {/* TextField container */}
       <div
         className={cn(
-          inputVariants({ variant, size, error }),
+          textFieldVariants({ variant, size, error }),
           disabled && "pointer-events-none opacity-[0.38]",
           className,
         )}
@@ -108,8 +111,8 @@ const Input = ({
               labelLeftResting,
               isXs ? "text-body-medium" : "text-body-large",
               error
-                ? "text-[color:var(--md-comp-input-error-color,var(--md-sys-color-error))] peer-focus:text-[color:var(--md-comp-input-error-color,var(--md-sys-color-error))]"
-                : "text-on-surface-variant peer-focus:text-[color:var(--md-comp-input-focus-color,var(--md-sys-color-primary))]",
+                ? "text-[color:var(--md-comp-text-field-error-color,var(--md-sys-color-error))] peer-focus:text-[color:var(--md-comp-text-field-error-color,var(--md-sys-color-error))]"
+                : "text-on-surface-variant peer-focus:text-[color:var(--md-comp-text-field-focus-color,var(--md-sys-color-primary))]",
               // Floating states
               isFilled
                 ? cn(
@@ -151,22 +154,36 @@ const Input = ({
         )}
       </div>
 
-      {/* Supporting Text */}
-      {bottomText && (
-        <span
-          className={cn(
-            "px-4 pt-1 text-body-small select-none",
-            showErrorMessage
-              ? "text-[color:var(--md-comp-input-error-color,var(--md-sys-color-error))]"
-              : "text-on-surface-variant",
-            disabled && "opacity-[0.38]",
+      {/* Supporting Line (Helper/Error text + Character counter) */}
+      {hasBottomLine && (
+        <div className="gap-4 px-4 pt-1 flex items-start justify-between text-body-small select-none">
+          {/* Helper/Error text */}
+          <span
+            className={cn(
+              showErrorMessage
+                ? "text-[color:var(--md-comp-text-field-error-color,var(--md-sys-color-error))]"
+                : "text-on-surface-variant",
+              disabled && "opacity-[0.38]",
+            )}
+          >
+            {bottomMessage || ""}
+          </span>
+
+          {/* Character counter */}
+          {characterCount !== undefined && (
+            <span
+              className={cn(
+                "ml-auto shrink-0 text-on-surface-variant",
+                disabled && "opacity-[0.38]",
+              )}
+            >
+              {characterCount}
+            </span>
           )}
-        >
-          {bottomText}
-        </span>
+        </div>
       )}
     </div>
   );
 };
 
-export default Input;
+export default TextField;

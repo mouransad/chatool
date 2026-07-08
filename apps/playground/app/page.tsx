@@ -11,7 +11,7 @@ import { ButtonGroupSingleSelect } from "./components/button-group-demo";
 import { Button } from "@chatool/ui/button";
 import IconButton from "@chatool/ui/icon-button";
 import ButtonGroup from "@chatool/ui/button-group";
-import Input from "@chatool/ui/input";
+import TextField from "@chatool/ui/text-field";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
 import SearchOutlined from "@chatool/icons/SearchOutlined";
 import ErrorOutlined from "@chatool/icons/ErrorOutlined";
@@ -331,29 +331,29 @@ export default function Home() {
         <ButtonGroupSingleSelect />
       </Section>
 
-      {/* Input — variants and sizes */}
+      {/* TextField — variants and sizes */}
       <Section
-        title="Input — variants & sizes"
+        title="TextField — variants & sizes"
         hint="Filled (default) and outlined text fields in S (default) and XS (compact) sizes."
       >
         <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
-          <Input
+          <TextField
             variant="filled"
-            label="Filled Input"
+            label="Filled TextField"
             placeholder="Type something..."
           />
-          <Input
+          <TextField
             variant="outlined"
-            label="Outlined Input"
+            label="Outlined TextField"
             placeholder="Type something..."
           />
-          <Input
+          <TextField
             variant="filled"
             size="xs"
             label="Filled Compact (XS)"
             placeholder="Type something..."
           />
-          <Input
+          <TextField
             variant="outlined"
             size="xs"
             label="Outlined Compact (XS)"
@@ -362,26 +362,27 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Input — icons & supporting text */}
+      {/* TextField — icons & supporting text */}
       <Section
-        title="Input — icons & supporting text"
-        hint="Text fields with leading/trailing icons and helper or error states."
+        title="TextField — icons & supporting text"
+        hint="Text fields with leading/trailing icons, helper/error states, and character counter."
       >
         <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
-          <Input
+          <TextField
             variant="outlined"
             label="Search"
             placeholder="Search messages..."
             startIcon={<SearchOutlined />}
           />
-          <Input
+          <TextField
             variant="filled"
             label="Password"
             type="password"
             defaultValue="supersecret"
             helperText="At least 8 characters required"
+            characterCount="11/20"
           />
-          <Input
+          <TextField
             variant="outlined"
             label="Email"
             error
@@ -389,7 +390,7 @@ export default function Home() {
             errorText="Invalid email format"
             endIcon={<ErrorOutlined />}
           />
-          <Input
+          <TextField
             variant="filled"
             label="Disabled field"
             disabled
@@ -398,24 +399,24 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Input — custom tokens & asChild (textarea) */}
+      {/* TextField — custom tokens & asChild (textarea) */}
       <Section
-        title="Input — overrides & multiline"
-        hint="Supports --md-comp-input-* CSS variables and asChild to render a native textarea."
+        title="TextField — overrides & multiline"
+        hint="Supports --md-comp-text-field-* CSS variables and asChild to render a native textarea."
       >
         <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
-          <Input
+          <TextField
             variant="outlined"
             label="Custom Token Colors"
             defaultValue="Styled with custom variables"
             style={
               {
-                "--md-comp-input-focus-color": "#006971",
-                "--md-comp-input-text-color": "#004d54",
+                "--md-comp-text-field-focus-color": "#006971",
+                "--md-comp-text-field-text-color": "#004d54",
               } as CSSProperties
             }
           />
-          <Input
+          <TextField
             variant="outlined"
             label="Biography (asChild textarea)"
             placeholder="Tell us your story..."
@@ -423,7 +424,7 @@ export default function Home() {
             className="h-24"
           >
             <textarea className="pt-4 pb-4 resize-none" />
-          </Input>
+          </TextField>
         </div>
       </Section>
 
