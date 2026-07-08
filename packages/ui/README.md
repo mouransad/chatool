@@ -39,6 +39,7 @@ its only client part is the press ripple, a separate island (see
 | `@chatool/ui/button`       | `Button` (also `default`), `buttonVariants`           |
 | `@chatool/ui/icon-button`  | `IconButton` (also `default`), `iconButtonVariants`   |
 | `@chatool/ui/button-group` | `ButtonGroup` (also `default`), `buttonGroupVariants` |
+| `@chatool/ui/input`        | `Input` (also `default`), `inputVariants`             |
 
 > The MD3 button family (FAB, segmented) is still being built out — this release
 > ships the **common Button**, the **Icon button**, and the **Button group**.
@@ -99,6 +100,20 @@ selection state — each child keeps its own `selected` / `aria-pressed`:
 > Pass the group an `aria-label` (or `aria-labelledby`) to name the set. The group
 > never overrides a child's `border-radius`, so each button keeps its default
 > finite shape and the select/deselect morph stays smooth.
+
+**`Input`** is the MD3 **Text Field** component for user input (supporting single-line text, passwords, email, etc., and textareas via `asChild`). Color and floating states are fixed per variant:
+
+| Prop         | Values                                                                                |
+| ------------ | ------------------------------------------------------------------------------------- |
+| `variant`    | `filled` _(default)_ · `outlined`                                                     |
+| `size`       | `s` _(default, 56dp)_ · `xs` _(compact, 40dp)_                                        |
+| `label`      | text label that floats above the input container on focus / content                   |
+| `startIcon`  | leading icon node (e.g. search icon)                                                  |
+| `endIcon`    | trailing icon node (e.g. error icon)                                                  |
+| `helperText` | supporting description text displayed below the field container                       |
+| `errorText`  | error message displayed below the field container (overrides `helperText` when error) |
+| `error`      | boolean that triggers the error state styling                                         |
+| `asChild`    | render styles onto the child element (e.g. a `<textarea>`) via Radix `Slot`           |
 
 ## Usage
 
@@ -190,6 +205,9 @@ Three layers, increasingly specific:
    `--md-comp-icon-button-outline-color`, `--md-comp-icon-button-focus-color`.
    **`ButtonGroup`** exposes `--md-comp-button-group-gap` (the gap between
    children).
+   **`Input`** exposes `--md-comp-input-container-color`, `--md-comp-input-text-color`,
+   `--md-comp-input-label-color`, `--md-comp-input-outline-color`,
+   `--md-comp-input-focus-color`, and `--md-comp-input-error-color`.
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -239,6 +257,14 @@ state; each child keeps its own role + `aria-pressed`. Children stay individual 
 stops (no roving focus). `asChild` forwards the group styles + role onto your
 element.
 
+`Input` renders a **native `<input>`** (or child element like `<textarea>` when using `asChild`).
+It does not contain any React client hooks (is a pure **Server Component**). The floating label transition,
+outline highlights, and placeholder showing are handled entirely in CSS:
+
+- The input requires no client JS for interactive focus and content tracking; it leverages CSS peer selectors.
+- Supports error text below the component container with `aria-describedby` or standard readable hierarchy.
+- For `asChild`, pass a natively focusable and text-editable element.
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -281,6 +307,7 @@ element.
   unstyled.
 - **Icons are not here** — import them from `@chatool/icons/<IconName>`.
 - `react` / `react-dom` are peers supplied by the app.
+- **`Input`** (`@chatool/ui/input`): Text field component, supports `filled` and `outlined` variants, sizes `s`/`xs`, and `error` state. Features pure CSS floating label transitions (using `:placeholder-shown` + sibling selectors). Supports custom start/end icons, helper/error text below the container, and `asChild` wrapping (perfect for textareas). Exposes component custom properties: `--md-comp-input-*`.
 
 ## Related
 

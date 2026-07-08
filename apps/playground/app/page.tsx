@@ -11,7 +11,10 @@ import { ButtonGroupSingleSelect } from "./components/button-group-demo";
 import { Button } from "@chatool/ui/button";
 import IconButton from "@chatool/ui/icon-button";
 import ButtonGroup from "@chatool/ui/button-group";
+import Input from "@chatool/ui/input";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
+import SearchOutlined from "@chatool/icons/SearchOutlined";
+import ErrorOutlined from "@chatool/icons/ErrorOutlined";
 import CheckOutlined from "@chatool/icons/CheckOutlined";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
 import KeyboardArrowDownOutlined from "@chatool/icons/KeyboardArrowDownOutlined";
@@ -326,6 +329,102 @@ export default function Home() {
           <Button variant="tonal">Bottom</Button>
         </ButtonGroup>
         <ButtonGroupSingleSelect />
+      </Section>
+
+      {/* Input — variants and sizes */}
+      <Section
+        title="Input — variants & sizes"
+        hint="Filled (default) and outlined text fields in S (default) and XS (compact) sizes."
+      >
+        <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
+          <Input
+            variant="filled"
+            label="Filled Input"
+            placeholder="Type something..."
+          />
+          <Input
+            variant="outlined"
+            label="Outlined Input"
+            placeholder="Type something..."
+          />
+          <Input
+            variant="filled"
+            size="xs"
+            label="Filled Compact (XS)"
+            placeholder="Type something..."
+          />
+          <Input
+            variant="outlined"
+            size="xs"
+            label="Outlined Compact (XS)"
+            placeholder="Type something..."
+          />
+        </div>
+      </Section>
+
+      {/* Input — icons & supporting text */}
+      <Section
+        title="Input — icons & supporting text"
+        hint="Text fields with leading/trailing icons and helper or error states."
+      >
+        <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
+          <Input
+            variant="outlined"
+            label="Search"
+            placeholder="Search messages..."
+            startIcon={<SearchOutlined />}
+          />
+          <Input
+            variant="filled"
+            label="Password"
+            type="password"
+            defaultValue="supersecret"
+            helperText="At least 8 characters required"
+          />
+          <Input
+            variant="outlined"
+            label="Email"
+            error
+            defaultValue="invalid-email"
+            errorText="Invalid email format"
+            endIcon={<ErrorOutlined />}
+          />
+          <Input
+            variant="filled"
+            label="Disabled field"
+            disabled
+            defaultValue="Cannot edit this"
+          />
+        </div>
+      </Section>
+
+      {/* Input — custom tokens & asChild (textarea) */}
+      <Section
+        title="Input — overrides & multiline"
+        hint="Supports --md-comp-input-* CSS variables and asChild to render a native textarea."
+      >
+        <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
+          <Input
+            variant="outlined"
+            label="Custom Token Colors"
+            defaultValue="Styled with custom variables"
+            style={
+              {
+                "--md-comp-input-focus-color": "#006971",
+                "--md-comp-input-text-color": "#004d54",
+              } as CSSProperties
+            }
+          />
+          <Input
+            variant="outlined"
+            label="Biography (asChild textarea)"
+            placeholder="Tell us your story..."
+            asChild
+            className="h-24"
+          >
+            <textarea className="pt-4 pb-4 resize-none" />
+          </Input>
+        </div>
       </Section>
 
       {/* @chatool/icons */}

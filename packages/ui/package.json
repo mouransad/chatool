@@ -40,6 +40,16 @@
         "default": "./dist/button-group.cjs"
       }
     },
+    "./input": {
+      "import": {
+        "types": "./dist/input.d.mts",
+        "default": "./dist/input.mjs"
+      },
+      "require": {
+        "types": "./dist/input.d.cts",
+        "default": "./dist/input.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

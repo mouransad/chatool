@@ -30,6 +30,7 @@
       "@chatool/ui/button-group": [
         "../../packages/ui/src/buttons/button-group/index.tsx"
       ],
+      "@chatool/ui/input": ["../../packages/ui/src/inputs/input/index.tsx"],
       "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },
