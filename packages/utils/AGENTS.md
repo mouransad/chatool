@@ -9,8 +9,6 @@ Human docs: [docs/packages/utils.md](../../docs/packages/utils.md).
   file (`useBoolean`, `useDelayVisibility`) starts with `"use client";`, **and so
   does the barrel `src/hooks/index.ts`** — tsdown only keeps a directive that's
   at the top of the entry's own source, so the re-export barrel needs it too.
-- `endPointUrlNormalizer` is a **pure** function (no React) but is exported from
-  `./hooks` by design. Don't add React to it.
 - `react` is a `peerDependency`; `clsx` + `tailwind-merge` are `dependencies`.
 - Two subpaths exist: `.` and `./hooks`. If you add another, update `exports` +
   `tsdown.config.ts` together (ESM `.mjs`/`.d.mts` + CJS `.cjs`/`.d.cts`).

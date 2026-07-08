@@ -2,8 +2,7 @@
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Packages](README.md) → **utils**
 
-`cn` class merger + React hooks (`useBoolean`, `useDelayVisibility`,
-`endPointUrlNormalizer`).
+`cn` class merger + React hooks (`useBoolean`, `useDelayVisibility`).
 
 The **canonical, complete reference** for this package is its README — which is
 also shipped inside the npm tarball (so it's available in consumers'

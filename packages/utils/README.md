@@ -18,10 +18,10 @@ pnpm add @chatool/utils
 Two subpaths. The root entry is **server-safe**; the hooks entry is a client
 boundary.
 
-| Subpath                | Exports                                                     | Directive          |
-| ---------------------- | ----------------------------------------------------------- | ------------------ |
-| `@chatool/utils`       | `cn`, `ClassValue`                                          | none (server-safe) |
-| `@chatool/utils/hooks` | `useBoolean`, `useDelayVisibility`, `endPointUrlNormalizer` | `"use client"`     |
+| Subpath                | Exports                            | Directive          |
+| ---------------------- | ---------------------------------- | ------------------ |
+| `@chatool/utils`       | `cn`, `ClassValue`                 | none (server-safe) |
+| `@chatool/utils/hooks` | `useBoolean`, `useDelayVisibility` | `"use client"`     |
 
 ## Usage
 
@@ -66,25 +66,12 @@ import { useDelayVisibility } from "@chatool/utils/hooks";
 const shouldRender = useDelayVisibility(open, 200);
 ```
 
-### `endPointUrlNormalizer(base, path?)`
-
-Pure (no React): joins a base URL and path, collapsing duplicate slashes at the
-join. Safe on server or client. Exported from `./hooks` by design.
-
-```ts
-import { endPointUrlNormalizer } from "@chatool/utils/hooks";
-
-endPointUrlNormalizer("https://api.example.com/", "/v1/users"); // -> ".../v1/users"
-```
-
 ## For AI agents
 
 - Import `cn` from the **root** `@chatool/utils` — it is server-safe (no
   `"use client"`), so it works in React Server Components.
 - Import hooks from `@chatool/utils/hooks`. That entry carries `"use client"`, so
   consuming it pulls the file into the client boundary.
-- `endPointUrlNormalizer` is pure but still lives under `./hooks`. Don't expect it
-  on the root entry.
 - `cn` knows the MD3 typescale `text-*` utilities are font sizes, so combining a
   typescale class with a token color (`text-[color:var(--…)]`) is safe — the color
   isn't dropped. Use the `color:` hint for arbitrary color values.
