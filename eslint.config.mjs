@@ -18,6 +18,7 @@ export default tseslint.config(
       "apps/**",
       "**/.next/**",
       ".claude/**",
+      ".agents/**",
       "**/scripts/**",
     ],
   },

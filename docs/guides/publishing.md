@@ -14,11 +14,11 @@ names, imports, exports maps, docs, AI shims, identifiers, and file/dir names in
 one pass:
 
 ```bash
-node .claude/skills/rename-project/rename.mjs <your-scope>
+node .agents/skills/rename-project/rename.mjs <your-scope>
 pnpm install
 ```
 
-See [`.claude/skills/rename-project/SKILL.md`](../../.claude/skills/rename-project/SKILL.md)
+See [`.agents/skills/rename-project/SKILL.md`](../../.agents/skills/rename-project/SKILL.md)
 for the full runbook (registry config, changeset, verification).
 
 ## 1. Pick a registry and configure `.npmrc`

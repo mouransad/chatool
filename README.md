@@ -108,10 +108,10 @@ one case-aware pass (package names, imports, exports, docs, AI shims, identifier
 file/dir names), run the **`rename-project`** skill:
 
 ```bash
-node .claude/skills/rename-project/rename.mjs <your-scope> && pnpm install
+node .agents/skills/rename-project/rename.mjs <your-scope> && pnpm install
 ```
 
-Runbook: [`.claude/skills/rename-project/SKILL.md`](.claude/skills/rename-project/SKILL.md).
+Runbook: [`.agents/skills/rename-project/SKILL.md`](.agents/skills/rename-project/SKILL.md).
 
 ## Publishing
 

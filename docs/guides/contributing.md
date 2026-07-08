@@ -57,7 +57,7 @@ never the per-tool shims. See [AI agents](../ai-agents.md).
 
 ## Skills
 
-Repo skills automate the "no drift" contract (in `.claude/skills/`):
+Repo skills automate the "no drift" contract (in `.agents/skills/`):
 
 - **`/sync`** — the definition-of-done umbrella: runs `/sync-docs` + `/sync-storybook`
   then build/typecheck/lint. Use before declaring any change complete.
