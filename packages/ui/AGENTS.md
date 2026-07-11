@@ -73,17 +73,11 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   (ESM + CJS). A `"use client"` island used **internally** (e.g. `ripple`) gets its
   own `tsdown` entry **without** an `exports` subpath, so its directive is preserved
   as a private client chunk.
-- **TextField family lives in `src/inputs/`.** Published subpaths: `./text-field`
-  (source `src/inputs/text-field/`, the common Text Field component — supports `filled` and `outlined`
-  variants, `s`/`xs` size scale, error state, floating labels, leading/trailing icons, character counter, and `asChild` wrapping
-  for textareas). A pure Server Component utilizing CSS peer selectors for floating state management.
-  Shared family config lives in `src/inputs/config.ts` (defining containerSize, base classes, and labels).
-  Barrels expose `default` + named exports (e.g. `TextField` + `textFieldVariants` + `TextFieldProps`).
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading
   spinner). tsdown inlines them per entry — they are **not** subpaths. Reuse them;
-  don't duplicate the styling wiring. Parallel rules apply to `src/inputs/config.ts`.
+  don't duplicate the styling wiring.
 - **Follow the MD3 spec; style with tokens, never raw hex.** Button **color is
   fixed per style** (no `color` prop) — each `variant` sets the painted role local
   vars (`--_bg` / `--_fg` / `--_state`) directly from the fixed `--md-sys-*` roles;

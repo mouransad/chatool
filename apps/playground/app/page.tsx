@@ -11,10 +11,7 @@ import { ButtonGroupSingleSelect } from "./components/button-group-demo";
 import { Button } from "@chatool/ui/button";
 import IconButton from "@chatool/ui/icon-button";
 import ButtonGroup from "@chatool/ui/button-group";
-import TextField from "@chatool/ui/text-field";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
-import SearchOutlined from "@chatool/icons/SearchOutlined";
-import ErrorOutlined from "@chatool/icons/ErrorOutlined";
 import CheckOutlined from "@chatool/icons/CheckOutlined";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
 import KeyboardArrowDownOutlined from "@chatool/icons/KeyboardArrowDownOutlined";
@@ -329,103 +326,6 @@ export default function Home() {
           <Button variant="tonal">Bottom</Button>
         </ButtonGroup>
         <ButtonGroupSingleSelect />
-      </Section>
-
-      {/* TextField — variants and sizes */}
-      <Section
-        title="TextField — variants & sizes"
-        hint="Filled (default) and outlined text fields in S (default) and XS (compact) sizes."
-      >
-        <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
-          <TextField
-            variant="filled"
-            label="Filled TextField"
-            placeholder="Type something..."
-          />
-          <TextField
-            variant="outlined"
-            label="Outlined TextField"
-            placeholder="Type something..."
-          />
-          <TextField
-            variant="filled"
-            size="xs"
-            label="Filled Compact (XS)"
-            placeholder="Type something..."
-          />
-          <TextField
-            variant="outlined"
-            size="xs"
-            label="Outlined Compact (XS)"
-            placeholder="Type something..."
-          />
-        </div>
-      </Section>
-
-      {/* TextField — icons & supporting text */}
-      <Section
-        title="TextField — icons & supporting text"
-        hint="Text fields with leading/trailing icons, helper/error states, and character counter."
-      >
-        <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
-          <TextField
-            variant="outlined"
-            label="Search"
-            placeholder="Search messages..."
-            startIcon={<SearchOutlined />}
-          />
-          <TextField
-            variant="filled"
-            label="Password"
-            type="password"
-            defaultValue="supersecret"
-            helperText="At least 8 characters required"
-            characterCount="11/20"
-          />
-          <TextField
-            variant="outlined"
-            label="Email"
-            error
-            defaultValue="invalid-email"
-            errorText="Invalid email format"
-            endIcon={<ErrorOutlined />}
-          />
-          <TextField
-            variant="filled"
-            label="Disabled field"
-            disabled
-            defaultValue="Cannot edit this"
-          />
-        </div>
-      </Section>
-
-      {/* TextField — custom tokens & asChild (textarea) */}
-      <Section
-        title="TextField — overrides & multiline"
-        hint="Supports --md-comp-text-field-* CSS variables and asChild to render a native textarea."
-      >
-        <div className="md:grid-cols-2 gap-4 grid w-full grid-cols-1">
-          <TextField
-            variant="outlined"
-            label="Custom Token Colors"
-            defaultValue="Styled with custom variables"
-            style={
-              {
-                "--md-comp-text-field-focus-color": "#006971",
-                "--md-comp-text-field-text-color": "#004d54",
-              } as CSSProperties
-            }
-          />
-          <TextField
-            variant="outlined"
-            label="Biography (asChild textarea)"
-            placeholder="Tell us your story..."
-            asChild
-            className="h-24"
-          >
-            <textarea className="pt-4 pb-4 resize-none" />
-          </TextField>
-        </div>
       </Section>
 
       {/* @chatool/icons */}

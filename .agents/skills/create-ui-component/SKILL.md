@@ -90,7 +90,7 @@ directory** (the button lives in `src/buttons/button/`):
   [`config.ts`](../../../packages/ui/src/buttons/config.ts) (the `BASE`,
   `STATE_LAYER`, `FOCUS_RING`, `DISABLED` fragments + size scale + corners) —
   **don't duplicate** the styling wiring.
-- **New family** (e.g. `textfield` → `src/text-fields/`)? Create the family dir and
+- **New family** (e.g. `card` → `src/cards/`)? Create the family dir and
   give it its own `config.ts` modeled on the buttons one (shared sizes / state
   layer / focus ring / disabled), so future siblings reuse it.
 

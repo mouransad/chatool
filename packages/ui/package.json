@@ -40,16 +40,6 @@
         "default": "./dist/button-group.cjs"
       }
     },
-    "./text-field": {
-      "import": {
-        "types": "./dist/text-field.d.mts",
-        "default": "./dist/text-field.mjs"
-      },
-      "require": {
-        "types": "./dist/text-field.d.cts",
-        "default": "./dist/text-field.cjs"
-      }
-    },
     "./package.json": "./package.json"
   },
   "scripts": {
