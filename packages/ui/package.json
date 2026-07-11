@@ -1,6 +1,6 @@
 {
   "name": "@chatool/ui",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Material Design 3 React UI components for Chatool apps. Requires @chatool/core for design tokens.",
   "license": "UNLICENSED",
   "type": "module",

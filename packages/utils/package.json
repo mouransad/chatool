@@ -1,6 +1,6 @@
 {
   "name": "@chatool/utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shared utilities and React hooks for Chatool apps (cn, useBoolean, useDelayVisibility).",
   "license": "UNLICENSED",
   "type": "module",
