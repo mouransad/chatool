@@ -1,5 +1,14 @@
 # playground
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [868cc00]
+  - @chatool/core@2.0.0
+  - @chatool/ui@2.0.0
+  - @chatool/utils@0.1.2
+
 ## 0.0.7
 
 ### Patch Changes

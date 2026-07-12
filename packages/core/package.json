@@ -1,7 +1,7 @@
 {
   "name": "@chatool/core",
-  "version": "1.0.0",
-  "description": "App-root ChatoolProvider for Chatool apps (light/dark/system theme with persistence and SSR no-flash) plus the Tailwind v4 + Material Design 3 theme CSS.",
+  "version": "2.0.0",
+  "description": "App-root ChatoolProvider for Chatool apps (light/dark/system theme with persistence and SSR no-flash) plus the Tailwind v4 + shadcn theme CSS.",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": [

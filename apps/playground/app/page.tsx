@@ -17,18 +17,18 @@ export default function Home() {
           Welcome to the shadcn Workspace
         </h2>
         <p className="text-sm leading-relaxed text-muted-foreground">
-          The monorepo has been migrated from Material Design 3 back to shadcn
-          custom properties. Our theme configuration integrates directly with
-          Tailwind CSS v4 variables.
+          This playground is styled using the shadcn design system. Our theme
+          configuration integrates standard CSS variables directly with Tailwind
+          CSS v4.
         </p>
       </section>
 
       <section className="p-6 space-y-3 rounded-lg border border-border bg-card text-card-foreground">
-        <h3 className="font-medium">Active Configuration: shadcn</h3>
+        <h3 className="font-medium">Active Configuration</h3>
         <p className="text-xs text-muted-foreground">
           Components in <code>@chatool/ui</code> are configured via{" "}
-          <code>components.json</code> and style off CSS variables exposed by{" "}
-          <code>@chatool/core</code>.
+          <code>components.json</code> and style off standard CSS custom
+          properties exposed by <code>@chatool/core</code>.
         </p>
         <div className="pt-2 gap-2 flex flex-wrap">
           <span className="px-2 py-1 text-xs font-mono rounded bg-muted text-muted-foreground">

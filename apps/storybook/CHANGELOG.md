@@ -1,5 +1,14 @@
 # storybook
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [868cc00]
+  - @chatool/core@2.0.0
+  - @chatool/ui@2.0.0
+  - @chatool/utils@0.1.2
+
 ## 0.0.4
 
 ### Patch Changes

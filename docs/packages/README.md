@@ -11,7 +11,7 @@ the [consuming guides](../guides/consuming/README.md).
 | Package          | Page                 | One-liner                                                |
 | ---------------- | -------------------- | -------------------------------------------------------- |
 | `@chatool/utils` | [utils.md](utils.md) | `cn` + hooks                                             |
-| `@chatool/ui`    | [ui.md](ui.md)       | Material Design 3 components                             |
+| `@chatool/ui`    | [ui.md](ui.md)       | shadcn components                                        |
 | `@chatool/icons` | [icons.md](icons.md) | SVGR-generated React SVG icons                           |
 | `@chatool/core`  | [core.md](core.md)   | app-root `ChatoolProvider` (theme/dark-mode) + theme CSS |
 
