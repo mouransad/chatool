@@ -5,7 +5,7 @@ App-root provider for Chatool apps. `ChatoolProvider` owns theme/dark-mode state
 `dark` class that this package's theme CSS keys its dark tokens off, with an
 inline script that prevents a flash of the wrong theme on first paint (SSR-safe).
 
-This package also ships the **CSS-only** Tailwind v4 + **Material Design 3**
+This package also ships the **CSS-only** Tailwind v4 + **shadcn**
 token layer (`@chatool/core/styles.css` / `@chatool/core/theme.css`) that
 `@chatool/ui` is styled with — import it in your global CSS (see
 [Theme CSS](#theme-css)).
@@ -44,17 +44,7 @@ additional CSS-only subpaths ship the theme layer.
 
 ## Theme CSS
 
-The CSS-only layer is the **Material Design 3** token system: the
-`--md-sys-*` system tokens (color / typescale / shape / elevation / state /
-motion) in `:root` + `.dark`, mapped to Tailwind utilities via `@theme inline`
-(`bg-primary`, `text-on-surface`, `rounded-*`, `text-label-large`,
-`shadow-elevation-1`, …). `styles.css` `@import`s `theme.css`, so the tokens have
-a single source. The token names follow the Material Design 3 spec, so output
-from the **Material Theme Builder** / `material-color-utilities` drops in directly.
-
-> The color values shipped today are the MD3 **baseline** scheme (default
-> Material purple) — replace them with your brand palette (see
-> [Rebranding](#rebranding)).
+The CSS-only layer defines the standard **shadcn** design tokens: CSS variables for colors, borders, rings, inputs, and radii, mapped to Tailwind utilities via `@theme inline` (`bg-primary`, `border-border`, `rounded-*`, …). `styles.css` `@import`s `theme.css`, so the tokens have a single source.
 
 In your app's global CSS — Tailwind **first**, then this package:
 
@@ -82,34 +72,22 @@ compiled output so their utility classes aren't tree-shaken away:
 
 ### Rebranding
 
-Override the MD3 system tokens **after** the import (paste the Material Theme
-Builder export straight into `:root` / `.dark`, or set individual roles):
+Override the shadcn variables **after** the import:
 
 ```css
 @import "tailwindcss";
 @import "@chatool/core/styles.css";
 
 :root {
-  --md-sys-color-primary: #00639b;
-  --md-sys-color-on-primary: #ffffff;
-  --md-sys-color-primary-container: #cde5ff;
-  --md-sys-color-on-primary-container: #001d33;
-  --md-sys-shape-corner-full: 12px; /* squarer buttons, etc. */
+  --primary: oklch(0.6 0.2 240);
+  --radius: 0.75rem;
 }
 .dark {
-  --md-sys-color-primary: #95cbff;
-  /* …dark scheme roles… */
-}
-
-/* Swap the whole type family in one place: */
-:root {
-  --md-ref-typeface-plain: "Inter", system-ui, sans-serif;
-  --md-ref-typeface-brand: "Inter", system-ui, sans-serif;
+  --primary: oklch(0.8 0.15 240);
 }
 ```
 
-The `@theme inline` block maps these `--md-sys-*` tokens to Tailwind utilities, so
-a single token change re-themes every component that uses them.
+The `@theme inline` block maps these tokens to Tailwind utilities, so a single token change re-themes every component that uses them.
 
 ## Usage
 
@@ -192,11 +170,9 @@ export function ThemeToggle() {
   class on `document.documentElement` imperatively, so React must not be asked to
   reconcile that attribute.
 - This package is **theme-only** — it provides the theme provider and the
-  Material Design 3 CSS token layer, nothing more.
-- **Theming contract = MD3 system tokens.** Apps customize by overriding
-  `--md-sys-color-*` / `--md-sys-typescale-*` / `--md-sys-shape-corner-*` (and
-  `--md-ref-typeface-*`) in `:root` / `.dark` after the import; `@theme inline`
-  re-exposes them as Tailwind utilities. Material Theme Builder output drops in 1:1.
+  shadcn CSS token layer, nothing more.
+- **Theming contract = shadcn variables.** Apps customize by overriding standard
+  shadcn custom properties (`--primary`, `--background`, `--radius`, etc.) in `:root` / `.dark` after the import; `@theme inline` re-exposes them as Tailwind utilities.
 - It ships the theme CSS (`@chatool/core/styles.css` / `theme.css`) but the JS
   provider does **not** import CSS for you — keep `@import "@chatool/core/styles.css"`
   in your global CSS so Tailwind processes it at build time.

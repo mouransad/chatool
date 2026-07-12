@@ -7,7 +7,7 @@ app, a **Next.js Pages Router** app, or a **Vite SPA**.
 | Package                            | What it is                                                                   | Key deps                                                                   | Peers                             |
 | ---------------------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------- |
 | [`@chatool/utils`](packages/utils) | `cn` + hooks (`useBoolean`, `useDelayVisibility`)                            | `clsx`, `tailwind-merge`                                                   | `react`                           |
-| [`@chatool/ui`](packages/ui)       | Material Design 3 UI components                                              | `@chatool/utils`, `@chatool/icons`, `radix-ui`, `class-variance-authority` | `react`, `react-dom`              |
+| [`@chatool/ui`](packages/ui)       | shadcn React UI components                                                   | `@chatool/utils`, `@chatool/icons`, `radix-ui`, `class-variance-authority` | `react`, `react-dom`              |
 | [`@chatool/icons`](packages/icons) | SVGR-generated React SVG icons                                               | —                                                                          | `react`                           |
 | [`@chatool/core`](packages/core)   | app-root `ChatoolProvider` (light/dark/system theme) + Tailwind v4 theme CSS | —                                                                          | `react`, `tailwindcss` (optional) |
 

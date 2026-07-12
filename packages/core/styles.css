@@ -1,22 +1,12 @@
 /*
  * @chatool/core — styles.css
  * ---------------------------------------------------------------------------
- * Full design layer: Material Design 3 tokens + CSS variables (via ./theme.css)
+ * Full design layer: shadcn tokens + CSS variables (via ./theme.css)
  * PLUS the base @layer rules. This is what most consumers import.
  *
  * Consumer usage (in their own global CSS):
  *   @import "tailwindcss";
  *   @import "@chatool/core/styles.css";
- *
- * `@import "tailwindcss";` MUST come first so Tailwind's layers exist before
- * these tokens/base rules extend them. `tailwindcss` is an (optional)
- * peerDependency of this package — the consumer installs it.
- *
- * The default type family is Roboto (the MD3 default). Roboto is NOT bundled —
- * load it however you prefer (e.g. add to your global CSS):
- *   @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
- * or swap the whole family by overriding `--md-ref-typeface-plain` /
- * `--md-ref-typeface-brand` in your own `:root` (see ./theme.css).
  * ---------------------------------------------------------------------------
  */
 
@@ -24,22 +14,12 @@
 
 @layer base {
   * {
-    border-color: var(--color-outline-variant);
+    border-color: var(--border);
   }
 
   body {
-    background-color: var(--color-surface);
-    color: var(--color-on-surface);
-    font-family: var(--md-ref-typeface-plain);
-    font-size: var(--md-sys-typescale-body-large-size);
-    line-height: var(--md-sys-typescale-body-large-line-height);
-    letter-spacing: var(--md-sys-typescale-body-large-tracking);
+    background-color: var(--background);
+    color: var(--foreground);
     -webkit-font-smoothing: antialiased;
-  }
-
-  /* MD3 uses a visible focus indicator keyed off the primary role. */
-  :focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
   }
 }

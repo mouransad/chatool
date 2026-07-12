@@ -19,7 +19,7 @@ packages for React apps (Next.js App Router, Next.js Pages Router, Vite SPA).
 | Package          | Role                                                     | Peers                             |
 | ---------------- | -------------------------------------------------------- | --------------------------------- |
 | `@chatool/utils` | `cn` + hooks                                             | `react`                           |
-| `@chatool/ui`    | Material Design 3 components                             | `react`, `react-dom`              |
+| `@chatool/ui`    | shadcn components                                        | `react`, `react-dom`              |
 | `@chatool/icons` | SVGR-generated React SVG icons                           | `react`                           |
 | `@chatool/core`  | app-root `ChatoolProvider` (theme/dark-mode) + theme CSS | `react`, `tailwindcss` (optional) |
 
@@ -122,14 +122,13 @@ Full coding/exports/naming conventions: [docs/conventions/](docs/conventions/)
 [docs/architecture.md](docs/architecture.md) →
 [docs/build-and-tooling.md](docs/build-and-tooling.md).
 
-**Material Design 3.** The design system is **MD3 (Material You)**. `@chatool/core`
-ships the token layer — `--md-sys-*` (color/typescale/shape/elevation/state/motion)
+**shadcn & Tailwind CSS v4.** The design system is **shadcn**. `@chatool/core`
+ships the token layer — standard CSS variables (`--background`, `--primary`, `--radius`, etc.)
 in `:root`/`.dark`, mapped to Tailwind utilities via `@theme inline` (`bg-primary`,
-`text-on-surface`, `rounded-full`, `text-label-large`, `shadow-elevation-1`).
+`text-foreground`, `rounded-md`, `border-border`).
 Components style with **token utilities, never raw hex**; apps customize by
-overriding `--md-sys-*`/`--md-ref-typeface-*` (Material Theme Builder output drops
-in 1:1). Icons are already Material Symbols. Canonical spec:
-[docs/conventions/material-design.md](docs/conventions/material-design.md).
+overriding standard CSS variables. Canonical spec:
+[docs/conventions/shadcn.md](docs/conventions/shadcn.md).
 
 **Server Components by default.** A pure component (props → JSX) ships with **no**
 directive so it can render as a React Server Component in Next App Router and works

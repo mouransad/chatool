@@ -4,7 +4,7 @@
 
 App-root `ChatoolProvider` that owns theme/dark-mode state (`light | dark |
 system`) with `localStorage` persistence and an SSR no-flash script, plus the
-`useTheme()` hook. Also ships the CSS-only Tailwind v4 + Material Design 3 token
+`useTheme()` hook. Also ships the CSS-only Tailwind v4 + shadcn token
 layer (`@chatool/core/styles.css` / `@chatool/core/theme.css`) that `@chatool/ui`
 is styled with.
 

@@ -1,7 +1,7 @@
 {
   "name": "@chatool/ui",
   "version": "1.0.0",
-  "description": "Material Design 3 React UI components for Chatool apps. Requires @chatool/core for design tokens.",
+  "description": "shadcn-based React UI components for Chatool apps. Requires @chatool/core for design tokens.",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": false,
@@ -10,34 +10,14 @@
     "llms.txt"
   ],
   "exports": {
-    "./button": {
+    "./placeholder": {
       "import": {
-        "types": "./dist/button.d.mts",
-        "default": "./dist/button.mjs"
+        "types": "./dist/placeholder.d.mts",
+        "default": "./dist/placeholder.mjs"
       },
       "require": {
-        "types": "./dist/button.d.cts",
-        "default": "./dist/button.cjs"
-      }
-    },
-    "./icon-button": {
-      "import": {
-        "types": "./dist/icon-button.d.mts",
-        "default": "./dist/icon-button.mjs"
-      },
-      "require": {
-        "types": "./dist/icon-button.d.cts",
-        "default": "./dist/icon-button.cjs"
-      }
-    },
-    "./button-group": {
-      "import": {
-        "types": "./dist/button-group.d.mts",
-        "default": "./dist/button-group.mjs"
-      },
-      "require": {
-        "types": "./dist/button-group.d.cts",
-        "default": "./dist/button-group.cjs"
+        "types": "./dist/placeholder.d.cts",
+        "default": "./dist/placeholder.cjs"
       }
     },
     "./package.json": "./package.json"

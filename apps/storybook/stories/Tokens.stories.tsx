@@ -1,60 +1,42 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-// Material Design 3 system color roles, surfaced as the `--color-*` Tailwind
-// utilities mapped from `--md-sys-color-*` in `@chatool/core` (theme.css
-// `@theme inline`). Use the toolbar theme switch to see the dark scheme.
+// shadcn system color roles, surfaced as the `--color-*` Tailwind
+// utilities mapped from CSS variables in `@chatool/core` (theme.css).
 const PAIRS: { name: string; bg: string; fg: string }[] = [
-  { name: "primary", bg: "--color-primary", fg: "--color-on-primary" },
+  { name: "primary", bg: "--color-primary", fg: "--color-primary-foreground" },
   {
-    name: "primary-container",
-    bg: "--color-primary-container",
-    fg: "--color-on-primary-container",
+    name: "secondary",
+    bg: "--color-secondary",
+    fg: "--color-secondary-foreground",
   },
-  { name: "secondary", bg: "--color-secondary", fg: "--color-on-secondary" },
+  { name: "muted", bg: "--color-muted", fg: "--color-muted-foreground" },
+  { name: "accent", bg: "--color-accent", fg: "--color-accent-foreground" },
   {
-    name: "secondary-container",
-    bg: "--color-secondary-container",
-    fg: "--color-on-secondary-container",
+    name: "destructive",
+    bg: "--color-destructive",
+    fg: "--color-destructive-foreground",
   },
-  { name: "tertiary", bg: "--color-tertiary", fg: "--color-on-tertiary" },
-  {
-    name: "tertiary-container",
-    bg: "--color-tertiary-container",
-    fg: "--color-on-tertiary-container",
-  },
-  { name: "error", bg: "--color-error", fg: "--color-on-error" },
-  {
-    name: "error-container",
-    bg: "--color-error-container",
-    fg: "--color-on-error-container",
-  },
-  { name: "surface", bg: "--color-surface", fg: "--color-on-surface" },
-  {
-    name: "surface-container",
-    bg: "--color-surface-container",
-    fg: "--color-on-surface",
-  },
-  {
-    name: "inverse-surface",
-    bg: "--color-inverse-surface",
-    fg: "--color-inverse-on-surface",
-  },
+  { name: "card", bg: "--color-card", fg: "--color-card-foreground" },
+  { name: "popover", bg: "--color-popover", fg: "--color-popover-foreground" },
 ];
 
 const SINGLES = [
-  "--color-outline",
-  "--color-outline-variant",
-  "--color-surface-variant",
-  "--color-surface-container-low",
-  "--color-surface-container-high",
+  "--color-background",
+  "--color-foreground",
+  "--color-border",
+  "--color-input",
+  "--color-ring",
 ];
 
 function Swatches() {
   return (
-    <div className="gap-6 flex flex-col">
+    <div className="gap-6 p-6 flex min-h-screen flex-col bg-background text-foreground">
       <div className="gap-3 sm:grid-cols-3 lg:grid-cols-4 grid grid-cols-2">
         {PAIRS.map((t) => (
-          <div key={t.name} className="overflow-hidden rounded-lg border">
+          <div
+            key={t.name}
+            className="overflow-hidden rounded-lg border border-border bg-card"
+          >
             <div
               className="h-20 text-sm font-medium flex items-center justify-center capitalize"
               style={{
@@ -64,22 +46,20 @@ function Swatches() {
             >
               {t.name}
             </div>
-            <div className="px-3 py-2 font-mono text-xs bg-surface-container text-on-surface-variant">
+            <div className="px-3 py-2 font-mono text-xs bg-muted text-muted-foreground">
               {t.bg}
             </div>
           </div>
         ))}
       </div>
-      <div className="gap-4 flex flex-wrap">
+      <div className="gap-4 pt-4 flex flex-wrap border-t border-border">
         {SINGLES.map((v) => (
           <div key={v} className="gap-2 flex items-center">
             <span
-              className="size-8 rounded-md border"
+              className="size-8 rounded-md border border-border"
               style={{ backgroundColor: `var(${v})` }}
             />
-            <code className="font-mono text-xs text-on-surface-variant">
-              {v}
-            </code>
+            <code className="font-mono text-xs text-muted-foreground">{v}</code>
           </div>
         ))}
       </div>

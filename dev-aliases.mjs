@@ -22,22 +22,7 @@ export const sourceAliases = {
   "@chatool/utils": pkg("utils", "src", "index.ts"),
   "@chatool/utils/hooks": pkg("utils", "src", "hooks", "index.ts"),
   "@chatool/core": pkg("core", "src", "index.ts"),
-  "@chatool/ui/button": pkg("ui", "src", "buttons", "button", "index.tsx"),
-  "@chatool/ui/icon-button": pkg(
-    "ui",
-    "src",
-    "buttons",
-    "icon-button",
-    "index.tsx",
-  ),
-  "@chatool/ui/button-group": pkg(
-    "ui",
-    "src",
-    "buttons",
-    "button-group",
-    "index.tsx",
-  ),
-  // add one line per new @chatool/ui component subpath
+  "@chatool/ui/placeholder": pkg("ui", "src", "placeholder.tsx"),
 };
 
 /**

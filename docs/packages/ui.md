@@ -2,9 +2,8 @@
 
 > **You are here:** [Repo README](../../README.md) → [Docs](../README.md) → [Packages](README.md) → **ui**
 
-Material Design 3 React UI components (subpath-only, `"use client"`). Ships the
-MD3 common **`button`**; the rest of the button family (icon button, FAB, button
-group, toggle / segmented) is being built out.
+shadcn-based React UI components (subpath-only). Currently in the
+initialization phase with components.json configuration.
 
 The **canonical, complete reference** for this package is its README — which is
 also shipped inside the npm tarball (so it's available in consumers'

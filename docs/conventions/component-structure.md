@@ -13,20 +13,15 @@ file in the family dir (e.g. `src/buttons/config.ts`).
 > The ESLint rules below are scoped to `packages/ui/src/**` only; `@chatool/core`
 > and `@chatool/utils` keep their existing conventions.
 
-Worked example — `button` (a **server / shared** component whose only client part
-is a ripple island; see [Client vs Server Components](client-server-components.md)
-for when the directive is needed):
+Worked example — `button` (a standard shadcn component):
 
 ```
-packages/ui/src/buttons/        # family directory
+packages/ui/src/
   button/
     index.tsx         # tsdown ENTRY + public barrel (no directive)
     button.tsx        # the single, default-exported arrow component (the view)
     button.types.ts   # ButtonProps + any other types (pure, no directive)
     button.variants.ts# buttonVariants (cva) (pure, no directive)
-  config.ts           # shared family config (sizes / shape / class fragments)
-  spinner.tsx         # shared helper component (pure)
-  ripple.tsx          # "use client" ripple island — its own INTERNAL tsdown entry
 ```
 
 Rules:
@@ -60,13 +55,7 @@ buttonVariants>`) but **not vice-versa** — keep that dependency one-directiona
     `"use client";` (tsdown only preserves the directive on the entry's own
     source — a barrel doesn't inherit it).
   - **Server component** (pure props → JSX): **no directive anywhere** in the
-    directory. Prefer this whenever the component is pure. `button` is one: its
-    view and barrel carry **no directive** (`Slot` is server-safe, `Spinner` / `cn`
-    / `buttonVariants` are pure, and it only spreads consumer props). Its lone
-    interactive piece — the press **ripple** — is a `"use client"` island
-    (`buttons/ripple.tsx`) rendered as a child. To keep that directive intact
-    through bundling, `ripple` is its **own internal `tsdown` entry** (not a public
-    subpath) — see the entry-key rule below.
+    directory. Prefer this whenever the component is pure.
 - **Separate logic from view.** Non-trivial component logic goes in a `useLogic`
   hook in `use-logic.ts` (kebab filename, camelCase `useLogic` export, starts with
   `"use client";`), so `*.tsx` stays presentational. **Skip the hook when the
@@ -75,9 +64,9 @@ buttonVariants>`) but **not vice-versa** — keep that dependency one-directiona
   hook call forces it) — the split organizes a client component, it does not make
   the view a Server Component.
 - **Keep the `tsdown` entry key equal to the subpath** (`{ button:
-"src/buttons/button/index.tsx" }`). tsdown names output from the entry **key**, so
+"src/button/index.tsx" }`). tsdown names output from the entry **key**, so
   the key — not the source path — must stay `button` to keep `dist/button.*` and
-  the `exports` map stable (the source can be nested in a family dir).
+  the `exports` map stable.
 
 Enforcement (what ESLint can and can't check, scoped to `packages/ui/src/**`):
 
