@@ -8,9 +8,13 @@ import {
   IconButtonToggle,
 } from "./components/icon-button-toggle";
 import { ButtonGroupSingleSelect } from "./components/button-group-demo";
+import { ProgressDemo } from "./components/progress-demo";
 import { Button } from "@chatool/ui/button";
 import IconButton from "@chatool/ui/icon-button";
 import ButtonGroup from "@chatool/ui/button-group";
+import LoadingIndicator from "@chatool/ui/loading-indicator";
+import LinearProgress from "@chatool/ui/linear-progress";
+import CircularProgress from "@chatool/ui/circular-progress";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
 import CheckOutlined from "@chatool/icons/CheckOutlined";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
@@ -326,6 +330,62 @@ export default function Home() {
           <Button variant="tonal">Bottom</Button>
         </ButtonGroup>
         <ButtonGroupSingleSelect />
+      </Section>
+
+      {/* Loading family: rendered from this Server Component */}
+      <Section
+        title="@chatool/ui/loading-indicator"
+        hint="The seven-shape morph for short waits. Server-rendered first frame, animated on the client."
+      >
+        <LoadingIndicator aria-label="Loading messages" />
+        <LoadingIndicator contained aria-label="Refreshing feed" />
+        <LoadingIndicator size={72} contained />
+        <LoadingIndicator value={70} size={72} aria-label="Pull to refresh" />
+        <Button
+          loading
+          loadingIndicator={<LoadingIndicator color="inherit" size={24} />}
+        >
+          Saving
+        </Button>
+      </Section>
+
+      <Section
+        title="@chatool/ui/linear-progress"
+        hint="Wavy by default, flat on request; omit value for indeterminate."
+      >
+        <div className="gap-4 flex w-full flex-col">
+          <LinearProgress value={65} aria-label="Uploading" />
+          <LinearProgress
+            value={65}
+            shape="flat"
+            aria-label="Uploading, flat"
+          />
+          <LinearProgress aria-label="Connecting" />
+          <LinearProgress shape="flat" aria-label="Connecting, flat" />
+          <LinearProgress
+            value={40}
+            thickness={8}
+            aria-label="Uploading, thick"
+          />
+        </div>
+      </Section>
+
+      <Section
+        title="@chatool/ui/circular-progress"
+        hint="Wavy by default, flat on request; omit value for indeterminate."
+      >
+        <CircularProgress value={65} aria-label="Uploading" />
+        <CircularProgress value={65} shape="flat" aria-label="Uploading" />
+        <CircularProgress aria-label="Connecting" />
+        <CircularProgress shape="flat" aria-label="Connecting" />
+        <CircularProgress value={65} thickness={8} aria-label="Uploading" />
+      </Section>
+
+      <Section
+        title="Indeterminate → determinate"
+        hint="The handoff, driven from a client island."
+      >
+        <ProgressDemo />
       </Section>
 
       {/* @chatool/icons */}

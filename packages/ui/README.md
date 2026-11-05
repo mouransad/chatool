@@ -34,11 +34,14 @@ stay minimal. `Button` is **Server-Component-safe** (it carries no `"use client"
 its only client part is the press ripple, a separate island (see
 [Accessibility & rendering](#accessibility--rendering)).
 
-| Subpath                    | Exports                                               |
-| -------------------------- | ----------------------------------------------------- |
-| `@chatool/ui/button`       | `Button` (also `default`), `buttonVariants`           |
-| `@chatool/ui/icon-button`  | `IconButton` (also `default`), `iconButtonVariants`   |
-| `@chatool/ui/button-group` | `ButtonGroup` (also `default`), `buttonGroupVariants` |
+| Subpath                         | Exports                                                         |
+| ------------------------------- | --------------------------------------------------------------- |
+| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                     |
+| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`             |
+| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`           |
+| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants` |
+| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`     |
+| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants` |
 
 > The MD3 button family (FAB, segmented) is still being built out — this release
 > ships the **common Button**, the **Icon button**, and the **Button group**.
@@ -99,6 +102,40 @@ selection state — each child keeps its own `selected` / `aria-pressed`:
 > Pass the group an `aria-label` (or `aria-labelledby`) to name the set. The group
 > never overrides a child's `border-radius`, so each button keeps its default
 > finite shape and the select/deselect morph stays smooth.
+
+**`LoadingIndicator`** is the MD3 Expressive indicator for short waits: a looping
+morph through seven Material shapes, with Android's own geometry and motion. Pick
+it for waits of roughly 200ms–5s; show nothing under 200ms, and a progress
+indicator over 5s. Don't transition it into a progress indicator.
+
+| Prop           | Values                                                                                                |
+| -------------- | ----------------------------------------------------------------------------------------------------- |
+| `contained`    | `false` _(default)_ · `true`: adds the `primary-container` circle; use it over content                |
+| `size`         | px, clamped to 24–240; defaults to `48`. Any `size-*` utility works too                               |
+| `value`, `max` | omit `value` for the loop; set it to scrub the circle → burst morph (pull-to-refresh). `max` is `100` |
+| `color`        | `primary` _(default)_ · `inherit`: takes `currentColor`, for use inside buttons                       |
+
+**`LinearProgress`** and **`CircularProgress`** show a process in real time, flat
+or with Android's travelling wave. Omit `value` for indeterminate; when `value`
+arrives later, the indeterminate motion hands off smoothly to the real value.
+
+| Prop               | Values                                                                                                   |
+| ------------------ | -------------------------------------------------------------------------------------------------------- |
+| `shape`            | `wavy` _(default)_ · `flat`. M3 lists flat as its default; use it for very small sizes                   |
+| `value`, `max`     | omit `value`, or pass a non-finite one, for indeterminate. `max` is `100`. Changes ease over 500ms       |
+| `thickness`        | px; `4` _(default)_, `8` is the M3 thick style. Linear grows to `thickness + 6` tall when wavy           |
+| `amplitude`        | `0`–`1`, default `1`. The wave fades in after 10% and out by 95% on its own                              |
+| `wavelength`       | px; linear `40` (`20` indeterminate), circular `15`. At large rings try `size / 4` with a thicker stroke |
+| `waveSpeed`        | px per second, defaults to `wavelength`; `0` freezes the wave                                            |
+| `gap`              | px between the active indicator and the track, default `4`                                               |
+| `color`            | `primary` _(default)_ · `inherit`: takes `currentColor`                                                  |
+| `animated`         | default `true`; disable when `value` tracks scrubbing or scroll                                          |
+| `stop` (linear)    | end-of-track dot, default `true`. M3 requires it unless the track has 3:1 contrast with its surroundings |
+| `size` (circular)  | px, clamped to 24–240; defaults to `48` wavy / `40` flat, plus any extra `thickness`                     |
+| `track` (circular) | default `true`; set `false` inside buttons                                                               |
+
+`LinearProgress` fills its parent's width and mirrors itself in RTL; `CircularProgress`
+never mirrors, per the spec.
 
 ## Usage
 
@@ -165,6 +202,44 @@ export function Range({
 }
 ```
 
+Loading and progress:
+
+```tsx
+import Button from "@chatool/ui/button";
+import CircularProgress from "@chatool/ui/circular-progress";
+import LinearProgress from "@chatool/ui/linear-progress";
+import LoadingIndicator from "@chatool/ui/loading-indicator";
+
+export function Example({ uploaded }: { uploaded?: number }) {
+  return (
+    <>
+      <LoadingIndicator aria-label="Loading news article" />
+      <LoadingIndicator contained aria-label="Refreshing feed" />
+
+      {/* Indeterminate until `uploaded` is known, then it hands off smoothly. */}
+      <LinearProgress value={uploaded} aria-label="Uploading photo" />
+      <CircularProgress value={uploaded} aria-label="Uploading photo" />
+
+      {/* Inside a button: flat, no track, and the label's own color. */}
+      <Button
+        loading
+        loadingIndicator={
+          <CircularProgress
+            shape="flat"
+            color="inherit"
+            track={false}
+            size={24}
+            thickness={3}
+          />
+        }
+      >
+        Saving
+      </Button>
+    </>
+  );
+}
+```
+
 ## Customization
 
 Three layers, increasingly specific:
@@ -189,7 +264,14 @@ Three layers, increasingly specific:
    `--md-comp-icon-button-container-color`, `--md-comp-icon-button-icon-color`,
    `--md-comp-icon-button-outline-color`, `--md-comp-icon-button-focus-color`.
    **`ButtonGroup`** exposes `--md-comp-button-group-gap` (the gap between
-   children).
+   children). **`LoadingIndicator`** has
+   `--md-comp-loading-indicator-active-indicator-color` and
+   `--md-comp-loading-indicator-container-color`. **`LinearProgress`** has
+   `--md-comp-linear-progress-active-indicator-color`,
+   `--md-comp-linear-progress-track-color` and
+   `--md-comp-linear-progress-stop-indicator-color`. **`CircularProgress`** has
+   `--md-comp-circular-progress-active-indicator-color` and
+   `--md-comp-circular-progress-track-color`.
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -239,6 +321,30 @@ state; each child keeps its own role + `aria-pressed`. Children stay individual 
 stops (no roving focus). `asChild` forwards the group styles + role onto your
 element.
 
+`LoadingIndicator`, `LinearProgress` and `CircularProgress` render
+**`role="progressbar"`**:
+
+- **Name what's loading.** Pass `aria-label` or `aria-labelledby`, such as "Loading
+  news article". The fallback name is a generic "Loading".
+- `aria-valuenow` / `aria-valuemin` / `aria-valuemax` are set when determinate and
+  omitted when indeterminate, which is what announces it as indeterminate. Pass
+  `aria-valuetext` for a friendlier reading.
+- **Contrast.** The active indicator needs 3:1 against what's behind it. Inside
+  another component, use `color="inherit"`, and remove `CircularProgress`'s track.
+- **`prefers-reduced-motion`** is honored live: morphs, travelling waves and
+  rotation stop. Indeterminate indicators hold still and pulse their opacity
+  instead, so they still read as active. Determinate ones jump straight to their
+  value.
+- Pull-to-refresh can't be accessible by swiping alone, so also offer a single-pointer
+  refresh control, such as a button in the app bar.
+
+**Rendering:** all three are **client components** (`"use client"`), because they
+draw every frame. They still work when imported from a Server Component, and the
+server sends a first frame at the final size, so nothing shifts on hydration. One
+shared `requestAnimationFrame` loop drives every instance and stops when nothing
+moves; instances that are off-screen pause and pick up where they left off. Frames
+go straight to the SVG nodes, so animation never re-renders React.
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -275,6 +381,22 @@ element.
   `horizontal` _(default)_ · `vertical`. The group never overrides a child's
   border-radius. Give it an `aria-label`; build a segmented control by toggling the
   children's `selected`. Gap token `--md-comp-button-group-gap`.
+- **`LoadingIndicator`** (`@chatool/ui/loading-indicator`): the MD3 Expressive
+  shape-morphing indicator for ~200ms–5s waits. `contained` adds the
+  `primary-container` circle; `size` is px (24–240, default 48); `value` / `max`
+  scrub the morph for pull-to-refresh. Tokens `--md-comp-loading-indicator-*`.
+- **`LinearProgress`** / **`CircularProgress`** (`@chatool/ui/linear-progress`,
+  `@chatool/ui/circular-progress`): for processes over 5s. `shape` is `wavy`
+  _(default)_ · `flat`; **omit `value` for indeterminate**, and setting it later
+  hands off smoothly, so keep the same element instead of swapping components.
+  Don't transition a `LoadingIndicator` into these. `thickness` is px (4 default, 8
+  thick); linear's `stop` dot is required unless the track has 3:1 contrast;
+  `CircularProgress` takes `size` and `track`. Tokens `--md-comp-linear-progress-*`
+  and `--md-comp-circular-progress-*`.
+- All three are **client components** that still render a first frame on the
+  server, with `role="progressbar"`: give them an `aria-label` naming what's
+  loading. Inside a button use `color="inherit"`, and `shape="flat"` +
+  `track={false}` for `CircularProgress`. Reduced motion is built in.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders

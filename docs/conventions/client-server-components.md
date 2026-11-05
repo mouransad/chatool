@@ -74,7 +74,9 @@ If **none** apply, leave it directive-free — it's a Server Component.
   spreads consumer props). It renders as an RSC; its **only** client part is the
   press **ripple**, a separate `"use client"` island it renders as a child (the
   "client island in a server primitive" pattern — see below).
-- **Client (`"use client"`):** the button's ripple island, `@chatool/core`'s
+- **Client (`"use client"`):** the button's ripple island, the loading family
+  (`@chatool/ui/loading-indicator`, `/linear-progress`, `/circular-progress`, which
+  draw per frame but still server-render their first frame), `@chatool/core`'s
   `ChatoolProvider` (`useState`/`useEffect`/`localStorage`) and `useTheme`
   (`useContext`), and the `@chatool/utils/hooks` (they _are_ hooks).
 

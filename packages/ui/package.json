@@ -40,6 +40,36 @@
         "default": "./dist/button-group.cjs"
       }
     },
+    "./loading-indicator": {
+      "import": {
+        "types": "./dist/loading-indicator.d.mts",
+        "default": "./dist/loading-indicator.mjs"
+      },
+      "require": {
+        "types": "./dist/loading-indicator.d.cts",
+        "default": "./dist/loading-indicator.cjs"
+      }
+    },
+    "./linear-progress": {
+      "import": {
+        "types": "./dist/linear-progress.d.mts",
+        "default": "./dist/linear-progress.mjs"
+      },
+      "require": {
+        "types": "./dist/linear-progress.d.cts",
+        "default": "./dist/linear-progress.cjs"
+      }
+    },
+    "./circular-progress": {
+      "import": {
+        "types": "./dist/circular-progress.d.mts",
+        "default": "./dist/circular-progress.mjs"
+      },
+      "require": {
+        "types": "./dist/circular-progress.d.cts",
+        "default": "./dist/circular-progress.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

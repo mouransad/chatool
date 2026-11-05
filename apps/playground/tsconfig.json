@@ -30,6 +30,15 @@
       "@chatool/ui/button-group": [
         "../../packages/ui/src/buttons/button-group/index.tsx"
       ],
+      "@chatool/ui/loading-indicator": [
+        "../../packages/ui/src/loading/loading-indicator/index.tsx"
+      ],
+      "@chatool/ui/linear-progress": [
+        "../../packages/ui/src/loading/linear-progress/index.tsx"
+      ],
+      "@chatool/ui/circular-progress": [
+        "../../packages/ui/src/loading/circular-progress/index.tsx"
+      ],
       "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },

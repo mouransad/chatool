@@ -73,6 +73,20 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   (ESM + CJS). A `"use client"` island used **internally** (e.g. `ripple`) gets its
   own `tsdown` entry **without** an `exports` subpath, so its directive is preserved
   as a private client chunk.
+- **Loading family lives in `src/loading/`.** Published subpaths:
+  `./loading-indicator` (source `src/loading/loading-indicator/`, the MD3 Expressive
+  seven-shape morph, optionally `contained`, with `value` scrubbing the
+  circle → burst morph), `./linear-progress` and `./circular-progress` (flat or
+  wavy, determinate or indeterminate, with Android's indeterminate → determinate
+  handoff). All three are **client components** (the view + entry barrel carry
+  `"use client"`) because they draw per frame, yet still server-render a first frame.
+  Each pairs its view with a **pure `*-engine.ts`** (no DOM, no React) holding the
+  frame math, and a `useLogic` hook that paints onto SVG refs without re-rendering.
+  Shared, inlined modules (not subpaths): `shapes/` (a TypeScript port of
+  `androidx.graphics.shapes`: keep its algorithm intact so morphs match Android),
+  `motion.ts` (easing, tweens, Compose's timings), `progressbar.ts` (ARIA +
+  `value` → fraction), `ticker.ts` + `use-frame-loop.ts` (the one shared
+  `requestAnimationFrame` loop, paused off-screen) and `use-reduced-motion.ts`.
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading

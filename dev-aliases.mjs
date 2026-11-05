@@ -37,6 +37,27 @@ export const sourceAliases = {
     "button-group",
     "index.tsx",
   ),
+  "@chatool/ui/loading-indicator": pkg(
+    "ui",
+    "src",
+    "loading",
+    "loading-indicator",
+    "index.tsx",
+  ),
+  "@chatool/ui/linear-progress": pkg(
+    "ui",
+    "src",
+    "loading",
+    "linear-progress",
+    "index.tsx",
+  ),
+  "@chatool/ui/circular-progress": pkg(
+    "ui",
+    "src",
+    "loading",
+    "circular-progress",
+    "index.tsx",
+  ),
   // add one line per new @chatool/ui component subpath
 };
 

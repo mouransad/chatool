@@ -50,6 +50,25 @@ What the **consumer** is responsible for:
   APG you must add `role="button"`, `tabindex="0"`, and **Enter + Space** key
   handling yourself. Prefer the native element instead.
 
+## Loading & progress indicators
+
+What `@chatool/ui/loading-indicator`, `/linear-progress` and `/circular-progress`
+guarantee:
+
+- **`role="progressbar"`**, with `aria-valuenow` / `aria-valuemin` / `aria-valuemax`
+  when determinate. They're omitted when indeterminate, which is how it's announced.
+- **`prefers-reduced-motion`** is honored live: morphs, waves and rotation stop, and
+  indeterminate indicators pulse their opacity so they still read as active.
+
+What the **consumer** is responsible for:
+
+- **Accessible name.** Pass `aria-label` or `aria-labelledby` naming the process and
+  the content ("Loading news article"). The fallback is a generic "Loading".
+- **3:1 contrast** for the active indicator. Inside a component, use
+  `color="inherit"`, and `track={false}` on `CircularProgress`.
+- **The stop indicator** on `LinearProgress` may only be removed (`stop={false}`) if
+  the track has 3:1 contrast with its surroundings.
+
 ## Focus & motion
 
 - **Focus visibility.** Components show a visible focus ring on
