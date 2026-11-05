@@ -1,4 +1,4 @@
-import { defineChatoolConfig } from "../../tsdown.preset";
+import { defineChatoolConfig } from "../../tsdown.preset.ts";
 
 export default defineChatoolConfig({
   entry: {
@@ -16,6 +16,8 @@ export default defineChatoolConfig({
     "loading-indicator": "src/loading/loading-indicator/index.tsx",
     "linear-progress": "src/loading/linear-progress/index.tsx",
     "circular-progress": "src/loading/circular-progress/index.tsx",
+    // The divider family (`src/dividers/`). Pure Server Component (`./divider`).
+    divider: "src/dividers/divider/index.tsx",
     // INTERNAL chunk (no `exports` entry — not a public subpath). The press
     // ripple is the button family's only `"use client"` module; giving it its
     // own entry guarantees the directive is preserved as a distinct client

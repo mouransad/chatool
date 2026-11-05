@@ -39,6 +39,9 @@
       "@chatool/ui/circular-progress": [
         "../../packages/ui/src/loading/circular-progress/index.tsx"
       ],
+      "@chatool/ui/divider": [
+        "../../packages/ui/src/dividers/divider/index.tsx"
+      ],
       "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },

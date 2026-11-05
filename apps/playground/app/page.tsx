@@ -15,6 +15,7 @@ import ButtonGroup from "@chatool/ui/button-group";
 import LoadingIndicator from "@chatool/ui/loading-indicator";
 import LinearProgress from "@chatool/ui/linear-progress";
 import CircularProgress from "@chatool/ui/circular-progress";
+import Divider from "@chatool/ui/divider";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
 import CheckOutlined from "@chatool/icons/CheckOutlined";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
@@ -386,6 +387,28 @@ export default function Home() {
         hint="The handoff, driven from a client island."
       >
         <ProgressDemo />
+      </Section>
+
+      {/* Divider: a pure Server Component (no client code at all) */}
+      <Section
+        title="@chatool/ui/divider"
+        hint="1dp outline-variant line: full-width, inset, middle-inset, vertical, heavy and labelled. Rendered entirely on the server."
+      >
+        <div className="gap-4 py-4 flex w-full flex-col rounded-lg bg-surface-container-low">
+          <Divider />
+          <Divider inset="start" />
+          <Divider inset="middle" />
+          <Divider weight="heavy" />
+          <Divider inset="middle">or</Divider>
+          <Divider decorative={false} inset="middle" />
+        </div>
+        <div className="h-12 gap-3 px-3 flex items-center rounded-lg bg-surface-container-low">
+          <span className="text-body-medium">Edit</span>
+          <Divider orientation="vertical" />
+          <span className="text-body-medium">Share</span>
+          <Divider orientation="vertical" inset="middle" />
+          <span className="text-body-medium">Delete</span>
+        </div>
       </Section>
 
       {/* @chatool/icons */}

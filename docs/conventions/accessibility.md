@@ -69,6 +69,29 @@ What the **consumer** is responsible for:
 - **The stop indicator** on `LinearProgress` may only be removed (`stop={false}`) if
   the track has 3:1 contrast with its surroundings.
 
+## Dividers
+
+MD3 treats dividers as **decorative**. What `@chatool/ui/divider` guarantees:
+
+- **Decorative by default** (`role="none"`), so assistive tech skips the line; a
+  label stays readable plain text, and the lines are pseudo-elements.
+- **`decorative={false}`** exposes a real separator: a native `<hr>` for the plain
+  horizontal case, otherwise `role="separator"` (+ `aria-orientation="vertical"`).
+  A string label becomes its `aria-label`, since a separator's children are
+  presentational.
+- Never focusable. A draggable splitter is the APG window-splitter pattern, a
+  different component.
+
+What the **consumer** is responsible for:
+
+- **Choosing the semantics.** Keep the default between list rows and inside cards;
+  use `decorative={false}` for a topic change in prose and between groups in a
+  `role="menu"`.
+- **Valid markup.** In `<ul>` / `<ol>` / `role="menu"`, render it as an `<li>` with
+  `asChild`.
+- **Contrast**, when a divider is the only cue for a boundary that matters: switch
+  `--md-comp-divider-color` to `outline` (3:1).
+
 ## Focus & motion
 
 - **Focus visibility.** Components show a visible focus ring on

@@ -42,6 +42,7 @@ its only client part is the press ripple, a separate island (see
 | `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants` |
 | `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`     |
 | `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants` |
+| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                   |
 
 > The MD3 button family (FAB, segmented) is still being built out — this release
 > ships the **common Button**, the **Icon button**, and the **Button group**.
@@ -136,6 +137,31 @@ arrives later, the indeterminate motion hands off smoothly to the real value.
 
 `LinearProgress` fills its parent's width and mirrors itself in RTL; `CircularProgress`
 never mirrors, per the spec.
+
+**`Divider`** is the MD3 divider: a **1dp `outline-variant` line** that groups
+content in lists and containers. MD3 says to use dividers sparingly, only where
+open space can't do the grouping, and to group content rather than separate every
+item:
+
+| Prop            | Values                                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------------------------ |
+| `orientation`   | `horizontal` _(default)_ · `vertical` (fills the height of a flex row; `1em` tall inline)                    |
+| `inset`         | `none` _(default, full-width)_ · `start` (MD3 "inset", 16dp leading) · `end` · `middle` (16dp on both sides) |
+| `weight`        | `regular` _(default, 1dp)_ · `heavy` (8dp, MDC-Android's M3 heavy divider, for whole sections)               |
+| `children`      | optional label drawn between two line segments ("— or —")                                                    |
+| `labelPosition` | `center` _(default)_ · `start` · `end`                                                                       |
+| `decorative`    | `true` _(default)_: `role="none"`. `false`: a real separator (`<hr>` or `role="separator"`)                  |
+| `asChild`       | render onto your element via `Slot`, e.g. an `<li>` in a list or menu                                        |
+
+- **Full-width** separates larger sections of unrelated content, or the
+  interactive part of a card from the rest. **Inset** separates related items in a
+  section, like rows in an email list. Use both together to show the hierarchy.
+- Insets are **logical** (they flip in RTL). To line a divider up with list text
+  after a 40dp avatar, set the start inset to 72px:
+  `className="[--md-comp-divider-inset-start:72px]"`.
+- Space above and below the line is yours to set with Tailwind (`my-2`, `mx-4`).
+- A horizontal divider stretches to its container in block, flex-column and grid
+  layouts. Inside a flex **row**, give it `w-full` or wrap it in a column.
 
 ## Usage
 
@@ -240,6 +266,37 @@ export function Example({ uploaded }: { uploaded?: number }) {
 }
 ```
 
+Dividers:
+
+```tsx
+import { Fragment } from "react";
+import Divider from "@chatool/ui/divider";
+
+export function Inbox({ mails }: { mails: { id: string; from: string }[] }) {
+  return (
+    <ul aria-label="Inbox">
+      {mails.map((mail, i) => (
+        <Fragment key={mail.id}>
+          <li className="px-4 py-3">{mail.from}</li>
+          {/* An inset divider, rendered as a valid <li>. */}
+          {i < mails.length - 1 && (
+            <Divider asChild inset="start">
+              <li />
+            </Divider>
+          )}
+        </Fragment>
+      ))}
+    </ul>
+  );
+}
+
+// Elsewhere:
+<Divider />                                  // full-width, decorative
+<Divider inset="middle">or</Divider>         // labelled
+<Divider orientation="vertical" />           // between items in a flex row
+<Divider decorative={false} />               // a thematic break: native <hr>
+```
+
 ## Customization
 
 Three layers, increasingly specific:
@@ -271,7 +328,12 @@ Three layers, increasingly specific:
    `--md-comp-linear-progress-track-color` and
    `--md-comp-linear-progress-stop-indicator-color`. **`CircularProgress`** has
    `--md-comp-circular-progress-active-indicator-color` and
-   `--md-comp-circular-progress-track-color`.
+   `--md-comp-circular-progress-track-color`. **`Divider`** has
+   `--md-comp-divider-color` (`outline-variant`), `--md-comp-divider-thickness`
+   (`1px`), `--md-comp-divider-heavy-thickness` (`8px`),
+   `--md-comp-divider-inset-start` / `--md-comp-divider-inset-end` (`16px`),
+   `--md-comp-divider-label-text-color` (`on-surface-variant`) and
+   `--md-comp-divider-label-space` (`8px`, between the label and each line).
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -345,6 +407,32 @@ shared `requestAnimationFrame` loop drives every instance and stops when nothing
 moves; instances that are off-screen pause and pick up where they left off. Frames
 go straight to the SVG nodes, so animation never re-renders React.
 
+`Divider` follows MD3, which treats dividers as **decorative**, and the WAI-ARIA
+`separator` role:
+
+- **Decorative by default** (`role="none"`): most dividers, between list rows or
+  inside a card, only repeat grouping the markup already gives. A label stays
+  readable as plain text; the lines are pseudo-elements that assistive tech never
+  sees.
+- **`decorative={false}`** exposes a separator. A plain horizontal one renders a
+  native **`<hr>`** (implicit `separator` role and orientation). Vertical, labelled
+  and `asChild` ones get `role="separator"`, plus `aria-orientation="vertical"`
+  when vertical. A separator's children are presentational, so a string label is
+  copied to `aria-label`. Use it for a topic change in prose, or between groups in
+  a `role="menu"` (`<Divider asChild decorative={false}><li /></Divider>`).
+- **Valid markup:** inside `<ul>` / `<ol>` / `role="menu"`, use `asChild` with an
+  `<li>` rather than a bare `<div>` or `<hr>`.
+- **Contrast:** MD3 sets no minimum for decorative dividers. If a divider is the
+  only thing conveying a boundary that matters, use `outline` (3:1) through
+  `--md-comp-divider-color`.
+- **High contrast:** the line is a border, so it stays visible under
+  `forced-colors: active`.
+- It is never focusable. A draggable pane splitter is a different pattern (the APG
+  window splitter).
+
+**Rendering:** `Divider` is a pure **Server Component** with no `"use client"` and
+no client island. It sends no JavaScript to the browser.
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -397,6 +485,15 @@ go straight to the SVG nodes, so animation never re-renders React.
   server, with `role="progressbar"`: give them an `aria-label` naming what's
   loading. Inside a button use `color="inherit"`, and `shape="flat"` +
   `track={false}` for `CircularProgress`. Reduced motion is built in.
+- **`Divider`** (`@chatool/ui/divider`): the MD3 1dp `outline-variant` line, a
+  pure **Server Component**. `orientation` `horizontal` _(default)_ · `vertical`;
+  `inset` `none` _(default)_ · `start` (MD3 "inset", 16dp) · `end` · `middle`
+  (16dp both sides); `weight` `regular` _(1dp)_ · `heavy` _(8dp)_; optional label as
+  `children` with `labelPosition`. **Decorative by default** (`role="none"`); pass
+  `decorative={false}` for a real separator (`<hr>` / `role="separator"`). In lists
+  and menus use `asChild` with an `<li>`. Set spacing with `my-*`; align with list
+  text via `[--md-comp-divider-inset-start:72px]`. Tokens `--md-comp-divider-*`.
+  Prefer open space over dividers where it does the grouping.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders

@@ -14,11 +14,15 @@ used by every package's `tsdown.config.ts`. It sets:
 - `format: ["esm", "cjs"]` and `dts: true` → dual output + declarations.
 - `sourcemap: true`, `clean: true`.
 
-A package only specifies its `entry` map, e.g.:
+A package only specifies its `entry` map. Import the preset **with its `.ts`
+extension**: tsdown loads configs through Node's native TypeScript support (Node
+≥ 22.18), whose ESM resolver doesn't guess extensions, so an extensionless import
+fails with "Cannot find module". The base `tsconfig.json` sets
+`allowImportingTsExtensions` so `tsc` accepts it. For example:
 
 ```ts
 // packages/ui/tsdown.config.ts
-import { defineChatoolConfig } from "../../tsdown.preset";
+import { defineChatoolConfig } from "../../tsdown.preset.ts";
 
 export default defineChatoolConfig({
   entry: {

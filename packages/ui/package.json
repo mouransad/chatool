@@ -70,6 +70,16 @@
         "default": "./dist/circular-progress.cjs"
       }
     },
+    "./divider": {
+      "import": {
+        "types": "./dist/divider.d.mts",
+        "default": "./dist/divider.mjs"
+      },
+      "require": {
+        "types": "./dist/divider.d.cts",
+        "default": "./dist/divider.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

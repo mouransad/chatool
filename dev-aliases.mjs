@@ -58,6 +58,7 @@ export const sourceAliases = {
     "circular-progress",
     "index.tsx",
   ),
+  "@chatool/ui/divider": pkg("ui", "src", "dividers", "divider", "index.tsx"),
   // add one line per new @chatool/ui component subpath
 };
 

@@ -87,6 +87,19 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   `motion.ts` (easing, tweens, Compose's timings), `progressbar.ts` (ARIA +
   `value` → fraction), `ticker.ts` + `use-frame-loop.ts` (the one shared
   `requestAnimationFrame` loop, paused off-screen) and `use-reduced-motion.ts`.
+- **Divider family lives in `src/dividers/`.** Published subpath: `./divider`
+  (source `src/dividers/divider/`), the MD3 1dp `outline-variant` line —
+  `orientation` horizontal/vertical, `inset` none/start/end/middle (logical
+  margins, 16dp via `--md-comp-divider-inset-*`), `weight` regular (1dp) / heavy
+  (8dp, MDC-Android M3), and an optional label (`children` + `labelPosition`) drawn
+  between `::before`/`::after` segments. A **pure Server Component** (no directive,
+  no island). **Decorative by default** (`role="none"`, per MD3);
+  `decorative={false}` renders a native `<hr>` for the plain horizontal case and
+  `role="separator"` (+ `aria-orientation`) otherwise; `asChild` puts it on an
+  `<li>` in lists/menus. The line is a **border**, not a background, so it survives
+  `forced-colors`. Shared line fragments (color + thickness) live in
+  `src/dividers/config.ts` for future siblings; keep class strings literal so
+  Tailwind can scan them.
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading

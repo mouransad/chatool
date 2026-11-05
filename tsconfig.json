@@ -19,6 +19,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    // `tsdown.config.ts` imports `../../tsdown.preset.ts` with its extension:
+    // tsdown loads configs through Node's native TS support (Node >= 22.18),
+    // whose ESM resolver needs explicit extensions. Safe because `noEmit` is on.
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
 
     "declaration": true,
