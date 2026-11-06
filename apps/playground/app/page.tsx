@@ -9,6 +9,7 @@ import {
 } from "./components/icon-button-toggle";
 import { ButtonGroupSingleSelect } from "./components/button-group-demo";
 import { ProgressDemo } from "./components/progress-demo";
+import { BadgeCounter, BadgeNavBar } from "./components/badge-demo";
 import { Button } from "@chatool/ui/button";
 import IconButton from "@chatool/ui/icon-button";
 import ButtonGroup from "@chatool/ui/button-group";
@@ -16,6 +17,7 @@ import LoadingIndicator from "@chatool/ui/loading-indicator";
 import LinearProgress from "@chatool/ui/linear-progress";
 import CircularProgress from "@chatool/ui/circular-progress";
 import Divider from "@chatool/ui/divider";
+import Badge from "@chatool/ui/badge";
 import ChatOutlined from "@chatool/icons/ChatOutlined";
 import CheckOutlined from "@chatool/icons/CheckOutlined";
 import ArrowForwardOutlined from "@chatool/icons/ArrowForwardOutlined";
@@ -24,6 +26,8 @@ import ProgressActivityOutlined from "@chatool/icons/ProgressActivityOutlined";
 import FavoriteOutlined from "@chatool/icons/FavoriteOutlined";
 import CloseOutlined from "@chatool/icons/CloseOutlined";
 import SettingsOutlined from "@chatool/icons/SettingsOutlined";
+import MailOutlined from "@chatool/icons/MailOutlined";
+import NotificationsOutlined from "@chatool/icons/NotificationsOutlined";
 
 function Section({
   title,
@@ -409,6 +413,88 @@ export default function Home() {
           <Divider orientation="vertical" inset="middle" />
           <span className="text-body-medium">Delete</span>
         </div>
+      </Section>
+
+      {/* Badge — the two MD3 variants, server-rendered */}
+      <Section
+        title="Badge — small / large"
+        hint="Server-rendered. No value → 6dp dot; a value → 16dp pill. >999 shows 999+ (4 chars max); long text truncates."
+      >
+        <Badge>
+          <MailOutlined className="size-6 text-on-surface-variant" />
+        </Badge>
+        <Badge value={3}>
+          <MailOutlined className="size-6 text-on-surface-variant" />
+        </Badge>
+        <Badge value={42}>
+          <MailOutlined className="size-6 text-on-surface-variant" />
+        </Badge>
+        <Badge value={1200}>
+          <MailOutlined className="size-6 text-on-surface-variant" />
+        </Badge>
+        <Badge value="Beta!">
+          <MailOutlined className="size-6 text-on-surface-variant" />
+        </Badge>
+        <Badge value={24} />
+      </Section>
+
+      {/* Badge — color, placement, RTL, localized digits */}
+      <Section
+        title="Badge — color, placement, RTL"
+        hint="Error by default; logical placement mirrors in RTL; locale localizes digits."
+      >
+        {(["error", "primary", "secondary", "tertiary"] as const).map((c) => (
+          <Badge key={c} value={8} color={c}>
+            <NotificationsOutlined className="size-6 text-on-surface-variant" />
+          </Badge>
+        ))}
+        <Badge value={8} placement="top-start">
+          <NotificationsOutlined className="size-6 text-on-surface-variant" />
+        </Badge>
+        <span dir="rtl" className="gap-6 flex">
+          <Badge value={1500} locale="fa" label="۱۵۰۰ اعلان جدید">
+            <NotificationsOutlined className="size-6 text-on-surface-variant" />
+          </Badge>
+          <Badge>
+            <NotificationsOutlined className="size-6 text-on-surface-variant" />
+          </Badge>
+        </span>
+      </Section>
+
+      {/* Badge — in an icon button (aria-describedby wiring) */}
+      <Section
+        title="Badge — in icon buttons"
+        hint="aria-label names the button; aria-describedby points at the badge id."
+      >
+        <IconButton aria-label="Notifications" aria-describedby="pg-notif">
+          <Badge id="pg-notif" value={5} size="small">
+            <NotificationsOutlined />
+          </Badge>
+        </IconButton>
+        <IconButton
+          variant="tonal"
+          aria-label="Messages"
+          aria-describedby="pg-mail"
+        >
+          <Badge id="pg-mail" value={24}>
+            <MailOutlined />
+          </Badge>
+        </IconButton>
+      </Section>
+
+      {/* Badge — Expressive motion (client island drives the state only) */}
+      <Section
+        title="Badge — motion"
+        hint="CSS-only Expressive spring: enter, count pop, dot⇄pill morph, exit. The island only holds state."
+      >
+        <BadgeCounter />
+      </Section>
+
+      <Section
+        title="Badge — navigation bar"
+        hint="MD3: hide a destination's badge once it's selected (invisible={selected})."
+      >
+        <BadgeNavBar />
       </Section>
 
       {/* @chatool/icons */}

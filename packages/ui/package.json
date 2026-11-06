@@ -80,6 +80,16 @@
         "default": "./dist/divider.cjs"
       }
     },
+    "./badge": {
+      "import": {
+        "types": "./dist/badge.d.mts",
+        "default": "./dist/badge.mjs"
+      },
+      "require": {
+        "types": "./dist/badge.d.cts",
+        "default": "./dist/badge.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

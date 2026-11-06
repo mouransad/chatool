@@ -34,15 +34,16 @@ stay minimal. `Button` is **Server-Component-safe** (it carries no `"use client"
 its only client part is the press ripple, a separate island (see
 [Accessibility & rendering](#accessibility--rendering)).
 
-| Subpath                         | Exports                                                         |
-| ------------------------------- | --------------------------------------------------------------- |
-| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                     |
-| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`             |
-| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`           |
-| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants` |
-| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`     |
-| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants` |
-| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                   |
+| Subpath                         | Exports                                                          |
+| ------------------------------- | ---------------------------------------------------------------- |
+| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                      |
+| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`              |
+| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`            |
+| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`  |
+| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`      |
+| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`  |
+| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                    |
+| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants` |
 
 > The MD3 button family (FAB, segmented) is still being built out — this release
 > ships the **common Button**, the **Icon button**, and the **Button group**.
@@ -162,6 +163,43 @@ item:
 - Space above and below the line is yours to set with Tailwind (`my-2`, `mx-4`).
 - A horizontal divider stretches to its container in block, flex-column and grid
   layouts. Inside a flex **row**, give it `w-full` or wrap it in a column.
+
+**`Badge`** is the MD3 badge: a notification, count or status marker on an icon.
+**Small** (no `value`) is a 6dp dot meaning "something new". **Large** (with a
+`value`) is a 16dp `label-small` pill that is a circle at one digit and grows to
+16×34dp at MD3's four-character limit (`999+`). Wrap the anchor and the badge
+places itself **inside the icon's box at the upper trailing corner** with the spec
+offsets (small: 6×6dp, large: 14×12dp). Without children it renders inline, for
+example at the trailing edge of a drawer item.
+
+| Prop              | Values                                                                                                              |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `value`           | `number` · `string`. Omit for the small dot                                                                         |
+| `max`             | numbers above it show `max+`; default `999` (→ `999+`)                                                              |
+| `maxLength`       | strings longer than this are cut with `…`; default `4` (MD3's maximum), `Infinity` to opt out                       |
+| `showZero`        | keep a numeric `0` visible; by default `0` hides the badge                                                          |
+| `invisible`       | hide it: it shrinks out and leaves the accessibility tree. MD3: hide a nav badge once its destination is selected   |
+| `size`            | `small` · `large`; chosen from `value` by default. `small` with a `value` shows a dot but still announces the count |
+| `color`           | `error` _(default, MD3)_ · `primary` · `secondary` · `tertiary`                                                     |
+| `placement`       | `top-end` _(default)_ · `top-start`; **logical**, so RTL mirrors it                                                 |
+| `locale`          | BCP 47 locale for the digits: `"fa"` → `۹۹۹+`, `"ar-EG"` → `٩٩٩+`                                                   |
+| `label`           | what screen readers hear; defaults to the full value or `"New notification"`. `""` = decorative                     |
+| `children`        | the anchor (usually an icon). Omit for an inline badge                                                              |
+| `anchorClassName` | classes for the anchor wrapper (`className` styles the badge itself)                                                |
+| `asChild`         | make your single child the anchor (no wrapper `<span>`); it must accept children (not `<img>`/`<svg>`)              |
+
+- **Keep the default color.** MD3 picks `error` so the badge stands out against
+  icons and labels. Any custom pair needs at least 3:1 contrast.
+- **Small or large?** MD3: use a large badge for counts where there's room (a
+  navigation rail); a small one where space is tight (app bars). When an icon with
+  a badge is followed by text, put a large badge at the **trailing edge** instead.
+- **Don't move it arbitrarily or place it over the icon.** For other anchors
+  (avatars), re-tune the offsets with the `--md-comp-badge-*-offset-*` tokens.
+- **Expressive motion, CSS-only.** It springs in on mount (`@starting-style`) with
+  M3 Expressive's _fast spatial_ spring (damping 0.6, stiffness 800). A changed
+  count pops, the dot ⇄ pill change morphs size, radius and offsets together, and
+  hiding uses a quick `emphasized-accelerate` exit. `prefers-reduced-motion`
+  keeps only the fade.
 
 ## Usage
 
@@ -297,6 +335,42 @@ export function Inbox({ mails }: { mails: { id: string; from: string }[] }) {
 <Divider decorative={false} />               // a thematic break: native <hr>
 ```
 
+Badges:
+
+```tsx
+import Badge from "@chatool/ui/badge";
+import IconButton from "@chatool/ui/icon-button";
+import MailOutlined from "@chatool/icons/MailOutlined";
+import NotificationsOutlined from "@chatool/icons/NotificationsOutlined";
+
+export function AppBarActions({ unread }: { unread: number }) {
+  return (
+    // aria-label names the button; aria-describedby adds the badge: "Inbox, button, 12".
+    <IconButton aria-label="Inbox" aria-describedby="inbox-badge">
+      <Badge id="inbox-badge" value={unread}>
+        <MailOutlined />
+      </Badge>
+    </IconButton>
+  );
+}
+
+// A navigation destination: the name states the count, the badge is decorative
+// and hides once the destination is selected.
+<a href="/inbox" aria-label={`Inbox, ${unread} new`} aria-current={selected ? "page" : undefined}>
+  <Badge value={unread} invisible={selected} label="">
+    <MailOutlined />
+  </Badge>
+  Inbox
+</a>
+
+// Elsewhere:
+<Badge><NotificationsOutlined /></Badge>          // small dot: "New notification"
+<Badge value={1500}><MailOutlined /></Badge>      // 999+, announced as "1500"
+<Badge value={5} size="small">…</Badge>           // a dot that still announces "5"
+<Badge value={24} />                              // inline, at a row's trailing edge
+<Badge value={7} locale="fa" label="۷ پیام جدید">…</Badge>
+```
+
 ## Customization
 
 Three layers, increasingly specific:
@@ -334,6 +408,17 @@ Three layers, increasingly specific:
    `--md-comp-divider-inset-start` / `--md-comp-divider-inset-end` (`16px`),
    `--md-comp-divider-label-text-color` (`on-surface-variant`) and
    `--md-comp-divider-label-space` (`8px`, between the label and each line).
+   **`Badge`** has `--md-comp-badge-color` (`error`),
+   `--md-comp-badge-label-text-color` (`on-error`); geometry
+   `--md-comp-badge-small-size` (`6px`), `--md-comp-badge-small-shape` (`3px`),
+   `--md-comp-badge-large-size` (`16px`), `--md-comp-badge-large-shape` (`8px`),
+   `--md-comp-badge-large-padding` (`4px`); anchor offsets
+   `--md-comp-badge-small-offset-x` / `-y` (`6px` / `6px`) and
+   `--md-comp-badge-large-offset-x` / `-y` (`12px` / `14px`), measured from the
+   anchor's top-trailing corner to the badge's bottom-leading corner; and motion
+   `--md-comp-badge-spatial-easing` / `-spatial-duration` (the Expressive spring,
+   `350ms`) and `--md-comp-badge-effects-easing` / `-effects-duration` (`140ms`).
+   Set both durations to `0s` to switch motion off.
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -433,6 +518,38 @@ go straight to the SVG nodes, so animation never re-renders React.
 **Rendering:** `Divider` is a pure **Server Component** with no `"use client"` and
 no client island. It sends no JavaScript to the browser.
 
+`Badge` follows MD3's badge accessibility guidance: it's read **after** its
+destination, a count reads its number, and a dot reads "New notification".
+
+- **The visible glyphs are `aria-hidden`.** Otherwise a screen reader would read
+  `999+` as "nine nine nine plus". A visually hidden span carries the full value
+  (`"1500"`, `"New"`) or "New notification" for a dot. It's plain text, with no
+  role and no live region, so it becomes part of whatever contains it.
+- **When the anchor has an `aria-label`** (icon-only buttons), the label replaces
+  the content, badge included. Point the button's `aria-describedby` at the
+  badge's `id` ("Inbox, button, 12"), or put the count in the label.
+- **When the destination has visible text after the icon** (navigation bars,
+  rails, drawers), DOM order would read the count first. Put the count in the
+  destination's `aria-label` (`"Inbox, 12 new"`) and pass `label=""` to make the
+  badge decorative.
+- **Localize** `label` for non-English apps; `locale` only changes the digits.
+- `invisible`, and a hidden `0`, remove the badge from the accessibility tree.
+- **Changes aren't announced.** A badge is not a live region; announce important
+  arrivals through your own `role="status"` region.
+- **Contrast:** the default `error` / `on-error` pair meets MD3's 3:1. Keep any
+  custom pair at 3:1 or better.
+- **High contrast:** under `forced-colors: active` the badge opts out of the forced
+  palette and paints itself `CanvasText` / `Canvas`, so the dot never disappears.
+- It is never focusable and ignores the pointer when anchored (`pointer-events:
+none`), so clicks and hovers reach the anchor.
+
+**Rendering:** `Badge` is a pure **Server Component** with no `"use client"` and no
+client island. All motion is CSS: `@starting-style` for the entrance, transitions
+on spring `linear()` easings for morphs, and a label keyed by its text so a new
+count re-plays its pop. Browsers without `@starting-style` just show the badge.
+Digits never depend on the runtime's default locale, so server and client output
+always match.
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -494,6 +611,23 @@ no client island. It sends no JavaScript to the browser.
   and menus use `asChild` with an `<li>`. Set spacing with `my-*`; align with list
   text via `[--md-comp-divider-inset-start:72px]`. Tokens `--md-comp-divider-*`.
   Prefer open space over dividers where it does the grouping.
+- **`Badge`** (`@chatool/ui/badge`): the MD3 badge, a pure **Server Component**
+  with CSS-only Expressive motion. **No `value` → small 6dp dot**; `value`
+  (number or string) → **large 16dp pill**. **Wrap the icon**
+  (`<Badge value={3}><MailOutlined /></Badge>`) and it places itself on the icon's
+  upper trailing corner with the spec offsets; with no children it's inline.
+  `max` (999 → `999+`), `maxLength` (4, strings cut with `…`), `showZero`,
+  `invisible` (animated hide; MD3: hide a nav badge when its destination is
+  selected), `size` (`small` with a value = a dot that still announces the count),
+  `color` `error` _(default — keep it)_ · `primary` · `secondary` · `tertiary`,
+  `placement` `top-end` _(default)_ · `top-start` (logical, mirrors in RTL),
+  `locale` (localized digits), `label` (screen-reader text; `""` = decorative),
+  `anchorClassName`, `asChild`. **A11y:** visible glyphs are `aria-hidden` and a
+  visually hidden span reads the full value or "New notification". In an
+  `aria-label`led `IconButton`, wire `aria-describedby` to the badge `id`; on
+  navigation items put the count in the item's `aria-label` and pass `label=""`.
+  Tokens `--md-comp-badge-*` (color, sizes, shapes, offsets, motion). Don't
+  position it by hand or place it over the icon.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders

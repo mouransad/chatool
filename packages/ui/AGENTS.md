@@ -100,6 +100,25 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   `forced-colors`. Shared line fragments (color + thickness) live in
   `src/dividers/config.ts` for future siblings; keep class strings literal so
   Tailwind can scan them.
+- **Badge family lives in `src/badges/`.** Published subpath: `./badge` (source
+  `src/badges/badge/`), the MD3 badge — **small** 6dp dot (no `value`) or **large**
+  16dp `label-small` pill (`value`, number or string; `max` → `999+`, `maxLength`
+  → `…`, `showZero`). Wrapping children makes them the **anchor**: the badge sits
+  inside the icon box at the upper trailing corner with the spec offsets (small
+  6×6dp, large 14×12dp) via **logical** insets, so RTL mirrors it; no children →
+  inline. Also `invisible`, `size`, `color` (error default + primary/secondary/
+  tertiary), `placement` (`top-end`/`top-start`), `locale`, `label`,
+  `anchorClassName`, `asChild`. A **pure Server Component** (no directive, no
+  island): all motion is CSS — `@starting-style` entrance, transitions on spring
+  `linear()` easings sampled from Compose's Expressive motion tokens, and a label
+  **keyed by its text** so a changed count re-plays its pop. Geometry is driven by
+  `--_*` locals swapped per size, so dot ⇄ pill morphs on one element. Visible
+  glyphs are `aria-hidden`; a `sr-only` span reads the full value or "New
+  notification". Shared geometry/motion fragments live in `src/badges/config.ts`
+  and the pure content rules (`max+`, truncation, digits, spoken text) in
+  `src/badges/format.ts` — deterministic (never the runtime's default locale) so
+  SSR and hydration agree. In arbitrary `calc()` values write the operator as
+  `_-_` (Tailwind turns a bare `-var(--_x)` into `var(-- x)`).
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading

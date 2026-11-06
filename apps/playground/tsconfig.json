@@ -42,6 +42,7 @@
       "@chatool/ui/divider": [
         "../../packages/ui/src/dividers/divider/index.tsx"
       ],
+      "@chatool/ui/badge": ["../../packages/ui/src/badges/badge/index.tsx"],
       "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },

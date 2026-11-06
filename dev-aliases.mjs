@@ -59,6 +59,7 @@ export const sourceAliases = {
     "index.tsx",
   ),
   "@chatool/ui/divider": pkg("ui", "src", "dividers", "divider", "index.tsx"),
+  "@chatool/ui/badge": pkg("ui", "src", "badges", "badge", "index.tsx"),
   // add one line per new @chatool/ui component subpath
 };
 

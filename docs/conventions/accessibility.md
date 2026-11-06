@@ -92,6 +92,30 @@ What the **consumer** is responsible for:
 - **Contrast**, when a divider is the only cue for a boundary that matters: switch
   `--md-comp-divider-color` to `outline` (3:1).
 
+## Badges
+
+MD3 reads a badge **after** its destination: a count reads its number, a dot
+reads "New notification". What `@chatool/ui/badge` guarantees:
+
+- The visible glyphs (`999+`) are `aria-hidden`; a visually hidden span carries the
+  full value (`"1500"`) or "New notification". Plain text, no role, no live region.
+- `invisible` (and a hidden `0`) removes it from the accessibility tree; `label=""`
+  makes it decorative.
+- Never focusable; when anchored it ignores the pointer so the anchor gets clicks.
+- Under `forced-colors: active` it paints itself `CanvasText` / `Canvas` instead of
+  vanishing.
+- Its motion respects `prefers-reduced-motion` (fade only).
+
+What the **consumer** is responsible for:
+
+- **Ordering the announcement.** An anchor named by `aria-label` ignores its
+  content: wire `aria-describedby` to the badge's `id`, or put the count in the
+  label. On navigation items whose text follows the icon, put the count in the
+  item's `aria-label` and pass `label=""`.
+- **Localizing** `label` (`locale` only changes digits).
+- **Announcing arrivals** that matter through a separate `role="status"` region.
+- **Contrast** of at least 3:1 if you change the default `error` colors.
+
 ## Focus & motion
 
 - **Focus visibility.** Components show a visible focus ring on

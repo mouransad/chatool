@@ -75,7 +75,10 @@ If **none** apply, leave it directive-free — it's a Server Component.
   press **ripple**, a separate `"use client"` island it renders as a child (the
   "client island in a server primitive" pattern — see below).
   **`@chatool/ui/divider`** is server-only all the way down: no directive and no
-  island, so it ships no client JavaScript at all.
+  island, so it ships no client JavaScript at all. So is **`@chatool/ui/badge`**,
+  even though it animates: its motion is pure CSS (`@starting-style`, spring
+  `linear()` transitions, and a label keyed by its text so a new count re-mounts
+  and re-plays its entrance) — no hooks, no state, no island.
 - **Client (`"use client"`):** the button's ripple island, the loading family
   (`@chatool/ui/loading-indicator`, `/linear-progress`, `/circular-progress`, which
   draw per frame but still server-render their first frame), `@chatool/core`'s

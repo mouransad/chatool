@@ -18,6 +18,9 @@ export default defineChatoolConfig({
     "circular-progress": "src/loading/circular-progress/index.tsx",
     // The divider family (`src/dividers/`). Pure Server Component (`./divider`).
     divider: "src/dividers/divider/index.tsx",
+    // The badge family (`src/badges/`). Pure Server Component (`./badge`); its
+    // motion is CSS-only (`@starting-style` + spring `linear()` easings).
+    badge: "src/badges/badge/index.tsx",
     // INTERNAL chunk (no `exports` entry — not a public subpath). The press
     // ripple is the button family's only `"use client"` module; giving it its
     // own entry guarantees the directive is preserved as a distinct client
