@@ -34,19 +34,29 @@ stay minimal. `Button` is **Server-Component-safe** (it carries no `"use client"
 its only client part is the press ripple, a separate island (see
 [Accessibility & rendering](#accessibility--rendering)).
 
-| Subpath                         | Exports                                                          |
-| ------------------------------- | ---------------------------------------------------------------- |
-| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                      |
-| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`              |
-| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`            |
-| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`  |
-| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`      |
-| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`  |
-| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                    |
-| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants` |
+| Subpath                         | Exports                                                                                                                                                                                                                                         |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                                                                                                                                                                                                     |
+| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`                                                                                                                                                                                             |
+| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`                                                                                                                                                                                           |
+| `@chatool/ui/fab`               | `Fab` (also `default`), `fabVariants`; types `FabProps`, `FabSize`, `FabColor`, `FabElevation`, `FabPlacement`, `FabWindowClass`, `FabResponsive`                                                                                               |
+| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`                                                                                                                                                                                 |
+| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`                                                                                                                                                                                     |
+| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`                                                                                                                                                                                 |
+| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                                                                                                                                                                                                   |
+| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants`                                                                                                                                                                                |
+| `@chatool/ui/checkbox`          | `Checkbox` (also `default`), `checkboxVariants`, `checkboxFieldVariants`                                                                                                                                                                        |
+| `@chatool/ui/radio`             | `Radio` (also `default`), `radioVariants`, `radioFieldVariants`                                                                                                                                                                                 |
+| `@chatool/ui/radio-group`       | `RadioGroup` (also `default`), `radioGroupVariants`                                                                                                                                                                                             |
+| `@chatool/ui/switch`            | `Switch` (also `default`), `switchVariants`, `switchFieldVariants`                                                                                                                                                                              |
+| `@chatool/ui/card`              | `Card` (also `default`) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`, `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction`; `cardVariants`, `cardMediaVariants`, `cardHeadlineVariants`, `cardActionsVariants` |
+| `@chatool/ui/tooltip`           | `Tooltip` (also `default`) + `TooltipProvider`, `TooltipAction`; `tooltipVariants`                                                                                                                                                              |
+| `@chatool/ui/text-field`        | `TextField` (also `default`), `textFieldVariants`; types `TextFieldProps`, `TextFieldInputProps`, `TextFieldTextareaProps`, `TextFieldLabels`, `TextFieldClassNames`                                                                            |
+| `@chatool/ui/chip`              | `Chip` (also `default`), `chipVariants`; types `ChipProps`, `ChipVariant`                                                                                                                                                                       |
+| `@chatool/ui/chip-set`          | `ChipSet` (also `default`), `chipSetVariants`; types `ChipSetProps`, `ChipSetSelectionMode`                                                                                                                                                     |
 
-> The MD3 button family (FAB, segmented) is still being built out — this release
-> ships the **common Button**, the **Icon button**, and the **Button group**.
+> The MD3 button family ships the **common Button**, the **Icon button**, the
+> **Button group**, and the **FAB / extended FAB**.
 
 **`Button`** follows the Material 3 spec — **color is fixed per style**, there is
 no free color choice:
@@ -104,6 +114,53 @@ selection state — each child keeps its own `selected` / `aria-pressed`:
 > Pass the group an `aria-label` (or `aria-labelledby`) to name the set. The group
 > never overrides a child's `border-radius`, so each button keeps its default
 > finite shape and the select/deselect morph stays smooth.
+
+**`Fab`** is the MD3 **Expressive** floating action button — the **FAB** _and_
+the **extended FAB** in one element, so one can turn into the other (on scroll,
+or across window sizes) with a spring morph. Use it for the screen's single most
+important, constructive action (create, compose, start); never for minor or
+destructive ones, and only one per screen.
+
+| Prop        | Values                                                                                                                                         |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `icon`      | the glyph (a **filled** `@chatool/icons` icon, per MD3). Required for a FAB; optional for an extended FAB                                      |
+| `label`     | visible text — makes it an **extended FAB**. 1–2 words; it never wraps or truncates                                                            |
+| `expanded`  | `true` _(default)_ · `false`: an extended FAB (with an icon) collapses into a FAB. Responsive                                                  |
+| `size`      | `small` · `medium` _(default, MD3's "most recommended")_ · `large` — 56 / 80 / 96 dp. Responsive                                               |
+| `color`     | `primary-container` _(default)_ · `secondary-container` · `tertiary-container` · `primary` · `secondary` · `tertiary`                          |
+| `elevation` | `default` _(level 3, 4 on hover)_ · `lowered` _(1, 2 on hover)_ · `none` _(flat, for a FAB nested in a bar or rail)_                           |
+| `placement` | `bottom-end` · `bottom-center` · `bottom-start`: `position: fixed`, 16dp margins, clear of the safe area, RTL-aware. Omit to place it yourself |
+| `visible`   | `true` _(default)_ · `false`: shrinks to its center and fades out, and becomes `inert`. Use it instead of disabling                            |
+| `asChild`   | render onto your link (`<Fab asChild …><a href="/new" /></Fab>`); the FAB fills it with its icon, label and ripple                             |
+
+Measurements are the M3 Expressive spec (m3.material.io, Compose `material3`
+tokens):
+
+| `size`   | Container | Corner | Icon | Extended padding | Icon↔label | Label type     |
+| -------- | --------- | ------ | ---- | ---------------- | ---------- | -------------- |
+| `small`  | 56dp      | 16dp   | 24dp | 16dp             | 8dp        | Title Medium   |
+| `medium` | 80dp      | 20dp   | 28dp | 26dp             | 12dp       | Title Large    |
+| `large`  | 96dp      | 28dp   | 36dp | 28dp             | 16dp       | Headline Small |
+
+- **`small`** is the 56dp FAB / small extended FAB, not MD3's 40dp "small FAB",
+  which M3 Expressive no longer recommends and this library doesn't ship. The
+  surface color style is left out for the same reason.
+- **Responsive props.** `size` and `expanded` also take one value per MD3
+  **window size class**: `compact` (the base), `medium` (≥ 600px), `expanded`
+  (≥ 840px), `large` (≥ 1200px) and `extraLarge` (≥ 1600px). Each applies from
+  its breakpoint up. They resolve in CSS media queries, so they work in Server
+  Components with no hydration flash, and every change morphs:
+  `size={{ compact: "medium", expanded: "large" }}`,
+  `expanded={{ compact: false, expanded: true }}`.
+- **Motion** is M3 Expressive's, sampled from Compose's springs: geometry (the
+  extended ⇄ collapsed width, padding, corner, size, show/hide scale) rides the
+  **fast spatial** spring (damping 0.6, stiffness 800, ~350ms, slight
+  overshoot); fades, colors and elevation ride **fast effects** (1 / 3800,
+  ~140ms). On collapse the label folds away and the icon glides to the center.
+  A FAB pops in from its center when it first renders; re-key it to replay
+  that (MD3 hides and re-shows the FAB when switching tabs).
+- **Press feedback** (ripple + state layer in the icon color: hover 8%, focus /
+  press 10%) is built in.
 
 **`LoadingIndicator`** is the MD3 Expressive indicator for short waits: a looping
 morph through seven Material shapes, with Android's own geometry and motion. Pick
@@ -201,6 +258,458 @@ example at the trailing edge of a drawer item.
   hiding uses a quick `emphasized-accelerate` exit. `prefers-reduced-motion`
   keeps only the fade.
 
+**`Checkbox`** is the MD3 checkbox with M3 **Expressive** motion, built on a
+**native `<input type="checkbox">`**: an 18dp box with 2dp corners and a 2dp
+outline, a 40dp circular state layer and a 48dp touch target (the invisible input
+covers it). Every visual is driven in CSS from the input's own state (`:checked`,
+`:indeterminate`, `:disabled`, `aria-invalid`, `:user-invalid`, `:focus-visible`),
+so an uncontrolled checkbox toggles, animates and submits **before hydration and
+with no JavaScript**, and `<fieldset disabled>` disables it visually too. Every
+prop not listed below (`name`, `value`, `checked`, `defaultChecked`, `onChange`,
+`required`, `form`, `aria-*`, `ref`, …) goes straight to the input.
+
+| Prop                                      | Values                                                                                                                                                |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `checked` / `defaultChecked` / `onChange` | the native input API — controlled or uncontrolled                                                                                                     |
+| `indeterminate`                           | MD3 mixed state (dash). Sets the native `input.indeterminate` (announced "mixed"). **Controlled** — update it in `onChange`                           |
+| `error`                                   | MD3 error colors + `aria-invalid="true"`. `aria-invalid` alone works too, and a `required` box left unchecked turns error by itself (`:user-invalid`) |
+| `disabled`                                | MD3 38% treatment; no state layer, no ripple, no motion. A disabled `<fieldset>` has the same effect                                                  |
+| `label`                                   | visible label. Renders a `<label>` row: the text names the box, toggles it, and previews its state layer on hover/press                               |
+| `supportingText`                          | secondary text under the label, wired to `aria-describedby`; turns `error` color while invalid. Needs `label`                                         |
+| `labelPosition`                           | `end` _(default)_ · `start` — logical, so RTL mirrors it                                                                                              |
+| `color`                                   | `primary` _(default, MD3)_ · `secondary` · `tertiary` — fixed, contrast-safe container/check pairs                                                    |
+| `className`                               | the outermost element: the label row when `label` is set, otherwise the control                                                                       |
+| `controlClassName`                        | the 48dp control (the box's touch target) in both cases                                                                                               |
+| `style`                                   | the outermost element (not the invisible input)                                                                                                       |
+
+- **States, per MD3 tokens.** Unselected: `on-surface-variant` outline
+  (`on-surface` on hover, focus and press). Selected: `primary` container,
+  `on-primary` check. Error: `error` / `on-error`. Disabled: `on-surface` at 38%
+  with an opaque `surface` check. The state layer is `on-surface` (unselected) /
+  `primary` (selected) at 8% hover, 10% focus; **pressing flips it** (`primary`
+  when unselected, `on-surface` when selected) so the ripple previews the state
+  you are about to land in. Focus adds MD3's 3dp `secondary` indicator.
+- **Expressive motion, CSS-only.** Checking **draws** the check from its short tip,
+  through the vertex, to its long tip on M3 Expressive's _default spatial_ spring
+  (damping 0.8, stiffness 380), like Compose's Checkbox; colors fade in on the
+  _default effects_ spring. Checked ⇄ indeterminate **morphs**: the check rotates
+  flat while its short leg retracts into the dash. Unchecking fades colors on the
+  _fast effects_ spring and snaps the mark away after 100ms. Initially checked
+  boxes render still (no animation on page load). `prefers-reduced-motion` keeps
+  only the color fades; disabled boxes never animate.
+- **Label it.** Use `label`, or for a bare box (tables, list rows) `aria-label`,
+  `aria-labelledby` or your own `<label htmlFor>`.
+- **Group related boxes** in a `<fieldset>` with a `<legend>` (or
+  `role="group"` + `aria-labelledby`).
+
+**`Radio`** is the MD3 radio button with M3 **Expressive** motion, built on a
+**native `<input type="radio">`**: a 20dp icon (a ring stroked 2dp and a 10dp dot,
+Compose's exact geometry), a 40dp circular state layer and a 48dp touch target
+(the invisible input covers it). Every visual is driven in CSS from the input's own
+state (`:checked`, `:disabled`, `aria-invalid`, `:user-invalid`,
+`:focus-visible`), so same-`name` radios select, animate, move with the arrow keys
+and submit **before hydration**. Every prop not listed below (`name`, `value`,
+`checked`, `defaultChecked`, `onChange`, `required`, `form`, `aria-*`, `ref`, …)
+goes straight to the input.
+
+| Prop                                      | Values                                                                                                                    |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `checked` / `defaultChecked` / `onChange` | the native input API. Inside a `RadioGroup`, use the group's `value` / `defaultValue` / `onValueChange` instead           |
+| `value`                                   | what the radio submits and what a `RadioGroup` matches against (native default `"on"`)                                    |
+| `error`                                   | `error` ring/dot + `aria-invalid="true"` (an addition — MD3 defines no error radio). `:user-invalid` also triggers it     |
+| `disabled`                                | MD3 38% treatment; no state layer, no ripple, no motion. A disabled `<fieldset>` / `RadioGroup` has the same effect       |
+| `label`                                   | visible label. Renders a `<label>` row: the text names the radio, selects it, and previews its state layer on hover/press |
+| `supportingText`                          | secondary text under the label, wired to `aria-describedby`. Needs `label`                                                |
+| `labelPosition`                           | `end` _(default)_ · `start` — logical, so RTL mirrors it. Unset, inherited from the `RadioGroup`                          |
+| `color`                                   | `primary` _(default, MD3)_ · `secondary` · `tertiary`. Unset, inherited from the `RadioGroup`                             |
+| `className`                               | the outermost element: the label row when `label` is set, otherwise the control                                           |
+| `controlClassName`                        | the 48dp control in both cases                                                                                            |
+
+**`RadioGroup`** is the group: a native **`<fieldset role="radiogroup">`** named by its
+`<legend>`. It shares a `name` (generated if you don't pass one), the selection and
+`required` / `form` with every `Radio` inside it, at any depth.
+
+| Prop                                       | Values                                                                                                                       |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `value` / `defaultValue` / `onValueChange` | controlled (`string`, or `null` for none) or uncontrolled selection; `onValueChange(value, event)` fires when the user picks |
+| `name`                                     | the shared native `name` (what the form submits). Generated with `useId` when omitted                                        |
+| `label`                                    | the `<legend>` title and the group's accessible name (or pass `aria-label` / `aria-labelledby`)                              |
+| `supportingText`                           | text under the options, wired to the group's `aria-describedby`; `error` color while invalid                                 |
+| `required`                                 | native "pick one" validation + `aria-required`; a failed submit turns the group `error` by itself (`:user-invalid`)          |
+| `error`                                    | `aria-invalid` on the group + `error` colors on every radio and the supporting text                                          |
+| `disabled`                                 | a native `<fieldset disabled>`: every radio is out of the tab order, not submitted, and dimmed                               |
+| `orientation`                              | `vertical` _(default — MD3)_ · `horizontal` (wraps; MD3 cautions against it, keep it to a few short options)                 |
+| `color` / `labelPosition`                  | defaults for every radio inside (a radio's own prop wins)                                                                    |
+| `form`                                     | associates every radio with a `<form>` elsewhere, by id                                                                      |
+| `className` / `itemsClassName`             | the fieldset / the element wrapping the radios (a flex column or wrapping row)                                               |
+
+- **States, per MD3 tokens.** Unselected: `on-surface-variant` (`on-surface` on
+  hover, focus and press). Selected: `primary` ring and dot in every state.
+  Disabled: `on-surface` at 38%. The state layer is `on-surface` (unselected) /
+  `primary` (selected) at 8% hover, 10% focus; **pressing flips it** so the ripple
+  previews the state you are about to land in. Focus adds MD3's 3dp `secondary`
+  indicator. Labels stay `on-surface` whatever the state (MD3).
+- **Expressive motion, CSS-only, from Compose's `RadioButton`.** Selecting springs
+  the dot open on M3 Expressive's _fast spatial_ spring (damping 0.6, stiffness
+  800): it overshoots ~9.5% and settles in 348ms. The radio you leave retracts on
+  the same spring, cut at its zero-crossing (98ms) — Compose doesn't draw a dot
+  below zero radius, so neither do we. Ring and dot colors fade on the _default
+  effects_ spring (212ms). Initially selected radios render still;
+  `prefers-reduced-motion` keeps only the color fade; disabled radios never animate.
+- **MD3 usage.** Radios are for **one** choice from a list of about **five or
+  fewer** visible options (more → a menu). List them **vertically**; pre-select an
+  option when you can, and since a radio can't be cleared, offer a "None" option
+  (or a "Clear selection" action) if opting out is allowed. Every radio needs a
+  label, and the label must select it. Don't nest radios.
+
+**`Switch`** is the MD3 switch with M3 **Expressive** motion, built on a **native
+`<input type="checkbox" role="switch">`** (the APG and Material Web approach): a
+52×32dp track with a 2dp outline, a circular handle that is **16dp off, 24dp on (or
+when it carries an icon) and 28dp while pressed or dragged**, a 16dp icon, a 40dp
+state layer that travels with the handle and a 48dp touch target (the invisible
+input covers it). Every visual is driven in CSS from the input's own state
+(`:checked`, `:disabled`, `:active`, `:focus-visible`), so an uncontrolled switch
+toggles, animates and submits **before hydration**. Every prop not listed below
+(`name`, `value`, `checked`, `defaultChecked`, `onChange`, `required`, `form`,
+`aria-*`, `ref`, …) goes straight to the input.
+
+| Prop                                      | Values                                                                                                                        |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `checked` / `defaultChecked` / `onChange` | the native input API (`event.target.checked`)                                                                                 |
+| `onCheckedChange`                         | `(checked, event) => void` — Compose's API; fires once per user toggle (click, tap, drag, Space, Enter), after `onChange`     |
+| `name` / `value`                          | submitted like a checkbox: `value` (default `"on"`) when on, nothing when off                                                 |
+| `icons`                                   | `false` _(default)_ · `"selected"` (a check on the selected handle, rotating in) · `true` (check when on, close "×" when off) |
+| `selectedIcon` / `unselectedIcon`         | any node replacing the check / close glyph (e.g. an `@chatool/icons` icon); they imply `icons` when it's unset                |
+| `disabled`                                | MD3 treatment (track 12%, handle/icon 38%, selected handle opaque `surface`); no press, drag, ripple or motion                |
+| `label`                                   | visible label — what the switch turns **on**. Renders a `<label>` row: the text names it, toggles it, previews its state      |
+| `supportingText`                          | secondary text under the label, wired to `aria-describedby`. Needs `label`                                                    |
+| `labelPosition`                           | `start` _(default — MD3 settings rows: text, then switch)_ · `end` — logical, so RTL mirrors it                               |
+| `color`                                   | `primary` _(default, MD3)_ · `secondary` · `tertiary` — swaps the whole role family (track, handle, hovered handle, icon)     |
+| `className`                               | the outermost element: the label row when `label` is set, otherwise the control                                               |
+| `controlClassName`                        | the switch control (the track box) in both cases                                                                              |
+
+- **States, per MD3 tokens.** Off: `surface-container-highest` track with an
+  `outline` border and an `outline` handle that turns `on-surface-variant` on
+  hover, focus and press; icon `surface-container-highest`. On: `primary` track (no
+  border), `on-primary` handle that turns `primary-container` on hover, focus and
+  press; icon `on-primary-container`. The state layer is `on-surface` (off) /
+  `primary` (on) at 8% hover, 10% focus and press, and rides on the handle. Focus
+  adds MD3's 3dp `secondary` indicator around the **track**. Labels stay
+  `on-surface` whatever the state (MD3).
+- **Expressive motion, CSS-only, from Compose's `Switch`.** Toggling slides and
+  resizes the handle on M3 Expressive's _fast spatial_ spring (damping 0.6,
+  stiffness 800): ~9.5% overshoot, settled in 348ms. Pressing **snaps** the handle
+  to 28dp (Compose's `SnapSpec`), and releasing springs it to its new side and size.
+  Colors fade in 67ms and icons in 33ms (Material Web); a lone check rotates in from
+  −45°. `prefers-reduced-motion` keeps only the fades; disabled switches never
+  animate.
+- **Drag to toggle** (MD3: "Touch: Tap, Drag"). Past a few pixels the handle follows
+  the pointer 1:1, then lands on the side you flicked it towards, or the nearer
+  side on a slow release. Releasing on the side it started on changes nothing. A
+  vertical swipe still scrolls the page. Each toggle reaches `onChange` exactly
+  once, as a normal click.
+- **MD3 usage.** Switches turn **one standalone setting on or off, and take effect
+  immediately**, with no Save step. For several related options use checkboxes; for
+  one choice from a list, radios; for opposing options (list / map), a connected
+  button group. Always pair a switch with a short inline label that describes what
+  it turns on. Never put text inside the switch, and only use icons whose meaning is
+  unambiguous (check / close).
+
+**`Card`** is the MD3 card — a container for content and actions about **one
+subject** — with the exact Compose / Material Web tokens and M3 **Expressive**
+shape and motion. Three variants, same legibility and function, different
+separation: **elevated** (`surface-container-low`, level 1 shadow), **filled**
+(`surface-container-highest`, subtle, the default — like Compose's `Card()`) and
+**outlined** (`surface` + a 1dp `outline-variant` boundary). The container has a
+12dp (`corner-medium`) shape and 16dp padding; parts are composed as children, and
+the container is the only required one.
+
+| Prop          | Values                                                                                                                                                                                                                                             |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`     | `filled` _(default)_ · `elevated` · `outlined`                                                                                                                                                                                                     |
+| `shape`       | the M3 Expressive corner scale: `none` · `extra-small` · `small` · `medium` _(default, 12dp)_ · `large` · `large-increased` · `extra-large` · `extra-large-increased` · `extra-extra-large` (48dp). Changes morph on the Expressive spatial spring |
+| `orientation` | `vertical` _(default)_ · `horizontal` (media beside the content — MD3's compact layout)                                                                                                                                                            |
+| `asChild`     | render onto the child: `<article>`, an `<li>` in a collection, or — for a **directly actionable** card — `<a>` / `<button>` / `<label>` / a router `<Link>`                                                                                        |
+| `interactive` | hover / pressed / focus states, ripple, pointer cursor. **Auto-detected** for an `asChild` `<a>`, `<button>`, `<label>`, `<summary>` or a child with `href` / `onClick`; a `CardPrimaryAction` needs neither                                       |
+| `disabled`    | `<button>` card → native `disabled`; other actionable cards → `aria-disabled`; a container card → `inert`. MD3's disabled container, elevation and outline, content at 38%                                                                         |
+| `dragged`     | picked up: dragged elevation (level 4 elevated, 3 filled/outlined) + the 16% dragged state layer, drawn in front of its siblings                                                                                                                   |
+| `selected`    | MDC-Android's checked card: `secondary` 16% tint, `secondary` outline (outlined) and state layer, and a 24dp check-circle at the top-end corner. Sets `aria-pressed` on a `<button>` card                                                          |
+| `checkIcon`   | the check shown while selected: `true` (built-in), a node, or `false`. Defaults to `true` whenever `selected` is set; pass it for `<label>` / toggle-action cards                                                                                  |
+
+| Part                 | What it is                                                                                                                                                                                                                                                                                                                                                           |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CardMedia`          | thumbnail / image / video. **Full-bleed** by default (cancels the padding on every edge it touches, orientation- and position-aware); `inset` keeps the padding with an **optically round** radius (outer − padding); `placement="first"` moves it to the top visually while the DOM keeps the heading first; `asChild` makes the `<img>` / `<video>` itself the box |
+| `CardHeader`         | row of `leading` (avatar / thumbnail) · text column (`children`) · `trailing` (overflow-menu `IconButton`, timestamp)                                                                                                                                                                                                                                                |
+| `CardContent`        | the text block; it grows, so the actions of equal-height cards line up at the bottom                                                                                                                                                                                                                                                                                 |
+| `CardHeadline`       | an `<h3>` in `title-medium` (`size` `small` · `medium` · `large` → `title-*`); `asChild` picks the level; `maxLines` clamps                                                                                                                                                                                                                                          |
+| `CardSubhead`        | `<p>`, `body-medium`, `on-surface-variant`; `maxLines`                                                                                                                                                                                                                                                                                                               |
+| `CardSupportingText` | `<p>`, `body-medium`, `on-surface-variant`, 8dp below the text above it; `maxLines`                                                                                                                                                                                                                                                                                  |
+| `CardActions`        | buttons / icon buttons / chips, pushed to the bottom, wrapping; `align` `end` _(default)_ · `start` · `between` · `stretch`                                                                                                                                                                                                                                          |
+| `CardPrimaryAction`  | the **primary action area**: a real `<a href>` (or `<button>`, or `asChild` for a router link) whose `::after` stretches over the card; `disabled`, and `selected` for a toggle `<button>`                                                                                                                                                                           |
+
+- **States, per tokens.** Hover: elevated 1 → 2, filled / outlined 0 → 1, 8%
+  `on-surface` state layer. Focus: 10% layer + MD3's 3dp `secondary` indicator 2dp
+  outside the container; an outlined card's outline turns `on-surface`. Pressed:
+  10% layer, elevated sinks back to level 1, plus a ripple **across** the card
+  (state layer and ripple sit above the content, as in Compose, so they cover
+  full-bleed media). Dragged: 16% layer. A **container** card has none of these
+  (MD3: non-actionable cards don't hover or ripple).
+- **Motion.** Elevation, colors and the outline follow Compose's elevation tweens —
+  enter 120ms `FastOutSlowIn`, exit 150ms `(0.4, 0, 0.6, 1)`. Corner changes ride
+  the M3 Expressive default spatial spring (412ms); the check icon pops in on the
+  fast spatial spring (~9.5% overshoot, 348ms) and leaves on a quick
+  emphasized-accelerate fade. `prefers-reduced-motion` keeps only the fades.
+- **MD3 usage.** One subject per card; don't force content into cards where
+  spacing, headlines or dividers would do. Collections are **coplanar** (same
+  resting elevation) in a grid, list or carousel, ≤ 8dp apart; filters and sorting
+  sit outside the collection. A card is **either** a container holding actions
+  **or** directly actionable — never an action on an actionable surface (the
+  stretched `CardPrimaryAction` keeps nested controls above it, never under it).
+  Cards don't scroll internally: clamp with `maxLines` and expand / navigate for
+  the rest. Avoid text over images, or add a scrim. Swipe and drag need a
+  single-pointer alternative (e.g. a menu).
+
+### Tooltip (`@chatool/ui/tooltip`)
+
+The MD3 tooltip, **plain** or **rich**, with M3 Expressive motion. It wraps one
+element (the **anchor**) and renders nothing else until it shows.
+
+- **Plain** labels an element with no text of its own (icon buttons): an
+  `inverse-surface` container, `body-small` `inverse-on-surface` text, 4dp
+  corners, 24dp min height, 8dp side padding, 200dp max width. One line is
+  centred; wrapped text is start-aligned. It sits **above** the anchor, 4dp away.
+- **Rich** explains: a `surface-container` card at elevation 2 with 12dp corners
+  and a 320dp max width, an optional `title-small` subhead, `body-medium`
+  supporting text and up to two `primary` text buttons. Padding is 12dp top, 16dp
+  sides, 8dp bottom (12dp without actions); 4dp between subhead and text, 12dp
+  above the 40dp action row. It sits at the anchor's **bottom corner** (MD3: "the
+  bottom right of the parent element").
+
+| Prop                                                                          | Values                                                                                                                                                                                                                                  |
+| ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`                                                                    | the anchor: **one** element that forwards its props and `ref` to a DOM node (`Button`, `IconButton`, any native element)                                                                                                                |
+| `content`                                                                     | the message (plain) or supporting text (rich). Empty (`null`, `""`, `false`) renders nothing                                                                                                                                            |
+| `variant`                                                                     | `plain` · `rich`. Defaults to `rich` when `title`, `actions` or `persistent` is set                                                                                                                                                     |
+| `title`                                                                       | rich subhead (one line)                                                                                                                                                                                                                 |
+| `actions`                                                                     | rich actions: up to two `TooltipAction`s. Clicking one closes the tooltip, unless it has `data-tooltip-keep-open`                                                                                                                       |
+| `persistent`                                                                  | MD3 **persistent** rich tooltip: opens on the anchor's **click** (not hover / focus) and stays until Escape, a press elsewhere, focus moving away, or an action. `defaultOpen` shows one on page load                                   |
+| `caret`                                                                       | Compose's 16×8dp caret pointing at the anchor's centre; follows flips and shifts                                                                                                                                                        |
+| `side`                                                                        | `top` _(plain default)_ · `bottom` _(rich default)_ · `start` · `end` (logical) · `left` · `right`                                                                                                                                      |
+| `align`                                                                       | `center` _(plain default)_ · `start` · `end` (edges flush) · `after` _(rich default)_ · `before` (beside the anchor, corners touching)                                                                                                  |
+| `offset` / `alignOffset`                                                      | px from the anchor (default `4`, MD3; use `8` for text with no visual boundary) / extra shift along the edge                                                                                                                            |
+| `collisionPadding` / `flip`                                                   | minimum distance from the viewport edges (default `8`) / flip to the opposite side or mirrored alignment when out of room (default `true`). It also shifts along the edge to stay on screen                                             |
+| `open` / `defaultOpen` / `onOpenChange`                                       | controlled or uncontrolled. `onOpenChange(open, { reason, event })`; `reason` is `hover` · `focus` · `blur` · `long-press` · `click` · `press` · `escape` · `outside-press` · `focus-outside` · `action` · `anchor-hidden` · `replaced` |
+| `disabled`                                                                    | never show it (the anchor keeps its name)                                                                                                                                                                                               |
+| `relationship`                                                                | `description` _(default)_: `aria-describedby` · `label`: the text **names** the anchor (`aria-label`; string `content` only) · `none`: you wire it                                                                                      |
+| `interactive`                                                                 | the tooltip has controls: it becomes a non-modal `dialog`, the anchor gets `aria-haspopup` / `aria-expanded`, Tab moves in and out. Defaults to `true` with `actions` or `persistent`                                                   |
+| `hoverable`                                                                   | keep it open while the pointer is over it (default `true`, WCAG 1.4.13); `false` makes it ignore the pointer                                                                                                                            |
+| `showDelay` / `hideDelay` / `skipDelay` / `touchShowDelay` / `touchHideDelay` | ms; defaults `500` / `1500` / `300` / `500` / `1500` (see Behavior). Any of them can be set app-wide with `TooltipProvider`                                                                                                             |
+| `container`                                                                   | where it renders. Default: the anchor's open `<dialog>`, else `<body>`                                                                                                                                                                  |
+| `className` / `style` / other `div` props                                     | the tooltip **surface**                                                                                                                                                                                                                 |
+
+| Export            | What it is                                                                                                                                                       |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `TooltipProvider` | optional defaults for every tooltip below it: the five timings and `container`. A tooltip's own props win; nested providers inherit what they don't set          |
+| `TooltipAction`   | a rich tooltip's action: `Button` with `variant="text"` and the padding the action row is built around (labels line up with the text). Every `Button` prop works |
+
+- **Behavior (MD3).** Hover (mouse / pen) shows it after `showDelay`; while a
+  tooltip is showing, or within `skipDelay` after one closed, the next shows at
+  once, so scanning a toolbar reads fluently. **Keyboard focus** shows it at once
+  (`:focus-visible` only, never a mouse click). **Touch:** a long-press shows it
+  and swallows the click that would follow; it stays `touchHideDelay` after
+  release. Leaving starts `hideDelay` (MD3: "disappear 1.5 seconds after
+  navigating away"); moving onto the tooltip itself keeps it. **Only one** shows
+  at a time: a new tooltip closes the previous one. Pressing the anchor, a press
+  elsewhere, Escape, blur and the anchor scrolling out of view all close it at
+  once.
+- **Motion.** Compose's `TooltipBox`: scale 0.8 → 1 on the Expressive
+  **fast-spatial** spring (350ms, ~9.5% overshoot), growing out of the point
+  nearest the anchor, with a **fast-effects** fade (140ms). Exits fade and shrink
+  on fast effects only. `prefers-reduced-motion` keeps the fade and drops the
+  scale.
+- **Placement.** Rendered in the browser's **top layer** (native Popover API):
+  above every stacking context, `overflow` clip and modal `<dialog>`, with no
+  `z-index` to manage. Positioned with Floating UI: it flips, shifts to stay
+  `collisionPadding` inside the viewport, follows its anchor on scroll and resize,
+  and mirrors `start` / `end` in RTL.
+- **MD3 usage.** Plain tooltips for icon-only buttons, not for elements that
+  already show their label. Keep plain text short; use rich for definitions and
+  explanations. Never hide critical information in a tooltip (use a dialog).
+  Persistent rich tooltips appear on click or on page load for feature discovery
+  (give those a subhead); avoid them on icon buttons.
+
+### Text field (`@chatool/ui/text-field`)
+
+The MD3 text field, **filled** or **outlined**, with M3 Expressive motion. One
+component covers MD3's single-line field, growing **multi-line** field and fixed
+**text area**, over the real `<input>` / `<textarea>`.
+
+- **Anatomy & sizes** (Compose `FilledTextFieldTokens` / `OutlinedTextFieldTokens`
+  v0_210 + `TextFieldImpl.kt`, Material Web `md-*-field`). 56dp tall; 16dp
+  top/bottom padding, or 8dp + the 16dp floated-label line + 24dp of input + 8dp
+  for a filled field with its label inside. 16dp start/end; an icon is a 24dp
+  glyph in a 48dp target flush with the edge (12dp in), 16dp from the text.
+  Prefix / suffix sit 2dp from the text. Supporting text and the counter are
+  body-small, 4dp below and 16dp in, 16dp apart. Corners: extra-small (4dp), top
+  only when filled. Default width 280dp (Compose's `MinWidth`); `className="w-full"`
+  to fill. **Density** `-1`…`-4` removes 4dp per step (56 → 40dp).
+- **Colors.** Filled: `surface-container-highest` container, `on-surface-variant`
+  1dp active indicator, 8% `on-surface` hover state layer (indicator →
+  `on-surface`). Outlined: 1dp `outline` (hover `on-surface`), transparent
+  container. Focused: 2dp `primary` indicator / outline, `primary` label and
+  caret. Error: `error` label, indicator, trailing icon, supporting text and
+  caret; hovering an unfocused error field shifts label / indicator / trailing
+  icon to `on-error-container`. Disabled: content `on-surface` 38%, filled
+  container 4%, outline 12%, no motion. Read-only looks like enabled (MD3).
+- **Label.** Rests in the middle (body-large, aligned with the text) and floats on
+  focus, once there's a value, on autofill, or always (`alwaysFloatLabel`,
+  date/time types): to the top of a filled container, or into a **notch** in the
+  outline (4dp padding each side) at 16dp, above a leading icon. The notch is
+  CSS-only (an invisible copy of the floated label sizes it), so it's exact for
+  any font. An outlined field with a label reserves 8dp above itself so the
+  floated label never overlaps what's above (Compose does the same).
+  `labelPosition="above"` puts a body-small label above the container instead.
+- **Motion (Expressive).** The label moves **and resizes** (body-large →
+  body-small — the real font size, as Compose lerps the text style) on the
+  fast-spatial spring (0.6 / 800, 348ms, ~9.5% overshoot); the indicator /
+  outline thickens on the same spring and the notch opens from its centre with
+  it. Colors use fast effects (137ms); the placeholder fades in on slow effects
+  (299ms) when an empty field gains focus. `prefers-reduced-motion` keeps the
+  fades only.
+
+| Prop                                         | Values                                                                                                                                                                                                           |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`                                    | `filled` _(default)_ · `outlined` — same function, different emphasis; don't mix them in one region                                                                                                              |
+| `label`                                      | the label (every field should have one). A real `<label for>`; omit only when an adjacent label names the field (then pass `aria-label` / `aria-labelledby`)                                                     |
+| `labelPosition`                              | `attached` _(default: inside / in the outline)_ · `above` (Compose's `TextFieldLabelPosition.Above`)                                                                                                             |
+| `alwaysFloatLabel`                           | keep the inside label floated while empty, so `placeholder`, `prefix` and `suffix` stay visible                                                                                                                  |
+| `placeholder`                                | hint text; with an inside label it shows only while focused (MD3)                                                                                                                                                |
+| `required` / `requiredIndicator`             | native `required` + MD3's asterisk after the label (part of the accessible name). `requiredIndicator` replaces `"*"`; `null` hides it                                                                            |
+| `supportingText` / `supportingTextOnFocus`   | helper text under the field (`aria-describedby`), `error`-colored while invalid; optionally only while focused (space stays reserved)                                                                            |
+| `error`                                      | `true` forces the error state + `aria-invalid`; `false` suppresses it (a form library owns validation); `undefined` _(default)_ also shows it for native constraint failures after interaction (`:user-invalid`) |
+| `errorText`                                  | replaces `supportingText` while invalid (MD3: swap, don't stack); announced with `role="alert"` when `error` turns on                                                                                            |
+| `errorIcon`                                  | `true` _(default)_: MD3's trailing error glyph in the error state, only when there's no `trailingIcon`. A node replaces it, `false` turns it off                                                                 |
+| `leadingIcon` / `trailingIcon`               | an icon or `IconButton`, each in a 48dp box; mirror in RTL. Decorative SVGs follow the icon colors                                                                                                               |
+| `prefix` / `suffix`                          | text before / after the input (`$`, `kg`, `@gmail.com`), shown with the floated label, added to `aria-describedby`                                                                                               |
+| `clearable` / `clearIcon`                    | MD3's clear icon button, only while there's editable text; **Escape** clears too. Fires `onChange` like typing, keeps focus, stays out of the Tab order                                                          |
+| `passwordToggle`                             | `type="password"` gets a show / hide button by default (`false` to remove); relabels itself and re-hides the password on form submit / reset                                                                     |
+| `counter`                                    | MD3 character counter, automatic with `maxLength` (`n/max`, spoken "n of max characters"); `true` without `maxLength` shows a count; `false` hides it                                                            |
+| `multiline` / `minRows` / `maxRows` / `rows` | a `<textarea>`: grows from `minRows` _(1)_ to `maxRows` (then scrolls); with `rows`, a fixed-height MD3 **text area**                                                                                            |
+| `density`                                    | `"0"` _(default)_ · `"-1"` · `"-2"` · `"-3"` · `"-4"` (−4dp each). MD3: let users opt into density, don't default to it                                                                                          |
+| `color`                                      | focus accent: `primary` _(default, MD3)_ · `secondary` · `tertiary`                                                                                                                                              |
+| `labels`                                     | localized strings: `clear`, `showPassword`, `hidePassword`, `error`, `characterCount` (`{count}` / `{max}` template)                                                                                             |
+| `asChild` + `children`                       | render your own control (masked input, autocomplete input) as the field; it gets the classes, `id`, `placeholder`, `aria-*`                                                                                      |
+| `classNames`                                 | extra classes per part: `container`, `input`, `label`, `leadingIcon`, `trailingIcon`, `prefix`, `suffix`, `supportingText`, `counter`                                                                            |
+| `className` / `style`                        | the **root** (width, margins, token overrides)                                                                                                                                                                   |
+| everything else                              | the native control: `name`, `type`, `value` / `defaultValue`, `onChange`, `maxLength`, `pattern`, `autoComplete`, `inputMode`, `disabled`, `readOnly`, `aria-*`, `ref`, …                                        |
+
+- **MD3 usage.** Every field gets a label (short, never truncated or wrapped).
+  Swap supporting text for error text instead of adding a line; describe how to
+  fix the error. Mark required fields with `*` and explain it once (supporting
+  text or a note at the top of the form). Prefer a fixed-height text area to a
+  growing multi-line field on the web. Use clear icons only when there's text.
+  Don't span the full width of large screens; don't make dense fields the
+  default.
+
+### Chips (`@chatool/ui/chip`, `@chatool/ui/chip-set`)
+
+MD3 chips — **assist**, **filter**, **input** and **suggestion** — with M3
+Expressive shape morph and motion, plus `ChipSet`, the keyboard / selection
+container MD3 asks for ("chips appear as a group").
+
+- **Variants (pick by purpose and author).** _Assist_: a smart, contextual action
+  (start with a verb: "Add to calendar"). _Filter_: a tag that filters a
+  collection; selecting it adds a leading checkmark. _Input_: a piece of
+  information the person entered (a contact, a tag), with a remove action.
+  _Suggestion_: a dynamically generated suggestion (a quick reply). Chips aren't
+  buttons: use them for contextual, supplemental options, in a set — never alone
+  and never to finish or progress a task.
+- **Anatomy & sizes** (m3.material.io specs, Compose `*ChipTokens` v7_0_1 +
+  `Chip.kt`, Material Web v34). 32dp tall, `label-large`, 18dp icons, a 24dp round
+  avatar. Compose's exact spacing: 16dp | label | 16dp with no icon; 8dp | icon |
+  8dp | label | 16dp with a leading icon; input chips 4dp | avatar | 8dp; a
+  trailing icon / remove action sits 8dp after the label with 8dp end padding.
+  Labels truncate with an ellipsis (MD3: ≤ 20 characters). Every chip has a 48dp
+  touch target (the remove action too: 48 × 48dp), even though it's 32dp tall.
+- **Colors.** Flat chips are transparent with a 1dp `outline-variant` outline
+  (`on-surface` / `on-surface-variant` when focused); `elevated` chips (over
+  images or busy backgrounds) are `surface-container-low` with elevation 1 → 2 on
+  hover. Labels: assist `on-surface`, the others `on-surface-variant`. Leading
+  icons `primary` (an input chip's is `on-surface-variant` and turns `primary` on
+  hover / focus / press). Selected filter / input chips fill with
+  `secondary-container` and drop the outline (`on-secondary-container` content);
+  a selected flat filter chip rises to elevation 1 on hover. State layers 8% /
+  10% / 10% / 16% (hover / focus / press / drag) of the label color; 3dp
+  `secondary` focus ring 2dp outside. Disabled: content `on-surface` 38%,
+  outline 12%, a selected or elevated container `on-surface` 12%.
+- **M3 Expressive (default).** From Compose's `ChipsTokens` (v37) and the
+  `@material3expressive` `FilterChip` / `InputChip(shapes = …)` overloads: the
+  container **morphs** — 12dp corners at rest, a **full pill when selected**,
+  8dp **while pressed** — on the fast-spatial spring (0.6 / 800, 348ms, ~9.5%
+  overshoot). The checkmark is **revealed from the start edge** on the same
+  spring (Compose's `expandHorizontally`) and fades on default effects (212ms);
+  a chip with its own icon cross-fades the icon into the check. Filter / input
+  chips tighten the icon ⇄ label spacing to 4dp, and an unselected filter chip's
+  icon is the tonal `on-surface-variant`. `expressive={false}` gives the
+  baseline spec: a static 8dp corner, 8dp spacing, a `primary` icon.
+  `prefers-reduced-motion` keeps the fades only.
+- **`ChipSet`.** A `role="toolbar"` (WAI-ARIA APG toolbar, like Material Web's
+  `md-chip-set`) with a **single Tab stop**, ←/→ (mirrored in RTL) through every
+  chip action with wrap-around (`loop`), Home / End, and selection:
+  `selectionMode="single"` (an alternative to segmented buttons / radios) or
+  `"multiple"`, controlled or uncontrolled, `required`, and `name` to submit the
+  selection with a form. `layout="wrap"` _(default)_ breaks onto new lines (8dp
+  gaps); `layout="scroll"` is one horizontally scrolling row.
+
+**`Chip` props**
+
+| Prop                                                    | Values                                                                                                                                                                                      |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `variant`                                               | `assist` _(default)_ · `filter` · `input` · `suggestion`                                                                                                                                    |
+| `children`                                              | the label (the chip's accessible name)                                                                                                                                                      |
+| `icon`                                                  | leading 18dp icon (decorative). A filter chip swaps it for the checkmark while selected                                                                                                     |
+| `avatar`                                                | input chips: a 24dp round image or initials (wins over `icon`)                                                                                                                              |
+| `trailingIcon`                                          | decorative trailing icon inside the chip (e.g. a menu arrow on a filter chip); ignored when the chip is removable                                                                           |
+| `selected` / `defaultSelected` / `onSelectedChange`     | filter / input chips: controlled or uncontrolled selection (`aria-pressed`). Inside a selectable `ChipSet` the set's value wins                                                             |
+| `selectedIcon`                                          | filter chips: the selected leading icon (default: a checkmark); `false` for color-only selection                                                                                            |
+| `value`                                                 | the chip's identity inside a `ChipSet` (selection and `onRemove`)                                                                                                                           |
+| `removable` / `onRemove` / `removeLabel` / `removeIcon` | a remove action ("Remove {label}", 48dp target), also on Backspace / Delete. Implied by `onRemove`, `removeOnly`, or an input chip in a set with `onRemove`. `removeLabel` = localized name |
+| `removeOnly`                                            | input chips whose only action is removal: the whole chip is **one** remove button                                                                                                           |
+| `elevated`                                              | assist / filter / suggestion chips over images or busy backgrounds                                                                                                                          |
+| `expressive`                                            | `true` _(default)_: M3 Expressive shape morph + spacing + tonal icon · `false`: the baseline spec                                                                                           |
+| `loading`                                               | a spinner replaces the leading icon; `aria-busy`, keeps its colors, ignores activation                                                                                                      |
+| `disabled` / `softDisabled`                             | native `disabled` (skipped by the keyboard) / `aria-disabled` (same look, still focusable)                                                                                                  |
+| `dragged`                                               | drag-and-drop feedback: elevation 4 + the 16% dragged layer                                                                                                                                 |
+| `href` / `target` / `rel` / `download` / …              | a link chip (`<a>`); links can't be disabled                                                                                                                                                |
+| `asChild`                                               | put the chip's primary action on your element (e.g. Next's `<Link>`); its own text becomes the label                                                                                        |
+| `className` / `style`                                   | the **container** (layout, `--md-comp-chip-*` overrides)                                                                                                                                    |
+| `actionClassName`                                       | the primary action element                                                                                                                                                                  |
+| everything else                                         | the primary action: `onClick`, `id`, `type`, `aria-*`, `data-*`, …                                                                                                                          |
+
+**`ChipSet` props**
+
+| Prop                                       | Values                                                                                                                        |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `aria-label` / `aria-labelledby`           | the set's accessible name (always give one)                                                                                   |
+| `selectionMode`                            | `none` _(default)_ · `single` · `multiple`                                                                                    |
+| `value` / `defaultValue` / `onValueChange` | single: `string \| null`; multiple: `string[]`. Chips join by their `value`                                                   |
+| `required`                                 | keep at least one chip selected                                                                                               |
+| `name` / `form`                            | submit the selection: one hidden `<input name value>` per selected chip                                                       |
+| `onRemove`                                 | `(value) => void`; makes the set's input chips removable                                                                      |
+| `disabled`                                 | disables every chip                                                                                                           |
+| `layout`                                   | `wrap` _(default)_ · `scroll` (one row that scrolls sideways; focus rings and touch targets aren't clipped, scrollbar hidden) |
+| `loop`                                     | arrow keys wrap around (default `true`)                                                                                       |
+| `role`                                     | `toolbar` _(default)_; override for a different grouping                                                                      |
+| everything else                            | the root `<div>`                                                                                                              |
+
+- **MD3 usage.** Show chips in a set (never one alone). Don't mix single- and
+  multi-select sets on one page. Filter chips wrap; past two rows consider
+  `layout="scroll"`. Show that chips are interactive (a label like "Select type"
+  before the set, page context, or `--md-comp-chip-outline-color: outline` for a
+  3:1 boundary). Keep elevated chips for images / busy backgrounds. Don't make
+  dense chips the default (let users opt in by overriding
+  `--md-comp-chip-container-height`).
+
 ## Usage
 
 ```tsx
@@ -236,6 +745,30 @@ export function Like({ liked }: { liked: boolean }) {
     </IconButton>
   );
 }
+```
+
+```tsx
+import Fab from "@chatool/ui/fab";
+import EditFilled from "@chatool/icons/EditFilled";
+
+// FAB (icon only): name the action.
+<Fab icon={<EditFilled />} aria-label="Compose" placement="bottom-end" />;
+
+// Extended FAB that collapses on scroll (`scrolledDown` from your own state).
+<Fab
+  icon={<EditFilled />}
+  label="Compose"
+  expanded={!scrolledDown}
+  placement="bottom-end"
+/>;
+
+// A FAB on phones, a large extended FAB from expanded windows up.
+<Fab
+  icon={<EditFilled />}
+  label="Compose"
+  size={{ compact: "medium", expanded: "large" }}
+  expanded={{ compact: false, expanded: true }}
+/>;
 ```
 
 ```tsx
@@ -371,6 +904,308 @@ export function AppBarActions({ unread }: { unread: number }) {
 <Badge value={7} locale="fa" label="۷ پیام جدید">…</Badge>
 ```
 
+Checkboxes:
+
+```tsx
+import Checkbox from "@chatool/ui/checkbox";
+
+// Uncontrolled — works in a Server Component and submits with the form.
+<form action={save}>
+  <Checkbox name="updates" label="Send me product updates" defaultChecked />
+  <Checkbox
+    name="terms"
+    required
+    label="I agree to the terms"
+    supportingText="Required." // turns error color once the user skips it
+  />
+</form>
+
+// Controlled, with the APG parent/child (tri-state) pattern.
+const all = checked.every(Boolean);
+const some = checked.some(Boolean);
+<Checkbox
+  label="All channels"
+  checked={all}
+  indeterminate={some && !all}
+  onChange={() => setChecked(checked.map(() => !all))}
+/>
+
+// Bare box: name it yourself.
+<Checkbox aria-label="Select row" checked={selected} onChange={toggle} />
+
+// Settings row: text first, box at the end.
+<Checkbox label="Wi-Fi only" labelPosition="start" className="w-full justify-between" />
+```
+
+Radios:
+
+```tsx
+import Radio from "@chatool/ui/radio";
+import RadioGroup from "@chatool/ui/radio-group";
+
+// Uncontrolled — works from a Server Component and submits `contact=email|phone`.
+<form action={save}>
+  <RadioGroup name="contact" label="Preferred contact method" defaultValue="email" required>
+    <Radio value="email" label="Email" />
+    <Radio value="phone" label="Phone" supportingText="We'll only call about orders." />
+  </RadioGroup>
+</form>
+
+// Controlled (in a client component).
+const [shipping, setShipping] = useState<string | null>("standard");
+<RadioGroup label="Shipping" value={shipping} onValueChange={setShipping}>
+  <Radio value="standard" label="Standard" supportingText="Free" />
+  <Radio value="express" label="Express" supportingText="$9.99" />
+</RadioGroup>
+
+// Settings list: text first, full-width rows.
+<RadioGroup label="Download quality" defaultValue="high" labelPosition="start">
+  <Radio value="high" label="High" className="w-full justify-between" />
+  <Radio value="saver" label="Data saver" className="w-full justify-between" />
+</RadioGroup>
+
+// No group component: same `name` is a native group (name your container).
+<div role="radiogroup" aria-label="Size">
+  <Radio name="size" value="s" aria-label="Small" />
+  <Radio name="size" value="m" aria-label="Medium" defaultChecked />
+</div>
+```
+
+Switches:
+
+```tsx
+import Switch from "@chatool/ui/switch";
+
+// Uncontrolled, from a Server Component: works (and submits) with no JS.
+<Switch name="wifi" label="Wi-Fi" defaultChecked className="w-full justify-between" />
+<Switch name="bt" label="Bluetooth" supportingText="Visible to nearby devices." />
+
+// Controlled, Compose-style.
+<Switch label="Dark theme" checked={dark} onCheckedChange={setDark} />
+
+// MD3 icon configurations, or your own glyphs.
+<Switch label="Airplane mode" icons="selected" />
+<Switch label="Sync" icons />
+<Switch
+  label="Sound"
+  selectedIcon={<VolumeUpRounded />}
+  unselectedIcon={<VolumeOffRounded />}
+/>
+
+// Bare: name it yourself, and keep the name constant.
+<Switch aria-label="Photo album access" />
+```
+
+Cards:
+
+```tsx
+import Card, {
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardHeadline,
+  CardMedia,
+  CardPrimaryAction,
+  CardSubhead,
+  CardSupportingText,
+} from "@chatool/ui/card";
+
+// A container card (Server Component). Its buttons are the tab stops.
+<Card variant="elevated">
+  <CardHeader
+    leading={<Avatar />}
+    trailing={<IconButton aria-label="More options"><MoreVertRounded /></IconButton>}
+  >
+    <CardHeadline>Alpine lakes</CardHeadline>
+    <CardSubhead>Shared by Ana · 2 days ago</CardSubhead>
+  </CardHeader>
+  <CardMedia className="aspect-video">
+    <img src="/lake.jpg" alt="Turquoise lake below snowy peaks" />
+  </CardMedia>
+  <CardContent>
+    <CardSupportingText maxLines={3}>A short guide to the clearest lakes…</CardSupportingText>
+  </CardContent>
+  <CardActions>
+    <Button variant="outlined">Save</Button>
+    <Button>Read</Button>
+  </CardActions>
+</Card>
+
+// The whole card clickable — the accessible way: a stretched primary action.
+// The link's name is just its text; the heart stays its own button.
+<Card asChild variant="outlined">
+  <li>
+    <CardMedia className="aspect-[3/2]"><img src="/lake.jpg" alt="" /></CardMedia>
+    <CardHeader trailing={<FavoriteToggle />}>
+      <CardHeadline>
+        <CardPrimaryAction asChild>
+          <Link href="/lakes">Alpine lakes</Link>
+        </CardPrimaryAction>
+      </CardHeadline>
+      <CardSubhead>Travel</CardSubhead>
+    </CardHeader>
+  </li>
+</Card>
+
+// A card that *is* the control (short, phrasing-only content; no nested actions).
+<Card asChild variant="filled">
+  <a href="/docs">
+    <span className="text-title-medium">Documentation</span>
+    <span className="text-body-medium">Guides and API reference</span>
+  </a>
+</Card>
+
+// Selectable cards with zero JS: a <label> over a visually-hidden radio.
+<fieldset>
+  <legend>Plan</legend>
+  <Card asChild variant="outlined" checkIcon>
+    <label>
+      <input type="radio" name="plan" value="plus" className="sr-only" />
+      <CardHeadline asChild><span>Plus</span></CardHeadline>
+      <CardSubhead asChild><span>$9 / month</span></CardSubhead>
+    </label>
+  </Card>
+</fieldset>
+
+// Toggle cards, horizontal layout, Expressive shape, inset media.
+<Card asChild variant="outlined" selected={on}>
+  <button type="button" onClick={toggle}>…</button>
+</Card>
+<Card orientation="horizontal">
+  <CardMedia className="w-32"><img src="/lisbon.jpg" alt="" /></CardMedia>
+  <CardContent>…</CardContent>
+</Card>
+<Card shape="extra-large-increased">
+  <CardMedia inset className="aspect-[2/1]">…</CardMedia>
+</Card>
+
+// Drag and drop: wire `dragged` from your DnD library.
+<Card dragged={isDragging}>…</Card>
+```
+
+```tsx
+import Tooltip, { TooltipAction, TooltipProvider } from "@chatool/ui/tooltip";
+
+// Plain: the text names an icon button (no separate aria-label needed).
+<Tooltip content="Add to favorites" relationship="label">
+  <IconButton><StarOutlined /></IconButton>
+</Tooltip>
+
+// Plain, describing an element that already has a name.
+<Tooltip content="Permanently removes the file for everyone">
+  <Button variant="outlined">Delete</Button>
+</Tooltip>
+
+// Rich, with a subhead and an action (bottom corner by default).
+<Tooltip
+  title="Paint tool"
+  content="Add annotations and highlights with the paint tool."
+  actions={<TooltipAction>Learn more</TooltipAction>}
+>
+  <IconButton aria-label="Paint tool"><EditOutlined /></IconButton>
+</Tooltip>
+
+// Persistent rich tooltip, shown on page load with a caret (feature discovery).
+<Tooltip
+  persistent
+  defaultOpen
+  caret
+  align="center"
+  title="New: collections"
+  content="Save anything you find here and get back to it from any device."
+  actions={<TooltipAction>Got it</TooltipAction>}
+>
+  <Button>Collections</Button>
+</Tooltip>
+
+// Controlled (in a client component), with the reason for each change.
+<Tooltip open={open} onOpenChange={(next, { reason }) => setOpen(next)} content="Saved">
+  <Button>Save</Button>
+</Tooltip>
+
+// App-wide timing: here a snappier desktop feel than MD3's 500ms / 1.5s.
+<TooltipProvider showDelay={200} hideDelay={0}>{children}</TooltipProvider>
+```
+
+```tsx
+import TextField from "@chatool/ui/text-field";
+import SearchOutlined from "@chatool/icons/SearchOutlined";
+
+// Uncontrolled, native validation: works in a Server Component, no JS needed.
+<TextField
+  name="email"
+  type="email"
+  label="Email"
+  autoComplete="email"
+  required
+  supportingText="We'll never share it"
+  errorText="Enter a valid email address"
+/>
+
+// Outlined, icons, clear button, counter.
+<TextField
+  variant="outlined"
+  label="Search"
+  leadingIcon={<SearchOutlined />}
+  clearable
+  maxLength={40}
+/>
+
+// Controlled (in a client component), with a state-driven error.
+<TextField
+  label="Handle"
+  prefix="@"
+  value={handle}
+  onChange={(e) => setHandle(e.target.value)}
+  error={!valid}
+  errorText="Only a–z, 0–9 and _"
+/>
+
+// Password with show / hide; growing multi-line; fixed text area.
+<TextField label="Password" type="password" autoComplete="current-password" />
+<TextField multiline label="Message" maxRows={6} />
+<TextField multiline variant="outlined" label="Bio" rows={4} maxLength={280} />
+```
+
+```tsx
+import Chip from "@chatool/ui/chip";
+import ChipSet from "@chatool/ui/chip-set";
+import CalendarTodayOutlined from "@chatool/icons/CalendarTodayOutlined";
+
+// Assist chips in a set (works in a Server Component).
+<ChipSet aria-label="Suggested actions">
+  <Chip icon={<CalendarTodayOutlined />}>Add to calendar</Chip>
+  <Chip elevated>Directions</Chip>
+</ChipSet>
+
+// Multi-select filter chips, submitted with a form as `cuisine=…`.
+<ChipSet aria-label="Cuisine" selectionMode="multiple" name="cuisine" defaultValue={["ramen"]}>
+  <Chip variant="filter" value="ramen">Ramen</Chip>
+  <Chip variant="filter" value="pizza">Pizza</Chip>
+</ChipSet>
+
+// Controlled single select (in a client component).
+<ChipSet aria-label="Sort" selectionMode="single" required value={sort} onValueChange={setSort}>
+  <Chip variant="filter" value="new">Newest</Chip>
+  <Chip variant="filter" value="top">Top rated</Chip>
+</ChipSet>
+
+// Removable input chips: × button, Backspace or Delete; focus moves on.
+<ChipSet aria-label="Recipients" onRemove={(email) => remove(email)}>
+  {emails.map((email) => (
+    <Chip key={email} variant="input" value={email} avatar={<img src={avatarOf(email)} alt="" />}>
+      {email}
+    </Chip>
+  ))}
+</ChipSet>
+
+// A standalone toggle, a menu chip, a link chip, a loading assist chip.
+<Chip variant="filter" defaultSelected>Open now</Chip>
+<Chip variant="filter" trailingIcon={<KeyboardArrowDownOutlined />}>Price</Chip>
+<Chip asChild><Link href="/help">Help center</Link></Chip>
+<Chip loading>Saving…</Chip>
+```
+
 ## Customization
 
 Three layers, increasingly specific:
@@ -395,7 +1230,14 @@ Three layers, increasingly specific:
    `--md-comp-icon-button-container-color`, `--md-comp-icon-button-icon-color`,
    `--md-comp-icon-button-outline-color`, `--md-comp-icon-button-focus-color`.
    **`ButtonGroup`** exposes `--md-comp-button-group-gap` (the gap between
-   children). **`LoadingIndicator`** has
+   children). **`Fab`** has `--md-comp-fab-container-color`,
+   `--md-comp-fab-icon-color` (also the state layer + ripple),
+   `--md-comp-fab-label-text-color`, `--md-comp-fab-container-shape` (every
+   size), `--md-comp-fab-focus-color`, `--md-comp-fab-margin` (`placement`
+   offset, `16px`), `--md-comp-fab-z-index` (`10`), and the motion overrides
+   `--md-comp-fab-spatial-easing` / `-spatial-duration` (`350ms`) /
+   `-effects-easing` / `-effects-duration` (`140ms`). The medium corner reads
+   `--md-sys-shape-corner-large-increased` (falls back to `20px`). **`LoadingIndicator`** has
    `--md-comp-loading-indicator-active-indicator-color` and
    `--md-comp-loading-indicator-container-color`. **`LinearProgress`** has
    `--md-comp-linear-progress-active-indicator-color`,
@@ -419,6 +1261,164 @@ Three layers, increasingly specific:
    `--md-comp-badge-spatial-easing` / `-spatial-duration` (the Expressive spring,
    `350ms`) and `--md-comp-badge-effects-easing` / `-effects-duration` (`140ms`).
    Set both durations to `0s` to switch motion off.
+   **`Checkbox`** has colors `--md-comp-checkbox-outline-color`
+   (`on-surface-variant`), `--md-comp-checkbox-hover-outline-color` (`on-surface`,
+   hover/focus/pressed), `--md-comp-checkbox-selected-container-color` (`primary`),
+   `--md-comp-checkbox-selected-icon-color` (`on-primary`),
+   `--md-comp-checkbox-error-color` (`error`),
+   `--md-comp-checkbox-error-icon-color` (`on-error`) and
+   `--md-comp-checkbox-focus-indicator-color` (`secondary`); geometry
+   `--md-comp-checkbox-container-size` (`18px`), `--md-comp-checkbox-container-shape`
+   (`2px`), `--md-comp-checkbox-outline-width` (`2px`),
+   `--md-comp-checkbox-state-layer-size` (`40px`) and
+   `--md-comp-checkbox-touch-target-size` (`48px`); and motion
+   `--md-comp-checkbox-spatial-duration` (`412ms`, the draw/morph),
+   `--md-comp-checkbox-effects-duration` (`212ms`, colors when checking) and
+   `--md-comp-checkbox-exit-effects-duration` (`137ms`, colors when unchecking).
+   `0s` switches a part off. The springs themselves are the selection family's
+   `--md-comp-selection-spatial-easing`, `--md-comp-selection-effects-easing` and
+   `--md-comp-selection-fast-effects-easing` (CSS `linear()` curves).
+   **`Radio`** has colors `--md-comp-radio-icon-color` (`on-surface-variant`),
+   `--md-comp-radio-hover-icon-color` (`on-surface`, unselected hover/focus/pressed),
+   `--md-comp-radio-selected-icon-color` (`primary`), `--md-comp-radio-error-color`
+   (`error`) and `--md-comp-radio-focus-indicator-color` (`secondary`); geometry
+   `--md-comp-radio-icon-size` (`20px` — ring and dot scale with it),
+   `--md-comp-radio-state-layer-size` (`40px`) and
+   `--md-comp-radio-touch-target-size` (`48px`; MD3 advises against shrinking it by
+   default); and motion `--md-comp-radio-dot-enter-duration` (`348ms`),
+   `--md-comp-radio-dot-exit-duration` (`98ms`), `--md-comp-radio-dot-exit-easing`
+   and `--md-comp-radio-effects-duration` (`212ms`, color fades). The dot's entry
+   spring is the selection family's `--md-comp-selection-fast-spatial-easing`.
+   **`RadioGroup`** paints nothing itself — style its radios with the tokens above
+   (set on the group, they cascade to every radio).
+
+   **`Switch`** has colors `--md-comp-switch-unselected-track-color`
+   (`surface-container-highest`), `--md-comp-switch-unselected-track-outline-color`
+   (`outline`), `--md-comp-switch-unselected-handle-color` (`outline`),
+   `--md-comp-switch-unselected-hover-handle-color` (`on-surface-variant`, also
+   focus/pressed), `--md-comp-switch-unselected-icon-color`
+   (`surface-container-highest`), `--md-comp-switch-unselected-state-layer-color`
+   (`on-surface`), `--md-comp-switch-selected-track-color` (`primary`),
+   `--md-comp-switch-selected-track-outline-color` (`transparent`),
+   `--md-comp-switch-selected-handle-color` (`on-primary`),
+   `--md-comp-switch-selected-hover-handle-color` (`primary-container`, also
+   focus/pressed), `--md-comp-switch-selected-icon-color` (`on-primary-container`),
+   `--md-comp-switch-selected-state-layer-color` (`primary`) and
+   `--md-comp-switch-focus-indicator-color` (`secondary`); geometry
+   `--md-comp-switch-track-width` (`52px`), `--md-comp-switch-track-height`
+   (`32px`), `--md-comp-switch-track-outline-width` (`2px`),
+   `--md-comp-switch-track-shape` / `--md-comp-switch-handle-shape` (full),
+   `--md-comp-switch-unselected-handle-size` (`16px`),
+   `--md-comp-switch-selected-handle-size` (`24px`),
+   `--md-comp-switch-with-icon-handle-size` (`24px`),
+   `--md-comp-switch-pressed-handle-size` (`28px`), `--md-comp-switch-icon-size`
+   (`16px`), `--md-comp-switch-state-layer-size` (`40px`),
+   `--md-comp-switch-touch-target-size` (`48px`),
+   `--md-comp-switch-focus-indicator-thickness` (`3px`) and
+   `--md-comp-switch-label-gap` (`16px`); and motion
+   `--md-comp-switch-handle-duration` (`348ms`), `--md-comp-switch-handle-easing`
+   (defaults to `--md-comp-selection-fast-spatial-easing`),
+   `--md-comp-switch-pressed-handle-duration` (`0s`, Compose snaps),
+   `--md-comp-switch-effects-duration` (`67ms`, colors) and
+   `--md-comp-switch-icon-fade-duration` (`33ms`). The handle's travel is computed
+   from the track tokens, so a resized track keeps the handle in place.
+
+   **`Card`** has `--md-comp-card-container-color` (per variant:
+   `surface-container-low` / `-highest` / `surface`), `--md-comp-card-content-color`
+   (`on-surface`), `--md-comp-card-outline-color` (`outline-variant`, outlined) and
+   `--md-comp-card-outline-width` (`1px`), `--md-comp-card-container-shape` (`12px`;
+   the `shape` prop wins), `--md-comp-card-container-elevation` (resting shadow),
+   `--md-comp-card-padding` (`16px`), `--md-comp-card-gap` (`16px`),
+   `--md-comp-card-content-gap` (`4px`), `--md-comp-card-actions-gap` (`8px`),
+   `--md-comp-card-media-shape` (inset media; default optically round),
+   `--md-comp-card-state-layer-color` (`on-surface`),
+   `--md-comp-card-focus-indicator-color` (`secondary`),
+   `--md-comp-card-focus-indicator-thickness` (`3px`),
+   `--md-comp-card-focus-indicator-outline-offset` (`2px`),
+   `--md-comp-card-headline-color` / `-subhead-color` / `-supporting-text-color`,
+   `--md-comp-card-selected-tint-color` (`secondary`),
+   `--md-comp-card-checked-icon-color` (`secondary`),
+   `--md-comp-card-checked-icon-check-color` (`on-secondary`),
+   `--md-comp-card-checked-icon-size` (`24px`), `--md-comp-card-checked-icon-margin`
+   (`8px`), and motion `--md-comp-card-enter-duration` (`120ms`),
+   `--md-comp-card-exit-duration` (`150ms`), `--md-comp-card-spatial-duration`
+   (`412ms`) and `--md-comp-card-spatial-easing`. Expressive corner steps read
+   `--md-sys-shape-corner-large-increased` / `-extra-large-increased` /
+   `-extra-extra-large` when your theme defines them (20 / 32 / 48dp otherwise).
+
+   **`Tooltip`** uses Material Web's token names. Plain:
+   `--md-comp-plain-tooltip-container-color` (`inverse-surface`),
+   `--md-comp-plain-tooltip-supporting-text-color` (`inverse-on-surface`),
+   `--md-comp-plain-tooltip-container-shape` (`corner-extra-small`) and
+   `--md-comp-plain-tooltip-container-max-width` (`12.5rem`). Rich:
+   `--md-comp-rich-tooltip-container-color` (`surface-container`),
+   `--md-comp-rich-tooltip-subhead-color` / `-supporting-text-color`
+   (`on-surface-variant`), `--md-comp-rich-tooltip-action-label-text-color`
+   (`primary`, inline links), `--md-comp-rich-tooltip-container-shape`
+   (`corner-medium`), `--md-comp-rich-tooltip-container-elevation` (level 2),
+   `--md-comp-rich-tooltip-container-max-width` (`20rem`) and
+   `--md-comp-rich-tooltip-action-inset` (`0.75rem`, how far the action row hangs
+   out so labels align with the text). Caret: `--md-comp-tooltip-caret-width` /
+   `-height` (`1rem` / `0.5rem`). Tooltips render outside their anchor (in
+   `<body>` or the open `<dialog>`), so set these on `:root` (or `.dark`) for every
+   tooltip, or per tooltip with its `style` prop; an anchor's ancestors don't reach
+   them.
+
+   **Overlays** (tooltip today; menus, selects and dialogs as they land) share
+   `--md-comp-overlay-spatial-easing` / `-spatial-duration` (the fast-spatial
+   spring, `350ms`), `--md-comp-overlay-effects-easing` / `-effects-duration` (the
+   fast-effects spring, `140ms`), `--md-comp-overlay-enter-scale` (`0.8`) and
+   `--md-comp-overlay-z-index` (`1500`, only used where the Popover API is
+   missing). Set both durations to `0s` to switch overlay motion off.
+
+   **`TextField`** reads `--md-comp-text-field-*` (one prefix for both variants;
+   scope with `[data-variant=filled]` / `[data-variant=outlined]` if they should
+   differ). Container: `-container-color` (filled `surface-container-highest`,
+   outlined `transparent`), `-container-shape` (`corner-extra-small`; a pill like
+   `corner-full` works — the notch moves in to clear the curve). Filled indicator:
+   `-active-indicator-color` / `-hover-active-indicator-color` /
+   `-focus-active-indicator-color`, `-active-indicator-height` (`1px`) /
+   `-focus-active-indicator-height` (`2px`). Outline: `-outline-color` /
+   `-hover-outline-color` / `-focus-outline-color`, `-outline-width` (`1px`) /
+   `-focus-outline-width` (`2px`), `-outline-label-padding` (`0.25rem`). Text:
+   `-label-text-color`, `-hover-label-text-color`, `-focus-label-text-color`,
+   `-input-text-color`, `-input-text-placeholder-color`, `-input-text-affix-color`,
+   `-caret-color`, `-supporting-text-color`. Icons: `-leading-icon-color`,
+   `-trailing-icon-color`, `-icon-size` (`1.5rem`). Error: `-error-color`
+   (`error`), `-error-hover-color` (`on-error-container`). State layer:
+   `-hover-state-layer-color` / `-hover-state-layer-opacity` (filled). Spacing:
+   `-leading-space` / `-trailing-space` / `-top-space` / `-bottom-space`
+   (`1rem`), `-with-label-top-space` / `-with-label-bottom-space` (`0.5rem`),
+   `-icon-text-space` (`1rem`), `-supporting-text-leading-space` /
+   `-trailing-space` (`1rem`) / `-top-space` (`0.25rem`). Motion:
+   `-spatial-easing` / `-spatial-duration` (fast spatial, `348ms`),
+   `-effects-easing` / `-effects-duration` (fast effects, `137ms`),
+   `-slow-effects-easing` / `-slow-effects-duration` (`299ms`). Typography comes
+   from `--md-sys-typescale-body-large-*` / `-body-small-*`. Every part also has a
+   `data-slot` (`text-field`, `-container`, `-label`, `-input`, `-leading-icon`,
+   `-trailing`, `-prefix`, `-suffix`, `-supporting`, `-counter`, …) and
+   `classNames` reaches each one.
+
+   **`Chip`** reads `--md-comp-chip-*` (one prefix for every variant; scope with
+   `[data-variant=filter]` etc. if they should differ). Size: `-container-height`
+   (`2rem`), `-icon-size` (`1.125rem`), `-avatar-size` (`1.5rem`),
+   `-avatar-shape` (round). Shape: `-container-shape` (`corner-small`, or
+   `corner-medium` when Expressive), `-selected-container-shape` (a half-height
+   pill), `-pressed-container-shape` (`corner-small`). Color: `-container-color`
+   (flat, `transparent`), `-elevated-container-color` (`surface-container-low`),
+   `-selected-container-color` (`secondary-container`), `-outline-color`
+   (`outline-variant`; MD3 suggests `outline` for 3:1), `-outline-width` (`1px`),
+   `-label-text-color`, `-selected-label-text-color`, `-leading-icon-color`,
+   `-selected-leading-icon-color`, `-trailing-icon-color`,
+   `-selected-trailing-icon-color`. Focus: `-focus-indicator-color`
+   (`secondary`), `-focus-indicator-thickness` (`3px`),
+   `-focus-indicator-outline-offset` (`2px`). Motion: `-spatial-easing` /
+   `-spatial-duration` (fast spatial, `348ms`; `0s` switches the morph off),
+   `-effects-easing` (default effects). **`ChipSet`**: `--md-comp-chip-set-gap` /
+   `-row-gap` (`0.5rem`). Parts carry `data-slot` (`chip`, `chip-primary`,
+   `chip-leading`, `chip-icon`, `chip-check`, `chip-avatar`, `chip-label`,
+   `chip-trailing-icon`, `chip-remove`, `chip-set`) and the chip root exposes
+   `data-variant`, `data-elevated`, `data-expressive`, `data-leading`.
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -467,6 +1467,32 @@ pure **Server Component** — a layout that spaces/shapes its children and owns 
 state; each child keeps its own role + `aria-pressed`. Children stay individual Tab
 stops (no roving focus). `asChild` forwards the group styles + role onto your
 element.
+
+`Fab` follows the APG button pattern too (native `<button>`, Tab to focus,
+Enter / Space to activate, `type="button"` by default), plus MD3's FAB guidance:
+
+- **Name the action.** An icon-only FAB has no text, so pass `aria-label`
+  describing what it does ("Compose new message"), or wrap it in a
+  `<Tooltip content="Compose" relationship="label">`, which MD3 recommends on
+  the web anyway (a tooltip on hover and focus). An extended FAB is named by its
+  `label`; if you add an `aria-label`, start it with the label's first word.
+- **The name never changes on collapse.** The label folds away visually but
+  stays in the DOM, so a collapsed extended FAB is still announced by its label.
+  The icon is `aria-hidden`.
+- **Hide, don't disable.** MD3: if the action isn't available, the FAB
+  shouldn't appear. `visible={false}` makes it `inert` (out of the tab order and
+  accessibility tree). `disabled` still works but isn't part of the spec.
+- **Focus order and placement.** Place it early in the focus order, and don't
+  let a floating FAB completely cover another control's focus indicator.
+- Focus shows MD3's 3dp `secondary` indicator, 2dp outside the container;
+  forced-colors mode draws a `ButtonText` border; under
+  `prefers-reduced-motion` spatial motion is instant (fades remain).
+
+**Rendering:** `Fab` has **no `"use client"`** and renders as a **Server
+Component**. Size, expansion, the responsive breakpoints, show/hide and the
+entrance are all CSS. Its client islands are the shared press ripple and a tiny
+label island that measures the label so its width can spring (without JS the
+label still shows and collapses, just without the width animation).
 
 `LoadingIndicator`, `LinearProgress` and `CircularProgress` render
 **`role="progressbar"`**:
@@ -550,6 +1576,273 @@ count re-plays its pop. Browsers without `@starting-style` just show the badge.
 Digits never depend on the runtime's default locale, so server and client output
 always match.
 
+`Checkbox` follows the
+[WAI-ARIA APG checkbox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/)
+on a **native `<input type="checkbox">`**:
+
+- **Role, focus and keys are native:** role `checkbox`, Tab to focus, **Space**
+  to toggle. The input is invisible but covers the 48dp touch target, so it gets
+  every click and tap; it also takes part in forms (`name`/`value`, `required`,
+  `form`, reset, autofill) and constraint validation.
+- **Mixed state** uses the native `indeterminate` property, which browsers expose
+  as `aria-checked="mixed"`. Per ARIA in HTML, `aria-checked` is never set on the
+  native input. The dash is server-rendered from the prop, and a small client
+  island sets the property after hydration.
+- **Naming:** `label` wraps the box in a `<label>` (implicit association, so the
+  text is the name and is clickable). Without it, pass `aria-label`,
+  `aria-labelledby` or point a `<label htmlFor>` at the input's `id`.
+  `supportingText` becomes the description (`aria-describedby`, merged with yours).
+- **Error** sets `aria-invalid="true"`; announce _why_ in `supportingText`.
+- **Disabled** uses the native attribute (or a disabled `<fieldset>`), so it
+  leaves the tab order and can't be toggled.
+- **Parent/child:** for a tri-state parent, follow the APG: checked when all
+  children are, `indeterminate` when some are; activating it checks all children
+  (or clears them when all are checked). Point `aria-controls` at the children.
+- **Visible focus:** MD3's 3dp `secondary` indicator, 2dp outside the state layer,
+  on `:focus-visible` only.
+- **High contrast:** under `forced-colors: active` it paints itself with system
+  colors (`CanvasText` / `Canvas`, `GrayText` when disabled, a `Highlight` focus
+  ring) instead of losing its fill.
+
+**Rendering:** `Checkbox` is a **Server Component** (no `"use client"`; its
+`useId` is a hook React supports in Server Components). Its client parts are
+islands: the centred press ripple (shared with the button family) and, only when
+you pass `indeterminate`, the island that syncs `input.indeterminate`. An
+uncontrolled checkbox needs no JavaScript at all.
+
+`Radio` / `RadioGroup` follow the
+[WAI-ARIA APG radio group pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/)
+and MD3's radio accessibility spec through **native radios**:
+
+- **Keys are the browser's own**, which is exactly the MD3 contract: one Tab stop
+  per group — the selected radio, or the first (Tab) / last (Shift+Tab) when none
+  is; **arrow keys move focus and selection together** and wrap; Space selects the
+  focused radio. In RTL the horizontal arrows mirror.
+- **Group semantics:** `RadioGroup` is a `<fieldset role="radiogroup">` (a role ARIA
+  in HTML permits on `fieldset`), labelled by its `<legend>` via `aria-labelledby`,
+  described by `supportingText`, with `aria-required` / `aria-invalid` when set.
+  Without `RadioGroup`, give same-`name` radios a container with
+  `role="radiogroup"` + a name, or a `<fieldset>` + `<legend>`.
+- **Naming:** `label` wraps the radio in a `<label>` (the text is the name and is
+  clickable). Without it, pass `aria-label`, `aria-labelledby` or a `<label htmlFor>`.
+  Screen readers still announce "1 of 3" — the input is a real radio.
+- **Never `aria-checked`** on the native input (ARIA in HTML); `:checked` is
+  exposed natively.
+- **Disabled** uses the native attribute or the group's `<fieldset disabled>`, so it
+  leaves the tab order and the arrow-key cycle.
+- **Visible focus:** MD3's 3dp `secondary` indicator on `:focus-visible` only.
+  **High contrast:** under `forced-colors` it paints `CanvasText` (`GrayText` when
+  disabled) with a `Highlight` focus ring.
+
+**Rendering:** `Radio` is a **Server Component** (no `"use client"`). Its client
+parts are islands: the centred press ripple and the native `<input>` itself, which
+reads the optional `RadioGroup` context. Client islands are still server-rendered,
+so the group's name and selection are in the first HTML paint. `RadioGroup` is a
+**client component** (it provides that context) and is also server-rendered; its
+visual defaults (`color`, `labelPosition`, `error`, `disabled`) reach the radios
+through CSS, not context.
+
+`Switch` follows the
+[WAI-ARIA APG switch pattern](https://www.w3.org/WAI/ARIA/apg/patterns/switch/) and
+MD3's switch accessibility spec:
+
+- **Role and state:** a native checkbox with `role="switch"`, so screen readers
+  announce the label, "switch" and "on" / "off" from the native `checked` state.
+  It **never sets `aria-checked`**: APG says an HTML checkbox uses `checked`
+  instead.
+- **Keyboard:** Tab focuses it; **Space or Enter** toggles it. MD3 requires both,
+  and APG makes Enter optional. Enter doesn't submit the surrounding form. Holding
+  Space shows the 28dp pressed handle.
+- **Naming:** `label` wraps the switch in a `<label>` (the text names it and
+  toggles it). Without `label`, pass `aria-label`, `aria-labelledby` or a `<label
+htmlFor>`. **Don't change the name when the state changes** (APG). When the
+  visible text is ambiguous, make it more descriptive: write "Photo album access",
+  not "Photo album". Group related switches in a `<fieldset>` + `<legend>`.
+- **Touch target:** 48dp tall (52dp wide), the MD3 minimum. MD3 advises against
+  shrinking it by default.
+- **Disabled** uses the native attribute or an ancestor `<fieldset disabled>`, so it
+  leaves the tab order and ignores presses and drags.
+- **Visible focus:** MD3's 3dp `secondary` indicator around the track, on
+  `:focus-visible` only. **High contrast:** under `forced-colors` it paints
+  `Canvas` / `CanvasText` pairs (`GrayText` when disabled) with a `Highlight`
+  focus ring, so the state never depends on a color that the system palette would
+  erase.
+
+**Rendering:** `Switch` is a **Server Component** (no `"use client"`). Its client
+parts are islands: the press ripple, centred on and travelling with the handle, and
+an interaction island that adds Enter, touch and keyboard press feedback, and
+dragging. Without JavaScript, click, tap and Space still toggle and animate it.
+
+`Card` follows MD3's card accessibility spec. There is no APG "card" pattern,
+so it uses the established block-link technique (Heydon Pickering's _Inclusive
+Components_, Adrian Roselli's block links):
+
+- **Two kinds of card.** A **container** card has no role and no tab stop; Tab
+  visits each of its controls in reading order before the next card. A **directly
+  actionable** card is one tab stop with the `link` or `button` role; Space / Enter
+  activates it.
+- **Don't wrap a rich card in `<a>` / `<button>`.** The whole card becomes one long
+  accessible name, headings stop being headings (inside a button they're invalid),
+  and nested controls become unreachable. For a clickable card with real content,
+  use **`CardPrimaryAction`**: the link's name is its own text, the card's
+  heading, list and image semantics survive, and secondary controls stay
+  separately clickable and focusable. The card's hover, pressed and focus states
+  follow the action through CSS (`:has()`); the focus indicator is drawn on the
+  card. Trade-off: text under the overlay can't be drag-selected.
+- **Controls inside a stretched card** must be positioned to sit above the overlay.
+  Every `@chatool/ui` control already is, and inline links in
+  `CardSubhead` / `CardSupportingText` are lifted automatically. Give your own
+  controls `relative`, and don't make wrappers between the card and the
+  `CardPrimaryAction` positioned (that would shrink the clickable area to them).
+- **Headings and order.** `CardHeadline` is an `<h3>` by default; choose the level
+  that fits the page (`asChild`), or a non-heading in very long lists. MD3's
+  reading order is heading → image → body → actions: keep that DOM order and use
+  `CardMedia placement="first"` to show the image on top.
+- **Collections** are lists: `<ul>` + `<Card asChild><li>`, so screen readers
+  announce the count. Decorative images take `alt=""`; images that carry
+  information need real alt text.
+- **Selection** is semantic only through real controls: `aria-pressed` (a
+  `selected` `<button>` card or toggle `CardPrimaryAction`) or a native
+  checkbox / radio in a `<label>` card (arrow keys, forms and `required` all work).
+  The check icon is `aria-hidden`.
+- **Disabled:** native on `<button>` cards, `aria-disabled` on other actionable
+  cards (for a link card, prefer dropping `href`), `inert` on container cards.
+- **Drag & swipe** need a single-pointer alternative (MD3), e.g. "Move up / down /
+  Delete" in a menu.
+- **High contrast:** every variant keeps a 1px boundary that `forced-colors`
+  repaints, so even elevated / filled cards stay outlined. The focus indicator
+  uses `Highlight`.
+
+**Rendering:** `Card` and all its parts are **Server Components** (no
+`"use client"`). Every state is CSS: attributes, `:hover`, `:active`,
+`:focus-visible`, `:checked` and `:has()`. So a `<label>` + radio card selects,
+animates and submits **before hydration**. The only client piece is the shared
+press-ripple island, rendered for actionable cards and inside `CardPrimaryAction`.
+
+`Tooltip` follows the [APG tooltip pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/),
+MD3's tooltip accessibility spec and WCAG 1.4.13 (content on hover or focus):
+
+- **Role and relationship.** The surface is `role="tooltip"`. By default it
+  **describes** its anchor: string content goes into a hidden node that the anchor
+  references with `aria-describedby` from the first render, so screen readers
+  (including touch ones, which never hover) read it on focus without the tooltip
+  opening. Rich content is referenced while it's open. `relationship="label"`
+  makes the text the anchor's **name** (`aria-label`) instead. A description that
+  only repeats the anchor's own `aria-label` is skipped.
+- **Interactive tooltips** (`actions`, `persistent`, or `interactive`) are a
+  non-modal `role="dialog"` named by the subhead (or the text) and described by
+  the text; the anchor gets `aria-haspopup="dialog"`, `aria-expanded` and
+  `aria-controls`. **Tab** from the anchor moves into the tooltip, Tab from its
+  last control continues to whatever follows the anchor, Shift+Tab returns to the
+  anchor. Focus is never trapped (MD3). Closing with focus inside returns it to
+  the anchor.
+- **Keyboard.** Focus shows a transient tooltip at once; **Escape** dismisses it
+  without moving focus (one Escape closes one layer, so a tooltip inside a
+  `<dialog>` closes before the dialog); blur hides it. Persistent tooltips open
+  with Enter / Space on the anchor like any click.
+- **Hoverable and persistent (WCAG 1.4.13).** The pointer can move from the anchor
+  onto the tooltip (a bridge spans the gap) and it stays; it lingers 1.5s after
+  the pointer leaves, and never closes from under keyboard focus.
+- **Touch.** A long-press shows it without activating the anchor; on links the
+  native context menu still wins. iOS's long-press callout is disabled on anchors.
+- **High contrast:** under `forced-colors` the surface keeps a `CanvasText`
+  outline and the caret stays visible.
+
+What **you** are responsible for: an anchor that is **focusable** (a button,
+link or input — wrap plain text in a `<button>` if it needs a tooltip); a name
+for icon-only anchors (`aria-label`, or `relationship="label"`); never putting
+essential information or the only way to do something in a tooltip; a subhead for
+tooltips that open on their own (`defaultOpen`).
+
+**Rendering:** `Tooltip` is a **client component** (it holds the open state),
+but you can use it straight from a Server Component: the anchor and content you
+pass are still server-rendered, and its ARIA (`aria-label` /
+`aria-describedby`) is in the first HTML. The tooltip itself mounts only while
+it's shown. `TooltipAction` is a server-safe `Button`.
+
+`TextField` has no APG pattern of its own — the **native** `<input>` /
+`<textarea>` is the contract, with MD3's text-field accessibility spec on top:
+
+- **Name.** The label is a real `<label for>` (inside or above the container), so
+  clicking it focuses the field and screen readers read it, asterisk included
+  (MD3). No visible label → pass `aria-label` / `aria-labelledby`. A lone-space
+  `placeholder` is always rendered (CSS uses `:placeholder-shown` to detect an
+  empty field); it isn't announced.
+- **Description.** `aria-describedby` lists, in order: your own ids, the prefix,
+  the suffix, the supporting / error text and the counter ("5 of 20
+  characters"; the visible `5/20` is hidden from AT). Hidden parts (the inactive
+  supporting / error text) are skipped automatically.
+- **Errors.** `error` sets `aria-invalid="true"`; `errorText` is announced
+  (`role="alert"`) when `error` turns on, and read as the description after.
+  Native constraint failures (`required`, `type`, `pattern`, …) are exposed by
+  the browser itself and shown with MD3 error styling after interaction
+  (`:user-invalid`). The error icon (`role="img"`, "Error") is a second,
+  non-color cue — MD3 strongly recommends it.
+- **Keyboard.** Tab focuses the field (disabled fields are skipped; read-only
+  ones stay focusable). The clear button is out of the Tab order — **Escape**
+  clears instead (and is `preventDefault`ed so an enclosing `<dialog>` stays
+  open). The password toggle is a real button, named "Show password" / "Hide
+  password" (the name changes, so it has no `aria-pressed`).
+- **Pointer.** A press anywhere on the container (padding, decorative icons, the
+  prefix) focuses the field, caret at the end. Icon buttons in it keep working.
+- **High contrast.** Indicator and outline are borders, so `forced-colors` keeps
+  them (2dp when focused); disabled parts turn `GrayText`.
+
+What **you** are responsible for: a label (or `aria-label`) on every field; a
+spoken form for symbolic prefixes (`<span aria-hidden>$</span><span
+className="sr-only">US dollars</span>`); names for any icon buttons you pass;
+explaining the asterisk once; error text that says how to fix the problem.
+
+**Rendering:** `TextField` is a **Server Component** (no `"use client"`). Every
+state is CSS on the native control — `:focus-within`, `:placeholder-shown`,
+`:autofill`, `:disabled`, `[aria-invalid]`, `:user-invalid` — so an uncontrolled
+field floats its label, validates, animates and submits **before hydration**.
+One client island (`text-field-interaction`) adds click-to-focus, clear /
+Escape, the password toggle, the live counter for uncontrolled fields and an
+auto-grow fallback where `field-sizing: content` isn't supported; the built-in
+icon buttons bring the shared ripple island. Controlled use (`value` +
+`onChange`) works from any client component.
+
+`Chip` follows MD3's chips accessibility spec on native elements:
+
+- **Roles & names.** The primary action is a native `<button type="button">`
+  (or `<a href>` / your `asChild` element) named by the label; icons, avatars and
+  the checkmark are `aria-hidden` (MD3: "hide image"). Filter chips — and input
+  chips that select — are toggle buttons (`aria-pressed`), like Material Web's
+  and Compose's selectable chips. The remove action is a separate `<button>`
+  named "Remove {label}" (`aria-labelledby` = a hidden "Remove" + the label; pass
+  `removeLabel` to localize). A `removeOnly` chip is one button (MD3: "the entire
+  chip and icon are one focusable element").
+- **Keyboard** (MD3 table + Material Web). Tab reaches the chip (or the set);
+  Space / Enter activate, select or deselect; ←/→ move between a chip's primary
+  and remove actions and, inside a `ChipSet`, on to the neighbouring chips
+  (wrap-around, mirrored in RTL), Home / End jump to the ends; **Backspace /
+  Delete remove the focused chip** and focus moves to the next chip (or the
+  previous one), even if your app animates the chip out first. Disabled chips
+  are skipped; `softDisabled` chips stay focusable (`aria-disabled`).
+- **Targets.** 48dp minimum for the chip and for the remove action, beyond the
+  32dp container. `ChipSet` keeps 8dp between chips.
+- **State.** Loading is `aria-busy`; selection is never color-only (the
+  checkmark, or `aria-pressed` for assistive tech). In Windows High Contrast the
+  outline, focus ring and disabled state are system colors.
+
+`ChipSet` is a `role="toolbar"` (APG): one Tab stop with a roving tabindex (on
+the focused action, else the last focused one, the first selected chip, or the
+first enabled chip). What **you** are responsible for: an `aria-label` /
+`aria-labelledby` on every set; a visible cue that chips are interactive (MD3);
+`removeLabel` translations; removing the chip from your state in `onRemove`.
+
+**Rendering:** `Chip` is a **Server Component** (no `"use client"` on its view or
+barrel). The container, colors, shape morph, outline, elevation, icons and
+checkmark are server-rendered and every state is CSS (`:has()` on the action's
+`data-selected` / `data-disabled`, `:hover`, `:focus-visible`, `:active`). Its
+one client island, `chip-actions` (own internal entry), renders the actions: it
+reads the optional `ChipSet` context, owns an uncontrolled `defaultSelected` and
+wires the keyboard; the shared `ripple` island adds the press ripple. `ChipSet`
+is a **client component** (directive on its view and barrel) that still renders
+on the server, so the selection is in the first paint; its roving tabindex starts
+after hydration (until then every chip is a Tab stop).
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -586,6 +1879,21 @@ always match.
   `horizontal` _(default)_ · `vertical`. The group never overrides a child's
   border-radius. Give it an `aria-label`; build a segmented control by toggling the
   children's `selected`. Gap token `--md-comp-button-group-gap`.
+- **`Fab`** (`@chatool/ui/fab`): MD3 Expressive **FAB + extended FAB in one
+  element**, a **Server Component** (client islands: ripple + label measurer).
+  `icon` alone = FAB (**`aria-label` required**, or wrap in
+  `<Tooltip relationship="label">`); add `label` = extended FAB; `expanded={false}`
+  collapses an extended FAB (with an icon) into a FAB on a spring, keeping the
+  label as its accessible name. Don't model FAB vs extended FAB as two
+  components. `size` `small` (56) · `medium` _(default, 80)_ · `large` (96);
+  `color` `primary-container` _(default)_ · `secondary-container` ·
+  `tertiary-container` · `primary` · `secondary` · `tertiary`; `elevation`
+  `default` · `lowered` · `none`; `placement` `bottom-end` · `bottom-center` ·
+  `bottom-start` (fixed, 16dp margins, safe-area aware); `visible={false}` hides
+  it (inert); `asChild` for links. `size` / `expanded` accept MD3 window-class
+  objects (`{ compact, medium, expanded, large, extraLarge }`, breakpoints
+  600 / 840 / 1200 / 1600px), resolved in CSS. One FAB per screen, for a
+  constructive action; hide instead of disabling. Tokens `--md-comp-fab-*`.
 - **`LoadingIndicator`** (`@chatool/ui/loading-indicator`): the MD3 Expressive
   shape-morphing indicator for ~200ms–5s waits. `contained` adds the
   `primary-container` circle; `size` is px (24–240, default 48); `value` / `max`
@@ -628,6 +1936,116 @@ always match.
   navigation items put the count in the item's `aria-label` and pass `label=""`.
   Tokens `--md-comp-badge-*` (color, sizes, shapes, offsets, motion). Don't
   position it by hand or place it over the icon.
+- **`Checkbox`** (`@chatool/ui/checkbox`): the MD3 checkbox, a **Server
+  Component** over a **native `<input type="checkbox">`** (Expressive motion is
+  CSS-only). All input props (`checked`/`defaultChecked`/`onChange`, `name`,
+  `value`, `required`, `form`, `aria-*`, `ref`) go to the input — use it exactly
+  like a native checkbox (`event.target.checked`); there is no `onCheckedChange`.
+  `indeterminate` (MD3 dash, native mixed state) is **controlled**: derive it and
+  clear it in `onChange`. `error` (or `aria-invalid`; `:user-invalid` on
+  `required`), `disabled`, `color` `primary` _(default — keep it)_ · `secondary` ·
+  `tertiary`. `label` renders a `<label>` row (text toggles the box);
+  `supportingText` → `aria-describedby`; `labelPosition` `end` _(default)_ ·
+  `start`. `className` → outermost element, `controlClassName` → the 48dp control.
+  Without `label`, **name it** (`aria-label`/`aria-labelledby`/`<label htmlFor>`).
+  Group with `<fieldset>` + `<legend>`. Don't add `"use client"`, don't set
+  `aria-checked`, don't re-add ripple/state-layer/focus styling. Tokens
+  `--md-comp-checkbox-*`.
+- **`Radio`** (`@chatool/ui/radio`) + **`RadioGroup`** (`@chatool/ui/radio-group`):
+  the MD3 radio button. `Radio` is a **Server Component** over a **native
+  `<input type="radio">`** (Expressive dot spring is CSS-only); all input props go
+  to the input. Prefer wrapping radios in `RadioGroup` (a `<fieldset
+role="radiogroup">`): give it `label` (legend) and either `defaultValue` or
+  `value` + `onValueChange(value, event)` (`null` = none), plus `name` when the form
+  submits it; give every `Radio` a `value` and a `label`. Group props `required`,
+  `disabled`, `error`, `supportingText`, `orientation` `vertical` _(default)_ ·
+  `horizontal`, `color`, `labelPosition`, `form`, `itemsClassName`. `Radio` props
+  `label`, `supportingText`, `labelPosition`, `color` (`primary` default — keep it),
+  `error`, `controlClassName`. Keyboard is native (don't add key handlers or
+  roving tabindex). Don't set `aria-checked`, don't add `"use client"` to `Radio`,
+  don't re-add ripple/state-layer/focus styling. MD3: vertical lists, ≤ 5 options,
+  pre-select one. Tokens `--md-comp-radio-*`.
+- **`Switch`** (`@chatool/ui/switch`): the MD3 switch, a **Server Component** over
+  a **native `<input type="checkbox" role="switch">`** (Expressive handle spring is
+  CSS-only; Enter / drag / touch press come from a built-in island). All input props
+  go to the input; `onCheckedChange(checked, event)` is the Compose-style shortcut
+  next to `onChange`. `icons` `false` _(default)_ · `"selected"` · `true`, with
+  `selectedIcon` / `unselectedIcon` for custom glyphs (unambiguous on/off only).
+  `label` (what it turns **on**, constant across states), `supportingText`,
+  `labelPosition` `start` _(default)_ · `end`, `color` `primary` _(default — keep
+  it)_ · `secondary` · `tertiary`, `disabled`, `controlClassName`. Settings rows:
+  `className="w-full justify-between"`. Without `label`, **name it**. Use a switch
+  only for an **immediate** on/off setting (checkboxes for multi-select or
+  save-later forms). Don't add `"use client"`, don't set `aria-checked`, don't add
+  key or drag handlers. There is no `error` state (MD3 defines none). Tokens
+  `--md-comp-switch-*`.
+- **`Card`** (`@chatool/ui/card`): the MD3 card + parts, all **Server Components**
+  from one subpath — `Card` (default) with `CardMedia`, `CardHeader`
+  (`leading`/`trailing`), `CardContent`, `CardHeadline` (`<h3>`, `size`,
+  `maxLines`), `CardSubhead`, `CardSupportingText`, `CardActions` (`align`) and
+  `CardPrimaryAction`. `variant` `filled` _(default)_ · `elevated` · `outlined`
+  (style only — pick by desired separation); `shape` = the Expressive corner scale
+  (`medium` 12dp default); `orientation` `vertical` · `horizontal`; `disabled`,
+  `dragged`, `selected` (+ `checkIcon`). **Clickable card → put a
+  `CardPrimaryAction href` (or `asChild` + router `Link`) inside the
+  `CardHeadline`**; never wrap rich content (headings, buttons) in `<a>` or
+  `<button>`. Only short, phrasing-only cards may **be** the control
+  (`<Card asChild><a|button>`, auto-detected as interactive); those must not
+  contain other actions. Selectable: `selected` on a `<button>` card
+  (`aria-pressed`) or `<Card asChild checkIcon><label><input type="radio"
+className="sr-only"/>…` (zero JS). Collections: `<ul>` + `<Card asChild><li>`.
+  Full-bleed `CardMedia` is the default (`inset` for padded, optically round
+  media); give horizontal media a width. Don't add hover / ripple / focus /
+  elevation styles, don't add `"use client"`, and don't position wrappers between
+  the card and its `CardPrimaryAction`. Tokens `--md-comp-card-*`.
+- **`Tooltip`** (`@chatool/ui/tooltip`): wrap **one** ref-forwarding element:
+  `<Tooltip content="Save"><IconButton aria-label="Save">…</IconButton></Tooltip>`
+  or `relationship="label"` to let the tooltip text be the icon button's name.
+  Plain for short labels (`top`, centred); **rich** when you pass `title` /
+  `actions` (`<TooltipAction>`, max two) / `persistent` (click to open; `defaultOpen`
+  for feature discovery). `side` `top`/`bottom`/`start`/`end`/`left`/`right`,
+  `align` `center`/`start`/`end`/`before`/`after`, `caret`, `offset` (4 by default,
+  8 for text). Controlled: `open` + `onOpenChange(open, { reason })`. App-wide
+  timing: `<TooltipProvider showDelay hideDelay …>`. Usable from Server
+  Components (no `"use client"` needed by you). The anchor must be focusable. Don't
+  put essential info or the only path to an action in a tooltip; don't wrap a
+  plain tooltip around an element whose visible text already says the same thing;
+  don't add your own hover/focus handlers, `z-index` or portals. Tokens
+  `--md-comp-plain-tooltip-*`, `--md-comp-rich-tooltip-*`, `--md-comp-overlay-*`.
+- **`TextField`** (`@chatool/ui/text-field`): `<TextField label="Email"
+type="email" name="email" required errorText="…" />`. `variant` `filled`
+  _(default)_ · `outlined`; every native input prop (`value`/`onChange`,
+  `defaultValue`, `type`, `maxLength`, `pattern`, `autoComplete`, `ref`, …) goes to
+  the `<input>`, `className` / `style` to the root (default width 280dp — use
+  `className="w-full"` in forms). `multiline` → `<textarea>` (`minRows`/`maxRows`
+  grow, `rows` = fixed text area). Parts: `leadingIcon`, `trailingIcon`, `prefix`,
+  `suffix`, `supportingText`, `errorText` (swaps in while invalid), `clearable`,
+  password toggle (automatic for `type="password"`), counter (automatic with
+  `maxLength`), `labelPosition="above"`, `alwaysFloatLabel`, `density`, `color`,
+  `labels` (i18n), `classNames`, `asChild` (custom input). Validation: `error`
+  `true` / `false` / `undefined` (native `:user-invalid`). Server Component — don't
+  add `"use client"`; don't put a `<label>` around it, don't hand-wire
+  `aria-describedby` for its own texts, don't set `placeholder` to fake a label.
+  Tokens `--md-comp-text-field-*`.
+- **`Chip`** (`@chatool/ui/chip`) + **`ChipSet`** (`@chatool/ui/chip-set`):
+  `<ChipSet aria-label="Cuisine" selectionMode="multiple" value={v}
+onValueChange={setV}><Chip variant="filter" value="ramen">Ramen</Chip></ChipSet>`.
+  `variant` `assist` _(default)_ · `filter` · `input` · `suggestion` (pick by
+  purpose: action / filter / user-entered / generated). Parts: `icon`, `avatar`
+  (input), `trailingIcon`, `selectedIcon` (`false` = no check). Filter / input
+  selection: `selected` / `defaultSelected` / `onSelectedChange` standalone, or the
+  set's `selectionMode` `single` / `multiple` + `value` / `defaultValue` /
+  `onValueChange` + `required` + `name` (form). Removal: `onRemove` on the chip or
+  the set (`(value) => …`), `removable`, `removeOnly`, `removeLabel`; Backspace /
+  Delete and focus hand-off are built in — remove the chip from your state, don't
+  manage focus. Also `elevated`, `expressive` (default `true`: 12dp → pill when
+  selected → 8dp pressed; `false` = baseline 8dp), `loading`, `disabled`,
+  `softDisabled`, `dragged`, `href` / `asChild` links, `layout="scroll"` on the
+  set. `className` / `style` go to the chip container, other props to its primary
+  action. `Chip` is a Server Component; `ChipSet` is client but usable from Server
+  Components. Always label the set; show chips in a set, never alone; don't use
+  chips for primary / final actions (use buttons); don't add your own key handlers,
+  `role`s or `aria-pressed`. Tokens `--md-comp-chip-*`, `--md-comp-chip-set-*`.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders

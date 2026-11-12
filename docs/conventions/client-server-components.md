@@ -79,7 +79,42 @@ If **none** apply, leave it directive-free — it's a Server Component.
   even though it animates: its motion is pure CSS (`@starting-style`, spring
   `linear()` transitions, and a label keyed by its text so a new count re-mounts
   and re-plays its entrance) — no hooks, no state, no island.
-- **Client (`"use client"`):** the button's ripple island, the loading family
+  **`@chatool/ui/checkbox`** is a Server Component over a native
+  `<input type="checkbox">`: every visual is CSS driven from the input's
+  pseudo-classes and it calls only `useId`, so uncontrolled boxes work with no
+  JavaScript. Its client parts are islands: the shared ripple, plus
+  `checkbox-indeterminate` (rendered only when `indeterminate` is passed) to set
+  the DOM-only `input.indeterminate` property, given its own internal `tsdown`
+  entry like the ripple.
+  **`@chatool/ui/radio`** is a Server Component shell too; its native `<input>`
+  is a `"use client"` island (`radio-input`, own internal `tsdown` entry) because
+  it reads the optional `RadioGroup` context. Island ≠ client-only rendering: it is
+  still server-rendered, so a group's name and selection are in the first paint.
+  **`@chatool/ui/switch`** is a Server Component over a native
+  `<input type="checkbox" role="switch">`, CSS-driven like the checkbox. Its
+  `switch-interaction` island (own internal `tsdown` entry) self-attaches to the
+  switch to add Enter-to-toggle, touch/keyboard press feedback and drag-to-toggle,
+  so the shell needs no event wiring.
+  **`@chatool/ui/card`** and all its parts are Server Components: every state
+  (hover, pressed, focus, dragged, selected, disabled) is CSS from attributes,
+  pseudo-classes and `:has()` (so a stretched `CardPrimaryAction` or a checked
+  `<input>` inside a `<label>` card drives the card with no JavaScript). Its only
+  client part is the shared ripple island, rendered for actionable cards and
+  inside `CardPrimaryAction`.
+  **`@chatool/ui/text-field`** is a Server Component over a native `<input>` /
+  `<textarea>`: floated / focused / error / disabled are all CSS from the
+  control (`:focus-within`, `:placeholder-shown`, `:autofill`, `:user-invalid`,
+  `:disabled`) via `:has()` on the root, so uncontrolled fields float, validate
+  and animate before hydration. Its `text-field-interaction` island (own internal
+  `tsdown` entry) self-attaches to the container for click-to-focus, clear /
+  Escape, the password toggle, the uncontrolled counter and the auto-grow
+  fallback; its built-in buttons are the server-rendered `IconButton`.
+- **Client (`"use client"`):** the button's ripple island, the checkbox's
+  indeterminate-sync island, the radio's input island and context module, the
+  switch's and text field's interaction islands,
+  `@chatool/ui/radio-group` (it provides context), `@chatool/ui/tooltip` (it
+  holds open state; usable straight from a Server Component, with its anchor and
+  content still server-rendered and its ARIA in the first HTML), the loading family
   (`@chatool/ui/loading-indicator`, `/linear-progress`, `/circular-progress`, which
   draw per frame but still server-render their first frame), `@chatool/core`'s
   `ChatoolProvider` (`useState`/`useEffect`/`localStorage`) and `useTheme`

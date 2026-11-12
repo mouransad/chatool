@@ -6,6 +6,35 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "storybook", "dev", "--no-open"],
       "port": 6006
+    },
+    {
+      "name": "storybook-6007",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "storybook",
+        "exec",
+        "storybook",
+        "dev",
+        "-p",
+        "6007",
+        "--no-open"
+      ],
+      "port": 6007
+    },
+    {
+      "name": "playground-3007",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "playground",
+        "exec",
+        "next",
+        "dev",
+        "-p",
+        "3007"
+      ],
+      "port": 3007
     }
   ]
 }

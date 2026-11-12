@@ -30,6 +30,7 @@
       "@chatool/ui/button-group": [
         "../../packages/ui/src/buttons/button-group/index.tsx"
       ],
+      "@chatool/ui/fab": ["../../packages/ui/src/buttons/fab/index.tsx"],
       "@chatool/ui/loading-indicator": [
         "../../packages/ui/src/loading/loading-indicator/index.tsx"
       ],
@@ -43,6 +44,27 @@
         "../../packages/ui/src/dividers/divider/index.tsx"
       ],
       "@chatool/ui/badge": ["../../packages/ui/src/badges/badge/index.tsx"],
+      "@chatool/ui/checkbox": [
+        "../../packages/ui/src/selection/checkbox/index.tsx"
+      ],
+      "@chatool/ui/radio": ["../../packages/ui/src/selection/radio/index.tsx"],
+      "@chatool/ui/radio-group": [
+        "../../packages/ui/src/selection/radio-group/index.tsx"
+      ],
+      "@chatool/ui/switch": [
+        "../../packages/ui/src/selection/switch/index.tsx"
+      ],
+      "@chatool/ui/card": ["../../packages/ui/src/cards/card/index.tsx"],
+      "@chatool/ui/tooltip": [
+        "../../packages/ui/src/overlays/tooltip/index.tsx"
+      ],
+      "@chatool/ui/text-field": [
+        "../../packages/ui/src/text-fields/text-field/index.tsx"
+      ],
+      "@chatool/ui/chip": ["../../packages/ui/src/chips/chip/index.tsx"],
+      "@chatool/ui/chip-set": [
+        "../../packages/ui/src/chips/chip-set/index.tsx"
+      ],
       "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },

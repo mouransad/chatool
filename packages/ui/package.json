@@ -40,6 +40,16 @@
         "default": "./dist/button-group.cjs"
       }
     },
+    "./fab": {
+      "import": {
+        "types": "./dist/fab.d.mts",
+        "default": "./dist/fab.mjs"
+      },
+      "require": {
+        "types": "./dist/fab.d.cts",
+        "default": "./dist/fab.cjs"
+      }
+    },
     "./loading-indicator": {
       "import": {
         "types": "./dist/loading-indicator.d.mts",
@@ -90,7 +100,97 @@
         "default": "./dist/badge.cjs"
       }
     },
-    "./package.json": "./package.json"
+    "./checkbox": {
+      "import": {
+        "types": "./dist/checkbox.d.mts",
+        "default": "./dist/checkbox.mjs"
+      },
+      "require": {
+        "types": "./dist/checkbox.d.cts",
+        "default": "./dist/checkbox.cjs"
+      }
+    },
+    "./radio": {
+      "import": {
+        "types": "./dist/radio.d.mts",
+        "default": "./dist/radio.mjs"
+      },
+      "require": {
+        "types": "./dist/radio.d.cts",
+        "default": "./dist/radio.cjs"
+      }
+    },
+    "./radio-group": {
+      "import": {
+        "types": "./dist/radio-group.d.mts",
+        "default": "./dist/radio-group.mjs"
+      },
+      "require": {
+        "types": "./dist/radio-group.d.cts",
+        "default": "./dist/radio-group.cjs"
+      }
+    },
+    "./switch": {
+      "import": {
+        "types": "./dist/switch.d.mts",
+        "default": "./dist/switch.mjs"
+      },
+      "require": {
+        "types": "./dist/switch.d.cts",
+        "default": "./dist/switch.cjs"
+      }
+    },
+    "./card": {
+      "import": {
+        "types": "./dist/card.d.mts",
+        "default": "./dist/card.mjs"
+      },
+      "require": {
+        "types": "./dist/card.d.cts",
+        "default": "./dist/card.cjs"
+      }
+    },
+    "./tooltip": {
+      "import": {
+        "types": "./dist/tooltip.d.mts",
+        "default": "./dist/tooltip.mjs"
+      },
+      "require": {
+        "types": "./dist/tooltip.d.cts",
+        "default": "./dist/tooltip.cjs"
+      }
+    },
+    "./text-field": {
+      "import": {
+        "types": "./dist/text-field.d.mts",
+        "default": "./dist/text-field.mjs"
+      },
+      "require": {
+        "types": "./dist/text-field.d.cts",
+        "default": "./dist/text-field.cjs"
+      }
+    },
+    "./package.json": "./package.json",
+    "./chip": {
+      "import": {
+        "types": "./dist/chip.d.mts",
+        "default": "./dist/chip.mjs"
+      },
+      "require": {
+        "types": "./dist/chip.d.cts",
+        "default": "./dist/chip.cjs"
+      }
+    },
+    "./chip-set": {
+      "import": {
+        "types": "./dist/chip-set.d.mts",
+        "default": "./dist/chip-set.mjs"
+      },
+      "require": {
+        "types": "./dist/chip-set.d.cts",
+        "default": "./dist/chip-set.cjs"
+      }
+    }
   },
   "scripts": {
     "build": "tsdown",
@@ -100,6 +200,7 @@
   },
   "dependencies": {
     "@chatool/utils": "workspace:^",
+    "@floating-ui/dom": "^1.7.6",
     "class-variance-authority": "^0.7.1",
     "radix-ui": "^1.4.0"
   },

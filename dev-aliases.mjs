@@ -37,6 +37,7 @@ export const sourceAliases = {
     "button-group",
     "index.tsx",
   ),
+  "@chatool/ui/fab": pkg("ui", "src", "buttons", "fab", "index.tsx"),
   "@chatool/ui/loading-indicator": pkg(
     "ui",
     "src",
@@ -60,6 +61,33 @@ export const sourceAliases = {
   ),
   "@chatool/ui/divider": pkg("ui", "src", "dividers", "divider", "index.tsx"),
   "@chatool/ui/badge": pkg("ui", "src", "badges", "badge", "index.tsx"),
+  "@chatool/ui/checkbox": pkg(
+    "ui",
+    "src",
+    "selection",
+    "checkbox",
+    "index.tsx",
+  ),
+  "@chatool/ui/radio": pkg("ui", "src", "selection", "radio", "index.tsx"),
+  "@chatool/ui/radio-group": pkg(
+    "ui",
+    "src",
+    "selection",
+    "radio-group",
+    "index.tsx",
+  ),
+  "@chatool/ui/switch": pkg("ui", "src", "selection", "switch", "index.tsx"),
+  "@chatool/ui/card": pkg("ui", "src", "cards", "card", "index.tsx"),
+  "@chatool/ui/tooltip": pkg("ui", "src", "overlays", "tooltip", "index.tsx"),
+  "@chatool/ui/text-field": pkg(
+    "ui",
+    "src",
+    "text-fields",
+    "text-field",
+    "index.tsx",
+  ),
+  "@chatool/ui/chip": pkg("ui", "src", "chips", "chip", "index.tsx"),
+  "@chatool/ui/chip-set": pkg("ui", "src", "chips", "chip-set", "index.tsx"),
   // add one line per new @chatool/ui component subpath
 };
 

@@ -1,6 +1,17 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { cn } from "@chatool/utils";
+
+interface RippleProps {
+  /**
+   * Radiate from the center of the layer instead of the pointer — MD3's
+   * unbounded ripple for small controls (checkbox, radio, switch handle).
+   */
+  centered?: boolean;
+  /** Classes merged onto the overlay, e.g. to size/shape it inside its host. */
+  className?: string;
+}
 
 /** MD3 standard easing — WAAPI needs a literal curve, not a CSS variable. */
 const RIPPLE_EASING = "cubic-bezier(0.2, 0, 0, 1)";
@@ -21,7 +32,7 @@ const RIPPLE_OPACITY = 0.18;
  * no event wiring — keeping the button directive-free. Presses are ignored when
  * the host is disabled / loading (`[data-loading]`) or the pointer isn't primary.
  */
-const Ripple = () => {
+const Ripple = ({ centered = false, className }: RippleProps) => {
   const layerRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -33,14 +44,18 @@ const Ripple = () => {
       if (
         event.button !== 0 ||
         host.matches(":disabled") ||
-        host.hasAttribute("data-loading")
+        host.hasAttribute("data-loading") ||
+        // A host that wraps a native control (e.g. the checkbox's `<input>`)
+        // is inert when that control is disabled — including via a disabled
+        // `<fieldset>`, which never shows up as a prop.
+        host.querySelector(":scope > :disabled") !== null
       ) {
         return;
       }
 
       const rect = layer.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+      const x = centered ? rect.width / 2 : event.clientX - rect.left;
+      const y = centered ? rect.height / 2 : event.clientY - rect.top;
       // Radius reaches the farthest corner so the ripple always covers the host.
       const radius = Math.hypot(
         Math.max(x, rect.width - x),
@@ -63,13 +78,16 @@ const Ripple = () => {
 
     host.addEventListener("pointerdown", onPointerDown);
     return () => host.removeEventListener("pointerdown", onPointerDown);
-  }, []);
+  }, [centered]);
 
   return (
     <span
       ref={layerRef}
       aria-hidden
-      className="inset-0 pointer-events-none absolute -z-10 overflow-hidden rounded-[inherit]"
+      className={cn(
+        "inset-0 pointer-events-none absolute -z-10 overflow-hidden rounded-[inherit]",
+        className,
+      )}
     />
   );
 };

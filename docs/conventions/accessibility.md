@@ -116,6 +116,187 @@ What the **consumer** is responsible for:
 - **Announcing arrivals** that matter through a separate `role="status"` region.
 - **Contrast** of at least 3:1 if you change the default `error` colors.
 
+## Checkbox — [APG checkbox pattern](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/)
+
+What `@chatool/ui/checkbox` guarantees:
+
+- **Native `<input type="checkbox">`.** Role `checkbox`, Tab focus, **Space**
+  toggles, form participation and constraint validation — all native. The input is
+  invisible but covers the 48dp touch target.
+- **Mixed state via the native `indeterminate` property**, never `aria-checked`
+  (ARIA in HTML forbids it on a native checkbox). The dash is server-rendered and a
+  client island syncs the property after hydration.
+- **`label` wraps the box in a `<label>`**, so the text names it and toggles it;
+  `supportingText` is wired to `aria-describedby`.
+- **Error** sets `aria-invalid="true"`; **disabled** is the native attribute (or a
+  disabled `<fieldset>`), so it leaves the tab order.
+- `:focus-visible` shows MD3's 3dp `secondary` indicator; `forced-colors` paints
+  with system colors; `prefers-reduced-motion` drops the draw/morph.
+
+What the **consumer** is responsible for:
+
+- **Accessible name** for a bare checkbox: `aria-label`, `aria-labelledby`, or a
+  `<label htmlFor>`.
+- **Grouping:** related checkboxes go in a `<fieldset>` + `<legend>` (or
+  `role="group"` + `aria-labelledby`).
+- **Tri-state logic:** a parent is checked when all children are, `indeterminate`
+  when some are; activating it checks all (or clears all when all are checked).
+  `indeterminate` is controlled — update it in `onChange` — and the parent should
+  point `aria-controls` at its children.
+- **Explain errors** in `supportingText` (or your own `aria-describedby`).
+
+## Radio — [APG radio group pattern](https://www.w3.org/WAI/ARIA/apg/patterns/radio/)
+
+What `@chatool/ui/radio` + `@chatool/ui/radio-group` guarantee:
+
+- **Native `<input type="radio">`.** Role `radio`, checked state, form
+  participation and `required` validation are native; the input is invisible but
+  covers the 48dp touch target.
+- **Native keyboard = the APG / MD3 contract.** One Tab stop per same-`name`
+  group (the selected radio; else the first, or the last with Shift+Tab); arrow
+  keys move focus **and** selection, wrapping, mirrored in RTL; Space selects.
+- **`RadioGroup` is a `<fieldset role="radiogroup">`** labelled by its `<legend>`
+  (`aria-labelledby`), described by its supporting text, with `aria-required` /
+  `aria-invalid` when set; `disabled` is a native disabled fieldset.
+- `label` wraps a radio in a `<label>`; `supportingText` → `aria-describedby`.
+  Never `aria-checked` on the native input.
+- `:focus-visible` shows MD3's 3dp `secondary` indicator; `forced-colors` paints
+  system colors; `prefers-reduced-motion` snaps the dot (colors still fade).
+
+What the **consumer** is responsible for:
+
+- **A group name**: `RadioGroup` `label` (or `aria-label` / `aria-labelledby`); without
+  `RadioGroup`, a `role="radiogroup"` container or `<fieldset>` + `<legend>`.
+- **A label per radio** (`label`, `aria-label`, `aria-labelledby` or `<label htmlFor>`)
+  and a distinct `value`.
+- **A way out:** a radio can't be cleared by the user, so add a "None" option or a
+  "Clear selection" action when opting out is allowed.
+- **Explain errors** in the group's `supportingText`.
+
+## Switch — [APG switch pattern](https://www.w3.org/WAI/ARIA/apg/patterns/switch/)
+
+What `@chatool/ui/switch` guarantees:
+
+- **Native `<input type="checkbox" role="switch">`.** It is announced as a switch
+  that is "on" / "off" from the native `checked` state, never `aria-checked`. Form
+  participation and `required` are native. The input is invisible but covers the
+  48dp touch target.
+- **Keyboard:** Tab focuses it, and **Space or Enter** toggles it (MD3 requires
+  both; APG makes Enter optional). Enter never submits the surrounding form.
+- **Pointer:** tap, click or **drag** the handle (MD3: "Touch: Tap, Drag"). A
+  vertical swipe still scrolls the page.
+- `label` wraps the switch in a `<label>`; `supportingText` → `aria-describedby`.
+- `:focus-visible` shows MD3's 3dp `secondary` indicator around the track;
+  `forced-colors` paints system colors; `prefers-reduced-motion` snaps the handle
+  (colors still fade).
+
+What the **consumer** is responsible for:
+
+- **A name that doesn't change with the state** (APG): `label`, `aria-label`,
+  `aria-labelledby` or `<label htmlFor>`. Describe what the switch turns **on**, and
+  make ambiguous text more descriptive ("Photo album access", not "Photo album").
+- **Immediate effect.** A switch applies its setting at once. If changes wait for a
+  Save button, use checkboxes instead.
+- **Grouping:** related switches go in a `<fieldset>` + `<legend>`.
+
+## Cards
+
+MD3: a card is **either** a non-actionable container that holds actions **or**
+directly actionable with no actions inside. Never put an action on an actionable
+surface. There is no APG card pattern; `@chatool/ui/card` uses the
+established block-link technique. What it guarantees:
+
+- **Container cards** (default `<div>`) have no role, no tab stop, no hover and
+  no ripple; their controls are the tab stops, in reading order.
+- **Directly actionable cards** are one tab stop with the `link` / `button` role:
+  `<Card asChild>` on an `<a>` / `<button>` / `<label>` (auto-detected), or, for
+  rich content, a **`CardPrimaryAction`** (a real link/button, usually the
+  headline text) whose `::after` stretches over the card. Its accessible name is
+  just its own text; headings and images keep their semantics; positioned
+  controls later in the DOM stay clickable above it. The card draws the 3dp
+  `secondary` focus indicator.
+- **Selection** only through real semantics: `aria-pressed` on a `<button>` card
+  or toggle action, or a native checkbox/radio inside a `<label>` card. The check
+  icon is `aria-hidden`.
+- **Disabled:** native `disabled` on `<button>` cards, `aria-disabled` on other
+  actionable cards, `inert` on container cards.
+- `forced-colors` keeps a visible boundary on every variant;
+  `prefers-reduced-motion` drops the spatial motion.
+
+What the **consumer** is responsible for:
+
+- **Don't wrap rich content in `<a>` / `<button>`.** Use `CardPrimaryAction`.
+  Only short, phrasing-only cards may be the control themselves.
+- **Heading level** (`CardHeadline` is an `<h3>`; change it with `asChild`), and
+  MD3's reading order: heading → image → body → actions (`CardMedia
+placement="first"` shows the image on top).
+- **Collections as lists** (`<ul>` + `<Card asChild><li>`); `alt=""` for
+  decorative images, real alt text for informative ones.
+- **Own controls inside a stretched card** must be positioned (`relative`).
+- **Drag / swipe** needs a single-pointer alternative, such as a menu.
+
+## Tooltip — [APG tooltip pattern](https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/)
+
+What `@chatool/ui/tooltip` guarantees (APG + MD3 + WCAG 1.4.13):
+
+- **`role="tooltip"`**, describing its anchor through `aria-describedby`. String
+  content is referenced from a hidden node from the first render, so screen
+  readers (touch ones too, which never hover) read it on focus; rich content is
+  referenced while open. `relationship="label"` names the anchor (`aria-label`)
+  instead. A description that repeats the anchor's own `aria-label` is skipped.
+- **Shows on hover, keyboard focus (`:focus-visible`) and touch long-press**; a
+  long-press doesn't activate the anchor. **Escape** dismisses without moving
+  focus (one layer per press); blur hides it.
+- **Hoverable, persistent, dismissible** (WCAG 1.4.13): the pointer can move onto
+  it, it lingers 1.5s after the pointer leaves, and never closes from under
+  keyboard focus. One tooltip at a time.
+- **Interactive tooltips** (actions / `persistent`) are a non-modal
+  `role="dialog"` with `aria-haspopup` / `aria-expanded` / `aria-controls` on the
+  anchor. Tab moves into them and on to the page; focus is never trapped and
+  returns to the anchor when they close with focus inside.
+- `forced-colors` keeps a visible outline; `prefers-reduced-motion` keeps only the
+  fade.
+
+What the **consumer** is responsible for:
+
+- **A focusable anchor** (button, link, input) — never a bare `<span>` or icon.
+- **A name** for icon-only anchors: `aria-label`, or `relationship="label"`.
+- **Nothing essential** in a tooltip, and never the only way to perform an action
+  (MD3: use a dialog for critical information).
+- A **subhead** for persistent tooltips that open on their own (`defaultOpen`).
+
+## Text field
+
+There is no APG textbox pattern: `@chatool/ui/text-field` renders the **native**
+`<input>` / `<textarea>` and layers MD3's text-field accessibility spec on top.
+What it guarantees:
+
+- **Name** from a real `<label for>` (inside, or above with
+  `labelPosition="above"`), including MD3's required asterisk; clicking the label
+  or anywhere on the container focuses the field.
+- **Description** via `aria-describedby`: the consumer's ids, prefix, suffix,
+  supporting / error text (only the visible one is read) and the counter, spoken
+  as "n of max characters" (the visual `n/max` is `aria-hidden`).
+- **Errors:** `error` sets `aria-invalid`; `errorText` replaces the supporting
+  text and is announced with `role="alert"` when `error` turns on (re-mounted so
+  it re-announces). Native constraint failures style as errors after interaction
+  (`:user-invalid`). The error icon is `role="img"` "Error" — the non-color cue.
+- **Built-in controls:** the clear button is out of the Tab order (Escape clears,
+  `preventDefault`ed so a parent `<dialog>` stays open); the password toggle is a
+  focusable button whose name flips "Show password" / "Hide password" (so no
+  `aria-pressed`). All strings are localizable (`labels`).
+- `forced-colors` keeps the indicator / outline (borders) and greys disabled
+  parts; `prefers-reduced-motion` drops the label movement.
+
+What the **consumer** is responsible for:
+
+- A **label** on every field, or `aria-label` / `aria-labelledby` when an
+  adjacent label names it. Never a placeholder as the only label.
+- A **spoken form** for symbolic prefixes / suffixes (`sr-only` text) and names
+  for any icon buttons passed as `leadingIcon` / `trailingIcon`.
+- **Explaining the asterisk** once, and error text that says how to fix the
+  problem.
+
 ## Focus & motion
 
 - **Focus visibility.** Components show a visible focus ring on

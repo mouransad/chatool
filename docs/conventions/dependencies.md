@@ -5,7 +5,8 @@
 - **peerDependencies:** libraries the consuming app already owns and must
   deduplicate — `react`, `react-dom`, `tailwindcss`.
 - **dependencies:** everything else the package needs at runtime — `clsx`,
-  `tailwind-merge`, `radix-ui`, `class-variance-authority`, `axios`, and
+  `tailwind-merge`, `radix-ui`, `class-variance-authority`, `@floating-ui/dom`
+  (overlay positioning in `@chatool/ui`), `axios`, and
   `@chatool/{utils,icons}` (as `workspace:^`).
 - Mirror peers in `devDependencies` so the package builds/typechecks in isolation.
 

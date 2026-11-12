@@ -63,10 +63,25 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   morphs via its own smooth round→square animation) variants, horizontal/vertical;
   a pure layout that owns no state, never overrides a child's border-radius, and
   doesn't compose the interactive `BASE`/`STATE_LAYER`/`FOCUS_RING`/`DISABLED`
-  fragments). FAB and segmented are **deferred** (will be added under
-  `src/buttons/` later). Each barrel exposes a `default` + named exports (e.g.
-  `Button` + `buttonVariants`, `IconButton` + `iconButtonVariants`, `ButtonGroup` +
-  `buttonGroupVariants`).
+  fragments), and `./fab` (source `src/buttons/fab/`, the MD3 **Expressive** FAB
+  **and** extended FAB as **one morphing element**: `icon` only = FAB, `label` =
+  extended FAB, `expanded` collapses it; sizes small/medium/large = 56/80/96dp,
+  six color styles, `elevation`, `placement`, `visible`, and **responsive**
+  `size`/`expanded` objects keyed by MD3 window classes (literal `min-[600px]:` …
+  `min-[1600px]:` class maps in `fab.variants.ts`, so they stay CSS-only). All
+  size geometry is local custom properties (`--_h`/`--_ic`/`--_pad`/`--_gap`/
+  `--_r`) so size changes morph; collapsed = padding `(h − icon) / 2` + label
+  width × `--chatool-fab-expansion` (a `<number>` the container springs 1 ⇄ 0).
+  Pure Server Component; client islands are the shared `ripple` and
+  `fab/fab-label.tsx` (measures the label, registers `--chatool-fab-expansion`),
+  given its own INTERNAL `tsdown` entry. **Keep `fab-label.tsx` importing nothing
+  from `fab.variants.ts`** — a shared module makes the bundler hoist both into one
+  chunk and the `"use client"` boundary is lost. Never put `_` in a custom
+  property named inside an arbitrary `[transition:…]` value (Tailwind turns `_`
+  into a space). Segmented is **deferred** (will be added under `src/buttons/`
+  later). Each barrel exposes a `default` + named exports (e.g. `Button` +
+  `buttonVariants`, `IconButton` + `iconButtonVariants`, `ButtonGroup` +
+  `buttonGroupVariants`, `Fab` + `fabVariants`).
   Adding a component = new `src/buttons/<name>/` directory + a `tsdown` entry whose
   **key equals the subpath** (`{ button: "src/buttons/button/index.tsx" }` →
   `dist/button.*`, so the `exports` map stays stable) + the new `exports` subpath
@@ -119,6 +134,208 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   `src/badges/format.ts` — deterministic (never the runtime's default locale) so
   SSR and hydration agree. In arbitrary `calc()` values write the operator as
   `_-_` (Tailwind turns a bare `-var(--_x)` into `var(-- x)`).
+- **Selection family lives in `src/selection/`.** Published subpath: `./checkbox`
+  (source `src/selection/checkbox/`), the MD3 checkbox with Expressive motion — a
+  **Server Component over a native `<input type="checkbox">`** (no directive on the
+  view or barrel; `useId` is RSC-safe). The input is invisible but covers the 48dp
+  touch target and **all visuals are CSS driven from its state** (`:checked`,
+  `:indeterminate`, `:disabled`, `[aria-invalid]` / `:user-invalid`,
+  `:focus-visible`), so uncontrolled boxes work before hydration and a disabled
+  `<fieldset>` disables them visually. Painted roles resolve through **priority
+  chains of locals** (e.g. `--_outline` = forced-colors › disabled › error ›
+  interacting › rest): each condition sets only its own local, so the result never
+  depends on Tailwind's rule order (Prettier's class sorting is safe). The check is
+  **one stroked SVG path** (`M0 -6 V0 H12`, an "L"): a group transform rotates it
+  into a check or flat dash and the dash pattern (`--_mg` offset, `--_md` length)
+  picks the visible stretch, giving Compose's draw-in and the check ⇄ dash morph
+  with plain transitions (no `d` animation, works in Safari). Props: `label`
+  (renders a `<label>` row, `group/selection-field`), `supportingText`
+  (`aria-describedby` via `useId`), `labelPosition`, `indeterminate`
+  (controlled), `error`, `color`, `controlClassName`; everything else goes to the
+  input. Client islands: the shared `../../buttons/ripple` (now with `centered` +
+  `className`) and `checkbox-indeterminate.tsx`, which syncs the DOM-only
+  `input.indeterminate` and has its **own internal `tsdown` entry** (no `exports`
+  subpath) like `ripple`. Never set `aria-checked` on the native input (ARIA in
+  HTML). Shared Expressive springs (`MOTION`: default spatial 0.8/380, default
+  effects 1/1600, fast effects 1/3800 as `linear()`), the state-layer priority
+  chain (`STATE`) and the state-layer + focus-indicator pseudo (`STATE_LAYER`)
+  live in `src/selection/config.ts` for future radio/switch siblings.
+- **Radio lives in the selection family too.** Published subpaths: `./radio`
+  (source `src/selection/radio/`) and `./radio-group` (`src/selection/radio-group/`).
+  `Radio` is a **Server Component** shell (no directive on the view or barrel) over
+  a native `<input type="radio">`, styled exactly like the checkbox (invisible
+  input = 48dp target, priority chains of locals, `group/selection-field` label
+  row). Its SVG is Compose's geometry: ring `r=9` stroked 2, dot `r=5` scaled by
+  `--_dot` (0/1). Motion: dot **enters** on `--_spatial-fast` (Expressive fast
+  spatial 0.6/800, `FAST_SPATIAL` in `config.ts`, 348ms, overshoots) and **exits**
+  on the same spring clamped at its zero-crossing (98ms) so `scale()` never goes
+  negative; colors on `--_fx` (212ms). The native input is a **client island**,
+  `radio/radio-input.tsx` (own internal `tsdown` entry), which reads the optional
+  `RadioGroupContext` (`radio-group/radio-group-context.ts`, `"use client"`, also its
+  own internal entry so both bundles share **one** context instance) for `name`,
+  controlled `value`, `defaultValue`, `required`, `form` and `onValueChange`.
+  `RadioGroup` is a **client component** (directive on view + barrel): a
+  `<fieldset role="radiogroup">` with `<legend>`, supporting text, `aria-required` /
+  `aria-invalid`. **Visual group defaults travel by CSS, not context**, so the
+  server shell sees them: the group sets inherited locals `--_rg-accent` (color),
+  `--_rg-lp` (label side), `--_rg-dir` (orientation) and `--_rg-inset`; radios
+  fall back to them (`--_accent-own` / `--_lp` win); group error is the ancestor
+  selector `[data-slot=radio-group][aria-invalid=true]`. Keyboard is the
+  browser's native radio behavior (= APG + MD3) — never add roving tabindex or key
+  handlers, never set `aria-checked`.
+- **Switch lives in the selection family too.** Published subpath: `./switch`
+  (source `src/selection/switch/`). A **Server Component** (no directive on the view
+  or barrel) over a native `<input type="checkbox" role="switch">` (APG / Material
+  Web). Never set `aria-checked` on it. Geometry is Compose's `SwitchTokens`: a
+  52×32dp track with a 2dp outline, and a handle of 16dp (off), 24dp (on or with an
+  icon) or 28dp (pressed). The handle's **centre** only ever sits at `th/2` or
+  `tw − th/2` (derived from the track tokens). The 40dp state-layer disc and the
+  ripple ride with it via a logical `inset-inline-start` (`--_x`), so RTL needs no
+  sign math. Don't use `*var(--_…)` in arbitrary values: Tailwind's math normalizer
+  rewrites it as `var(-- …)`. Motion follows Compose's `ThumbNode`: position and
+  size share the Expressive **fast-spatial** spring (`FAST_SPATIAL`, 348ms), a press
+  **snaps** to 28dp (`--_hd-press: 0s`), colors fade over 67ms linear and icons over
+  33ms (Material Web), and a lone check rotates in from −45°. Press sources
+  (`:active`, `data-pressed`, `group-active/selection-field`) each set the same
+  locals, and disabled resets `--_hs-press` to `initial`. Props: `icons`
+  (`false` / `"selected"` / `true`, a cva variant), `selectedIcon` /
+  `unselectedIcon`, `onCheckedChange` (wraps `onChange` only when passed, so the RSC
+  path has no function prop), `label` / `supportingText` / `labelPosition`
+  (default `start`), `color`, `controlClassName`. There is no `error` state (MD3
+  defines none). Client islands: the shared `ripple` (centred, following the
+  handle) and `switch/switch-interaction.tsx` (own internal `tsdown` entry). The
+  interaction island self-attaches to its parent and adds Enter-to-toggle, a
+  `data-pressed` for touch and Space, and **drag**. While dragging it sets
+  `--_drag-x` and `data-dragging`. On release it lands by fling velocity or the
+  nearer half, swallows the browser's follow-up click in a window capture listener,
+  and toggles with one real `input.click()` only if the side changed. Never add key
+  or drag handlers elsewhere.
+- **Card family lives in `src/cards/`.** Published subpath: `./card` (source
+  `src/cards/card/`): the MD3 card **and its parts** on one subpath — `Card`
+  (default) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`,
+  `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction` (one
+  component per file in the same directory, all prop types in `card.types.ts`, all
+  cva/class fragments in `card.variants.ts`; `card-check.tsx` is the internal check
+  icon). **All Server Components** (no directive anywhere); the only client piece is
+  the shared `../../buttons/ripple`. Tokens are the Compose `*CardTokens` /
+  Material Web v34 values (variants elevated / filled _(default)_ / outlined,
+  per-state elevations, `on-surface` state layer, 3dp `secondary` focus indicator),
+  plus MDC-Android's **checked** card for `selected` and the M3 Expressive corner
+  scale for `shape`. Every state is CSS through **priority chains of `--_c-*`
+  locals** (`src/cards/config.ts`), set from attributes and pseudo-classes. The card
+  reacts to `[data-interactive]` (auto-detected `asChild` `<a>`/`<button>`/`<label>`
+  or the `interactive` prop), a stretched `[data-slot=card-primary-action]` via
+  `:has()`, a direct `>input` (`<label>` cards: `:checked`, `:focus-visible`,
+  `:disabled`), `data-dragged`, `data-selected` and `data-disabled`. Locals are
+  `--_c-` prefixed (they must never collide with nested controls' `--_sl-*`), and
+  `RESET` re-initialises every conditional local so nested cards start at rest. The
+  state layer (`::before`) and outline (`::after`) sit **above** content
+  (`z-[1]`, pointer-transparent), and the ripple too (`CARD_RIPPLE`). Decorations
+  (ripple, check) render **first** and are `aria-hidden`, so full-bleed
+  `CardMedia` finds its edges with `:nth-child(1 of :not([aria-hidden=true],input))`
+  / `:last-child` under a **direct** `[data-slot=card][data-orientation=…]` parent.
+  `CardPrimaryAction` must stay **unpositioned** with a z-index-less `::after`, so
+  positioned controls later in the DOM paint above it. Never set `aria-checked`, and
+  never add hover/ripple to container cards (MD3).
+- **Overlay family lives in `src/overlays/`.** Published subpath: `./tooltip`
+  (source `src/overlays/tooltip/`): `Tooltip` (default) + `TooltipProvider` +
+  `TooltipAction`, the MD3 **plain** and **rich** tooltip. A **client component**
+  (directive on the view, the entry barrel, `use-logic.ts`, `tooltip-context.ts`
+  and `tooltip-provider.tsx`). It wraps one anchor through `Slot` and portals the
+  tooltip only while shown. The family's **shared foundation** is built for future
+  menus / selects / popovers / dialogs; reuse it, don't fork it:
+  `config.ts` (Expressive `MOTION` locals `--_ov-*`, the top-layer `POSITIONER`
+  reset, the `HOVER_BRIDGE`, the animated `POPUP` wrapper), `placement.ts`
+  (logical `side` / `align` incl. `before` / `after` → Floating UI placements),
+  `position.ts` (`positionOverlay`: `@floating-ui/dom` `offset` / `flip` / `shift`
+  / `hide`, writes `translate`, `data-side` / `data-align`, `--_ov-origin`,
+  `--_ov-gap`, `data-anchor-hidden` and places a caret **straight to the DOM**, no
+  React state), `use-position.ts` (`autoUpdate` + `showInTopLayer`), `top-layer.ts`
+  (native `popover="manual"` top layer; `getOverlayRoot` = open `<dialog>` ›
+  fullscreen element › shadow root › `<body>`), `use-presence.ts` (mount → place →
+  `data-state="open"` → exit transitions → unmount, no `@starting-style`),
+  `dismiss.ts` (one global **Escape stack**, `preventDefault` so a parent
+  `<dialog>` stays open; capture-phase outside press), `focus.ts` (tabbables,
+  `getTabbableAfter` for non-modal Tab hand-off) and `describe.ts` (hidden
+  `aria-describedby` node, AriaDescriber-style). Tooltip behavior lives in the
+  framework-free `tooltip-controller.ts` (DOM listeners reading the latest props
+  through a ref; hover / focus-visible / touch long-press / persistent click /
+  Escape / outside / focus-outside / action), `tooltip-manager.ts` (one transient
+  tooltip at a time + `skipDelay` warmth) and `tooltip-context.ts`
+  (`TOOLTIP_TIMING` = MD3's 500 / 1500 / 300 / 500 / 1500ms). Tokens: Material
+  Web's `--md-comp-plain-tooltip-*` / `--md-comp-rich-tooltip-*`, plus
+  `--md-comp-tooltip-caret-*` and the shared `--md-comp-overlay-*`. Never add a
+  `z-index` scale, a second portal mechanism or per-overlay Escape listeners;
+  never put `aria-describedby` / `aria-label` on the anchor by hand inside the
+  component (the view merges the consumer's `aria-describedby`).
+- **Text-field family lives in `src/text-fields/`.** Published subpath:
+  `./text-field` (source `src/text-fields/text-field/`): the MD3 **filled** /
+  **outlined** text field (single-line `<input>`, growing multi-line or fixed
+  text area `<textarea>` via `multiline` + `minRows`/`maxRows`/`rows`). A
+  **Server Component** (no directive on the view or barrel) over the native
+  control. **Every state is CSS** derived on the root (`group/text-field`) with
+  `:has()` on `[data-slot=text-field-input]` / `[data-slot=text-field-field]`:
+  floated (`:focus-within`, `:not(:placeholder-shown)` — the view **always**
+  renders a placeholder, `" "` by default, so keep that — `:autofill`,
+  `[data-float]`), error (`[aria-invalid=true]` / `:user-invalid`, unless
+  `[data-error=false]`), disabled (`:disabled`), hover. Painted roles resolve
+  through **priority chains of locals** (disabled › error-hover › error › focus ›
+  hover › rest) like the selection family, and the label's geometry is
+  `rest + --_f × (floated − rest)` with `--_f` ∈ {0, 1}, so one selector moves
+  top / inset-inline-start / max-width / font-size / line-height /
+  letter-spacing, each transitioning on the Expressive fast-spatial spring
+  (Compose lerps the text style, so the label really resizes). The outlined
+  notch is Material Web's CSS-only start / notch / end segments, sized by an
+  invisible floated-label copy; the end segment overlaps the notch by 1px to
+  hide the sub-pixel seam. In arbitrary values always write `_+_` / `_-_` /
+  `_*_` (Tailwind rewrites `+var(--_x)` / `*var(--_x)` as `var(-- x)`). The one
+  client island is `text-field-interaction.tsx` (own internal `tsdown` entry, no
+  `exports` subpath): container click-to-focus, clear button + Escape (native
+  value setter + `input` event so React's `onChange` fires), password toggle
+  (flips `type`, relabels, re-hides on submit / reset), the uncontrolled
+  counter and the `field-sizing` auto-grow fallback; it is imperative (no React
+  state) and self-attaches to the container like `ripple`. The clear / password
+  buttons are the shared `IconButton` (server-rendered). Shared motion
+  (`MOTION`: fast spatial / fast effects / slow effects springs as `linear()`)
+  and `ALWAYS_FLOAT_TYPES` live in `src/text-fields/config.ts`; the inline SVG
+  glyphs (`text-field-*-icon.tsx`) keep `@chatool/ui` independent of
+  `@chatool/icons`. Tokens: `--md-comp-text-field-*` (one prefix for both
+  variants). Never add key handlers or state to the view, never set
+  `aria-describedby` for its own texts by hand, and keep `role="alert"` keyed to
+  `error` so it re-announces.
+- **Chip family lives in `src/chips/`.** Published subpaths: `./chip` (source
+  `src/chips/chip/`) and `./chip-set` (`src/chips/chip-set/`). `Chip` is the MD3
+  assist / filter / input / suggestion chip (one `variant` axis) with M3
+  Expressive shape morph by default (`expressive`: 12dp rest → half-height pill
+  when selected → 8dp pressed, from Compose `ChipsTokens` v37, on the fast-spatial
+  spring; `false` = baseline static 8dp). It is a **Server Component shell** (no
+  directive on the view or barrel): a `<span data-slot=chip>` container plus the
+  server-rendered leading slot (icon / avatar / checkmark / spinner), label and
+  trailing icon. Every state is CSS through **priority chains of `--_ch-*`
+  locals** in `src/chips/config.ts`, keyed off container attributes
+  (`data-variant`, `data-elevated`, `data-expressive`, `data-leading`,
+  `data-trailing`, `data-dragged`, `data-loading`) and `:has(>…)` on the actions'
+  `data-selected` / `data-disabled` / `:hover` / `:focus-visible` / `:active`.
+  Geometry is Compose's `Chip.kt` math (8dp content padding + 8dp element
+  spacing, input 4dp; Expressive filter / input use 4dp compact spacing); the
+  checkmark is revealed by the leading slot's width + margin springing (no
+  `@property`). The actions are ONE client island, `chip/chip-actions.tsx` (own
+  internal `tsdown` entry): primary `<button>` / `<a>` / `Slot` / remove-only
+  `<span>` + the remove `<button>`, `aria-pressed`, uncontrolled
+  `defaultSelected`, ←/→ between primary ⇄ remove, Backspace / Delete removal.
+  **It must not import `config.ts` or `chip.variants.ts` at runtime** (the view
+  passes class strings in `classes`), or the bundler hoists them into a shared
+  chunk and the boundary breaks. `ChipSet` is a **client component** (directive
+  on view + barrel + `use-logic.ts`): `role="toolbar"` with a DOM-driven roving
+  tabindex (MutationObserver; `tabindex` itself isn't observed), APG toolbar keys
+  (←/→ walk every action, Home / End, `loop`), selection (`selectionMode`
+  single / multiple, controlled or not, `required`, hidden inputs for `name`),
+  `onRemove(value)` and `layout` wrap / scroll. `chip-set/chip-set-context.ts`
+  (`"use client"`, own internal entry) holds the context **and** the shared DOM
+  helpers (`getChipEntry`, `removeChip` focus hand-off, …) so both client chunks
+  share one instance. Never set `aria-checked` / roles on chips by hand, never add
+  key handlers outside the island / set, and never call `preventDefault()` on a
+  removal key **before** running `onRemove` (it cancels the set's `onRemove`).
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading
