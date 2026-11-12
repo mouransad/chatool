@@ -77,6 +77,7 @@ export const sourceAliases = {
     "index.tsx",
   ),
   "@chatool/ui/switch": pkg("ui", "src", "selection", "switch", "index.tsx"),
+  "@chatool/ui/slider": pkg("ui", "src", "sliders", "slider", "index.tsx"),
   "@chatool/ui/card": pkg("ui", "src", "cards", "card", "index.tsx"),
   "@chatool/ui/tooltip": pkg("ui", "src", "overlays", "tooltip", "index.tsx"),
   "@chatool/ui/text-field": pkg(
@@ -88,6 +89,7 @@ export const sourceAliases = {
   ),
   "@chatool/ui/chip": pkg("ui", "src", "chips", "chip", "index.tsx"),
   "@chatool/ui/chip-set": pkg("ui", "src", "chips", "chip-set", "index.tsx"),
+  "@chatool/ui/tabs": pkg("ui", "src", "tabs", "tabs", "index.tsx"),
   // add one line per new @chatool/ui component subpath
 };
 

@@ -210,6 +210,25 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   nearer half, swallows the browser's follow-up click in a window capture listener,
   and toggles with one real `input.click()` only if the side changed. Never add key
   or drag handlers elsewhere.
+- **Slider family lives in `src/sliders/`.** Published subpath: `./slider` (source
+  `src/sliders/slider/`), shipping `Slider` (default) **and** `RangeSlider`. A
+  **client component**: `"use client"` on `slider.tsx`, `range-slider.tsx`,
+  `slider-root.tsx`, `use-logic.ts` and the `index.tsx` barrel (one `tsdown` entry,
+  no internal islands). Both wrappers map their public value shape onto the
+  internal `SliderRoot` (arrays + `mode` `standard` / `centered` / `range`), whose
+  `useLogic` owns state, pointer (nearest handle, grab-without-jump, touch slop),
+  APG + MD3 keyboard (Shift / Space + arrows, Page, Home / End), form reset and a
+  `ResizeObserver` measurement. Pure math (snapping, stops, formatting, Compose's
+  `drawTrack` layout) is `slider-math.ts` — keep it React-free. Sizes / geometry /
+  springs / color roles are in `src/sliders/config.ts` (MD3 spec table + MDC
+  `m3_comp_slider_*` tokens). **One layout for both orientations:** vertical sets
+  `writing-mode: vertical-lr; direction: rtl` on the root and every part uses
+  **logical** properties only — never add physical `left`/`top`/`translate` to the
+  track parts. Positions are CSS: the view sets `--_f<i>` / `--_k<i>` inline and
+  the root derives `--_c<i>`; segments read `--_a` / `--_b` strings built in
+  `computeLayout`. Each handle is a hidden native `<input type="range">` (keeps
+  iOS VoiceOver / TalkBack adjustable) — don't swap it for `role="slider"`.
+  Same Tailwind caveat as the switch: write `_*_var(--_…)`, never `*var(--_…)`.
 - **Card family lives in `src/cards/`.** Published subpath: `./card` (source
   `src/cards/card/`): the MD3 card **and its parts** on one subpath — `Card`
   (default) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`,
@@ -336,6 +355,35 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   share one instance. Never set `aria-checked` / roles on chips by hand, never add
   key handlers outside the island / set, and never call `preventDefault()` on a
   removal key **before** running `onRemove` (it cancels the set's `onRemove`).
+- **Tabs family lives in `src/tabs/`.** Published subpath: `./tabs` (source
+  `src/tabs/tabs/`), shipping `Tabs` (default) + `TabList`, `Tab`, `TabPanels`,
+  `TabPanel` — the MD3 primary / secondary tabs with M3 Expressive motion. A
+  **client component**: `"use client"` on every view, `use-logic.ts`,
+  `use-tab-list.ts`, `use-tab-panels.ts`, `tabs-context.ts`, `tabs-motion.ts` and
+  the `index.tsx` barrel (one `tsdown` entry, no internal islands; the shared
+  `ripple`, `IconButton` and `Badge` are imported from their families and stay in
+  directive-free shared chunks). Geometry / color roles / springs live in
+  `src/tabs/config.ts` (Compose `{Primary,Secondary}NavigationTabTokens`, Material
+  Web v34, MDC-Android `Widget.Material3.TabLayout`). **Variant roles are
+  inherited locals** set on the tab list (`--_tb-active`, `--_tb-sel-state`,
+  `--_tb-press-state`, `--_ti-h` / `--_ti-r` / `--_ti-in`), so a tab paints itself
+  from CSS; colors and the state layer are priority chains of `--_tb-*` locals.
+  **Every tab renders its own indicator** (`data-slot=tab-indicator`, inside the
+  content box for primary — `static` content box for secondary so it spans the
+  tab); only the selected one is visible, so the first paint is right without JS.
+  Motion is imperative in `tabs-motion.ts`: on a selection change `use-tab-list`
+  reads the old indicator's live box and animates the new one's **edge offsets**
+  (`--chatool-tabs-indicator-start` / `-end`, registered `<length>` properties)
+  with WAAPI — leading edge on default spatial, trailing on slow spatial
+  (`elastic`), both default spatial (`slide`), or opacity (`fade` / reduced
+  motion). Never animate the indicator with `transform: scale` (it distorts the
+  3dp corners) or move it with React state. Scrollable rows and the swipeable
+  pager scroll with `springScrollBy` (Compose's default-spatial spring via rAF;
+  the pager pauses `scroll-snap-type` while driving). Swipe → indicator goes
+  through the `TabsSwipeBus` in context (no re-render per frame). The keyboard is
+  APG tabs (manual activation default), one Tab stop = focused › selected ›
+  first enabled tab via `tabIndex` from context; never add key handlers, roles,
+  `aria-selected` or `tabIndex` elsewhere.
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading

@@ -54,6 +54,7 @@
       "@chatool/ui/switch": [
         "../../packages/ui/src/selection/switch/index.tsx"
       ],
+      "@chatool/ui/slider": ["../../packages/ui/src/sliders/slider/index.tsx"],
       "@chatool/ui/card": ["../../packages/ui/src/cards/card/index.tsx"],
       "@chatool/ui/tooltip": [
         "../../packages/ui/src/overlays/tooltip/index.tsx"
@@ -65,6 +66,7 @@
       "@chatool/ui/chip-set": [
         "../../packages/ui/src/chips/chip-set/index.tsx"
       ],
+      "@chatool/ui/tabs": ["../../packages/ui/src/tabs/tabs/index.tsx"],
       "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },

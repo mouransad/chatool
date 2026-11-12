@@ -34,26 +34,28 @@ stay minimal. `Button` is **Server-Component-safe** (it carries no `"use client"
 its only client part is the press ripple, a separate island (see
 [Accessibility & rendering](#accessibility--rendering)).
 
-| Subpath                         | Exports                                                                                                                                                                                                                                         |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                                                                                                                                                                                                     |
-| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`                                                                                                                                                                                             |
-| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`                                                                                                                                                                                           |
-| `@chatool/ui/fab`               | `Fab` (also `default`), `fabVariants`; types `FabProps`, `FabSize`, `FabColor`, `FabElevation`, `FabPlacement`, `FabWindowClass`, `FabResponsive`                                                                                               |
-| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`                                                                                                                                                                                 |
-| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`                                                                                                                                                                                     |
-| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`                                                                                                                                                                                 |
-| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                                                                                                                                                                                                   |
-| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants`                                                                                                                                                                                |
-| `@chatool/ui/checkbox`          | `Checkbox` (also `default`), `checkboxVariants`, `checkboxFieldVariants`                                                                                                                                                                        |
-| `@chatool/ui/radio`             | `Radio` (also `default`), `radioVariants`, `radioFieldVariants`                                                                                                                                                                                 |
-| `@chatool/ui/radio-group`       | `RadioGroup` (also `default`), `radioGroupVariants`                                                                                                                                                                                             |
-| `@chatool/ui/switch`            | `Switch` (also `default`), `switchVariants`, `switchFieldVariants`                                                                                                                                                                              |
-| `@chatool/ui/card`              | `Card` (also `default`) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`, `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction`; `cardVariants`, `cardMediaVariants`, `cardHeadlineVariants`, `cardActionsVariants` |
-| `@chatool/ui/tooltip`           | `Tooltip` (also `default`) + `TooltipProvider`, `TooltipAction`; `tooltipVariants`                                                                                                                                                              |
-| `@chatool/ui/text-field`        | `TextField` (also `default`), `textFieldVariants`; types `TextFieldProps`, `TextFieldInputProps`, `TextFieldTextareaProps`, `TextFieldLabels`, `TextFieldClassNames`                                                                            |
-| `@chatool/ui/chip`              | `Chip` (also `default`), `chipVariants`; types `ChipProps`, `ChipVariant`                                                                                                                                                                       |
-| `@chatool/ui/chip-set`          | `ChipSet` (also `default`), `chipSetVariants`; types `ChipSetProps`, `ChipSetSelectionMode`                                                                                                                                                     |
+| Subpath                         | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `@chatool/ui/fab`               | `Fab` (also `default`), `fabVariants`; types `FabProps`, `FabSize`, `FabColor`, `FabElevation`, `FabPlacement`, `FabWindowClass`, `FabResponsive`                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `@chatool/ui/checkbox`          | `Checkbox` (also `default`), `checkboxVariants`, `checkboxFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `@chatool/ui/radio`             | `Radio` (also `default`), `radioVariants`, `radioFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `@chatool/ui/radio-group`       | `RadioGroup` (also `default`), `radioGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `@chatool/ui/switch`            | `Switch` (also `default`), `switchVariants`, `switchFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `@chatool/ui/slider`            | `Slider` (also `default`), `RangeSlider`, `sliderVariants`; types `SliderProps`, `RangeSliderProps`, `SliderSharedProps`, `SliderClassNames`, `SliderSize`, `SliderOrientation`, `SliderValueIndicator`, `SliderFormat`, `SliderIcon`                                                                                                                                                                                                                                                                                                                                                                                    |
+| `@chatool/ui/card`              | `Card` (also `default`) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`, `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction`; `cardVariants`, `cardMediaVariants`, `cardHeadlineVariants`, `cardActionsVariants`                                                                                                                                                                                                                                                                                                                                                                          |
+| `@chatool/ui/tooltip`           | `Tooltip` (also `default`) + `TooltipProvider`, `TooltipAction`; `tooltipVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `@chatool/ui/text-field`        | `TextField` (also `default`), `textFieldVariants`; types `TextFieldProps`, `TextFieldInputProps`, `TextFieldTextareaProps`, `TextFieldLabels`, `TextFieldClassNames`                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `@chatool/ui/chip`              | `Chip` (also `default`), `chipVariants`; types `ChipProps`, `ChipVariant`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `@chatool/ui/chip-set`          | `ChipSet` (also `default`), `chipSetVariants`; types `ChipSetProps`, `ChipSetSelectionMode`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `@chatool/ui/tabs`              | `Tabs` (also `default`) + `TabList`, `Tab`, `TabPanels`, `TabPanel`; `tabsVariants`, `tabListVariants`, `tabScrollerVariants`, `tabScrollButtonVariants`, `tabVariants`, `tabContentVariants`, `tabIconVariants`, `tabLabelVariants`, `tabIndicatorVariants`, `tabPanelsVariants`, `tabPanelVariants`; types `TabsProps`, `TabListProps`, `TabProps`, `TabPanelsProps`, `TabPanelProps`, `TabBadge`, `TabsVariant`, `TabsLayout`, `TabsAlignment`, `TabsIconPosition`, `TabsIndicatorMotion`, `TabsActivationMode`, `TabsChangeReason`, `TabsChangeDetails`, `TabPanelsTransition`, `TabListClassNames`, `TabClassNames` |
 
 > The MD3 button family ships the **common Button**, the **Icon button**, the
 > **Button group**, and the **FAB / extended FAB**.
@@ -415,6 +417,96 @@ toggles, animates and submits **before hydration**. Every prop not listed below
   it turns on. Never put text inside the switch, and only use icons whose meaning is
   unambiguous (check / close).
 
+**`Slider`** and **`RangeSlider`** are the MD3 **Expressive** sliders
+(m3.material.io/components/sliders), ported from Compose `SliderTokens` /
+`SliderDefaults.drawTrack` and MDC-Android's `Widget.Material3Expressive.Slider.*`.
+The anatomy is the Expressive one: a **4dp bar handle** with a **6dp gap** to each
+track segment, **2dp inside corners** facing the handle, the size's corner on the
+track ends, and a **4dp stop dot** that anchors the end of the inactive track.
+Pressing, dragging or keyboard-focusing **squeezes the handle to 2dp** and (when
+enabled) pops the **value indicator**. Each handle is a **native
+`<input type="range">`** (invisible, pointer-inert) that carries focus, the
+keyboard, form submission and the accessibility tree; the pointer is handled on the
+whole slider. Both live on `@chatool/ui/slider`.
+
+| Size (`size`)  | Track | Handle height | Track corner | Inset icon |
+| -------------- | ----- | ------------- | ------------ | ---------- |
+| `xs` (default) | 16dp  | 44dp          | 8dp          | —          |
+| `s`            | 24dp  | 44dp          | 8dp          | —          |
+| `m`            | 40dp  | 52dp          | 12dp         | 24dp       |
+| `l`            | 56dp  | 68dp          | 16dp         | 24dp       |
+| `xl`           | 96dp  | 108dp         | 28dp         | 32dp       |
+
+| Prop (both)                   | Values                                                                                                                                             |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `min` / `max` / `step`        | defaults `0` / `100` / `1`; `step="any"` is continuous (arrow keys then move 1%)                                                                   |
+| `stops`                       | `true` — a stop dot at every step (MD3 "stops" / discrete; handles line up with the dots) · `number[]` — **custom** stops, the only allowed values |
+| `endStops`                    | `true` _(default)_ — the 3:1 contrast anchor at the inactive track's end(s); `false` drops it                                                      |
+| `largeStep`                   | Page Up / Page Down / Shift+Arrow / Space+Arrow increment; default ≈10% of the range in whole steps                                                |
+| `valueIndicator`              | `false` _(default)_ · `true` (while pressed, dragged or keyboard-focused) · `"always"`                                                             |
+| `format` / `locale`           | `Intl.NumberFormatOptions` (serializable) or `(value) => string` — the indicator text and `aria-valuetext`                                         |
+| `size`                        | `xs` _(default)_ · `s` · `m` · `l` · `xl`                                                                                                          |
+| `orientation`                 | `horizontal` _(default)_ · `vertical` (bottom = min; default height 12.5rem, set it with `className="h-64"`)                                       |
+| `inverted`                    | max at the start (horizontal) / top (vertical); arrow keys follow the screen                                                                       |
+| `disabled`                    | MD3 disabled colors; also disabled inside a `<fieldset disabled>`                                                                                  |
+| `haptics`                     | a short vibration per new value while dragging (Vibration API, Android browsers)                                                                   |
+| `name` / `form`               | form submission (a range submits both values under `name`); a form reset restores `defaultValue`                                                   |
+| `classNames`                  | per-part classes: `track`, `activeTrack`, `inactiveTrack`, `stop`, `thumb`, `handle`, `valueIndicator`, `icon`, `input`                            |
+| `className` / `style` / `ref` | the root `<div>` (every other `<div>` prop too)                                                                                                    |
+
+| `Slider` only                                 | Values                                                                                                      |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `value` / `defaultValue` / `onValueChange`    | a `number`; default `min` (the midpoint when `centered`)                                                    |
+| `onValueCommit`                               | once per gesture — pointer up or key press (Compose's `onValueChangeFinished`)                              |
+| `centered`                                    | MD3 **centered** slider: the active track grows from the middle (a 6dp gap marks the centre)                |
+| `icon` / `endIcon`                            | MD3 **inset icons** (M/L/XL; not on centered): a node or `(value) => node`; `endIcon` replaces the end stop |
+| `getAriaValueText`                            | `(value) => string`                                                                                         |
+| `id` / `autoFocus` / `inputRef`               | the native input (`<label htmlFor={id}>` names it)                                                          |
+| `aria-label` / `-labelledby` / `-describedby` | go to the native input                                                                                      |
+
+| `RangeSlider` only                         | Values                                                                                              |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| `value` / `defaultValue` / `onValueChange` | `[start, end]`; default `[min, max]`                                                                |
+| `onValueCommit`                            | once per gesture                                                                                    |
+| `minStepsBetweenThumbs`                    | minimum handle distance in steps (stops, for custom stops); default `0` — they meet but never cross |
+| `thumbLabels`                              | the two handles' names; default `["Minimum", "Maximum"]`                                            |
+| `getAriaValueText`                         | `(value, index) => string`                                                                          |
+| `inputRefs`                                | refs to the two native inputs                                                                       |
+| `aria-label` / `aria-labelledby`           | name the `role="group"` root                                                                        |
+
+- **Colors (MD3 + MDC tokens).** Active track and handle `primary`, inactive track
+  `secondary-container`; stops `on-primary` on the active track and
+  `on-secondary-container` on the inactive one (inset icons the same); value
+  indicator `inverse-surface` with `inverse-on-surface` `label-large` text in a
+  48×44dp pill. Disabled: active track `on-surface` 38%, inactive 12%, handle 38%
+  over `surface`, stops `inverse-on-surface` / `on-surface`. Focus: the 3dp
+  `secondary` indicator, 2dp around the squeezed handle.
+- **Geometry, exactly as Compose draws it.** The track is inset half a handle at
+  each end; a segment ends `handle/2 + 6dp` short of a handle; a segment shorter
+  than its corner is dropped (no hairline slivers). With stops, interior values sit
+  at `corner + f × (length − 2 × corner)` so the handle lines up with the dots, which
+  are inset into the rounded caps; dots under the handle gap are hidden, and dots
+  on the active track flip to `on-primary`. A centered slider leaves a 6dp gap at
+  the centre.
+- **Inset icon hand-off.** The icon sits 10dp inside the active track's start; when
+  the active track is shorter than the icon + padding it cross-fades onto the
+  inactive track, just past the handle (MD3: "the icon moves to the inactive
+  track"). Pass a function to swap it, e.g. volume → mute at 0.
+- **Expressive motion.** Value jumps (track click, keys, controlled updates) glide
+  on the Expressive **default spatial** spring (0.8 / 380, 412ms); dragging follows
+  the pointer 1:1. The handle squeeze and value-indicator pop use the **fast
+  spatial** spring (0.6 / 800, 348ms); colors and fades use the effects springs.
+  All are CSS `linear()` curves sampled from the Compose springs.
+  `prefers-reduced-motion` keeps only the fades.
+- **Pointer.** Press anywhere: the nearest handle comes to the pointer (MD3 "select
+  jump"); pressing _on_ a handle grabs it without a jump; stacked range handles are
+  split by the first drag direction. Touch waits for movement along the track, so
+  scrolling the page across a slider never changes it.
+- **MD3 usage.** Changes take effect **immediately**. Use **standard** when the
+  value starts at zero, **centered** when zero / the default is in the middle,
+  **range** for a min–max pair (avoid vertical range sliders). Keep stops few;
+  reserve **XL** for hero moments. Inset icons only on M/L/XL standard sliders.
+
 **`Card`** is the MD3 card — a container for content and actions about **one
 subject** — with the exact Compose / Material Web tokens and M3 **Expressive**
 shape and motion. Three variants, same legibility and function, different
@@ -710,6 +802,101 @@ container MD3 asks for ("chips appear as a group").
   dense chips the default (let users opt in by overriding
   `--md-comp-chip-container-height`).
 
+### Tabs (`@chatool/ui/tabs`)
+
+MD3 tabs — "organize content across different screens and views" — as five
+composable parts on one subpath: `Tabs` (state), `TabList` (the row), `Tab`,
+`TabPanels` (the content area) and `TabPanel`.
+
+- **Variants.** _Primary_ tabs (default) are the main destinations, placed under
+  the top app bar: selected `primary`, a **3dp** indicator with `3,3,0,0`
+  corners that spans the content, **inset 2dp** on each side, **≥ 24dp**.
+  _Secondary_ tabs are a second level inside a content area (always below
+  primary tabs): selected `on-surface`, a **2dp full-width** indicator.
+- **Anatomy & sizes** (m3.material.io specs, Compose
+  `{Primary,Secondary}NavigationTabTokens` + `Tab.kt` / `TabRow.kt`, Material Web
+  v34, MDC-Android `Widget.Material3.TabLayout`). 48dp container, **64dp** with an
+  icon stacked above the label (`iconPosition="top"`, default) or 48dp inline
+  (`"start"`, 8dp gap). 24dp icons, `title-small` labels, 16dp side padding,
+  `surface` container and a 1dp `outline-variant` divider **inside** the height.
+  Unselected labels are `on-surface-variant`, `on-surface` while hovered /
+  focused / pressed. State layers 8 / 10 / 10% (`primary` when selected and for
+  an unselected primary press, else `on-surface`); the ripple is always the
+  selected color (Compose). Focus: 3dp `secondary`, drawn **inward** with 8dp
+  corners, stopping 1dp above the indicator.
+- **Layouts.** `fixed` (default) divides the row into equal sections (MD3: avoid
+  more than four); labels may wrap to two lines, then truncate. On wide windows
+  `alignment="center"` / `"start"` sizes every tab to the widest one and aligns
+  the group (MD3 responsive layout). `scrollable` sizes tabs to their labels
+  (min 90dp), offsets the first tab 52dp from the leading edge, springs the
+  selected tab to the center (Compose) and keeps a keyboard-focused tab in view;
+  `scrollButtons` (`true` / `"auto"` = fine pointers only) adds chevrons that
+  page the row.
+- **Badges.** `badge={true}` (small dot), a count (`12`, `999+`) or your own
+  `<Badge />`. On stacked and icon-only tabs it overlaps the icon by **6dp**;
+  otherwise it follows the label by **4dp** (MD3 specs). Clear it once the tab
+  has been seen (MD3).
+- **M3 Expressive motion.** The selected indicator **travels** from wherever the
+  previous one is (mid-flight included). `indicatorMotion="elastic"` (default)
+  runs its two edges on separate Expressive springs — the leading edge on
+  **default spatial** (0.8 / 380, 412ms) and the trailing edge on **slow
+  spatial** (0.8 / 200, 567ms) — so it stretches toward its target and settles
+  with a soft overshoot (MDC-Android's `elastic` mode, on Compose's springs). The
+  edges are animated as registered `<length>` properties, so the 3dp corners
+  never distort. `"slide"` moves both edges together (Compose `TabRow`),
+  `"fade"` cross-fades (MDC). Colors fade **in** on default effects (212ms) and
+  **out** on fast effects (137ms) (Compose `TabTransition`); scrolling uses the
+  default-spatial spring. Reduced motion fades and jumps.
+- **Panels.** `TabPanels` shows the selected panel with MD3's **shared axis X**
+  enter (30dp + fade from the side of travel; `transition="fade"` / `"none"`),
+  never on first paint. `keepMounted` keeps inactive panels in the DOM. With
+  `swipeable` the content area is a scroll-snapping pager (MD3 "swipe within the
+  content area"): the indicator follows the finger with the elastic
+  interpolation and the tab is selected when the swipe settles; selecting a tab
+  springs the pager to its panel.
+- **Route tabs.** `<Tab value="/billing" asChild><Link href="/billing">Billing</Link></Tab>`
+  renders the tab as your link; drive `value` from the current route.
+
+**`Tabs` props**
+
+| Prop             | Values                                                                              |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| `value`          | controlled selected tab value                                                       |
+| `defaultValue`   | uncontrolled initial value (else the first enabled tab is selected after mount)     |
+| `onValueChange`  | `(value, { reason: "pointer" \| "keyboard" \| "swipe" \| "programmatic" }) => void` |
+| `activationMode` | `manual` _(default, MD3: arrows focus, Space / Enter select)_ · `automatic` (APG)   |
+
+**`TabList` props** (plus every `<div>` prop — name it with `aria-label` / `aria-labelledby`)
+
+| Prop              | Values                                                                   |
+| ----------------- | ------------------------------------------------------------------------ |
+| `variant`         | `primary` _(default)_ · `secondary`                                      |
+| `layout`          | `fixed` _(default)_ · `scrollable`                                       |
+| `alignment`       | `fill` _(default)_ · `center` · `start` (fixed tabs)                     |
+| `iconPosition`    | `top` _(default, stacked 64dp)_ · `start` (inline 48dp)                  |
+| `indicatorMotion` | `elastic` _(default)_ · `slide` · `fade`                                 |
+| `divider`         | `true` _(default)_ · `false`                                             |
+| `scrollButtons`   | `false` _(default)_ · `true` · `"auto"` (scrollable; fine pointers only) |
+| `loop`            | `true` _(default)_ — arrow keys wrap                                     |
+| `classNames`      | `{ scroller, scrollButton }`                                             |
+
+**`Tab` props** (plus every `<button>` prop)
+
+| Prop           | Values                                                             |
+| -------------- | ------------------------------------------------------------------ |
+| `value`        | required; matches `Tabs.value` and a `TabPanel`                    |
+| `children`     | the label                                                          |
+| `icon`         | 24dp icon; `selectedIcon` swaps in while selected                  |
+| `iconPosition` | per-tab override of the list's                                     |
+| `badge`        | `true` · number · string · `<Badge />` · `null`                    |
+| `disabled`     | skipped by the arrow keys, can't be selected                       |
+| `asChild`      | render as the single child (a link); its children become the label |
+| `classNames`   | `{ content, icon, label, indicator, badge }`                       |
+
+**`TabPanels` / `TabPanel` props**: `TabPanels` takes `swipeable` and
+`transition` (`slide` _(default)_ · `fade` · `none`); `TabPanel` takes `value`
+(required) and `keepMounted`.
+
 ## Usage
 
 ```tsx
@@ -996,6 +1183,39 @@ import Switch from "@chatool/ui/switch";
 <Switch aria-label="Photo album access" />
 ```
 
+Sliders:
+
+```tsx
+import Slider, { RangeSlider } from "@chatool/ui/slider";
+
+// Uncontrolled, from a Server Component (it server-renders in place).
+<Slider aria-label="Volume" name="volume" defaultValue={40} />
+
+// Controlled; onValueCommit fires once per gesture.
+<Slider aria-label="Brightness" value={v} onValueChange={setV} onValueCommit={save} />
+
+// Sizes, stops, value indicator + Intl formatting.
+<Slider aria-label="Opacity" size="s" min={0} max={1} step={0.1} stops
+  valueIndicator format={{ style: "percent" }} />
+
+// Custom (non-uniform) stops.
+<Slider aria-label="Storage" max={256} stops={[0, 16, 32, 64, 128, 256]} format={(v) => `${v} GB`} />
+
+// Centered (zero in the middle).
+<Slider aria-label="Exposure" centered min={-50} max={50} />
+
+// Inset icon (M / L / XL), swapping to mute at 0.
+<Slider aria-label="Volume" size="m"
+  icon={(v) => (v === 0 ? <VolumeOffRounded /> : <VolumeUpRounded />)} />
+
+// Range with named handles.
+<RangeSlider aria-label="Price" thumbLabels={["Minimum price", "Maximum price"]}
+  min={0} max={1000} step={50} minStepsBetweenThumbs={2} defaultValue={[200, 700]} />
+
+// Vertical (bottom = min).
+<Slider aria-label="Level" orientation="vertical" className="h-64" />
+```
+
 Cards:
 
 ```tsx
@@ -1206,6 +1426,41 @@ import CalendarTodayOutlined from "@chatool/icons/CalendarTodayOutlined";
 <Chip loading>Saving…</Chip>
 ```
 
+Tabs:
+
+```tsx
+import Tabs, { Tab, TabList, TabPanel, TabPanels } from "@chatool/ui/tabs";
+
+// Primary tabs with panels (renders on the server with the selection).
+<Tabs defaultValue="flights">
+  <TabList aria-label="Travel">
+    <Tab value="flights" icon={<FlightOutlined />}>Flights</Tab>
+    <Tab value="trips" icon={<LuggageOutlined />} badge={3}>Trips</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel value="flights">…</TabPanel>
+    <TabPanel value="trips">…</TabPanel>
+  </TabPanels>
+</Tabs>
+
+// Controlled, secondary, scrollable with chevrons on desktop.
+<Tabs value={tab} onValueChange={(next, { reason }) => setTab(next)}>
+  <TabList aria-label="Store" variant="secondary" layout="scrollable" scrollButtons="auto">
+    {genres.map((g) => <Tab key={g} value={g}>{g}</Tab>)}
+  </TabList>
+</Tabs>
+
+// Swipeable content area (MD3): the indicator follows the swipe.
+<TabPanels swipeable>…</TabPanels>
+
+// Route tabs (Next.js): the tab is the link.
+<Tabs value={pathname}>
+  <TabList aria-label="Account">
+    <Tab value="/billing" asChild><Link href="/billing">Billing</Link></Tab>
+  </TabList>
+</Tabs>
+```
+
 ## Customization
 
 Three layers, increasingly specific:
@@ -1323,6 +1578,35 @@ Three layers, increasingly specific:
    `--md-comp-switch-icon-fade-duration` (`33ms`). The handle's travel is computed
    from the track tokens, so a resized track keeps the handle in place.
 
+   **`Slider` / `RangeSlider`** have colors `--md-comp-slider-active-track-color`
+   (`primary`), `--md-comp-slider-inactive-track-color` (`secondary-container`),
+   `--md-comp-slider-handle-color` (`primary`),
+   `--md-comp-slider-active-stop-indicator-color` (`on-primary`),
+   `--md-comp-slider-inactive-stop-indicator-color` (`on-secondary-container`),
+   `--md-comp-slider-active-icon-color` (`on-primary`),
+   `--md-comp-slider-inactive-icon-color` (`on-secondary-container`),
+   `--md-comp-slider-value-indicator-container-color` (`inverse-surface`),
+   `--md-comp-slider-value-indicator-label-text-color` (`inverse-on-surface`),
+   `--md-comp-slider-focus-indicator-color` (`secondary`), and the disabled set
+   `--md-comp-slider-disabled-{active-track,inactive-track,handle,active-stop-indicator,inactive-stop-indicator,active-icon,inactive-icon}-color`;
+   geometry `--md-comp-slider-track-height`, `--md-comp-slider-handle-height`,
+   `--md-comp-slider-track-corner`, `--md-comp-slider-icon-size` (all per `size`
+   by default), `--md-comp-slider-handle-width` (`4dp`),
+   `--md-comp-slider-pressed-handle-width` (`2dp`), `--md-comp-slider-handle-gap`
+   (`6dp`), `--md-comp-slider-track-inside-corner` (`2dp`),
+   `--md-comp-slider-stop-indicator-size` (`4dp`), `--md-comp-slider-icon-padding`
+   (`10dp`), `--md-comp-slider-value-indicator-spacing` (`4dp`),
+   `--md-comp-slider-touch-target-size` (`48dp`),
+   `--md-comp-slider-focus-indicator-thickness` (`3dp`); and motion
+   `--md-comp-slider-spatial-easing`, `--md-comp-slider-fast-spatial-easing`,
+   `--md-comp-slider-effects-easing`, `--md-comp-slider-fast-effects-easing`.
+   Every part also has a `data-slot` (`slider`, `slider-track`,
+   `slider-active-track`, `slider-inactive-track`, `slider-stop`,
+   `slider-end-stop`, `slider-icon`, `slider-thumb`, `slider-handle`,
+   `slider-input`, `slider-value-indicator`) and state attributes
+   (`data-dragging`, `data-pressed`, `data-orientation`, `data-mode`), or use
+   `classNames`.
+
    **`Card`** has `--md-comp-card-container-color` (per variant:
    `surface-container-low` / `-highest` / `surface`), `--md-comp-card-content-color`
    (`on-surface`), `--md-comp-card-outline-color` (`outline-variant`, outlined) and
@@ -1419,6 +1703,32 @@ Three layers, increasingly specific:
    `chip-leading`, `chip-icon`, `chip-check`, `chip-avatar`, `chip-label`,
    `chip-trailing-icon`, `chip-remove`, `chip-set`) and the chip root exposes
    `data-variant`, `data-elevated`, `data-expressive`, `data-leading`.
+
+   **`Tabs`** read `--md-comp-tabs-*` (one prefix for both variants; scope with
+   `[data-variant=secondary]` if they should differ). Container:
+   `-container-color` (`surface`), `-divider-color` (`outline-variant`),
+   `-divider-height` (`1px`), `-container-height` (`3rem`),
+   `-stacked-container-height` (`4rem`), `-padding` (`1rem`), `-icon-size`
+   (`1.5rem`), `-icon-gap` (`0.5rem`), `-badge-gap` (`0.25rem`),
+   `-scrollable-min-width` (`5.625rem`), `-scrollable-edge-padding` (`3.25rem`).
+   Indicator: `-indicator-color` (`primary`), `-primary-indicator-height`
+   (`0.1875rem`), `-primary-indicator-shape` (`3,3,0,0`), `-primary-indicator-inset`
+   (`0.125rem`), `-indicator-min-width` (`1.5rem`), `-secondary-indicator-height`
+   (`0.125rem`), `-secondary-indicator-shape` (`0`). Color:
+   `-active-label-text-color` (`primary` / secondary `on-surface`),
+   `-label-text-color` (`on-surface-variant`), `-hover-label-text-color`
+   (`on-surface`), `-active-state-layer-color`, `-state-layer-color`,
+   `-pressed-state-layer-color`; icons follow the label color. Focus:
+   `-focus-indicator-color` (`secondary`), `-focus-indicator-shape` (`0.5rem`).
+   Motion: `-indicator-easing` (the spatial spring), `-indicator-leading-duration`
+   (`412ms`), `-indicator-trailing-duration` (`567ms`), `-effects-easing` /
+   `-effects-duration` (`212ms`), `-fast-effects-easing` / `-fast-effects-duration`
+   (`137ms`), `-panel-slide-distance` (`1.875rem`). Parts carry `data-slot`
+   (`tabs`, `tab-list`, `tab-scroller`, `tab-scroll-button`, `tab`, `tab-content`,
+   `tab-icon`, `tab-label`, `tab-indicator`, `tab-badge`, `tab-panels`,
+   `tab-panel`); tabs expose `data-value`, `data-selected`, `data-stacked`, the list
+   `data-variant`, `data-layout`, `data-overflowing`, `data-at-start`,
+   `data-at-end`, and `classNames` reaches each part.
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -1673,6 +1983,43 @@ parts are islands: the press ripple, centred on and travelling with the handle, 
 an interaction island that adds Enter, touch and keyboard press feedback, and
 dragging. Without JavaScript, click, tap and Space still toggle and animate it.
 
+`Slider` follows the
+[WAI-ARIA APG slider pattern](https://www.w3.org/WAI/ARIA/apg/patterns/slider/)
+and `RangeSlider` the
+[multi-thumb slider](https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/),
+plus MD3's slider accessibility spec:
+
+- **A native range input per handle.** Screen readers announce the name,
+  "slider" and the value (or `aria-valuetext` from `format` /
+  `getAriaValueText`); iOS VoiceOver and Android TalkBack can **swipe to
+  adjust**, which custom `role="slider"` widgets can't offer on mobile. The
+  input's focus outline covers the handle.
+- **Keyboard:** Tab lands on the handle (MD3: "initial focus lands directly on
+  the handle"). ←/→ and ↑/↓ change by one step (or one stop), following the
+  screen in RTL, vertical and `inverted`; **Page Up / Page Down**, **Shift +
+  arrows** and **Space + arrows** (MD3) by the large step; **Home / End** to the
+  ends. A range slider's handles are separate Tab stops; each one's `min` / `max`
+  is bounded by the other.
+- **Naming:** name it like its visible text — `aria-label`, `aria-labelledby`, or
+  `<label htmlFor={id}>`. Range handles get `thumbLabels` ("Minimum price" /
+  "Maximum price") and the group gets `aria-label` / `aria-labelledby`.
+- **Contrast:** the end stop gives the inactive track's end a 3:1 anchor; drop it
+  (`endStops={false}`) only when the track already has that contrast, or put
+  icons / icon buttons (with the button role) outside the track instead.
+- **Visible value:** the value indicator appears on press and keyboard focus; for
+  a persistent value, add a text field next to the slider (kept in sync) and let
+  Tab move to it.
+- **Disabled** uses the native attribute (or an ancestor `<fieldset disabled>`):
+  out of the tab order, no pointer. **High contrast:** forced-colors maps the
+  tracks and handle to `Highlight` / `GrayText`.
+
+**Rendering:** `Slider` and `RangeSlider` are **client components** (`"use
+client"`): they track drags, measure the track and update the value live. They
+still **server-render** with every handle, segment and stop in place (positions
+are CSS `calc()` from the value), so the first paint is exact; dragging starts once
+it hydrates. Pass `format` as `Intl.NumberFormatOptions` (not a function) and
+`icon` as a node when rendering from a Server Component.
+
 `Card` follows MD3's card accessibility spec. There is no APG "card" pattern,
 so it uses the established block-link technique (Heydon Pickering's _Inclusive
 Components_, Adrian Roselli's block links):
@@ -1843,6 +2190,37 @@ is a **client component** (directive on its view and barrel) that still renders
 on the server, so the selection is in the first paint; its roving tabindex starts
 after hydration (until then every chip is a Tab stop).
 
+`Tabs` follow the WAI-ARIA APG **tabs** pattern and MD3's tabs accessibility
+spec:
+
+- **Roles.** `TabList` is `role="tablist"`, each `Tab` a native `<button
+role="tab">` with `aria-selected` and `aria-controls` → its `TabPanel`
+  (`role="tabpanel"`, `aria-labelledby` → its tab, `tabIndex={0}` so a panel that
+  starts with plain text is reachable). Ids are generated with `useId`.
+- **Keyboard.** One Tab stop for the row (the selected tab; the focused one while
+  focus is inside). ←/→ (mirrored in RTL) move focus with wrap-around (`loop`),
+  Home / End jump, disabled tabs are skipped, ↑/↓ are left to page scrolling.
+  MD3's **manual** activation by default: Space / Enter select ("Don't use
+  Space/Enter for navigating tabs"); `activationMode="automatic"` selects on
+  focus (APG, when panels render instantly). A focused tab is scrolled into view
+  in scrollable rows.
+- **Labels & badges.** Name every tab list (`aria-label` / `aria-labelledby`); an
+  icon-only tab needs an `aria-label`. A badge's full value is read as part of the
+  tab's name ("Mail 12"); its visible glyphs are hidden.
+- **Scroll buttons** are `aria-hidden` and out of the Tab order (a pointer
+  affordance); swipeable panels make inactive panels `inert`.
+- **Targets.** 48dp minimum height for every tab; MD3 asks not to apply density
+  by default.
+
+**Rendering:** the tabs subpath is a **client component** (state, context and the
+imperative motion; `"use client"` on every view and the barrel) that still
+renders on the server: with `value` / `defaultValue` the selected tab, its
+indicator and its panel are in the first paint, and works from Server Components
+(pass only serializable props there, e.g. `defaultValue`). The indicator, the
+auto-scroll and swipe-following are imperative DOM work (Web Animations on
+registered properties, `requestAnimationFrame` springs), so no animation frame
+re-renders React. The ripple is the shared `ripple` island.
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -1979,6 +2357,22 @@ role="radiogroup">`): give it `label` (legend) and either `defaultValue` or
   save-later forms). Don't add `"use client"`, don't set `aria-checked`, don't add
   key or drag handlers. There is no `error` state (MD3 defines none). Tokens
   `--md-comp-switch-*`.
+- **`Slider` / `RangeSlider`** (`@chatool/ui/slider`): MD3 Expressive sliders,
+  **client components** over one **native `<input type="range">`** per handle.
+  `import Slider, { RangeSlider } from "@chatool/ui/slider"`. Values are numbers
+  (`Slider`) or `[start, end]` (`RangeSlider`); `value` / `defaultValue` /
+  `onValueChange` / `onValueCommit`. `min` / `max` / `step` (default 0 / 100 / 1,
+  `"any"` continuous), `stops` (`true` or a custom `number[]`), `endStops`,
+  `largeStep`, `valueIndicator` `false` · `true` · `"always"`, `format`
+  (`Intl.NumberFormatOptions` or a function), `size` `xs` _(default)_ · `s` · `m` ·
+  `l` · `xl`, `orientation`, `inverted`, `disabled`, `haptics`, `name`, `form`,
+  `classNames`. `Slider` adds `centered`, `icon` / `endIcon` (M/L/XL standard only),
+  `id` / `inputRef`; `RangeSlider` adds `minStepsBetweenThumbs`, `thumbLabels`,
+  `inputRefs`. Always **name** it (`aria-label` / `aria-labelledby` / `<label
+htmlFor>`). Don't wrap it in your own `role="slider"` or key handlers, don't
+  re-style the handle with a circle (the Expressive handle is a 4dp bar), don't
+  use inset icons on centered/range or XS/S, and avoid vertical range sliders.
+  Tokens `--md-comp-slider-*`.
 - **`Card`** (`@chatool/ui/card`): the MD3 card + parts, all **Server Components**
   from one subpath — `Card` (default) with `CardMedia`, `CardHeader`
   (`leading`/`trailing`), `CardContent`, `CardHeadline` (`<h3>`, `size`,
@@ -2046,6 +2440,22 @@ onValueChange={setV}><Chip variant="filter" value="ramen">Ramen</Chip></ChipSet>
   Components. Always label the set; show chips in a set, never alone; don't use
   chips for primary / final actions (use buttons); don't add your own key handlers,
   `role`s or `aria-pressed`. Tokens `--md-comp-chip-*`, `--md-comp-chip-set-*`.
+- **`Tabs`** (`@chatool/ui/tabs`): `<Tabs defaultValue="a"><TabList
+aria-label="…"><Tab value="a">A</Tab><Tab value="b">B</Tab></TabList><TabPanels><TabPanel
+value="a">…</TabPanel><TabPanel value="b">…</TabPanel></TabPanels></Tabs>`. Every
+  `Tab` / `TabPanel` needs a `value`; `Tabs` owns the selection (`value` /
+  `defaultValue` / `onValueChange(value, { reason })`, `activationMode` `manual`
+  default · `automatic`). `TabList`: `variant` `primary` · `secondary`, `layout`
+  `fixed` · `scrollable`, `alignment` `fill` · `center` · `start`, `iconPosition`
+  `top` · `start`, `indicatorMotion` `elastic` (default, MD3 Expressive) · `slide`
+  · `fade`, `divider`, `scrollButtons`, `loop`. `Tab`: `icon`, `selectedIcon`,
+  `badge` (`true` / number / string / `<Badge />`), `disabled`, `asChild` (route
+  links), `classNames`. `TabPanels`: `swipeable`, `transition` `slide` · `fade` ·
+  `none`; `TabPanel`: `keepMounted`. Client component usable from Server
+  Components. Always name the tab list; give icon-only tabs an `aria-label`; use
+  secondary tabs only below primary ones; don't add key handlers, roles,
+  `aria-selected` or `tabIndex` yourself; don't hand-animate the indicator. Tokens
+  `--md-comp-tabs-*`.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders

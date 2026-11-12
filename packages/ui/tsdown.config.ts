@@ -37,6 +37,10 @@ export default defineChatoolConfig({
     // `./switch` is a Server Component over a native `<input role=switch>`;
     // Enter / touch press / drag live in the `switch-interaction` island.
     switch: "src/selection/switch/index.tsx",
+    // The slider family (`src/sliders/`). `./slider` is a client component
+    // (it tracks drags and live values): the directive sits on its views +
+    // entry barrel. `Slider` and `RangeSlider` ship on the same subpath.
+    slider: "src/sliders/slider/index.tsx",
     // The card family (`src/cards/`). `./card` is a Server Component with its
     // parts (media, header, headline, actions, primary action, …) on the same
     // subpath; its only client piece is the shared `ripple` island.
@@ -56,6 +60,12 @@ export default defineChatoolConfig({
     // provides context and owns selection + the roving tabindex).
     chip: "src/chips/chip/index.tsx",
     "chip-set": "src/chips/chip-set/index.tsx",
+    // The tabs family (`src/tabs/`). `./tabs` is a client component (it owns
+    // the selection and drives the indicator / scrolling / swipe): the
+    // directive sits on every view + the entry barrel. `Tabs`, `TabList`,
+    // `Tab`, `TabPanels` and `TabPanel` ship on the same subpath; its only
+    // external client piece is the shared `ripple` island.
+    tabs: "src/tabs/tabs/index.tsx",
     // INTERNAL chunk (no `exports` entry — not a public subpath). The press
     // ripple is the button family's only `"use client"` module; giving it its
     // own entry guarantees the directive is preserved as a distinct client

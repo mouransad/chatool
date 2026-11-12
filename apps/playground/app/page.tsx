@@ -13,10 +13,12 @@ import { BadgeCounter, BadgeNavBar } from "./components/badge-demo";
 import { CheckboxParentChild } from "./components/checkbox-demo";
 import { RadioControlled } from "./components/radio-demo";
 import { SwitchControlled } from "./components/switch-demo";
+import { SliderControlled } from "./components/slider-demo";
 import { CardToggleGroup } from "./components/card-demo";
 import { TooltipControlled } from "./components/tooltip-demo";
 import { FabCollapseOnScroll, FabShowHide } from "./components/fab-demo";
 import { ChipFilterSet, ChipInputSet } from "./components/chip-demo";
+import { TabsBadgeInbox, TabsSwipeable } from "./components/tabs-demo";
 import {
   TextFieldControlled,
   TextFieldSearch,
@@ -25,6 +27,7 @@ import {
 import TextField from "@chatool/ui/text-field";
 import Chip from "@chatool/ui/chip";
 import ChipSet from "@chatool/ui/chip-set";
+import Tabs, { Tab, TabList, TabPanel, TabPanels } from "@chatool/ui/tabs";
 import CalendarTodayOutlined from "@chatool/icons/CalendarTodayOutlined";
 import LocationOnOutlined from "@chatool/icons/LocationOnOutlined";
 import StarOutlined from "@chatool/icons/StarOutlined";
@@ -43,6 +46,7 @@ import Checkbox from "@chatool/ui/checkbox";
 import Radio from "@chatool/ui/radio";
 import RadioGroup from "@chatool/ui/radio-group";
 import Switch from "@chatool/ui/switch";
+import Slider, { RangeSlider } from "@chatool/ui/slider";
 import Card, {
   CardActions,
   CardContent,
@@ -793,6 +797,79 @@ export default function Home() {
         <RadioControlled />
       </Section>
 
+      {/* Slider — a client component that still renders on the server */}
+      <Section
+        title="Slider — sizes & variants"
+        hint="MD3 Expressive: a 4dp bar handle with a 6dp gap to each track, five sizes (16–96dp tracks), standard / centered / range. Server-rendered in place; drag, click the track, or Tab + arrows / Page / Home / End after hydration."
+      >
+        <div className="gap-8 max-w-lg flex w-full flex-col">
+          <Slider aria-label="XS" defaultValue={30} valueIndicator />
+          <Slider
+            aria-label="S"
+            size="s"
+            defaultValue={45}
+            step={10}
+            stops
+            valueIndicator
+          />
+          <Slider aria-label="M" size="m" defaultValue={60} />
+          <Slider aria-label="L" size="l" defaultValue={75} />
+          <Slider
+            aria-label="Exposure"
+            centered
+            min={-50}
+            max={50}
+            defaultValue={20}
+            valueIndicator
+          />
+          <RangeSlider
+            aria-label="Range"
+            defaultValue={[25, 70]}
+            valueIndicator
+          />
+          <Slider
+            aria-label="Opacity"
+            min={0}
+            max={1}
+            step={0.05}
+            defaultValue={0.6}
+            valueIndicator="always"
+            format={{ style: "percent" }}
+          />
+          <Slider aria-label="Disabled" disabled defaultValue={40} />
+        </div>
+        <div className="gap-8 flex items-end">
+          <Slider
+            aria-label="Vertical"
+            orientation="vertical"
+            defaultValue={60}
+            valueIndicator
+          />
+          <Slider
+            aria-label="Vertical M"
+            orientation="vertical"
+            size="m"
+            defaultValue={35}
+          />
+          <Slider
+            aria-label="Vertical centered"
+            orientation="vertical"
+            size="s"
+            centered
+            min={-10}
+            max={10}
+            defaultValue={-4}
+          />
+        </div>
+      </Section>
+
+      <Section
+        title="Slider — controlled"
+        hint="value + onValueChange in a client island; onValueCommit fires once per gesture. The inset icon swaps to mute at 0 and hands off to the inactive track when the active track is too short."
+      >
+        <SliderControlled />
+      </Section>
+
       {/* Switch — the shell renders on the server; Enter/drag are an island */}
       <Section
         title="Switch — states"
@@ -1197,6 +1274,71 @@ export default function Home() {
       >
         <ChipFilterSet />
         <ChipInputSet />
+      </Section>
+
+      {/* MD3 tabs — client component, server-rendered with defaultValue */}
+      <Section
+        title="Tabs — primary, secondary, scrollable"
+        hint="Server-rendered with the selection, indicator and panel in the first paint. Click far-apart tabs: the Expressive elastic indicator stretches toward its target. ←/→ move focus, Space/Enter select."
+      >
+        <div className="max-w-xl gap-6 flex w-full flex-col">
+          <Tabs defaultValue="flights">
+            <TabList aria-label="Travel">
+              <Tab value="flights">Flights</Tab>
+              <Tab value="trips">Trips</Tab>
+              <Tab value="explore">Explore</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel value="flights" className="p-4 text-body-medium">
+                Flights panel
+              </TabPanel>
+              <TabPanel value="trips" className="p-4 text-body-medium">
+                Trips panel
+              </TabPanel>
+              <TabPanel value="explore" className="p-4 text-body-medium">
+                Explore panel
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+          <Tabs defaultValue="overview">
+            <TabList aria-label="Details" variant="secondary">
+              <Tab value="overview">Overview</Tab>
+              <Tab value="specs">Specifications</Tab>
+              <Tab value="reviews" badge={3}>
+                Reviews
+              </Tab>
+            </TabList>
+          </Tabs>
+          <Tabs defaultValue="Premium">
+            <TabList
+              aria-label="Store"
+              layout="scrollable"
+              scrollButtons="auto"
+            >
+              {[
+                "For you",
+                "Top charts",
+                "Children",
+                "Premium",
+                "Categories",
+                "Editors' choice",
+                "New releases",
+              ].map((g) => (
+                <Tab key={g} value={g}>
+                  {g}
+                </Tab>
+              ))}
+            </TabList>
+          </Tabs>
+        </div>
+      </Section>
+
+      <Section
+        title="Tabs — client demos"
+        hint="Badges that clear once seen (controlled, with the change reason), and swipeable panels the indicator follows."
+      >
+        <TabsBadgeInbox />
+        <TabsSwipeable />
       </Section>
 
       {/* @chatool/icons */}
