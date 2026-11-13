@@ -90,6 +90,13 @@ export const sourceAliases = {
   "@chatool/ui/chip": pkg("ui", "src", "chips", "chip", "index.tsx"),
   "@chatool/ui/chip-set": pkg("ui", "src", "chips", "chip-set", "index.tsx"),
   "@chatool/ui/tabs": pkg("ui", "src", "tabs", "tabs", "index.tsx"),
+  "@chatool/ui/snackbar": pkg(
+    "ui",
+    "src",
+    "snackbars",
+    "snackbar",
+    "index.tsx",
+  ),
   // add one line per new @chatool/ui component subpath
 };
 

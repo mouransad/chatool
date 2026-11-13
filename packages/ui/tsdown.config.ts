@@ -66,6 +66,14 @@ export default defineChatoolConfig({
     // `Tab`, `TabPanels` and `TabPanel` ship on the same subpath; its only
     // external client piece is the shared `ripple` island.
     tabs: "src/tabs/tabs/index.tsx",
+    // The snackbar family (`src/snackbars/`). `./snackbar` is a client
+    // component (the host owns the queue subscription, timers, swipe and
+    // announcements): the directive sits on its views + entry barrel.
+    // `Snackbar`, `SnackbarHost`, `SnackbarAction`, `SnackbarDismissAction`,
+    // `snackbar()`, `createSnackbarQueue` and `useSnackbar` ship on the same
+    // subpath; its external client pieces are the shared `ripple` island and
+    // the tooltip (inlined from the overlay family).
+    snackbar: "src/snackbars/snackbar/index.tsx",
     // INTERNAL chunk (no `exports` entry — not a public subpath). The press
     // ripple is the button family's only `"use client"` module; giving it its
     // own entry guarantees the directive is preserved as a distinct client

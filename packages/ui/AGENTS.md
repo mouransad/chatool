@@ -384,6 +384,38 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   APG tabs (manual activation default), one Tab stop = focused › selected ›
   first enabled tab via `tabIndex` from context; never add key handlers, roles,
   `aria-selected` or `tabIndex` elsewhere.
+- **Snackbar family lives in `src/snackbars/`.** Published subpath:
+  `./snackbar` (source `src/snackbars/snackbar/`), shipping `Snackbar` (default,
+  the surface = Compose's `Snackbar(…)`), `SnackbarHost`, `SnackbarAction`,
+  `SnackbarDismissAction`, the imperative `snackbar()` function,
+  `createSnackbarQueue` and `useSnackbar`. A **client component**: `"use client"`
+  on every view, hook, `snackbar-context.ts` and the `index.tsx` barrel (one
+  `tsdown` entry, no internal islands; `Button` / `IconButton` / `Tooltip`, the
+  overlay `MOTION`, `usePresence` and `showInTopLayer` are reused from their
+  families). `snackbar-queue.ts` is a **framework-free store** (Compose's
+  `SnackbarHostState` + MDC's `SnackbarManager`): immutable snapshots for
+  `useSyncExternalStore`, one `current` + FIFO `pending`, same `id` updates in
+  place (`version` bump restarts the timer), `key` is per appearance (the React
+  key), `replace` / `strategy` swaps, results settle a promise once. Never put
+  timers or DOM in the queue: the **timer lives in `use-item-logic.ts`** (pauses on
+  hover / focus / swipe / host focus loss; an action ⇒ `"indefinite"`, which also
+  defaults the ✕ on). `use-host-logic.ts` owns the leaving-items list (so a
+  replacement crossfades in one grid cell), the separate **live region** (text
+  set `ANNOUNCE_DELAY` after the change, read from the rendered DOM), the hotkey,
+  the anchor offset (`--_sb-anchor`, re-measured on resize / scroll / the anchor's
+  `transitionend` / every new snackbar, since a ResizeObserver misses
+  transforms), the top layer and the modal-`<dialog>` portal. `swipe.ts` is the
+  framework-free MDC `SwipeDismissBehavior` port (writes `translate` / `opacity`
+  inline, clamps disallowed directions, swallows the click after a drag).
+  `use-logic.ts` resolves `actionOnNewLine="auto"` (MDC: compact + wrapping +
+  action > 128dp) against the **inline** geometry so it can't oscillate. Numbers
+  live in `src/snackbars/config.ts` (`TIMING`, `SWIPE`, `ANNOUNCE_DELAY`,
+  `INLINE_ACTION_MAX_WIDTH`, `DEFAULT_HOTKEY`); classes in `snackbar.variants.ts`
+  (the 48 / 68dp heights fall out of 14dp text padding — keep it). Width is a
+  **container query** on the host (`@container`, `@min-[600px]:`), so `contained`
+  hosts respond to their pane. Never move focus to a snackbar on show, never add
+  `aria-live` to the surface (the announcer does it), never render two hosts on
+  one queue.
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading

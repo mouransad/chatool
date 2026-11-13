@@ -34,28 +34,29 @@ stay minimal. `Button` is **Server-Component-safe** (it carries no `"use client"
 its only client part is the press ripple, a separate island (see
 [Accessibility & rendering](#accessibility--rendering)).
 
-| Subpath                         | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `@chatool/ui/fab`               | `Fab` (also `default`), `fabVariants`; types `FabProps`, `FabSize`, `FabColor`, `FabElevation`, `FabPlacement`, `FabWindowClass`, `FabResponsive`                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `@chatool/ui/checkbox`          | `Checkbox` (also `default`), `checkboxVariants`, `checkboxFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `@chatool/ui/radio`             | `Radio` (also `default`), `radioVariants`, `radioFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `@chatool/ui/radio-group`       | `RadioGroup` (also `default`), `radioGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `@chatool/ui/switch`            | `Switch` (also `default`), `switchVariants`, `switchFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `@chatool/ui/slider`            | `Slider` (also `default`), `RangeSlider`, `sliderVariants`; types `SliderProps`, `RangeSliderProps`, `SliderSharedProps`, `SliderClassNames`, `SliderSize`, `SliderOrientation`, `SliderValueIndicator`, `SliderFormat`, `SliderIcon`                                                                                                                                                                                                                                                                                                                                                                                    |
-| `@chatool/ui/card`              | `Card` (also `default`) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`, `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction`; `cardVariants`, `cardMediaVariants`, `cardHeadlineVariants`, `cardActionsVariants`                                                                                                                                                                                                                                                                                                                                                                          |
-| `@chatool/ui/tooltip`           | `Tooltip` (also `default`) + `TooltipProvider`, `TooltipAction`; `tooltipVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `@chatool/ui/text-field`        | `TextField` (also `default`), `textFieldVariants`; types `TextFieldProps`, `TextFieldInputProps`, `TextFieldTextareaProps`, `TextFieldLabels`, `TextFieldClassNames`                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `@chatool/ui/chip`              | `Chip` (also `default`), `chipVariants`; types `ChipProps`, `ChipVariant`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `@chatool/ui/chip-set`          | `ChipSet` (also `default`), `chipSetVariants`; types `ChipSetProps`, `ChipSetSelectionMode`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| `@chatool/ui/tabs`              | `Tabs` (also `default`) + `TabList`, `Tab`, `TabPanels`, `TabPanel`; `tabsVariants`, `tabListVariants`, `tabScrollerVariants`, `tabScrollButtonVariants`, `tabVariants`, `tabContentVariants`, `tabIconVariants`, `tabLabelVariants`, `tabIndicatorVariants`, `tabPanelsVariants`, `tabPanelVariants`; types `TabsProps`, `TabListProps`, `TabProps`, `TabPanelsProps`, `TabPanelProps`, `TabBadge`, `TabsVariant`, `TabsLayout`, `TabsAlignment`, `TabsIconPosition`, `TabsIndicatorMotion`, `TabsActivationMode`, `TabsChangeReason`, `TabsChangeDetails`, `TabPanelsTransition`, `TabListClassNames`, `TabClassNames` |
+| Subpath                         | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `@chatool/ui/fab`               | `Fab` (also `default`), `fabVariants`; types `FabProps`, `FabSize`, `FabColor`, `FabElevation`, `FabPlacement`, `FabWindowClass`, `FabResponsive`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `@chatool/ui/checkbox`          | `Checkbox` (also `default`), `checkboxVariants`, `checkboxFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `@chatool/ui/radio`             | `Radio` (also `default`), `radioVariants`, `radioFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `@chatool/ui/radio-group`       | `RadioGroup` (also `default`), `radioGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `@chatool/ui/switch`            | `Switch` (also `default`), `switchVariants`, `switchFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `@chatool/ui/slider`            | `Slider` (also `default`), `RangeSlider`, `sliderVariants`; types `SliderProps`, `RangeSliderProps`, `SliderSharedProps`, `SliderClassNames`, `SliderSize`, `SliderOrientation`, `SliderValueIndicator`, `SliderFormat`, `SliderIcon`                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `@chatool/ui/card`              | `Card` (also `default`) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`, `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction`; `cardVariants`, `cardMediaVariants`, `cardHeadlineVariants`, `cardActionsVariants`                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `@chatool/ui/tooltip`           | `Tooltip` (also `default`) + `TooltipProvider`, `TooltipAction`; `tooltipVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `@chatool/ui/text-field`        | `TextField` (also `default`), `textFieldVariants`; types `TextFieldProps`, `TextFieldInputProps`, `TextFieldTextareaProps`, `TextFieldLabels`, `TextFieldClassNames`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `@chatool/ui/chip`              | `Chip` (also `default`), `chipVariants`; types `ChipProps`, `ChipVariant`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `@chatool/ui/chip-set`          | `ChipSet` (also `default`), `chipSetVariants`; types `ChipSetProps`, `ChipSetSelectionMode`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `@chatool/ui/tabs`              | `Tabs` (also `default`) + `TabList`, `Tab`, `TabPanels`, `TabPanel`; `tabsVariants`, `tabListVariants`, `tabScrollerVariants`, `tabScrollButtonVariants`, `tabVariants`, `tabContentVariants`, `tabIconVariants`, `tabLabelVariants`, `tabIndicatorVariants`, `tabPanelsVariants`, `tabPanelVariants`; types `TabsProps`, `TabListProps`, `TabProps`, `TabPanelsProps`, `TabPanelProps`, `TabBadge`, `TabsVariant`, `TabsLayout`, `TabsAlignment`, `TabsIconPosition`, `TabsIndicatorMotion`, `TabsActivationMode`, `TabsChangeReason`, `TabsChangeDetails`, `TabPanelsTransition`, `TabListClassNames`, `TabClassNames`                            |
+| `@chatool/ui/snackbar`          | `Snackbar` (also `default`) + `SnackbarHost`, `SnackbarAction`, `SnackbarDismissAction`; `snackbar()` (global imperative API: `.update`, `.dismiss`, `.clear`, `.promise`, `.queue`), `createSnackbarQueue`, `useSnackbar`; `snackbarVariants`, `snackbarHostVariants`; types `SnackbarProps`, `SnackbarHostProps`, `SnackbarActionProps`, `SnackbarDismissActionProps`, `SnackbarOptions`, `SnackbarData`, `SnackbarHandle`, `SnackbarQueue`, `SnackbarQueueState`, `SnackbarFunction`, `SnackbarDuration`, `SnackbarCloseReason`, `SnackbarStrategy`, `SnackbarSwipeDirection`, `SnackbarPoliteness`, `SnackbarAnchor`, `SnackbarPromiseMessages` |
 
 > The MD3 button family ships the **common Button**, the **Icon button**, the
 > **Button group**, and the **FAB / extended FAB**.
@@ -897,6 +898,117 @@ composable parts on one subpath: `Tabs` (state), `TabList` (the row), `Tab`,
 `transition` (`slide` _(default)_ · `fade` · `none`); `TabPanel` takes `value`
 (required) and `keepMounted`.
 
+### Snackbar (`@chatool/ui/snackbar`)
+
+MD3 snackbars "show short updates about app processes at the bottom of the
+screen", built from the live MD3 spec / guidelines / accessibility pages, Compose
+`Snackbar.kt` + `SnackbarHost.kt` + `SnackbarTokens` (v0_103), MDC-Android
+(`BaseTransientBottomBar`, `SnackbarManager`, `SwipeDismissBehavior`) and
+MDC-web. Three layers on one subpath:
+
+- **`snackbar(…)`**: the imperative API, callable from any **client** code (event
+  handlers, mutation callbacks, stores, non-React code). Returns a handle whose
+  `result` promise settles with why it closed (`"action"` = Compose's
+  `ActionPerformed`), plus `update()` / `dismiss()`. `snackbar.promise(p, {
+loading, success, error })` updates one snackbar in place;
+  `snackbar.update(id, …)`, `snackbar.dismiss(id?)`, `snackbar.clear()`.
+- **`SnackbarHost`**: Compose's `SnackbarHost`. Render one near the root; it shows
+  its queue **one at a time** (MD3: "Only one snackbar may be displayed at a
+  time"), times, animates, announces and positions them.
+  `createSnackbarQueue()` + `<SnackbarHost queue>` give independent scoped hosts;
+  `useSnackbar()` returns the nearest wrapping host's queue (else the global one).
+- **`Snackbar`**: the surface alone (Compose's `Snackbar(…)`), for a host's
+  `renderSnackbar` or your own layout, with `SnackbarAction` (the text button) and
+  `SnackbarDismissAction` (the ✕ with its "Dismiss" tooltip).
+
+The spec, as implemented:
+
+- **Container.** `inverse-surface`, `corner-extra-small` (4dp), elevation 3;
+  **48dp** for one line, **68dp** for two (14dp text padding above and below
+  `body-medium` 20dp lines), max **600dp**. Supporting text `inverse-on-surface`;
+  16dp before the text, 8dp after it (`TextEndExtraSpacing`), 8dp at the end
+  (with the action's own 12dp, the spec's 16dp).
+- **Action.** One `inverse-primary` text button (40dp, 12dp padding,
+  `label-large`); never filled / elevated (MD3). **Close affordance**: a 48dp
+  target with a 24dp ✕ in `inverse-on-surface`, flush at the end.
+- **Action on a new line.** `actionOnNewLine` `"auto"` _(default)_ follows
+  MDC-Android: on a compact window, a **wrapping** message next to an action wider
+  than **128dp** moves the action under the text (aligned end, 4dp from the
+  bottom). `true` / `false` force it.
+- **Width.** Under 600dp (the host is a size container) snackbars span the width
+  minus a 12dp margin (Compose's padding). From 600dp they fit their content
+  between 20rem (MDC `sw600dp` 320dp) and 600dp, placed `align` start / center
+  _(default)_ / end (MD3: "left-aligned or center-aligned … consistently").
+- **Timing.** Without an action: `duration` `"short"` 4s _(default)_ · `"long"`
+  10s · `"auto"` (reading time, clamped to MD3's 4–10s) · ms · `"indefinite"`.
+  **With an action: `"indefinite"`** (MD3: "Snackbars with actions should remain
+  on the screen until the user takes an action … or dismisses it"); an indefinite
+  snackbar shows the ✕ by default (Compose's advice). The clock pauses while the
+  snackbar is hovered, focused or being swiped, and while the window is blurred or
+  hidden (WCAG 2.2.1).
+- **Queue.** New snackbars wait (`strategy="queue"`, Compose) or replace the
+  current one at once (`"replace"` / per call `replace: true`, MDC; MD3: "a
+  snackbar with updated information can immediately replace an outdated
+  snackbar"). Showing an existing `id` updates it in place (timer restarts).
+- **Motion (M3 Expressive).** Compose's `FadeInFadeOutWithScale`: scale **0.8 → 1**
+  on the **fast spatial** spring (0.6 / 800, ~9.5% overshoot) with a **fast
+  effects** fade (1 / 3800); leaving reverses both. A replacement **crossfades**
+  over the outgoing one in the same spot. Reduced motion: fade only. Other
+  components never move with it (MD3).
+- **Swipe to dismiss** (MDC `SwipeDismissBehavior`): `swipeDirection` `"end"`
+  _(default, start → end, mirrored in RTL)_ · `"start"` · `"up"` · `"down"` · an
+  array · `false`. Past **50%** of the width or a flick throws it off; it fades
+  from **10%** to **60%** of the width; otherwise it springs back.
+- **Placement.** `side` `bottom` _(default)_ · `top`; `fullWidth` (MDC FullWidth:
+  edge to edge, square); `offset`; `anchor` (ref / element / selector) keeps it
+  **above a FAB, bottom bar or docked toolbar** (MDC `setAnchorView`; MD3:
+  "Snackbars should appear above FABs"), tracked as it moves; `contained` pins it
+  inside the nearest positioned ancestor; safe-area insets are respected. The
+  host renders in the **top layer** (`popover="manual"`) and moves itself into an
+  open modal `<dialog>` so snackbars stay usable above it (`container` to choose).
+
+**`snackbar()` / `SnackbarOptions`**
+
+| Option                                                             | Values                                                                                          |
+| ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| `message`                                                          | the supporting text (string or node); or call `snackbar("text", opts)`                          |
+| `action`                                                           | the action label (or any node); `onAction(event)` runs first                                    |
+| `withDismissAction`                                                | show the ✕ (default: only when indefinite)                                                      |
+| `duration`                                                         | `short` · `long` · `auto` · `indefinite` · ms                                                   |
+| `id`                                                               | same id = update in place                                                                       |
+| `replace`                                                          | show now, replacing the current one                                                             |
+| `politeness`                                                       | `polite` _(default, MD3)_ · `assertive`                                                         |
+| `announcement`                                                     | what screen readers hear (default: message + action text)                                       |
+| `onClose(reason)`                                                  | `action` · `dismiss` · `timeout` · `swipe` · `escape` · `replaced` · `programmatic` · `cleared` |
+| `render(data)`                                                     | render this one yourself (`data.performAction()`, `data.dismiss()`)                             |
+| `actionOnNewLine`, `maxLines`, `dismissLabel`, `className`, `data` | per-snackbar overrides / payload                                                                |
+
+`onAction` may call `event.preventDefault()` to keep the snackbar open.
+
+**`SnackbarHost` props** (plus every `<section>` prop)
+
+| Prop                                            | Values                                                                |
+| ----------------------------------------------- | --------------------------------------------------------------------- |
+| `queue`                                         | default: the global queue `snackbar()` uses                           |
+| `strategy`                                      | `queue` _(default)_ · `replace`                                       |
+| `duration`                                      | default for snackbars without an action (`short`)                     |
+| `side` / `align`                                | `bottom` · `top` / `start` · `center` _(default)_ · `end`             |
+| `fullWidth` / `contained`                       | edge-to-edge square / inside the positioned parent                    |
+| `offset` / `anchor`                             | extra edge distance (px or CSS length) / element to sit above         |
+| `container`                                     | portal target (default in place; auto-moves into a modal `<dialog>`)  |
+| `label` / `hotkey`                              | landmark name (`Notifications`) / `["altKey", "KeyG"]` · `false`      |
+| `swipeDirection`                                | `end` _(default)_ · `start` · `up` · `down` · array · `false`         |
+| `pauseOnHover` / `pauseOnFocusLoss`             | `true` _(default)_                                                    |
+| `actionOnNewLine` / `maxLines` / `dismissLabel` | defaults for every snackbar                                           |
+| `renderSnackbar(data)` / `snackbarClassName`    | custom surface / classes for every surface                            |
+| `children`                                      | optional: wraps them so `useSnackbar()` resolves to this host's queue |
+
+**`Snackbar` props** (plus every `<div>` prop): `children` (text), `action`
+(label or node) + `onAction`, `withDismissAction` + `onDismiss`, `dismissLabel`,
+`actionOnNewLine` (`"auto"` · `true` · `false`), `maxLines` (line clamp with an
+ellipsis). `SnackbarAction` is `Button` (text, `s`) with the snackbar colors;
+`SnackbarDismissAction` takes `label`, `tooltip` and icon-button props.
+
 ## Usage
 
 ```tsx
@@ -1461,6 +1573,42 @@ import Tabs, { Tab, TabList, TabPanel, TabPanels } from "@chatool/ui/tabs";
 </Tabs>
 ```
 
+Snackbar:
+
+```tsx
+// app/layout.tsx (a Server Component is fine): one host for the whole app.
+import { SnackbarHost } from "@chatool/ui/snackbar";
+<body>
+  {children}
+  <SnackbarHost />
+</body>;
+
+// Anywhere in client code:
+import { snackbar } from "@chatool/ui/snackbar";
+snackbar("Message sent");
+
+const { result } = snackbar({
+  message: "Conversation archived",
+  action: "Undo",
+});
+if ((await result) === "action") unarchive();
+
+snackbar.promise(upload(file), {
+  loading: "Uploading…",
+  success: (photo) => `Uploaded ${photo.name}`,
+  error: "Upload failed",
+});
+
+// Above a FAB, start-aligned on wide screens, crossfading replacements:
+<SnackbarHost anchor={fabRef} align="start" strategy="replace" />;
+
+// A scoped host inside a pane:
+const [queue] = useState(() => createSnackbarQueue());
+<div className="relative">
+  <SnackbarHost queue={queue} contained label="Editor notifications" />
+</div>;
+```
+
 ## Customization
 
 Three layers, increasingly specific:
@@ -1729,6 +1877,24 @@ Three layers, increasingly specific:
    `tab-panel`); tabs expose `data-value`, `data-selected`, `data-stacked`, the list
    `data-variant`, `data-layout`, `data-overflowing`, `data-at-start`,
    `data-at-end`, and `classNames` reaches each part.
+
+   **`Snackbar`** reads `--md-comp-snackbar-*` (MD3's token names): container
+   `-container-color` (`inverse-surface`), `-container-shape`
+   (`corner-extra-small`), `-container-elevation` (`elevation-3`),
+   `-container-max-width` (`37.5rem`), `-container-min-width` (`20rem`, wide
+   layouts), `-supporting-text-color` (`inverse-on-surface`); action
+   `-action-label-text-color` / `-action-state-layer-color` (`inverse-primary`);
+   close `-icon-color` / `-icon-state-layer-color` (`inverse-on-surface`);
+   `-focus-indicator-color` (`inverse-primary` on the controls); motion
+   `-enter-scale` (`0.8`) plus the shared `--md-comp-overlay-spatial-*` /
+   `-effects-*` springs. The host: `--md-comp-snackbar-host-margin` (`0.75rem`),
+   `-host-offset` (`0px`), `-host-z-index` (`1600`, `10` when contained). Parts carry
+   `data-slot` (`snackbar-host`, `snackbar-stack`, `snackbar-item`,
+   `snackbar-swipe`, `snackbar`, `snackbar-supporting-text`, `snackbar-actions`,
+   `snackbar-action`, `snackbar-dismiss-action`, `snackbar-announcer`); the surface
+   exposes `data-layout` (`inline` / `stacked`) and `data-dismissible`, items
+   `data-state` (`open` / `closed`) and `data-swiped`, the host `data-side` /
+   `data-full-width`.
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -2221,6 +2387,35 @@ auto-scroll and swipe-following are imperative DOM work (Web Animations on
 registered properties, `requestAnimationFrame` springs), so no animation frame
 re-renders React. The ripple is the shared `ripple` island.
 
+`Snackbar` follows MD3's snackbar accessibility page (there is no APG pattern;
+it is a WCAG 4.1.3 **status message**):
+
+- **Announced, never focused.** Each message goes to a separate, always-present
+  live region (`role="status"`, polite; `politeness: "assertive"` for errors that
+  can't wait) a beat after it appears, so it is read once without moving focus or
+  trapping it. Updates (`promise`, same `id`) are announced again.
+- **Reachable.** The host is a named landmark, `Notifications (Alt+G)`; the
+  hotkey (MD3: "a shortcut … like Alt+G") moves focus to the snackbar's action (or
+  the snackbar). Tab moves between its controls; **Escape** dismisses it while
+  focus is inside; when it closes, focus returns to where it came from, else to
+  the element that triggered it.
+- **Time.** Actionable snackbars never time out; others last 4s by default,
+  `"auto"` scales with the text, and every timer pauses on hover, focus, swipe
+  and a background window (WCAG 2.2.1). The close button and swipe always work.
+- **Your part (MD3, web).** An auto-dismissing snackbar must not be the only
+  place the information appears: also say it inline (a "Save" button that
+  becomes "Saved"), or make the snackbar actionable. Don't put the only path to a
+  core task in one; keep messages short; don't use stylized text or links (use the
+  action).
+- **Never covers what's in focus**: place the host away from focused controls
+  and use `anchor` / `offset` for bottom bars and FABs.
+
+**Rendering:** the snackbar subpath is a **client component** (`"use client"` on
+the views and the barrel). `<SnackbarHost />` renders on the server (the landmark
+and live regions are in the first HTML) and can sit in a Server Component layout;
+`snackbar()` must be called from client code. Timers, swipe and the anchor are
+imperative DOM work, so a drag never re-renders React.
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -2456,6 +2651,21 @@ value="a">…</TabPanel><TabPanel value="b">…</TabPanel></TabPanels></Tabs>`. 
   secondary tabs only below primary ones; don't add key handlers, roles,
   `aria-selected` or `tabIndex` yourself; don't hand-animate the indicator. Tokens
   `--md-comp-tabs-*`.
+- **`Snackbar`** (`@chatool/ui/snackbar`): render **one** `<SnackbarHost />`
+  near the app root (Server Component layouts are fine), then call
+  `snackbar("Text")` / `snackbar({ message, action: "Undo", onAction })` from
+  client code; `await handle.result` → `"action"` · `"timeout"` · `"dismiss"` ·
+  `"swipe"` · `"escape"` · `"replaced"` · …; `snackbar.promise(p, { loading,
+success, error })`; same `id` updates in place; `replace: true` /
+  `strategy="replace"` swaps immediately. Use `createSnackbarQueue()` +
+  `<SnackbarHost queue contained>` for scoped hosts and `useSnackbar()` inside a
+  wrapping host. Host props: `side`, `align`, `fullWidth`, `offset`, `anchor`
+  (sit above a FAB), `duration`, `swipeDirection`, `hotkey`, `renderSnackbar`.
+  MD3 rules: one at a time, short text, at most one text action, actionable
+  snackbars don't time out, no icons / links / filled buttons, and on the web also
+  show the outcome inline. Don't render two hosts on the same queue, don't move
+  focus to snackbars yourself, don't add live regions around them. Tokens
+  `--md-comp-snackbar-*`.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders

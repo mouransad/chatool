@@ -210,6 +210,16 @@
         "types": "./dist/tabs.d.cts",
         "default": "./dist/tabs.cjs"
       }
+    },
+    "./snackbar": {
+      "import": {
+        "types": "./dist/snackbar.d.mts",
+        "default": "./dist/snackbar.mjs"
+      },
+      "require": {
+        "types": "./dist/snackbar.d.cts",
+        "default": "./dist/snackbar.cjs"
+      }
     }
   },
   "scripts": {

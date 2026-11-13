@@ -20,6 +20,11 @@ import { FabCollapseOnScroll, FabShowHide } from "./components/fab-demo";
 import { ChipFilterSet, ChipInputSet } from "./components/chip-demo";
 import { TabsBadgeInbox, TabsSwipeable } from "./components/tabs-demo";
 import {
+  SnackbarContained,
+  SnackbarGlobal,
+  SnackbarSurfaces,
+} from "./components/snackbar-demo";
+import {
   TextFieldControlled,
   TextFieldSearch,
   TextFieldSignIn,
@@ -1339,6 +1344,21 @@ export default function Home() {
       >
         <TabsBadgeInbox />
         <TabsSwipeable />
+      </Section>
+
+      <Section
+        title="Snackbar — surfaces"
+        hint="The MD3 configurations: 48dp single line, actions in inverse-primary, the optional close affordance, and a long action on its own line."
+      >
+        <SnackbarSurfaces />
+      </Section>
+
+      <Section
+        title="Snackbar — host + snackbar()"
+        hint="One <SnackbarHost /> in app/layout.tsx; snackbar() from any client code. One at a time, queued; actionable ones wait for you."
+      >
+        <SnackbarGlobal />
+        <SnackbarContained />
       </Section>
 
       {/* @chatool/icons */}

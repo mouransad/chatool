@@ -67,6 +67,9 @@
         "../../packages/ui/src/chips/chip-set/index.tsx"
       ],
       "@chatool/ui/tabs": ["../../packages/ui/src/tabs/tabs/index.tsx"],
+      "@chatool/ui/snackbar": [
+        "../../packages/ui/src/snackbars/snackbar/index.tsx"
+      ],
       "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },
