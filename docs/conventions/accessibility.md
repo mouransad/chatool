@@ -265,6 +265,20 @@ What the **consumer** is responsible for:
   (MD3: use a dialog for critical information).
 - A **subhead** for persistent tooltips that open on their own (`defaultOpen`).
 
+`@chatool/ui/rich-tooltip` (`RichTooltip` + parts) keeps every guarantee above
+and adds:
+
+- **Tooltip or non-modal dialog, detected.** Controls (actions, links, form
+  controls) or a `click` / `manual` trigger make it a `dialog` labelled by the
+  subhead (else the text) and described by the text; detection runs statically
+  (trigger ARIA correct before the first open) and at runtime; `interactive`
+  overrides it.
+- **MD3 focus order** trigger → inline links → text buttons, untrapped; an
+  action returns focus to the trigger.
+- **Live-region announcement** (polite) when it appears without the user asking
+  at its trigger (page load, code, click, long-press); `announce` tunes it.
+- **Async actions** expose `aria-busy` and hold the tooltip open until done.
+
 ## Text field
 
 There is no APG textbox pattern: `@chatool/ui/text-field` renders the **native**

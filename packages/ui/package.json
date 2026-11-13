@@ -170,6 +170,16 @@
         "default": "./dist/tooltip.cjs"
       }
     },
+    "./rich-tooltip": {
+      "import": {
+        "types": "./dist/rich-tooltip.d.mts",
+        "default": "./dist/rich-tooltip.mjs"
+      },
+      "require": {
+        "types": "./dist/rich-tooltip.d.cts",
+        "default": "./dist/rich-tooltip.cjs"
+      }
+    },
     "./text-field": {
       "import": {
         "types": "./dist/text-field.d.mts",

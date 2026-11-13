@@ -52,6 +52,7 @@ its only client part is the press ripple, a separate island (see
 | `@chatool/ui/slider`            | `Slider` (also `default`), `RangeSlider`, `sliderVariants`; types `SliderProps`, `RangeSliderProps`, `SliderSharedProps`, `SliderClassNames`, `SliderSize`, `SliderOrientation`, `SliderValueIndicator`, `SliderFormat`, `SliderIcon`                                                                                                                                                                                                                                                                                                                                                                                                               |
 | `@chatool/ui/card`              | `Card` (also `default`) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`, `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction`; `cardVariants`, `cardMediaVariants`, `cardHeadlineVariants`, `cardActionsVariants`                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `@chatool/ui/tooltip`           | `Tooltip` (also `default`) + `TooltipProvider`, `TooltipAction`; `tooltipVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `@chatool/ui/rich-tooltip`      | `RichTooltip` (also `default`) + `RichTooltipTrigger`, `RichTooltipContent`, `RichTooltipSubhead`, `RichTooltipSupportingText`, `RichTooltipActions`, `RichTooltipAction`; `useRichTooltip`, `useRichTooltipState`; `richTooltipVariants`; types `RichTooltipProps`, `RichTooltipTriggerMode`, `RichTooltipAnchor`, `RichTooltipVirtualAnchor`, `RichTooltipCaret`, `RichTooltipState`, `RichTooltipApi`, `RichTooltipOpenChangeReason`, …                                                                                                                                                                                                          |
 | `@chatool/ui/text-field`        | `TextField` (also `default`), `textFieldVariants`; types `TextFieldProps`, `TextFieldInputProps`, `TextFieldTextareaProps`, `TextFieldLabels`, `TextFieldClassNames`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `@chatool/ui/chip`              | `Chip` (also `default`), `chipVariants`; types `ChipProps`, `ChipVariant`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `@chatool/ui/chip-set`          | `ChipSet` (also `default`), `chipSetVariants`; types `ChipSetProps`, `ChipSetSelectionMode`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
@@ -630,6 +631,69 @@ element (the **anchor**) and renders nothing else until it shows.
   explanations. Never hide critical information in a tooltip (use a dialog).
   Persistent rich tooltips appear on click or on page load for feature discovery
   (give those a subhead); avoid them on icon buttons.
+
+### Rich tooltip (`@chatool/ui/rich-tooltip`)
+
+MD3's **rich tooltip with button actions** as a dedicated, composable component:
+longer, explanatory context for an element, with an optional subhead, inline
+links and up to two text buttons. It shares the overlay engine with `Tooltip`
+(top layer, Expressive motion, the same interaction controller and one-at-a-time
+rule) but is built from parts, so every piece takes its own props, `className`
+and `asChild`. `Tooltip variant="rich"` still works for the simple prop-based
+case.
+
+- **Anatomy & measurements** (m3.material.io specs, Compose `RichTooltip` /
+  `RichTooltipTokens`): `surface-container` container, `corner-medium` (12dp),
+  elevation level 2, 320dp max width (40dp min width, 24dp min height); padding
+  12dp top, 16dp sides, 8dp bottom with actions (12dp without). `title-small`
+  subhead and `body-medium` supporting text in `on-surface-variant`, 4dp apart
+  (the subhead baseline lands at Compose's 28dp, the text's 24dp below it); a
+  40dp row of `label-large` `primary` text buttons 12dp under the text, their
+  labels aligned with it. The five MD3 configurations (subhead / text / one or two
+  buttons) all fall out of which parts you render.
+- **Placement:** MD3's "bottom right of the parent element" by default (`side
+"bottom"`, `align "after"`), `center` for MD3's desktop variant. It flips when
+  out of room and shifts **in 8dp steps** (MD3: "adjusts in increments of 8dp to
+  avoid going off-screen"; `positionStep`). Never covers its anchor.
+- **Motion:** Compose's `TooltipBox`: scale 0.8 → 1 on the Expressive
+  fast-spatial spring out of the anchor, fast-effects fade; exits are
+  effects-only; reduced motion keeps the fade.
+
+| `RichTooltip` prop                                                            | Values                                                                                                                                                                                                                                                                                                                            |
+| ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `children`                                                                    | **composed:** a `RichTooltipTrigger` + a `RichTooltipContent` · **shorthand** (`supportingText` set): the anchor element itself                                                                                                                                                                                                   |
+| `supportingText` / `subhead` / `actions`                                      | shorthand content: the text (switches to shorthand mode), the optional one-line subhead, up to two `RichTooltipAction`s                                                                                                                                                                                                           |
+| `contentProps`                                                                | shorthand: props for the generated `RichTooltipContent` (`className`, `style`, `elevation`, `maxWidth`, …)                                                                                                                                                                                                                        |
+| `trigger`                                                                     | `hover` _(default)_: MD3's **transient** tooltip (hover after `showDelay`, keyboard focus, touch long-press; leaves 1.5s after the pointer) · `click`: **persistent** (click toggles; stays until Escape, a press elsewhere, focus moving away or an action) · `manual`: only code opens it (Compose's `enableUserInput = false`) |
+| `open` / `defaultOpen` / `onOpenChange`                                       | controlled or uncontrolled; `onOpenChange(open, { reason, event })` with `Tooltip`'s reasons plus `programmatic`                                                                                                                                                                                                                  |
+| `state`                                                                       | a `useRichTooltipState()` object (Compose's `TooltipState`): `show()` / `dismiss()` / `toggle()` from anywhere. Wins over `open`                                                                                                                                                                                                  |
+| `anchor`                                                                      | point at something other than the trigger: an element, a ref, or a **virtual anchor** (`{ getBoundingClientRect, contextElement? }`: a text selection, a click point, a canvas hit). An element anchor with no trigger becomes the trigger                                                                                        |
+| `side` / `align`                                                              | `bottom` _(default)_ · `top` · `start` · `end` · `left` · `right` / `after` _(default)_ · `before` · `start` · `center` · `end`                                                                                                                                                                                                   |
+| `offset` / `alignOffset` / `collisionPadding` / `flip`                        | px from the anchor (`4`) / along the edge (`0`) / from the viewport edges (`8`) / flip when out of room (`true`)                                                                                                                                                                                                                  |
+| `positionStep`                                                                | collision shifts in multiples of this many px (`8`, MD3); `0` = exact                                                                                                                                                                                                                                                             |
+| `caret`                                                                       | `true` for Compose's 16×8dp caret, or `{ width, height }` (px or any length)                                                                                                                                                                                                                                                      |
+| `interactive`                                                                 | override the automatic detection (actions, links or controls in the content, or a `click` / `manual` trigger → non-modal `dialog`)                                                                                                                                                                                                |
+| `announce`                                                                    | live-region announcement when it appears without the user asking at its trigger (page load, code, click, long-press): `true` / `polite` _(default)_ · `assertive` · `false`                                                                                                                                                       |
+| `hoverable` / `disabled` / `container`                                        | stay open under the pointer (`true`, WCAG 1.4.13; forced on with controls) / never show / where to render                                                                                                                                                                                                                         |
+| `showDelay` / `hideDelay` / `skipDelay` / `touchShowDelay` / `touchHideDelay` | ms, `500` / `1500` / `300` / `500` / `1500`; app-wide via `TooltipProvider` from `@chatool/ui/tooltip`                                                                                                                                                                                                                            |
+
+| Part                        | What it is                                                                                                                                                                                                                                            |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RichTooltipTrigger`        | wraps **one** ref-forwarding element (no DOM of its own) and gives it the listeners and ARIA; its props go to the child                                                                                                                               |
+| `RichTooltipContent`        | the surface (portalled, top layer). `elevation` `0`–`5` (default `2`), `maxWidth` (px or length), `className` / `style` / `div` props                                                                                                                 |
+| `RichTooltipSubhead`        | `title-small` subhead; labels an interactive tooltip. `asChild` to render your own heading                                                                                                                                                            |
+| `RichTooltipSupportingText` | `body-medium` text; inline `<a href>` links are `primary`, underlined, focusable. `asChild` for your own element                                                                                                                                      |
+| `RichTooltipActions`        | the action row (start-aligned, 8dp gap, wraps only if it must)                                                                                                                                                                                        |
+| `RichTooltipAction`         | MD3's `primary` text button (`Button`, every prop). `closeOnClick` (default `true`; `event.preventDefault()` keeps it open once). **Async:** return a promise from `onClick` → spinner, tooltip held open, closes on resolve, stays on reject (retry) |
+| `useRichTooltipState()`     | `{ open, show, dismiss, toggle, setOpen }` for the `state` prop; options `defaultOpen`, `onOpenChange`                                                                                                                                                |
+| `useRichTooltip()`          | inside the content: `{ open, interactive, dismiss(event?), hold() }` for custom parts (your own close button, a form that holds the tooltip open while saving)                                                                                        |
+
+- **MD3 usage.** Rich tooltips are for definitions, explanations and feature
+  discovery, not critical information (use a dialog). Keep the subhead to one
+  line; give one whenever the tooltip opens on its own. At most two short buttons,
+  side by side. Avoid persistent (`click`) rich tooltips on icon buttons. One
+  transient tooltip at a time; persistent ones stay until the person interacts
+  elsewhere.
 
 ### Text field (`@chatool/ui/text-field`)
 
@@ -1460,6 +1524,77 @@ import Tooltip, { TooltipAction, TooltipProvider } from "@chatool/ui/tooltip";
 ```
 
 ```tsx
+import RichTooltip, {
+  RichTooltipAction,
+  RichTooltipActions,
+  RichTooltipContent,
+  RichTooltipSubhead,
+  RichTooltipSupportingText,
+  RichTooltipTrigger,
+  useRichTooltip,
+  useRichTooltipState,
+} from "@chatool/ui/rich-tooltip";
+
+// Shorthand: transient (hover / focus / long-press) with two button actions.
+<RichTooltip
+  subhead="Paint tool"
+  supportingText="Add annotations and highlights with the paint tool."
+  actions={
+    <>
+      <RichTooltipAction>Learn more</RichTooltipAction>
+      <RichTooltipAction>Try it</RichTooltipAction>
+    </>
+  }
+>
+  <Button variant="tonal">Paint</Button>
+</RichTooltip>
+
+// Composed + persistent (click), every part customizable.
+<RichTooltip trigger="click" caret align="center">
+  <RichTooltipTrigger>
+    <Button startIcon={<ShareOutlined />}>Share</Button>
+  </RichTooltipTrigger>
+  <RichTooltipContent elevation={3} maxWidth={280}>
+    <RichTooltipSubhead asChild><h2>Share links</h2></RichTooltipSubhead>
+    <RichTooltipSupportingText>
+      Anyone with the link can view. <a href="/help/sharing">Learn more</a>
+    </RichTooltipSupportingText>
+    <RichTooltipActions>
+      <RichTooltipAction onClick={copyLink}>Copy link</RichTooltipAction>
+      <RichTooltipAction closeOnClick={false} onClick={openSettings}>Settings</RichTooltipAction>
+    </RichTooltipActions>
+  </RichTooltipContent>
+</RichTooltip>
+
+// Feature discovery on page load (announced politely).
+<RichTooltip trigger="click" defaultOpen caret subhead="New: collections"
+  supportingText="Save anything and get back to it from any device."
+  actions={<RichTooltipAction>Got it</RichTooltipAction>}>
+  <Button>Collections</Button>
+</RichTooltip>
+
+// Driven from code (a tour, a help button), with an async action.
+const tip = useRichTooltipState();
+<RichTooltip state={tip} trigger="manual" subhead="Turn on backups" supportingText="…"
+  actions={<RichTooltipAction onClick={() => api.enableBackups()}>Turn on</RichTooltipAction>}>
+  <Button variant="outlined">Backups</Button>
+</RichTooltip>
+<Button onClick={tip.show}>What's new?</Button>
+
+// Anchored to a point (virtual anchor), e.g. the last click.
+<RichTooltip trigger="manual" open={point !== null}
+  onOpenChange={(open) => !open && setPoint(null)}
+  anchor={{ getBoundingClientRect: () => new DOMRect(x, y, 0, 0) }}
+  supportingText="Anchored to your click." />
+
+// A custom part inside the content.
+const CloseButton = () => {
+  const { dismiss } = useRichTooltip();
+  return <IconButton aria-label="Close" onClick={() => dismiss()}><CloseOutlined /></IconButton>;
+};
+```
+
+```tsx
 import TextField from "@chatool/ui/text-field";
 import SearchOutlined from "@chatool/icons/SearchOutlined";
 
@@ -1796,7 +1931,18 @@ Three layers, increasingly specific:
    tooltip, or per tooltip with its `style` prop; an anchor's ancestors don't reach
    them.
 
-   **Overlays** (tooltip today; menus, selects and dialogs as they land) share
+   **`RichTooltip`** reads the **same** `--md-comp-rich-tooltip-*` tokens (a theme
+   that styles `Tooltip variant="rich"` styles it too): `-container-color`,
+   `-container-shape`, `-container-elevation` (overrides the `elevation` level),
+   `-container-max-width` (also the `maxWidth` prop), `-subhead-color`,
+   `-supporting-text-color`, `-action-label-text-color` (actions **and** their
+   hover / focus / pressed state layers, plus inline links) and `-action-inset`;
+   the caret uses `--md-comp-tooltip-caret-width` / `-height` (also the `caret={{
+width, height }}` prop). Set them on `:root`, on the container, or per tooltip
+   with `RichTooltipContent`'s `style` (`contentProps.style` in shorthand). Every
+   part also takes `className`.
+
+   **Overlays** (tooltip and rich tooltip today; menus, selects and dialogs as they land) share
    `--md-comp-overlay-spatial-easing` / `-spatial-duration` (the fast-spatial
    spring, `350ms`), `--md-comp-overlay-effects-easing` / `-effects-duration` (the
    fast-effects spring, `140ms`), `--md-comp-overlay-enter-scale` (`0.8`) and
@@ -2273,6 +2419,39 @@ pass are still server-rendered, and its ARIA (`aria-label` /
 `aria-describedby`) is in the first HTML. The tooltip itself mounts only while
 it's shown. `TooltipAction` is a server-safe `Button`.
 
+`RichTooltip` follows the same contract (APG tooltip pattern, MDC's rich-tooltip
+ARIA, MD3's tooltip accessibility spec, WCAG 1.4.13), adapted to its parts:
+
+- **Tooltip or dialog.** Without controls it's `role="tooltip"` and **describes**
+  its trigger (`aria-describedby`); plain-string shorthand text (subhead + text) is
+  mirrored into a hidden node from the first render, so touch screen readers that
+  never hover still hear it. With controls (actions, links, form controls, or a
+  `click` / `manual` trigger) it's a **non-modal `dialog`** labelled by the subhead
+  (else the text) and described by the text; the trigger gets
+  `aria-haspopup="dialog"`, `aria-expanded` and `aria-controls`. Controls are
+  detected statically (so the trigger's ARIA is right before the first open) and
+  again at runtime (links rendered by your own components); `interactive`
+  overrides both.
+- **Focus order (MD3):** trigger → inline links → text buttons. Tab from the
+  trigger moves in, Tab past the last control continues after the trigger,
+  Shift+Tab returns to it; focus is **never trapped**. An action (or
+  `useRichTooltip().dismiss()`) returns focus to the trigger. Enter / Space
+  activate the focused control (MD3 keyboard table); Escape closes one layer.
+- **Announcements.** A tooltip that appears without the user asking at its
+  trigger (page load, code, click, long-press) is read out through a polite live
+  region (subhead + text), as Compose does with its live-region popup;
+  hover / focus opens stay silent because the trigger already describes it.
+  `announce` tunes or disables this.
+- **Async actions** show the button's spinner (`aria-busy`) and hold the tooltip
+  open, so it never disappears mid-task under a wandering pointer or focus.
+
+Your part is the same as for `Tooltip`: a focusable trigger, a name for icon-only
+triggers, a subhead for tooltips that open on their own, and nothing essential
+hidden in a tooltip. **Rendering:** a client component (it holds the open state
+and the parts' context) that renders no element of its own; use it straight from
+Server Components. Function props (`onClick`, `onOpenChange`, `state`) need a
+client component of yours, as usual.
+
 `TextField` has no APG pattern of its own — the **native** `<input>` /
 `<textarea>` is the contract, with MD3's text-field accessibility spec on top:
 
@@ -2601,6 +2780,23 @@ className="sr-only"/>…` (zero JS). Collections: `<ul>` + `<Card asChild><li>`.
   plain tooltip around an element whose visible text already says the same thing;
   don't add your own hover/focus handlers, `z-index` or portals. Tokens
   `--md-comp-plain-tooltip-*`, `--md-comp-rich-tooltip-*`, `--md-comp-overlay-*`.
+- **`RichTooltip`** (`@chatool/ui/rich-tooltip`): MD3's rich tooltip with button
+  actions, composable. Shorthand: `<RichTooltip subhead="…" supportingText="…"
+actions={<RichTooltipAction>Got it</RichTooltipAction>}><Button>…</Button></RichTooltip>`.
+  Composed: `<RichTooltip><RichTooltipTrigger><Button/></RichTooltipTrigger>
+<RichTooltipContent><RichTooltipSubhead/><RichTooltipSupportingText/>
+<RichTooltipActions><RichTooltipAction/></RichTooltipActions></RichTooltipContent></RichTooltip>`.
+  `trigger` `hover` (default, transient) · `click` (persistent; `defaultOpen` for
+  feature discovery) · `manual` (code only: `state={useRichTooltipState()}` +
+  `show()` / `dismiss()` / `toggle()`, or `open` + `onOpenChange`). `anchor`
+  takes an element, ref or virtual `{ getBoundingClientRect }`. Defaults follow
+  MD3 (`side="bottom"`, `align="after"`, 8dp `positionStep`). `RichTooltipAction`
+  closes on click (`closeOnClick={false}` to keep it) and awaits a returned
+  promise with a spinner. `RichTooltipContent` takes `elevation` (0–5) and
+  `maxWidth`; `caret` takes `true` or `{ width, height }`. At most two actions;
+  don't use `click` on icon buttons; don't add `role`, `aria-*`, portals,
+  `z-index` or your own Escape / outside-click handling — it's all built in.
+  Tokens `--md-comp-rich-tooltip-*` (shared with `Tooltip`).
 - **`TextField`** (`@chatool/ui/text-field`): `<TextField label="Email"
 type="email" name="email" required errorText="…" />`. `variant` `filled`
   _(default)_ · `outlined`; every native input prop (`value`/`onChange`,

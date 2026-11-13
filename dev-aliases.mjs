@@ -80,6 +80,13 @@ export const sourceAliases = {
   "@chatool/ui/slider": pkg("ui", "src", "sliders", "slider", "index.tsx"),
   "@chatool/ui/card": pkg("ui", "src", "cards", "card", "index.tsx"),
   "@chatool/ui/tooltip": pkg("ui", "src", "overlays", "tooltip", "index.tsx"),
+  "@chatool/ui/rich-tooltip": pkg(
+    "ui",
+    "src",
+    "overlays",
+    "rich-tooltip",
+    "index.tsx",
+  ),
   "@chatool/ui/text-field": pkg(
     "ui",
     "src",

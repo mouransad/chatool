@@ -16,6 +16,7 @@ import { SwitchControlled } from "./components/switch-demo";
 import { SliderControlled } from "./components/slider-demo";
 import { CardToggleGroup } from "./components/card-demo";
 import { TooltipControlled } from "./components/tooltip-demo";
+import { RichTooltipStateDemo } from "./components/rich-tooltip-demo";
 import { FabCollapseOnScroll, FabShowHide } from "./components/fab-demo";
 import { ChipFilterSet, ChipInputSet } from "./components/chip-demo";
 import { TabsBadgeInbox, TabsSwipeable } from "./components/tabs-demo";
@@ -74,6 +75,14 @@ import MailOutlined from "@chatool/icons/MailOutlined";
 import NotificationsOutlined from "@chatool/icons/NotificationsOutlined";
 import MoreVertRounded from "@chatool/icons/MoreVertRounded";
 import Tooltip, { TooltipAction, TooltipProvider } from "@chatool/ui/tooltip";
+import RichTooltip, {
+  RichTooltipAction,
+  RichTooltipActions,
+  RichTooltipContent,
+  RichTooltipSubhead,
+  RichTooltipSupportingText,
+  RichTooltipTrigger,
+} from "@chatool/ui/rich-tooltip";
 import UndoOutlined from "@chatool/icons/UndoOutlined";
 import RedoOutlined from "@chatool/icons/RedoOutlined";
 import ContentCopyOutlined from "@chatool/icons/ContentCopyOutlined";
@@ -1186,6 +1195,62 @@ export default function Home() {
           </Tooltip>
         </TooltipProvider>
         <TooltipControlled />
+      </Section>
+
+      {/* @chatool/ui/rich-tooltip — used straight from this Server Component */}
+      <Section
+        title="Rich tooltip — button actions"
+        hint="Hover (transient) or click (persistent). Tab from the anchor moves into the actions; an action closes it and returns focus. Shifts in 8dp steps near edges."
+      >
+        <RichTooltip
+          subhead="Paint tool"
+          supportingText="Add annotations and highlights with the paint tool."
+          actions={
+            <>
+              <RichTooltipAction>Learn more</RichTooltipAction>
+              <RichTooltipAction>Try it</RichTooltipAction>
+            </>
+          }
+        >
+          <Button variant="tonal">Hover: subhead + two actions</Button>
+        </RichTooltip>
+        <RichTooltip
+          trigger="click"
+          caret
+          align="center"
+          subhead="Offline access"
+          supportingText="Keep this folder on your device so you can open it without a connection."
+          actions={<RichTooltipAction>Got it</RichTooltipAction>}
+        >
+          <Button variant="outlined">Click: persistent + caret</Button>
+        </RichTooltip>
+        <RichTooltip trigger="click">
+          <RichTooltipTrigger>
+            <Button variant="outlined">Composed parts</Button>
+          </RichTooltipTrigger>
+          <RichTooltipContent elevation={3}>
+            <RichTooltipSubhead asChild>
+              <h3>Share links</h3>
+            </RichTooltipSubhead>
+            <RichTooltipSupportingText>
+              Anyone with the link can view. <a href="#sharing">Settings</a>
+            </RichTooltipSupportingText>
+            <RichTooltipActions>
+              <RichTooltipAction>Copy link</RichTooltipAction>
+            </RichTooltipActions>
+          </RichTooltipContent>
+        </RichTooltip>
+        <RichTooltip
+          trigger="click"
+          defaultOpen
+          align="center"
+          subhead="New: collections"
+          supportingText="Shown on page load (feature discovery) and announced politely."
+          actions={<RichTooltipAction>Got it</RichTooltipAction>}
+        >
+          <Button>Collections</Button>
+        </RichTooltip>
+        <RichTooltipStateDemo />
       </Section>
 
       {/* Text field */}

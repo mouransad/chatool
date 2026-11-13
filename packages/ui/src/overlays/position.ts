@@ -5,6 +5,7 @@ import {
   offset,
   shift,
   type Middleware,
+  type ReferenceElement,
 } from "@floating-ui/dom";
 
 import {
@@ -34,6 +35,12 @@ export interface OverlayPositionOptions {
   caret?: HTMLElement | null;
   /** How close the caret may get to the overlay's corners, in px. */
   caretInset: number;
+  /**
+   * Collision shifts move the overlay in multiples of this many px (MD3 rich
+   * tooltips: "The position of the tooltip adjusts in increments of 8dp to
+   * avoid going off-screen"). `0` (the default) shifts by the exact amount.
+   */
+  step?: number;
 }
 
 export interface OverlayPositionResult {
@@ -53,6 +60,16 @@ const snap = (value: number) => {
   const ratio = window.devicePixelRatio || 1;
   return Math.round(value * ratio) / ratio;
 };
+
+/**
+ * Rounds a collision shift **away from zero** to a multiple of `step`, so the
+ * overlay only ever lands on the 8dp grid MD3 describes, and never less far
+ * inside the viewport than the exact shift would have put it.
+ */
+const quantize = (amount: number, step: number) =>
+  step > 0 && amount !== 0
+    ? Math.sign(amount) * Math.ceil(Math.abs(amount) / step) * step
+    : amount;
 
 /** A caret overlaps the surface by this much, so no hairline shows between. */
 const CARET_OVERLAP = 1;
@@ -76,7 +93,7 @@ const CARET_OVERLAP = 1;
  * viewport (MDC's 8dp minimum viewport threshold).
  */
 export const positionOverlay = async (
-  anchor: Element,
+  anchor: ReferenceElement,
   floating: HTMLElement,
   options: OverlayPositionOptions,
 ): Promise<OverlayPositionResult> => {
@@ -126,8 +143,29 @@ export const positionOverlay = async (
     },
   );
 
-  const left = snap(x);
-  const top = snap(y);
+  // Stepped shifts (`step`): re-apply the shift `shift()` made, rounded out to
+  // the grid, then keep the result inside the viewport padding when it fits.
+  let finalX = x;
+  let finalY = y;
+  const step = options.step ?? 0;
+  const shifted = middlewareData.shift;
+  if (step > 0 && shifted) {
+    const width = floating.offsetWidth;
+    const height = floating.offsetHeight;
+    const { clientWidth, clientHeight } = document.documentElement;
+    const pad = options.padding;
+    finalX = x - shifted.x + quantize(shifted.x, step);
+    finalY = y - shifted.y + quantize(shifted.y, step);
+    if (width + pad * 2 <= clientWidth) {
+      finalX = clamp(finalX, pad, clientWidth - width - pad);
+    }
+    if (height + pad * 2 <= clientHeight) {
+      finalY = clamp(finalY, pad, clientHeight - height - pad);
+    }
+  }
+
+  const left = snap(finalX);
+  const top = snap(finalY);
   const { side, align } = fromPlacement(placement, outside);
   const anchorHidden = Boolean(middlewareData.hide?.referenceHidden);
 

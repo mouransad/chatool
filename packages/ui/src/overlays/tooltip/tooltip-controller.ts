@@ -7,6 +7,18 @@ import { type TooltipOpenChangeReason } from "./tooltip.types";
 export interface TooltipLive {
   open: boolean;
   persistent: boolean;
+  /**
+   * Only code opens it (rich tooltip `trigger="manual"`, Compose's
+   * `enableUserInput = false`): the anchor's hover, focus, long-press and
+   * click do nothing. It dismisses like a persistent tooltip.
+   */
+  manual?: boolean;
+  /**
+   * Something inside is busy (an async action): ignore the soft dismissals
+   * (the pointer or focus wandering off, a press elsewhere) until it's done.
+   * Escape, another tooltip opening and explicit closes still apply.
+   */
+  held?: boolean;
   disabled: boolean;
   showDelay: number;
   hideDelay: number;
@@ -24,6 +36,22 @@ export interface TooltipLive {
 const TOUCH_SLOP = 10;
 /** How long after a long-press is released its click is still swallowed. */
 const CLICK_WINDOW = 400;
+
+/** Dismissals a held tooltip (`TooltipLive.held`) ignores. */
+const SOFT_REASONS = new Set<TooltipOpenChangeReason>([
+  "hover",
+  "long-press",
+  "blur",
+  "outside-press",
+  "focus-outside",
+]);
+
+/**
+ * The action rows the controller closes on: the plain `Tooltip`'s
+ * (`tooltip-actions`) and the `RichTooltip`'s (`rich-tooltip-actions`).
+ */
+const ACTION_ROWS =
+  "[data-slot=tooltip-actions], [data-slot=rich-tooltip-actions]";
 
 const hasModifier = (event: KeyboardEvent) =>
   event.altKey || event.ctrlKey || event.metaKey;
@@ -132,6 +160,7 @@ export const createTooltipController = (read: () => TooltipLive) => {
       hideTimer = 0;
       const now = read();
       if (!now.open) return;
+      if (now.held && SOFT_REASONS.has(reason)) return;
       // A pointer walking away never takes a tooltip from under the keyboard.
       if ((reason === "hover" || reason === "long-press") && holdsFocus()) {
         return;
@@ -226,7 +255,7 @@ export const createTooltipController = (read: () => TooltipLive) => {
         return;
       }
       const live = read();
-      if (!live.persistent || live.disabled) return;
+      if (!live.persistent || live.manual || live.disabled) return;
       if (live.open) close("click", event);
       else open("click", event);
     };
@@ -358,7 +387,7 @@ export const createTooltipController = (read: () => TooltipLive) => {
       // An action was taken: the tooltip has done its job.
       const target = event.target;
       if (!(target instanceof Element)) return;
-      const actions = target.closest("[data-slot=tooltip-actions]");
+      const actions = target.closest(ACTION_ROWS);
       if (!actions || !node.contains(actions)) return;
       const control = target.closest(
         "button, a[href], [role=button], [role=link]",

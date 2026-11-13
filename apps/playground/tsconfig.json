@@ -59,6 +59,9 @@
       "@chatool/ui/tooltip": [
         "../../packages/ui/src/overlays/tooltip/index.tsx"
       ],
+      "@chatool/ui/rich-tooltip": [
+        "../../packages/ui/src/overlays/rich-tooltip/index.tsx"
+      ],
       "@chatool/ui/text-field": [
         "../../packages/ui/src/text-fields/text-field/index.tsx"
       ],

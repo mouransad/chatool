@@ -114,7 +114,9 @@ If **none** apply, leave it directive-free — it's a Server Component.
   switch's and text field's interaction islands,
   `@chatool/ui/radio-group` (it provides context), `@chatool/ui/tooltip` (it
   holds open state; usable straight from a Server Component, with its anchor and
-  content still server-rendered and its ARIA in the first HTML), the loading family
+  content still server-rendered and its ARIA in the first HTML),
+  `@chatool/ui/rich-tooltip` (its root holds open state and the parts' context;
+  equally usable from a Server Component), the loading family
   (`@chatool/ui/loading-indicator`, `/linear-progress`, `/circular-progress`, which
   draw per frame but still server-render their first frame), `@chatool/core`'s
   `ChatoolProvider` (`useState`/`useEffect`/`localStorage`) and `useTheme`

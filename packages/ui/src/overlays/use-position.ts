@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, type RefObject } from "react";
-import { autoUpdate } from "@floating-ui/dom";
+import { autoUpdate, type ReferenceElement } from "@floating-ui/dom";
 
 import { positionOverlay, type OverlayPositionOptions } from "./position";
 import { showInTopLayer } from "./top-layer";
@@ -12,7 +12,8 @@ interface UseOverlayPositionOptions extends Omit<
 > {
   /** The overlay is rendered and should be placed and tracked. */
   active: boolean;
-  anchorRef: RefObject<Element | null>;
+  /** The anchor: an element, or a virtual one (`getBoundingClientRect`). */
+  anchorRef: RefObject<ReferenceElement | null>;
   floatingRef: RefObject<HTMLElement | null>;
   caretRef?: RefObject<HTMLElement | null>;
   /**
@@ -46,6 +47,7 @@ export const useOverlayPosition = ({
   padding,
   flip,
   caretInset,
+  step,
 }: UseOverlayPositionOptions) => {
   const callbacks = useRef({ onPlacedChange, onAnchorHidden });
 
@@ -70,6 +72,7 @@ export const useOverlayPosition = ({
         padding,
         flip,
         caretInset,
+        step,
         caret: caretRef?.current,
       }).then((result) => {
         if (cancelled) return;
@@ -96,5 +99,6 @@ export const useOverlayPosition = ({
     padding,
     flip,
     caretInset,
+    step,
   ]);
 };

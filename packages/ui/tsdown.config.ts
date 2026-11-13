@@ -51,6 +51,14 @@ export default defineChatoolConfig({
     // The shared overlay modules (`config`, `position`, `use-presence`, …) are
     // inlined, not subpaths.
     tooltip: "src/overlays/tooltip/index.tsx",
+    // `./rich-tooltip` is a client component too (the root holds the open
+    // state and context): the directive sits on every view, the logic and
+    // state hooks, the context and the entry barrel. `RichTooltip` and its
+    // parts (`RichTooltipTrigger`, `RichTooltipContent`, `RichTooltipSubhead`,
+    // `RichTooltipSupportingText`, `RichTooltipActions`, `RichTooltipAction`)
+    // plus `useRichTooltip` / `useRichTooltipState` ship on the same subpath.
+    // It reuses the tooltip's controller, manager and caret (inlined).
+    "rich-tooltip": "src/overlays/rich-tooltip/index.tsx",
     // The text-field family (`src/text-fields/`). `./text-field` is a Server
     // Component over a native `<input>` / `<textarea>`; every state is CSS.
     "text-field": "src/text-fields/text-field/index.tsx",

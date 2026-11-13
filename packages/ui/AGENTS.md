@@ -287,6 +287,30 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   `z-index` scale, a second portal mechanism or per-overlay Escape listeners;
   never put `aria-describedby` / `aria-label` on the anchor by hand inside the
   component (the view merges the consumer's `aria-describedby`).
+  Second published subpath: `./rich-tooltip` (source
+  `src/overlays/rich-tooltip/`): `RichTooltip` (default) + `RichTooltipTrigger`,
+  `RichTooltipContent`, `RichTooltipSubhead`, `RichTooltipSupportingText`,
+  `RichTooltipActions`, `RichTooltipAction`, `useRichTooltip`,
+  `useRichTooltipState`: MD3's rich tooltip with button actions as **composable
+  parts** (plus a shorthand: `supportingText` / `subhead` / `actions` props). A
+  **client component**: the directive sits on every view, `use-logic.ts`,
+  `use-rich-tooltip-state.ts`, `rich-tooltip-context.ts` and the entry barrel
+  (`scan.ts`, `*.types.ts`, `*.variants.ts` are pure). It **reuses** the tooltip's
+  `tooltip-controller.ts` (which grew `manual` = code-only and `held` = ignore
+  soft dismissals while an async action runs), `tooltip-manager.ts`,
+  `tooltip-context.ts` (timing / `TooltipProvider`) and `tooltip-caret.tsx`, and
+  the shared foundation, which grew `position.ts` `step` (MD3's 8dp dynamic
+  positioning; virtual `ReferenceElement` anchors) and `announce.ts` (a shared
+  polite / assertive live region per overlay root). The root holds the logic and
+  a context; parts register themselves (subhead / text ids for
+  `aria-labelledby` / `-describedby`, `registerInteractive` for runtime-detected
+  controls), and `scan.ts` detects controls statically so the trigger's
+  `aria-haspopup` is right before the first open. The surface's bottom padding
+  switches with CSS `:has([data-slot=rich-tooltip-actions])`, not state.
+  `RichTooltipAction` is `Button` with `data-tooltip-keep-open` (it closes the
+  tooltip itself, after any returned promise, via the context). Tokens: the
+  **same** `--md-comp-rich-tooltip-*` as `Tooltip`. Keep `Tooltip variant="rich"`
+  working; don't fork the controller or positioning for the rich tooltip.
 - **Text-field family lives in `src/text-fields/`.** Published subpath:
   `./text-field` (source `src/text-fields/text-field/`): the MD3 **filled** /
   **outlined** text field (single-line `<input>`, growing multi-line or fixed
