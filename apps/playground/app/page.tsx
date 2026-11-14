@@ -21,6 +21,11 @@ import { FabCollapseOnScroll, FabShowHide } from "./components/fab-demo";
 import { ChipFilterSet, ChipInputSet } from "./components/chip-demo";
 import { TabsBadgeInbox, TabsSwipeable } from "./components/tabs-demo";
 import {
+  ListMultiSelect,
+  ListReorder,
+  ListSingleSelect,
+} from "./components/list-demo";
+import {
   SnackbarContained,
   SnackbarGlobal,
   SnackbarSurfaces,
@@ -48,6 +53,12 @@ import LinearProgress from "@chatool/ui/linear-progress";
 import CircularProgress from "@chatool/ui/circular-progress";
 import Divider from "@chatool/ui/divider";
 import Badge from "@chatool/ui/badge";
+import List, {
+  ListDivider,
+  ListItem,
+  ListItemAvatar,
+  ListItemExpandable,
+} from "@chatool/ui/list";
 import Checkbox from "@chatool/ui/checkbox";
 import Radio from "@chatool/ui/radio";
 import RadioGroup from "@chatool/ui/radio-group";
@@ -1424,6 +1435,84 @@ export default function Home() {
       >
         <SnackbarGlobal />
         <SnackbarContained />
+      </Section>
+
+      {/* @chatool/ui/list — MD3 Expressive lists */}
+      <Section
+        title="List — standard & segmented (Server Components)"
+        hint="Rendered on the server: links, a multi-action row, dividers. Tab in once, then ↑↓ / Home / End (wrapping)."
+      >
+        <div className="w-80 py-2 rounded-xl bg-surface">
+          <List aria-label="Inbox">
+            <ListItem
+              href="#inbox"
+              selected
+              leading={<MailOutlined />}
+              trailing={<Badge value={12} />}
+            >
+              Inbox
+            </ListItem>
+            <ListItem
+              href="#chat"
+              leading={<ListItemAvatar>AC</ListItemAvatar>}
+              supportingText="Brunch this weekend?"
+              trailingSupportingText="10 min"
+            >
+              Ali Connors
+            </ListItem>
+            <ListDivider />
+            <ListItem
+              href="#settings"
+              leading={<SettingsOutlined />}
+              trailing={
+                <IconButton aria-label="More settings">
+                  <MoreVertRounded />
+                </IconButton>
+              }
+            >
+              Settings
+            </ListItem>
+          </List>
+        </div>
+        <div className="w-80 p-2 rounded-xl bg-surface">
+          <List variant="segmented" aria-label="Preferences">
+            <ListItem
+              control={<Switch defaultChecked />}
+              controlPosition="end"
+              selected={false}
+              leading={<NotificationsOutlined />}
+              supportingText="Banners and sounds"
+            >
+              Notifications
+            </ListItem>
+            <ListItem control={<Checkbox defaultChecked />}>
+              Sync over Wi-Fi only
+            </ListItem>
+            <ListItemExpandable
+              headline="Advanced"
+              leading={<StarOutlined />}
+              supportingText="Native <details>, zero JS"
+            >
+              <ListItem
+                control={<Radio name="quality" value="hd" defaultChecked />}
+              >
+                High quality
+              </ListItem>
+              <ListItem control={<Radio name="quality" value="sd" />}>
+                Data saver
+              </ListItem>
+            </ListItemExpandable>
+          </List>
+        </div>
+      </Section>
+
+      <Section
+        title="List — listbox selection & reorder (client)"
+        hint="selectionMode single / multiple (role=listbox, typeahead, Shift / Ctrl+A) and reorderable with drag handles + keyboard."
+      >
+        <ListSingleSelect />
+        <ListMultiSelect />
+        <ListReorder />
       </Section>
 
       {/* @chatool/icons */}

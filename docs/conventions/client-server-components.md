@@ -109,6 +109,16 @@ If **none** apply, leave it directive-free — it's a Server Component.
   `tsdown` entry) self-attaches to the container for click-to-focus, clear /
   Escape, the password toggle, the uncontrolled counter and the auto-grow
   fallback; its built-in buttons are the server-rendered `IconButton`.
+  **`@chatool/ui/list`** is a **directive-free barrel that mixes both**:
+  `ListItem`, `ListItemExpandable` (native `<details>`), the media parts,
+  `ListItemDragHandle` and `ListDivider` are Server Components (every state is
+  CSS from the row's own action / control via `:has()`), and `List` is a server
+  wrapper that resolves its classes and renders the `list-root` client island.
+  Its client modules (`list-root`, `list-logic`, `list-reorder`,
+  `list-item-option`, `list-context`) are **each their own internal `tsdown`
+  entry**: a multi-module island imported by another entry gets hoisted into a
+  hashed, directive-less chunk, so keep every client module a single-module
+  entry (check that `dist/list.mjs` imports `./list-root.mjs`).
 - **Client (`"use client"`):** the button's ripple island, the checkbox's
   indeterminate-sync island, the radio's input island and context module, the
   switch's and text field's interaction islands,

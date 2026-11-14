@@ -82,6 +82,12 @@ export default defineChatoolConfig({
     // subpath; its external client pieces are the shared `ripple` island and
     // the tooltip (inlined from the overlay family).
     snackbar: "src/snackbars/snackbar/index.tsx",
+    // The list family (`src/lists/`). `./list` is a **directive-free** barrel:
+    // `ListItem`, `ListItemExpandable`, the media parts, `ListItemDragHandle`
+    // and `ListDivider` are Server Components, and `List` is a server wrapper
+    // over the `list-root` client island (internal entry below), so a static
+    // list renders in an RSC with no client code beyond the ripple.
+    list: "src/lists/list/index.tsx",
     // INTERNAL chunk (no `exports` entry — not a public subpath). The press
     // ripple is the button family's only `"use client"` module; giving it its
     // own entry guarantees the directive is preserved as a distinct client
@@ -127,6 +133,26 @@ export default defineChatoolConfig({
     // `chip-actions` and `chip-set` import it, and it must be ONE module
     // instance for the set and its chips to see each other.
     "chip-set-context": "src/chips/chip-set/chip-set-context.ts",
+    // INTERNAL chunk: the `List` behavior root (`"use client"`: roving
+    // tabindex, keyboard, listbox selection, reordering). Keeps `list.mjs`
+    // directive-free. It must import nothing from `lists/config.ts` /
+    // `list.variants.ts` (the wrapper passes the classes) so the bundler can't
+    // hoist it into a shared chunk. Not a public subpath.
+    "list-root": "src/lists/list/list-root.tsx",
+    // INTERNAL chunks: `list-root`'s two `"use client"` hooks. Each is its own
+    // entry so every client module of the list is a single-module chunk —
+    // a multi-module island imported by another entry gets hoisted into a
+    // hashed, directive-less chunk (the client boundary would be lost).
+    "list-logic": "src/lists/list/use-logic.ts",
+    "list-reorder": "src/lists/list/use-reorder.ts",
+    // INTERNAL chunk: an item with a `value` renders its `<li>` through this
+    // `"use client"` island (the listbox `option`: `aria-selected`, click to
+    // toggle, decorative control sync). Not a public subpath.
+    "list-item-option": "src/lists/list/list-item-option.tsx",
+    // INTERNAL chunk: the list context + DOM helpers. Both `list-root` and
+    // `list-item-option` import it, and it must be ONE module instance for the
+    // list and its options to see each other.
+    "list-context": "src/lists/list/list-context.ts",
   },
   // react / react-dom (peers), @chatool/utils, radix-ui and cva (deps) —
   // including `react/jsx-runtime` — are externalized automatically.

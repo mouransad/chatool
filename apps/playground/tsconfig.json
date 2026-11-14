@@ -73,6 +73,7 @@
       "@chatool/ui/snackbar": [
         "../../packages/ui/src/snackbars/snackbar/index.tsx"
       ],
+      "@chatool/ui/list": ["../../packages/ui/src/lists/list/index.tsx"],
       "@chatool/icons/*": ["../../packages/icons/src/*.tsx"]
     }
   },

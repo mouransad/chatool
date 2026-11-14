@@ -440,6 +440,48 @@ Human docs: [docs/packages/ui.md](../../docs/packages/ui.md).
   hosts respond to their pane. Never move focus to a snackbar on show, never add
   `aria-live` to the surface (the announcer does it), never render two hosts on
   one queue.
+- **List family lives in `src/lists/`.** Published subpath: `./list` (source
+  `src/lists/list/`), shipping `List` (default) + `ListItem`,
+  `ListItemExpandable`, `ListItemIcon`, `ListItemAvatar`, `ListItemImage`,
+  `ListItemVideo`, `ListItemDragHandle`, `ListDivider` — the MD3 **Expressive**
+  list (standard / segmented, the 4 → 12 → 16dp shape morph, selection
+  controls, listbox selection, expand & collapse, reorder, density, dividers).
+  Every number / role / spring and its source (m3.material.io, Compose
+  `ListItem.kt` + `ListTokens` v29 + `ReorderListTokens`, Material Web
+  `md-comp-list-expand` / `-reorder`, MDC-Android `listitem/`) is in
+  `src/lists/config.ts`. The **barrel is directive-free**: `ListItem` and the
+  parts are **Server Components** (every state is CSS — attributes plus
+  pseudo-classes of the row's own action / control via `:has()` — through
+  priority chains of `--_li-*` locals; list-level `--_ls-*` locals set by
+  `List` for its variant / density are **inherited**, so server rows follow the
+  list's style without its props), and `List` (`list.tsx`) is a server wrapper
+  that resolves the classes and renders the **`list-root`** client island.
+  Client islands, each its **own internal `tsdown` entry** (no `exports`
+  subpath): `list-root.tsx` (the `<ul>`, context, hidden form inputs, live
+  region), `use-logic.ts` (`list-logic`: listbox selection, roving tabindex,
+  MD3 / APG keys, typeahead), `use-reorder.ts` (`list-reorder`: pointer drag
+  with FLIP + drop zone + auto-scroll, keyboard grab / move / drop, Alt + ↑↓,
+  announcements; every move is `onReorder` inside `flushSync` — the list never
+  reorders its own children), `list-item-option.tsx` (the `<li>` of any row with
+  a `value`: `role="option"` + `aria-selected` inside a listbox, click to
+  toggle, a control turned into an inert synced indicator) and
+  `list-context.ts` (the context **and** the DOM helpers, one shared instance).
+  **Keep every client module a single-module entry and importing nothing from
+  `config.ts` / `list.variants.ts`** — a multi-module island imported by another
+  entry gets hoisted into a hashed chunk and loses `"use client"` (check
+  `dist/list.mjs` imports `./list-root.mjs`). Rows: the content element
+  (`[data-slot=list-item-content]`, an `<a>` / `<button>` / Slot / `<label>` /
+  `<div>`) stays **unpositioned** with a row-wide `::after` (`STRETCH`), so
+  positioned trailing controls paint and hit above it; the row's `::before` is
+  the state layer, its `::after` the auto divider. Segmented corners come from
+  `POSITION` (`:nth-child(1 of [data-list-item])`) on every `[data-list-item]`
+  (a row `<li>` or an expandable's wrapper), so dividers never break them; the
+  expandable's `<summary>` inherits them and its children `<ul>` re-derives
+  them. Control rows set the controls' public tokens (touch target → visual
+  size, transparent focus color) and `--_sl-off:0%`, and hide nested
+  `[data-slot=ripple]` (the shared `Ripple` now carries that slot). Never set
+  roles, `tabIndex`, `aria-selected` or key handlers on rows by hand, and never
+  move rows yourself during a reorder.
 - **Shared family config lives in one file, `src/buttons/config.ts`** (the XS–XL
   size scale, the shape/press-morph corners, and the class fragments — base /
   state layer / focus ring / disabled), plus `src/buttons/spinner.tsx` (the loading

@@ -104,6 +104,7 @@ export const sourceAliases = {
     "snackbar",
     "index.tsx",
   ),
+  "@chatool/ui/list": pkg("ui", "src", "lists", "list", "index.tsx"),
   // add one line per new @chatool/ui component subpath
 };
 

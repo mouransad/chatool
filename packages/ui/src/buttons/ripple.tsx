@@ -83,6 +83,7 @@ const Ripple = ({ centered = false, className }: RippleProps) => {
   return (
     <span
       ref={layerRef}
+      data-slot="ripple"
       aria-hidden
       className={cn(
         "inset-0 pointer-events-none absolute -z-10 overflow-hidden rounded-[inherit]",

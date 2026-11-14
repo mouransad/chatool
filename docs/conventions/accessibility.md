@@ -337,3 +337,22 @@ What the **consumer** is responsible for:
 ---
 
 Up: [Conventions](README.md) · [Docs](../README.md) · [Repo README](../../README.md)
+
+`@chatool/ui/list` follows MD3's lists accessibility page and the APG **listbox**
+pattern for selection lists:
+
+- **Native first.** A plain list is `<ul role="list">`; a row's action is a real
+  `<a>` / `<button>` and a selection control a real `<input>` whose `<label>` is
+  the whole row (named by its headline + supporting text, as MD3 specifies).
+- **Selection lists** are `role="listbox"` (+ `aria-multiselectable`,
+  `aria-required`) of `role="option"` + `aria-selected` rows; a control inside an
+  option becomes an inert, hidden indicator synced to the selection, because
+  options can't contain interactive content.
+- **One Tab stop** (roving tabindex), landing on the selected item first; ↑↓←→
+  move and wrap (mirrored in RTL), Home / End, Space / Enter activate; listbox
+  typeahead, Shift + arrows and Ctrl / ⌘ + A.
+- **Reordering** is fully keyboard-operable (grab / move / drop / cancel, Alt +
+  ↑↓), handles are described by instructions, and every step is announced.
+- **Consumer:** name the list (describe the selection for a listbox), pair the
+  selected color with a second cue (a control, a check icon), and keep options
+  free of interactive content.

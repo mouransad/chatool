@@ -34,30 +34,31 @@ stay minimal. `Button` is **Server-Component-safe** (it carries no `"use client"
 its only client part is the press ripple, a separate island (see
 [Accessibility & rendering](#accessibility--rendering)).
 
-| Subpath                         | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `@chatool/ui/fab`               | `Fab` (also `default`), `fabVariants`; types `FabProps`, `FabSize`, `FabColor`, `FabElevation`, `FabPlacement`, `FabWindowClass`, `FabResponsive`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `@chatool/ui/checkbox`          | `Checkbox` (also `default`), `checkboxVariants`, `checkboxFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `@chatool/ui/radio`             | `Radio` (also `default`), `radioVariants`, `radioFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `@chatool/ui/radio-group`       | `RadioGroup` (also `default`), `radioGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `@chatool/ui/switch`            | `Switch` (also `default`), `switchVariants`, `switchFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `@chatool/ui/slider`            | `Slider` (also `default`), `RangeSlider`, `sliderVariants`; types `SliderProps`, `RangeSliderProps`, `SliderSharedProps`, `SliderClassNames`, `SliderSize`, `SliderOrientation`, `SliderValueIndicator`, `SliderFormat`, `SliderIcon`                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `@chatool/ui/card`              | `Card` (also `default`) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`, `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction`; `cardVariants`, `cardMediaVariants`, `cardHeadlineVariants`, `cardActionsVariants`                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `@chatool/ui/tooltip`           | `Tooltip` (also `default`) + `TooltipProvider`, `TooltipAction`; `tooltipVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `@chatool/ui/rich-tooltip`      | `RichTooltip` (also `default`) + `RichTooltipTrigger`, `RichTooltipContent`, `RichTooltipSubhead`, `RichTooltipSupportingText`, `RichTooltipActions`, `RichTooltipAction`; `useRichTooltip`, `useRichTooltipState`; `richTooltipVariants`; types `RichTooltipProps`, `RichTooltipTriggerMode`, `RichTooltipAnchor`, `RichTooltipVirtualAnchor`, `RichTooltipCaret`, `RichTooltipState`, `RichTooltipApi`, `RichTooltipOpenChangeReason`, …                                                                                                                                                                                                          |
-| `@chatool/ui/text-field`        | `TextField` (also `default`), `textFieldVariants`; types `TextFieldProps`, `TextFieldInputProps`, `TextFieldTextareaProps`, `TextFieldLabels`, `TextFieldClassNames`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| `@chatool/ui/chip`              | `Chip` (also `default`), `chipVariants`; types `ChipProps`, `ChipVariant`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| `@chatool/ui/chip-set`          | `ChipSet` (also `default`), `chipSetVariants`; types `ChipSetProps`, `ChipSetSelectionMode`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `@chatool/ui/tabs`              | `Tabs` (also `default`) + `TabList`, `Tab`, `TabPanels`, `TabPanel`; `tabsVariants`, `tabListVariants`, `tabScrollerVariants`, `tabScrollButtonVariants`, `tabVariants`, `tabContentVariants`, `tabIconVariants`, `tabLabelVariants`, `tabIndicatorVariants`, `tabPanelsVariants`, `tabPanelVariants`; types `TabsProps`, `TabListProps`, `TabProps`, `TabPanelsProps`, `TabPanelProps`, `TabBadge`, `TabsVariant`, `TabsLayout`, `TabsAlignment`, `TabsIconPosition`, `TabsIndicatorMotion`, `TabsActivationMode`, `TabsChangeReason`, `TabsChangeDetails`, `TabPanelsTransition`, `TabListClassNames`, `TabClassNames`                            |
-| `@chatool/ui/snackbar`          | `Snackbar` (also `default`) + `SnackbarHost`, `SnackbarAction`, `SnackbarDismissAction`; `snackbar()` (global imperative API: `.update`, `.dismiss`, `.clear`, `.promise`, `.queue`), `createSnackbarQueue`, `useSnackbar`; `snackbarVariants`, `snackbarHostVariants`; types `SnackbarProps`, `SnackbarHostProps`, `SnackbarActionProps`, `SnackbarDismissActionProps`, `SnackbarOptions`, `SnackbarData`, `SnackbarHandle`, `SnackbarQueue`, `SnackbarQueueState`, `SnackbarFunction`, `SnackbarDuration`, `SnackbarCloseReason`, `SnackbarStrategy`, `SnackbarSwipeDirection`, `SnackbarPoliteness`, `SnackbarAnchor`, `SnackbarPromiseMessages` |
+| Subpath                         | Exports                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@chatool/ui/button`            | `Button` (also `default`), `buttonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `@chatool/ui/icon-button`       | `IconButton` (also `default`), `iconButtonVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `@chatool/ui/button-group`      | `ButtonGroup` (also `default`), `buttonGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `@chatool/ui/fab`               | `Fab` (also `default`), `fabVariants`; types `FabProps`, `FabSize`, `FabColor`, `FabElevation`, `FabPlacement`, `FabWindowClass`, `FabResponsive`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `@chatool/ui/loading-indicator` | `LoadingIndicator` (also `default`), `loadingIndicatorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `@chatool/ui/linear-progress`   | `LinearProgress` (also `default`), `linearProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `@chatool/ui/circular-progress` | `CircularProgress` (also `default`), `circularProgressVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `@chatool/ui/divider`           | `Divider` (also `default`), `dividerVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `@chatool/ui/badge`             | `Badge` (also `default`), `badgeVariants`, `badgeAnchorVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `@chatool/ui/checkbox`          | `Checkbox` (also `default`), `checkboxVariants`, `checkboxFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `@chatool/ui/radio`             | `Radio` (also `default`), `radioVariants`, `radioFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `@chatool/ui/radio-group`       | `RadioGroup` (also `default`), `radioGroupVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `@chatool/ui/switch`            | `Switch` (also `default`), `switchVariants`, `switchFieldVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `@chatool/ui/slider`            | `Slider` (also `default`), `RangeSlider`, `sliderVariants`; types `SliderProps`, `RangeSliderProps`, `SliderSharedProps`, `SliderClassNames`, `SliderSize`, `SliderOrientation`, `SliderValueIndicator`, `SliderFormat`, `SliderIcon`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `@chatool/ui/card`              | `Card` (also `default`) + `CardMedia`, `CardHeader`, `CardContent`, `CardHeadline`, `CardSubhead`, `CardSupportingText`, `CardActions`, `CardPrimaryAction`; `cardVariants`, `cardMediaVariants`, `cardHeadlineVariants`, `cardActionsVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `@chatool/ui/tooltip`           | `Tooltip` (also `default`) + `TooltipProvider`, `TooltipAction`; `tooltipVariants`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `@chatool/ui/rich-tooltip`      | `RichTooltip` (also `default`) + `RichTooltipTrigger`, `RichTooltipContent`, `RichTooltipSubhead`, `RichTooltipSupportingText`, `RichTooltipActions`, `RichTooltipAction`; `useRichTooltip`, `useRichTooltipState`; `richTooltipVariants`; types `RichTooltipProps`, `RichTooltipTriggerMode`, `RichTooltipAnchor`, `RichTooltipVirtualAnchor`, `RichTooltipCaret`, `RichTooltipState`, `RichTooltipApi`, `RichTooltipOpenChangeReason`, …                                                                                                                                                                                                                                                                                                                     |
+| `@chatool/ui/text-field`        | `TextField` (also `default`), `textFieldVariants`; types `TextFieldProps`, `TextFieldInputProps`, `TextFieldTextareaProps`, `TextFieldLabels`, `TextFieldClassNames`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `@chatool/ui/chip`              | `Chip` (also `default`), `chipVariants`; types `ChipProps`, `ChipVariant`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `@chatool/ui/chip-set`          | `ChipSet` (also `default`), `chipSetVariants`; types `ChipSetProps`, `ChipSetSelectionMode`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `@chatool/ui/tabs`              | `Tabs` (also `default`) + `TabList`, `Tab`, `TabPanels`, `TabPanel`; `tabsVariants`, `tabListVariants`, `tabScrollerVariants`, `tabScrollButtonVariants`, `tabVariants`, `tabContentVariants`, `tabIconVariants`, `tabLabelVariants`, `tabIndicatorVariants`, `tabPanelsVariants`, `tabPanelVariants`; types `TabsProps`, `TabListProps`, `TabProps`, `TabPanelsProps`, `TabPanelProps`, `TabBadge`, `TabsVariant`, `TabsLayout`, `TabsAlignment`, `TabsIconPosition`, `TabsIndicatorMotion`, `TabsActivationMode`, `TabsChangeReason`, `TabsChangeDetails`, `TabPanelsTransition`, `TabListClassNames`, `TabClassNames`                                                                                                                                       |
+| `@chatool/ui/snackbar`          | `Snackbar` (also `default`) + `SnackbarHost`, `SnackbarAction`, `SnackbarDismissAction`; `snackbar()` (global imperative API: `.update`, `.dismiss`, `.clear`, `.promise`, `.queue`), `createSnackbarQueue`, `useSnackbar`; `snackbarVariants`, `snackbarHostVariants`; types `SnackbarProps`, `SnackbarHostProps`, `SnackbarActionProps`, `SnackbarDismissActionProps`, `SnackbarOptions`, `SnackbarData`, `SnackbarHandle`, `SnackbarQueue`, `SnackbarQueueState`, `SnackbarFunction`, `SnackbarDuration`, `SnackbarCloseReason`, `SnackbarStrategy`, `SnackbarSwipeDirection`, `SnackbarPoliteness`, `SnackbarAnchor`, `SnackbarPromiseMessages`                                                                                                            |
+| `@chatool/ui/list`              | `List` (also `default`) + `ListItem`, `ListItemExpandable`, `ListItemIcon`, `ListItemAvatar`, `ListItemImage`, `ListItemVideo`, `ListItemDragHandle`, `ListDivider`; `listVariants`, `listItemVariants`, `listItemIconVariants`, `listItemAvatarVariants`, `listItemImageVariants`, `listItemVideoVariants`, `listItemDragHandleVariants`; types `ListProps`, `ListItemProps`, `ListItemContentProps`, `ListItemClassNames`, `ListItemExpandableProps`, `ListItemIconProps`, `ListItemAvatarProps`, `ListItemImageProps`, `ListItemVideoProps`, `ListItemDragHandleProps`, `ListDividerProps`, `ListVariant`, `ListDensity`, `ListSelectionMode`, `ListNavigation`, `ListItemControlPosition`, `ListItemAlign`, `ListReorderEvent`, `ListReorderAnnouncements` |
 
 > The MD3 button family ships the **common Button**, the **Icon button**, the
 > **Button group**, and the **FAB / extended FAB**.
@@ -1073,6 +1074,124 @@ The spec, as implemented:
 ellipsis). `SnackbarAction` is `Button` (text, `s`) with the snackbar colors;
 `SnackbarDismissAction` takes `label`, `tooltip` and icon-button props.
 
+### List (`@chatool/ui/list`)
+
+MD3 **Expressive lists** — "continuous, vertical indexes of text and images" —
+built from the live m3.material.io specs / guidelines / accessibility pages,
+Compose `ListItem.kt` + `ListItemDefaults.kt` (the `@material3expressive`
+overloads, `segmentedShapes`), `ListTokens` v29 + `ReorderListTokens`, Compose's
+`ListSamples.kt`, Material Web (`md-list`, `md-comp-list-expand`,
+`md-comp-list-reorder`) and MDC-Android `listitem/` (`ListItemLayout`, the
+`m3_list_item_*` state selectors). One subpath, composable parts:
+
+- **`List`** — the container: `role="list"`, or the MD3 web **listbox**
+  (`role="listbox"` of `option`s) when `selectionMode` is set.
+- **`ListItem`** — one row, a **Server Component**. Its props pick the MD3 kind:
+  non-interactive (default) · **single-action** (`href`, `onClick`, `type`, or
+  `asChild` for a router link — the whole row is the target) · **multi-action**
+  (plus raised secondary actions in `trailing`, e.g. an `IconButton`) ·
+  **selection control** (`control={<Checkbox />}` / `<Radio />` / `<Switch />` —
+  the row is the control's native `<label>`) · **option** (`value` inside a
+  listbox).
+- **`ListItemExpandable`** — MD3 Expressive **expand & collapse** over native
+  `<details>` (works with zero JS).
+- Leading media: **`ListItemIcon`** (20dp), **`ListItemAvatar`** (40dp),
+  **`ListItemImage`** (56dp), **`ListItemVideo`** (100×56 / 114×64dp);
+  **`ListItemDragHandle`** for reordering; **`ListDivider`** (the `Divider` as an
+  `<li>`).
+
+The spec, as implemented:
+
+- **Styles** (`variant`, MD3: "a visual choice, they don't affect a list's
+  behavior"). `standard` _(default)_: flush rows, **transparent** at rest
+  (MDC-Android), so a list drops onto any surface. `segmented`: **2dp** gaps
+  between filled `surface-container` rows (Compose samples + spec art; the token
+  default is `surface`), **16dp outer / 4dp inner** corners, computed from the
+  rows' positions (`ListDivider`s don't break them).
+- **Shape morph (M3 Expressive).** Rest 4dp (`corner-extra-small`) → hovered
+  **12dp** (`corner-medium`) → focused / pressed / selected / dragged **16dp**
+  (`corner-large`), picked in Compose's order (pressed › dragged › selected ›
+  focused › hovered), on the **fast spatial** spring (0.6 / 800, 348ms); colors
+  on **default effects** (1 / 1600, 212ms), the state layer on fast effects.
+- **Layout.** 16dp leading / trailing space, **12dp** between slots, **10dp**
+  top / bottom; min height **56 / 72 / 88dp** for one / two / three lines;
+  three-line rows hang their leading / trailing content from the top (Compose's
+  alignment breakpoint). Headline `body-large` `on-surface`; supporting text
+  `body-medium`, overline and trailing text `label-small`, icons **20dp**, all
+  `on-surface-variant`.
+- **States.** Selected: `secondary-container` / `on-secondary-container` (every
+  role). Dragged: `tertiary-container` / `on-tertiary-container` + a 16% layer at
+  **elevation 4**, drawn in front. Disabled: content `on-surface` 38%, no state
+  layer; selected + disabled keeps an 8% `on-surface` tint. State layer
+  `on-surface` (hover 8%, focus 10%, pressed 10%) under the content; focus is a
+  **3dp `secondary` ring drawn inward** (never spills into a 2dp gap).
+- **Selection controls.** "The selected state applies to the entire list item":
+  a checked control selects its row (`selected={false}` opts out, e.g. a settings
+  switch). The control collapses its 48dp target to its visual size (the row is
+  the target, as in Compose), its own state layer / ripple / focus ring defer to
+  the row's, and pressing the row presses a switch handle.
+- **Expand & collapse.** The row is a `<summary>` painted like any item, with
+  Material Web's expressive indicator (a chevron in a `corner-full` container,
+  `surface` → `surface-container`, turning over on the fast spatial spring); the
+  open row takes the expanded container (`surface`); its children spring open
+  (`::details-content` + `interpolate-size`; older browsers open instantly) and
+  continue the segmented corners.
+- **Reorder** (`reorderable` + `onReorder`). Drag a `ListItemDragHandle`: the row
+  lifts into the dragged state and follows the pointer, its siblings slide aside,
+  the vacated slot shows a `surface-container-low` **drop zone**, the page
+  scrolls at the edges, and the drop FLIPs into place. Keyboard: Space / Enter
+  pick up, ↑ / ↓ move, Space / Enter / Tab drop, Escape cancels; Alt + ↑ / ↓
+  moves any focused row. Every step is announced (`reorderAnnouncements`
+  localizes the messages).
+- **Density** (`density` `0` · `-1` · `-2` · `-3`, 4dp per step) and **dividers**
+  (`dividers` — MD3: only in uncontained lists).
+- **Swipe-to-reveal** is intentionally absent: MD3 marks it "only available on
+  Android Views".
+
+**`List` props** (plus every `<ul>` prop)
+
+| Prop                                | Values                                                                            |
+| ----------------------------------- | --------------------------------------------------------------------------------- |
+| `variant`                           | `standard` _(default)_ · `segmented`                                              |
+| `selectionMode`                     | `none` _(default, `role="list"`)_ · `single` · `multiple` (`role="listbox"`)      |
+| `value` / `defaultValue`            | single: `string \| null` · multiple: `string[]`                                   |
+| `onValueChange`                     | single: `(value: string \| null) => void` · multiple: `(value: string[]) => void` |
+| `required`                          | keep one selected; an empty required list blocks form submission                  |
+| `selectionFollowsFocus`             | single: arrows move the selection too                                             |
+| `name` / `form`                     | submit the selection (one hidden input per value)                                 |
+| `navigation`                        | `roving` _(default, MD3: one Tab stop, arrow keys)_ · `tab` (native Tab order)    |
+| `loop`                              | wrap at the ends (`true`, MD3)                                                    |
+| `reorderable` / `onReorder`         | drag / keyboard reordering; `onReorder({ from, to, value, source })`              |
+| `reorderAnnouncements`              | `{ grab, move, drop, cancel, instructions }` overrides                            |
+| `density` / `dividers` / `disabled` | `0`–`-3` / 1dp dividers / disable everything                                      |
+| `asChild`                           | render onto your own `<ol>` / list element                                        |
+
+**`ListItem` props** (plus every `<li>` prop)
+
+| Prop                                    | Values                                                                                |
+| --------------------------------------- | ------------------------------------------------------------------------------------- |
+| `children` / `headline`                 | the label text (`body-large`)                                                         |
+| `overline` / `supportingText`           | above / below the headline                                                            |
+| `trailingSupportingText`                | meta text at the end (price, count, shortcut)                                         |
+| `leading` / `trailing`                  | icon, avatar, image, video, badge, `IconButton` (secondary action), drag handle, …    |
+| `href` / `onClick` / `type` / `asChild` | make the row a link / button / your link component                                    |
+| `actionProps`                           | extra props for the action element (`aria-*`, `target`, `rel`, `ref`, …)              |
+| `control` / `controlPosition`           | `<Checkbox />` · `<Radio />` · `<Switch />` / `start` _(default)_ · `end`             |
+| `selected` / `disabled` / `dragged`     | MD3 states (`selected` sets `aria-current` on link / button rows)                     |
+| `value` / `textValue`                   | listbox option identity / plain-text label for typeahead + announcements              |
+| `lines` / `align`                       | `1` · `2` · `3` (derived) / `auto` · `center` · `top`                                 |
+| `headlineLines` / `supportingTextLines` | clamp with an ellipsis (MD3: 1–3 lines of supporting text)                            |
+| `classNames`                            | `content`, `leading`, `text`, `overline`, `headline`, `supportingText`, `trailing`, … |
+
+`ListItemExpandable` takes the same content props plus `headline` (required),
+`children` (the nested items), `open` / `defaultOpen` / `onOpenChange`,
+`expandIcon` (`false` hides it) and `disabled`. `ListItemAvatar` / `ListItemImage`
+/ `ListItemVideo` take `src` + `alt` (default `""`, decorative) or children
+(`ListItemVideo` also `size` `small` · `large`); `ListItemIcon` is decorative by
+default (`decorative={false}` exposes it); `ListItemDragHandle` takes `label`
+(default `"Reorder"`) and `icon`; `ListDivider` takes `inset` (`middle` default,
+Compose's 16dp / 16dp) · `none` · `start` · `end`, `weight` and `decorative`.
+
 ## Usage
 
 ```tsx
@@ -1744,6 +1863,97 @@ const [queue] = useState(() => createSnackbarQueue());
 </div>;
 ```
 
+List:
+
+```tsx
+import List, {
+  ListItem,
+  ListItemAvatar,
+  ListItemExpandable,
+  ListItemDragHandle,
+  ListDivider,
+} from "@chatool/ui/list";
+import Checkbox from "@chatool/ui/checkbox";
+import Switch from "@chatool/ui/switch";
+
+// Single-action (links) — a Server Component; one Tab stop, arrow keys inside.
+<List aria-label="Mailboxes">
+  <ListItem
+    href="/inbox"
+    selected
+    leading={<InboxIcon />}
+    trailing={<Badge value={12} />}
+  >
+    Inbox
+  </ListItem>
+  <ListItem
+    asChild
+    leading={<ListItemAvatar>AC</ListItemAvatar>}
+    supportingText="Brunch?"
+  >
+    <Link href="/chat/ali">Ali Connors</Link>
+  </ListItem>
+  <ListDivider />
+  <ListItem
+    onClick={openSettings}
+    trailing={
+      <IconButton aria-label="More">
+        <MoreIcon />
+      </IconButton>
+    }
+  >
+    Settings
+  </ListItem>
+</List>;
+
+// Segmented settings with native controls (the row is the <label>; works in forms).
+<List variant="segmented" aria-label="Settings">
+  <ListItem
+    control={<Switch name="notify" defaultChecked />}
+    controlPosition="end"
+    selected={false}
+  >
+    Notifications
+  </ListItem>
+  <ListItem control={<Checkbox name="wifi" />}>Sync over Wi-Fi only</ListItem>
+  <ListItemExpandable headline="Advanced" supportingText="3 options">
+    <ListItem control={<Checkbox name="beta" />}>Beta features</ListItem>
+  </ListItemExpandable>
+</List>;
+
+// Listbox selection (client code for the callbacks).
+<List
+  aria-label="Choose a city"
+  selectionMode="single"
+  value={city}
+  onValueChange={setCity}
+>
+  {cities.map((name) => (
+    <ListItem key={name} value={name}>
+      {name}
+    </ListItem>
+  ))}
+</List>;
+
+// Reorder: apply the move yourself.
+<List
+  reorderable
+  variant="segmented"
+  aria-label="Steps"
+  onReorder={({ from, to }) => setItems((list) => arrayMove(list, from, to))}
+>
+  {items.map((item) => (
+    <ListItem
+      key={item}
+      value={item}
+      leading={<ListItemDragHandle label={`Reorder ${item}`} />}
+    >
+      {item}
+    </ListItem>
+  ))}
+</List>;
+```
+
 ## Customization
 
 Three layers, increasingly specific:
@@ -2041,6 +2251,46 @@ width, height }}` prop). Set them on `:root`, on the container, or per tooltip
    exposes `data-layout` (`inline` / `stacked`) and `data-dismissible`, items
    `data-state` (`open` / `closed`) and `data-swiped`, the host `data-side` /
    `data-full-width`.
+
+   **`List`** reads `--md-comp-list-*`: rows `-item-container-color`
+   (`transparent`), `-item-segmented-container-color` (`surface-container`),
+   `-item-container-shape` (`corner-extra-small`), `-item-hovered-` /
+   `-focused-` / `-pressed-` / `-selected-container-shape` (12 / 16 / 16 / 16dp),
+   `-container-shape` (segmented outer corners, `corner-large`), `-segmented-gap`
+   (`0.125rem`), `-item-selected-container-color` (`secondary-container`),
+   `-item-selected-content-color` (`on-secondary-container`),
+   `-item-selected-disabled-container-color`, `-item-disabled-content-color`,
+   `-item-state-layer-color` (`on-surface`), `-item-focus-indicator-color`
+   (`secondary`) / `-thickness` (`3px`), `-item-label-text-color`,
+   `-item-supporting-text-color`, `-item-overline-color`,
+   `-item-leading-icon-color`, `-item-trailing-icon-color`,
+   `-item-trailing-supporting-text-color`, sizes `-item-leading-space` /
+   `-trailing-space` (`1rem`), `-item-between-space` (`0.75rem`), `-item-top-` /
+   `-bottom-space` (`0.625rem`), `-item-one-` / `-two-` /
+   `-three-line-container-height`, `-item-leading-icon-size` /
+   `-trailing-icon-size` / `-icon-size` (`1.25rem`), avatar `-item-leading-avatar-
+   size` / `-shape` / `-color` / `-label-color`, `-item-leading-image-size` /
+   `-shape`, video `-item-small-` / `-large-leading-video-width` / `-height`,
+   `-item-dragged-container-elevation` (`elevation-4`); reorder
+   `-reorder-item-container-color` (`tertiary-container`), `-reorder-item-
+   content-color`, `-reorder-item-state-layer-color`, `-reorder-item-shape`,
+   `-reorder-drop-zone-color` (`surface-container-low`); expand
+   `-expand-collapsed-` / `-expanded-trailing-icon-container-color`, `-icon-
+   color`, `-expand-trailing-icon-container-size` (`2rem`), `-expand-expanded-
+   list-item-container-color` (`surface`); dividers `-divider-leading-space` /
+   `-trailing-space` (plus the shared `--md-comp-divider-*`); motion
+   `-spatial-easing` / `-duration` (fast spatial), `-effects-easing` /
+   `-duration`, `-fast-effects-easing`. Parts carry `data-slot` (`list`,
+   `list-item`, `list-item-content`, `list-item-leading`, `list-item-text`,
+   `list-item-overline`, `list-item-headline`, `list-item-supporting-text`,
+   `list-item-trailing`, `list-item-trailing-supporting-text`,
+   `list-item-control`, `list-item-expandable`, `list-item-details`,
+   `list-item-group`, `list-item-expand-icon`, `list-item-icon`,
+   `list-item-avatar`, `list-item-image`, `list-item-video`,
+   `list-item-drag-handle`, `list-divider`); rows expose `data-kind` (`text` /
+   `action` / `control` / `expandable`), `data-lines`, `data-selected`,
+   `data-disabled`, `data-dragged`, `data-interactive`; the list `data-variant`,
+   `data-selection-mode`, `data-reordering`.
 
 3. **`className`** (cva + `cn` merge) for one-off overrides.
 
@@ -2595,6 +2845,47 @@ and live regions are in the first HTML) and can sit in a Server Component layout
 `snackbar()` must be called from client code. Timers, swipe and the anchor are
 imperative DOM work, so a drag never re-renders React.
 
+`List` follows MD3's lists accessibility page and the WAI-ARIA APG **listbox**
+pattern (for selection lists):
+
+- **Semantics.** A plain list is `<ul role="list">` of `<li>`s; a row's action
+  is a real `<a>` / `<button>` and its control a real `<input>` labelled by the
+  row (headline + supporting text, MD3's accessibility label). A selection list
+  is `role="listbox"` (+ `aria-multiselectable`, `aria-required`,
+  `aria-disabled`) of `role="option"` + `aria-selected` rows; a control inside
+  an option becomes a synced, `inert`, hidden indicator (options can't contain
+  interactive content). `selected` link / button rows get `aria-current`.
+- **Keyboard (MD3 table).** The list is **one Tab stop** — the selected item,
+  else the first. ↓ / → next, ↑ / ← previous (mirrored in RTL), **wrapping**;
+  Home / End. In a multi-action list the arrows walk every action (primary,
+  secondary icon buttons, controls) in reading order. Space / Enter activate
+  (Enter toggles checkbox / radio rows too). Listbox: Space / Enter toggle,
+  typeahead, Shift + ↑ / ↓, Ctrl / ⌘ + A, `selectionFollowsFocus`. Text inputs
+  inside a row keep their own keys; `navigation="tab"` restores the native Tab
+  order for plain lists.
+- **Reorder** is fully keyboard-operable (grab / move / drop / cancel, Alt + ↑
+  / ↓), the handles are described by visible-to-AT instructions, and each step
+  is announced in a live region. Pointer drag is never the only way.
+- **Not color alone** (MD3): pair the selected container with a second cue — a
+  checked control, a leading check icon, or `aria-current` styling.
+- **Your part.** Name the list (`aria-label` / `aria-labelledby`; for a listbox,
+  describe the selection: "Choose a city"). Don't put interactive content in
+  listbox options or nest two selection controls in one row (MD3). Keep a
+  touch target per secondary action (the `IconButton` already is 40dp+).
+
+**Rendering:** the list subpath is **directive-free**. `ListItem`,
+`ListItemExpandable`, the media parts, `ListItemDragHandle` and `ListDivider` are
+**Server Components** (every state is CSS: attributes plus `:hover` /
+`:focus-visible` / `:active` / `:checked` / `:disabled` of the row's own action
+or control, `:has()` and `[open]`), and `List` is a server wrapper over the
+`list-root` client island (internal entry, like `ripple`), so a static or
+link-only list renders in an RSC with no list JavaScript beyond the ripple, and
+controls / expandables work before hydration. A row with a `value` renders its
+`<li>` through the `list-item-option` island. Reordering, the roving tabindex
+and the listbox are imperative DOM work on that island; no frame of a drag
+re-renders React (each committed move runs your `onReorder` in `flushSync`, then
+FLIPs).
+
 ## For AI agents
 
 - **Import the subpath** `@chatool/ui/button`. There is **no `@chatool/ui` root
@@ -2862,6 +3153,22 @@ success, error })`; same `id` updates in place; `replace: true` /
   show the outcome inline. Don't render two hosts on the same queue, don't move
   focus to snackbars yourself, don't add live regions around them. Tokens
   `--md-comp-snackbar-*`.
+- **`List`** (`@chatool/ui/list`): `List` + `ListItem` (Server Component) +
+  `ListItemExpandable`, `ListItemIcon` / `ListItemAvatar` / `ListItemImage` /
+  `ListItemVideo`, `ListItemDragHandle`, `ListDivider`. Rows: `children` (the
+  headline), `overline`, `supportingText`, `trailingSupportingText`, `leading`,
+  `trailing`. Make a row actionable with `href` / `onClick` / `asChild` (+
+  `<Link>`); add secondary actions as `IconButton`s in `trailing`; put a
+  `Checkbox` / `Radio` / `Switch` in `control` (not in `leading` / `trailing`) so
+  the whole row is its label — use `controlPosition="end"` for switches and
+  `selected={false}` for settings toggles. For managed selection use `List
+  selectionMode="single" | "multiple"` + `value` / `onValueChange` and give each
+  row a `value` (no interactive content inside options). `variant="segmented"`
+  for contained groups (put it on a contrasting surface), `dividers` /
+  `ListDivider` only in standard lists. Reorder: `reorderable` + `onReorder({
+from, to })` + a `ListItemDragHandle` per row — apply the move yourself.
+  Always name the list; never add roles, `tabIndex`, `aria-selected` or key
+  handlers to rows. Tokens `--md-comp-list-*`.
 - Token **colors carry a `color:` hint** (`text-[color:var(--…)]`) so `cn`/
   tailwind-merge keeps them next to the typescale class instead of dropping them.
 - **Requires `@chatool/core`**: install it and import its CSS, or it renders
